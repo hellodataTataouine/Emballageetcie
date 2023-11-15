@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Weekly Best Deals') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Meilleures offres de la semaine') }}</h2>
                             </div>
                         </div>
                     </div>
