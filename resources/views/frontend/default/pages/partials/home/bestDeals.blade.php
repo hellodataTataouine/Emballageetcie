@@ -9,7 +9,7 @@
             <div class="col-xxl-8 order-1 order-xxl-2">
                 <div
                     class="timing-box d-flex align-items-center justify-content-center justify-content-sm-between rounded-3 flex-wrap gap-3">
-                    <h4 class="mb-0">{{ localize('Weekly Best Deals') }}</h4>
+                    <h4 class="mb-0">{{ localize('Meilleures offres de la semaine') }}</h4>
                     @php
                         $best_deal_end_date = getSetting('best_deal_end_date');
                         if (!is_null($best_deal_end_date)) {
@@ -22,12 +22,12 @@
                         <li
                             class="position-relative z-1 d-flex align-items-center justify-content-center flex-column rounded-2">
                             <h5 class="mb-0 days">00</h5>
-                            <span class="gshop-subtitle fs-xxs d-block">{{ localize('Days') }}</span>
+                            <span class="gshop-subtitle fs-xxs d-block">{{ localize('Jours') }}</span>
                         </li>
                         <li
                             class="position-relative z-1 d-flex align-items-center justify-content-center flex-column rounded-2">
                             <h5 class="mb-0 hours">00</h5>
-                            <span class="gshop-subtitle fs-xxs d-block">{{ localize('Hours') }}</span>
+                            <span class="gshop-subtitle fs-xxs d-block">{{ localize('Heures') }}</span>
                         </li>
                         <li
                             class="position-relative z-1 d-flex align-items-center justify-content-center flex-column rounded-2">
