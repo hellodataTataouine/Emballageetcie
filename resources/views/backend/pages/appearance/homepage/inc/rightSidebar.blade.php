@@ -20,7 +20,7 @@
 </li>
 <li>
     <a href="{{ route('admin.appearance.homepage.bestDeals') }}"
-        class="{{ areActiveRoutes(['admin.appearance.homepage.bestDeals']) }}">{{ localize('Weekly Best Deals') }}</a>
+        class="{{ areActiveRoutes(['admin.appearance.homepage.bestDeals']) }}">{{ localize('Meilleures offres de la semaine') }}</a>
 </li>
 <li>
     <a href="{{ route('admin.appearance.homepage.bannerTwo') }}"

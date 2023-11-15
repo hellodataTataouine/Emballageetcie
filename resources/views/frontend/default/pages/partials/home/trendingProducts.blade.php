@@ -9,7 +9,7 @@
         <div class="row align-items-center">
             <div class="col-xl-5">
                 <div class="section-title text-center text-xl-start">
-                    <h3 class="mb-0">{{ localize('Top Trending Products') }}</h3>
+                    <h3 class="mb-0">{{ localize('Produits les plus populaires') }}</h3>
                 </div>
             </div>
             <div class="col-xl-7">
@@ -19,7 +19,7 @@
                         $trending_product_categories = getSetting('trending_product_categories') != null ? json_decode(getSetting('trending_product_categories')) : [];
                         $categories = \App\Models\Category::whereIn('id', $trending_product_categories)->get();
                     @endphp
-                    <button class="active" data-filter="*">{{ localize('All Products') }}</button>
+                    <button class="active" data-filter="*">{{ localize('Tous les produits') }}</button>
                     @foreach ($categories as $category)
                         <button data-filter=".{{ $category->id }}">{{ $category->collectLocalization('name') }}</button>
                     @endforeach
