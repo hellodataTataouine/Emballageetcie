@@ -360,7 +360,7 @@
 
                                         </ul>
                                         <div class="d-flex align-items-center justify-content-between mt-3">
-                                            <h6 class="mb-0">{{ localize('Subtotal') }}:</h6>
+                                            <h6 class="mb-0">{{ localize('Sous-total') }}:</h6>
                                             <span
                                                 class="fw-semibold text-secondary sub-total-price">{{ formatPrice(getSubTotal($carts, false)) }}</span>
                                         </div>
@@ -369,12 +369,12 @@
                                                 <a href="{{ route('carts.index') }}"
                                                     class="btn btn-secondary btn-md mt-4 w-100"><span
                                                         class="me-2"><i
-                                                            class="fa-solid fa-shopping-bag"></i></span>{{ localize('View Cart') }}</a>
+                                                            class="fa-solid fa-shopping-bag"></i></span>{{ localize('Voir le panier') }}</a>
                                             </div>
                                             <div class="col-6">
                                                 <a href="{{ route('checkout.proceed') }}"
                                                     class="btn btn-primary btn-md mt-4 w-100"><span class="me-2"><i
-                                                            class="fa-solid fa-credit-card"></i></span>{{ localize('Checkout') }}</a>
+                                                            class="fa-solid fa-credit-card"></i></span>{{ localize('Paiement') }}</a>
                                             </div>
 
 
@@ -398,7 +398,7 @@
                                     </svg>
                                 </span>
                                 <div class="ms-3">
-                                    <span class="text-muted fs-xs">{{ localize('Phone & Telephone') }}</span>
+                                    <span class="text-muted fs-xs">{{ localize('Numéro de téléphone') }}</span>
                                     <h6 class="mb-0 mt-1 fs-sm">{{ getSetting('navbar_contact_number') }}</h6>
                                 </div>
                             </a>

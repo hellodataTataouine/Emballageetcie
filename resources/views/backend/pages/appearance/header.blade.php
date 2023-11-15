@@ -37,7 +37,7 @@
                                         class="form-label">{{ localize('Welcome Text') }}</label>
                                     <input type="hidden" name="types[]" value="topbar_welcome_text">
                                     <input type="text" name="topbar_welcome_text" id="topbar_welcome_text"
-                                        class="form-control" placeholder="{{ localize('Welcome to our organic store') }}"
+                                        class="form-control" placeholder="{{ localize('Bienvenue chez Emballage & Cie') }}"
                                         value="{{ getSetting('topbar_welcome_text') }}">
                                 </div>
 

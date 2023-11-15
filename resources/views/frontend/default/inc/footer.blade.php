@@ -64,7 +64,7 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Quick Links') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Liens Rapides') }}</h5>
                     @php
                         $quick_links = getSetting('quick_links') != null ? json_decode(getSetting('quick_links')) : [];
                         $pages = \App\Models\Page::whereIn('id', $quick_links)->get();
@@ -80,20 +80,20 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Customer Pages') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Pages Clients') }}</h5>
                     <ul class="footer-nav">
-                        <li><a href="{{ route('customers.dashboard') }}">{{ localize('Your Account') }}</a></li>
-                        <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Your Orders') }}</a></li>
-                        <li><a href="{{ route('customers.wishlist') }}">{{ localize('Your Wishlist') }}</a></li>
-                        <li><a href="{{ route('customers.address') }}">{{ localize('Address Book') }}</a></li>
-                        <li><a href="{{ route('customers.profile') }}">{{ localize('Update Profile') }}</a></li>
+                        <li><a href="{{ route('customers.dashboard') }}">{{ localize('Votre Compte') }}</a></li>
+                        <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Vos Commandes') }}</a></li>
+                        <li><a href="{{ route('customers.wishlist') }}">{{ localize('Liste d\'envies') }}</a></li>
+                        <li><a href="{{ route('customers.address') }}">{{ localize('Carnet d\'adresses') }}</a></li>
+                        <li><a href="{{ route('customers.profile') }}">{{ localize('Modifier Profil') }}</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Contact Info') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Informations de Contact') }}</h5>
                     <ul class="footer-nav">
                         <li class="text-white pb-2 fs-xs">{{ getSetting('topbar_location') }}</li>
                         <li class="text-white pb-2 fs-xs">{{ getSetting('navbar_contact_number') }}</li>
@@ -108,9 +108,7 @@
         <div class="container">
             <div class="row align-items-center g-3">
                 <div class="col-lg-4">
-                    <div class="copyright-text text-light">
-                        {!! getSetting('copyright_text') !!}
-                    </div>
+                   
                 </div>
                 <div class="col-lg-4 d-none d-lg-block">
                     <div class="logo-wrapper text-center">

@@ -54,7 +54,7 @@
 
                                 <td>
                                     <a href="javascript:void(0);" class="btn btn-secondary btn-sm ms-5 rounded-1"
-                                        onclick="showProductDetailsModal({{ $item->product->id }})">{{ localize('Add to Cart') }}</a>
+                                        onclick="showProductDetailsModal({{ $item->product->id }})">{{ localize('Ajouter au panier') }}</a>
                                     <a href="{{ route('customers.wishlist.delete', $item->id) }}" class="close-btn ms-3"><i
                                             class="fas fa-close"></i></a>
                                 </td>

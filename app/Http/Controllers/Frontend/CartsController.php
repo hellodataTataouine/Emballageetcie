@@ -55,15 +55,15 @@ class CartsController extends Controller
                 } else {
                     $cart->guest_user_id    = (int) $_COOKIE['guest_user_id'];
                 }
-                $message =  localize('Product added to your cart');
+                $message =  localize('Produit ajouté à votre panier');
             } else {
                 $product = $cart->product_variation->product; 
                 if($product->max_purchase_qty > $cart->qty){ 
                     $cart->qty                  += (int) $request->quantity;
-                    $message =  localize('Quantity has been increased');
+                    $message =  localize('La quantité a été augmentée');
                 }else{ 
-                    $message = localize('You have reached maximum order quantity at a time for this product');
-                    return $this->getCartsInfo($message, true, '', 'warning');
+                    $message = localize('Vous avez atteint la quantité maximale autorisée pour ce produit lors d\'une seule commande.');
+                    return $this->getCartsInfo($message, true, '', 'Attention');
                 } 
             }
 

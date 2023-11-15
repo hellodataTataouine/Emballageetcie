@@ -485,10 +485,10 @@
                     }
                 });
             @else
-                notifyMe('danger', '{{ localize('Only customer can add products to wishlist') }}');
+                notifyMe('danger', '{{ localize('Seuls les clients peuvent ajouter des produits à leur liste d\'envies.') }}');
             @endif
         @else
-            notifyMe('warning', '{{ localize('Please login first') }}');
+            notifyMe('warning', '{{ localize('Veuillez d\'abord vous connecter') }}');
         @endif
     }
 </script>

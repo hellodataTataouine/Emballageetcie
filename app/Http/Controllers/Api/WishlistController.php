@@ -44,7 +44,7 @@ class WishlistController extends Controller
         }
 
 
-        return $this->success(localize("Product added to your wishlist"));
+        return $this->success(localize("Produit ajouté à votre liste d'envies"));
     }
 
     # delete wishlist
@@ -56,6 +56,6 @@ class WishlistController extends Controller
             //throw $th;
         }
 
-        return $this->success(localize('Product has been removed from your wishlist'));
+        return $this->success(localize('Le produit a été retiré de votre liste d\'envies'));
     }
 }
