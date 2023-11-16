@@ -35,7 +35,7 @@
                 <div>
                     <h4 class="mb-1">
                         {{ $user->orders()->isDelivered()->count() }}</h4>
-                    <span>{{ localize('Total Delivered') }}</span>
+                    <span>{{ localize('Total Livré') }}</span>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                 <div>
                     <h4 class="mb-1">{{ $user->orders()->isOutForDelivery()->count() }}
                     </h4>
-                    <span>{{ localize('Total Shipped') }}</span>
+                    <span>{{ localize('Total Expédié') }}</span>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@
                 <div>
                     <h4 class="mb-1">
                         {{ $user->orders()->isProcessing()->count() }}</h4>
-                    <span>{{ localize('Order Processing') }}</span>
+                    <span>{{ localize('Traitement de commande') }}</span>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
                     <h4 class="mb-1">
                         {{ $user->orders()->isPlacedOrPending()->count() }}
                     </h4>
-                    <span>{{ localize('New Orders') }}</span>
+                    <span>{{ localize('Nouvelles Commandes') }}</span>
                 </div>
             </div>
 

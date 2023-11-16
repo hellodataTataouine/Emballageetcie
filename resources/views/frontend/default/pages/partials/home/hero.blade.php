@@ -1,7 +1,7 @@
 <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/leaf-shadow.png') }}" alt="leaf"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Package.png') }}" alt="Package"
         class="position-absolute leaf-shape z--1 rounded-circle d-none d-lg-inline">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/mango.png') }}" alt="mango"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 2.png') }}" alt="Lunchbox 2"
         class="position-absolute mango z--1" data-parallax='{"y": -120}'>
 
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-sm.png') }}" alt="circle"
@@ -23,10 +23,10 @@
 
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
                                         <a href="{{ $slider->link }}"
-                                            class="btn btn-secondary">{{ localize('Explore Now') }}<span
+                                            class="btn btn-secondary">{{ localize('Explorer maintenant') }}<span
                                                 class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                         <a href="{{ route('home.pages.aboutUs') }}"
-                                            class="btn btn-primary">{{ localize('About Us') }}<span class="ms-2"><i
+                                            class="btn btn-primary">{{ localize('À propos de nous') }}<span class="ms-2"><i
                                                     class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>

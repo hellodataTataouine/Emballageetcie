@@ -94,14 +94,14 @@ class RegisterController extends Controller
 
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
-                flash(localize('Email or Phone already exists.'))->error();
+                flash(localize('L\'adresse e-mail ou le numéro de téléphone existe déjà.'))->error();
                 return back()->withInput();
             }
         }
 
         if ($request->phone != null) {
             if (User::where('phone', $request->phone)->first() != null) {
-                flash(localize('An user already exists with this phone number.'))->error();
+                flash(localize('Un utilisateur existe déjà avec ce numéro de téléphone.'))->error();
                 return back()->withInput();
             }
         }
@@ -113,7 +113,7 @@ class RegisterController extends Controller
         $data['score'] = 'required|numeric|min:0.9'; 
          
         $request->validate($data,[
-            'score.min' => localize('Google recaptcha validation error, seems like you are not a human.')
+            'score.min' => localize('Erreur de validation de Google reCAPTCHA, il semble que vous ne soyez pas un humain.')
         ]);
 
         $validator = $this->validator($request->all());
@@ -136,15 +136,15 @@ class RegisterController extends Controller
             $user->email_or_otp_verified = 1;
             $user->email_verified_at = Carbon::now();
             $user->save();
-            flash(localize('Registration successful.'))->success();
+            flash(localize('Inscription effectuée avec succès.'))->success();
         } else {
             if (getSetting('registration_verification_with') == 'email') {
                 try {
                     $user->sendVerificationNotification();
-                    flash(localize('Registration successful. Please verify your email.'))->success();
+                    flash(localize('Inscription effectuée avec succès. Veuillez vérifier votre adresse e-mail'))->success();
                 } catch (\Throwable $th) {
                     $user->delete();
-                    flash(localize('Registration failed. Please try again later.'))->error();
+                    flash(localize('"Inscription échouée. Veuillez réessayer ultérieurement.'))->error();
                 }
             }
             // else being handled in verification controller

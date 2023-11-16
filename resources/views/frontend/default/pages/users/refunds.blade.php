@@ -17,16 +17,16 @@
 
                 <div class="col-xl-9">
                     <div class="recent-orders bg-white rounded py-5">
-                        <h6 class="mb-4 px-4">{{ localize('Your Orders') }}</h6>
+                        <h6 class="mb-4 px-4">{{ localize('Vos commandes') }}</h6>
                         <div class="table-responsive">
                             <table class="order-history-table table">
                                 <tbody>
                                     <tr>
-                                        <th>{{ localize('Order Code') }}</th>
+                                        <th>{{ localize('Code de Commande') }}</th>
                                         <th>{{ localize('Date') }}</th>
-                                        <th>{{ localize('Product') }}</th>
-                                        <th>{{ localize('Amount') }}</th>
-                                        <th class="text-center">{{ localize('Status') }}</th>
+                                        <th>{{ localize('Produit') }}</th>
+                                        <th>{{ localize('Montant') }}</th>
+                                        <th class="text-center">{{ localize('Statut') }}</th>
                                     </tr>
 
                                     @forelse ($refunds as $refund)
