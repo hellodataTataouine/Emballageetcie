@@ -44,7 +44,7 @@
                             <ol id="progress-bar">
 
                                 <li class="fs-xs tt-step @if ($order->delivery_status != orderCancelledStatus()) tt-step-done @endif">
-                                    {{ localize('Order Placed') }}</li>
+                                    {{ localize('Commande passée') }}</li>
                                 <li
                                     class="fs-xs tt-step @if ($order->delivery_status == orderProcessingStatus() || $order->delivery_status == orderDeliveredStatus()) tt-step-done  
 @elseif ($order->delivery_status == orderPendingStatus())

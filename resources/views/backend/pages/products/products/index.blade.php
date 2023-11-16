@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Products') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Produits') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,12 +12,12 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Products') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Produits') }}</h2>
                             </div>
                             <div class="tt-action">
                                 @can('add_products')
                                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Add Product') }}</a>
+                                            data-feather="plus"></i> {{ localize('Ajouter Produit') }}</a>
                                 @endcan
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Rechercher') }}"
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                                 @endisset>
@@ -47,7 +47,7 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="brand_id">
-                                                <option value="">{{ localize('Select Brand') }}</option>
+                                                <option value="">{{ localize('Sélectionner la marque') }}</option>
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}"
                                                         @isset($brand_id)
@@ -62,12 +62,12 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Select Status') }}</option>
+                                                <option value="">{{ localize('Sélectionner le statut') }}</option>
                                                 <option value="1"
                                                     @isset($is_published)
                                                          @if ($is_published == 1) selected @endif
                                                         @endisset>
-                                                    {{ localize('Published') }}</option>
+                                                    {{ localize('Publié') }}</option>
                                                 <option value="0"
                                                     @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
@@ -79,7 +79,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Rechercher') }}
                                         </button>
                                     </div>
                                 </div>
@@ -91,11 +91,11 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('Product Name') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Brand') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Categories') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Price') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Published') }}</th>
+                                    <th>{{ localize('Nom du produit') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
+                                    <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
@@ -162,8 +162,8 @@
                                                 <div class="dropdown-menu dropdown-menu-end shadow">
                                                     @can('edit_products')
                                                         <a class="dropdown-item"
-                                                            href="{{ route('admin.products.edit', ['id' => $product->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            href="{{ route('admin.products.edit', ['id' => $product->id]) }}">
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
 
@@ -171,7 +171,7 @@
                                                         href="{{ route('products.show', $product->slug) }}"
                                                         target="_blank">
                                                         <i data-feather="eye"
-                                                            class="me-2"></i>{{ localize('View Details') }}
+                                                            class="me-2"></i>{{ localize('Voir Détailles') }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -182,9 +182,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('of') }}
-                                {{ $products->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }}  {{ localize('de') }}
+                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }}
+                                {{ $products->total() }} {{ localize('résultats') }}</span>
                             <nav>
                                 {{ $products->appends(request()->input())->links() }}
                             </nav>
@@ -215,7 +215,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }
@@ -236,7 +236,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }

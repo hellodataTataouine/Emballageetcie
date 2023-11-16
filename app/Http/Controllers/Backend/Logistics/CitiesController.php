@@ -82,7 +82,7 @@ class CitiesController extends Controller
         $city = City::findOrFail($request->id);
         $city->is_active = $request->is_active;
         $city->save();
-        flash(localize('Status updated successfully'))->success();
+        flash(localize('Statut mis à jour avec succès'))->success();
         return 1;
     }
 }

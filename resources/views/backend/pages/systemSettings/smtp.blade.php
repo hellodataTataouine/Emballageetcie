@@ -29,7 +29,7 @@
                         @csrf
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
 
                                 <div class="mb-4">

@@ -267,8 +267,8 @@
                                             <th data-breakpoints="xs sm md">{{ localize('Customer') }}</th>
                                             <th>{{ localize('Placed On') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Items') }}</th>
-                                            <th data-breakpoints="xs">{{ localize('Payment Status') }}</th>
-                                            <th data-breakpoints="xs">{{ localize('Delivery Status') }}</th>
+                                            <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
+                                            <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Delivery Type') }}</th>
                                             <th data-breakpoints="xs" class="text-end">{{ localize('Action') }}</th>
                                         </tr>

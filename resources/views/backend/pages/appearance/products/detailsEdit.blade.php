@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Widget') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Widget') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Update Widget') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Mettre à jour Widget') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -79,11 +79,11 @@ class BrandsController extends Controller
     public function edit(Request $request, $id)
     {
         $lang_key = $request->lang_key;
-        $language = Language::isActive()->where('code', $lang_key)->first();
+      /*  $language = Language::isActive()->where('code', $lang_key)->first();
         if (!$language) {
             flash(localize('Language you are trying to translate is not available or not active'))->error();
             return redirect()->route('admin.brands.index');
-        }
+        }*/
         $brand = Brand::findOrFail($id);
         return view('backend.pages.products.brands.edit', compact('brand', 'lang_key'));
     }

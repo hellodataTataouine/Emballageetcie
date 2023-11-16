@@ -340,7 +340,7 @@
                                             <tr>
                                                 <td
                                                     style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                                                    {{ localize('Tax') }}
+                                                    {{ localize('Taxe') }}
                                                 </td>
                                                 <td
                                                     style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">

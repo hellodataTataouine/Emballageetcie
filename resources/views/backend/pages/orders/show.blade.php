@@ -52,12 +52,12 @@
                                         <select class="form-select select2" name="payment_status"
                                             data-minimum-results-for-search="Infinity" id="update_payment_status">
                                             <option value="" disabled>
-                                                {{ localize('Payment Status') }}
+                                                {{ localize('Statut de paiement') }}
                                             </option>
                                             <option value="paid" @if ($order->payment_status == 'paid') selected @endif>
-                                                {{ localize('Paid') }}</option>
+                                                {{ localize('Payé') }}</option>
                                             <option value="unpaid" @if ($order->payment_status == 'unpaid') selected @endif>
-                                                {{ localize('Unpaid') }}
+                                                {{ localize('Non payé') }}
                                             </option>
                                         </select>
                                     </div>
@@ -66,9 +66,9 @@
                                     <div class="input-group">
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                                            <option value="" disabled>{{ localize('Delivery Status') }}</option>
+                                            <option value="" disabled>{{ localize('Statut de livraison') }}</option>
                                             <option value="order_placed" @if ($order->delivery_status == orderPlacedStatus()) selected @endif>
-                                                {{ localize('Order Placed') }}</option>
+                                                {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if ($order->delivery_status == orderPendingStatus()) selected @endif>
                                                 {{ localize('Pending') }}
                                             <option value="processing" @if ($order->delivery_status == orderProcessingStatus()) selected @endif>

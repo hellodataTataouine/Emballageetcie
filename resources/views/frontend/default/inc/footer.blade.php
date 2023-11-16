@@ -86,7 +86,7 @@
                         <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Your Orders') }}</a></li>
                         <li><a href="{{ route('customers.wishlist') }}">{{ localize('Your Wishlist') }}</a></li>
                         <li><a href="{{ route('customers.address') }}">{{ localize('Address Book') }}</a></li>
-                        <li><a href="{{ route('customers.profile') }}">{{ localize('Update Profile') }}</a></li>
+                        <li><a href="{{ route('customers.profile') }}">{{ localize('Mettre à jour Profile') }}</a></li>
                     </ul>
                 </div>
             </div>

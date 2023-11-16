@@ -45,7 +45,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
 

@@ -10,7 +10,7 @@
         </tr>
 
         <tr>
-            <td>(+) {{ localize('Tax') }}:</td>
+            <td>(+) {{ localize('Taxe') }}:</td>
             <td class="text-end">{{ formatPrice(getTotalTax($carts)) }}</td>
         </tr>
 

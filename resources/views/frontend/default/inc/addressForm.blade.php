@@ -76,7 +76,7 @@
              <div class="modal-body">
                  <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                  <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                     <h2 class="modal-title fs-5 mb-3">{{ localize('Update Address') }}</h2>
+                     <h2 class="modal-title fs-5 mb-3">{{ localize('Mettre à jour Address') }}</h2>
 
                      <div class="spinner pt-6 pb-8 d-none">
                          <div class="row align-items-center g-4 mt-3">

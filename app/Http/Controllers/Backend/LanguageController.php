@@ -122,7 +122,7 @@ class LanguageController extends Controller
         if ($language->save()) {
             return [
                 'status'    => true,
-                'message'    => localize('Status updated successfully'),
+                'message'    => localize('Statut mis à jour avec succès'),
             ];
         }
 

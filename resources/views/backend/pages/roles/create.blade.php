@@ -28,7 +28,7 @@
                     <!--basic information start-->
                     <div class="card mb-4" id="section-1">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                             <div class="mb-4">
                                 <label for="name" class="form-label">{{ localize('Role Name') }} <span class="text-danger ms-1">*</span></label>
@@ -117,7 +117,7 @@
                         <div class="tt-vertical-step">
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                    <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                 </li>
                                 <li>
                                     <a href="#section-2">{{ localize('Permissions') }}</a>

@@ -54,7 +54,7 @@ $client->addInjector($logInjector);
 
 ### Error Handling
 
-`HttpClient#execute` may throw an `Exception` if something went wrong during the course of execution. If the server returned a non-200 response, [IOException](lib/PayPalHttp/IOException.php) will be thrown, that will contain a status code and headers you can use for debugging.
+`HttpClient#execute` may throw an `Exception` if Quelque chose s est mal passé during the course of execution. If the server returned a non-200 response, [IOException](lib/PayPalHttp/IOException.php) will be thrown, that will contain a status code and headers you can use for debugging.
 
 ```php
 try

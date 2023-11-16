@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Update Location') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour Location') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Location') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Location') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-3">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-3">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">{{ localize('Name') }}</label>
@@ -96,7 +96,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                     <li>
                                         <a href="#section-2">{{ localize('Banner Image') }}</a>

@@ -151,7 +151,7 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-                {{ localize('Updated Profile') }}
+                {{ localize('Mettre à jourd Profile') }}
             </a>
         </li>
 

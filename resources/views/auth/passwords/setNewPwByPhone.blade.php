@@ -72,7 +72,7 @@
 
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary mt-4">
-                                    {{ localize('Update Password') }}
+                                    {{ localize('Mettre à jour Password') }}
                                 </button>
                             </div>
                         </div>

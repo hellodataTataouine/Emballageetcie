@@ -36,7 +36,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey)
                                         value="{{ $searchKey }}"
                                     @endisset>
@@ -46,7 +46,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }

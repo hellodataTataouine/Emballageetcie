@@ -29,13 +29,13 @@
                                             <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                     data-feather="search"></i></span>
                                             <input class="form-control rounded-start w-100" type="text" name="search"
-                                                placeholder="{{ localize('Search') }}...">
+                                                placeholder="{{ localize('Recherche') }}...">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-secondary" onclick="getPosProducts()">
-                                        {{ localize('Search') }}
+                                        {{ localize('Recherche') }}
                                     </button>
                                 </div>
                                 <div class="col-auto">
@@ -78,7 +78,7 @@
                                         <select class="form-select py-1" name="delivery_status">
                                             <option value="{{ orderDeliveredStatus() }}" selected>
                                                 {{ localize('Delivered') }}</option>
-                                            <option value="{{ orderPlacedStatus() }}">{{ localize('Order Placed') }}
+                                            <option value="{{ orderPlacedStatus() }}">{{ localize('Commande passée') }}
                                             </option>
                                         </select>
                                     </div>

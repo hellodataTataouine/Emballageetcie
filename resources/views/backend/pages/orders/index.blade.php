@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Orders') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Commandes') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Orders') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Commandes') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
                                                     id="search" name="search"
-                                                    placeholder="{{ localize('Search by name/phone') }}"
+                                                    placeholder="{{ localize('Recherche par nom/phone') }}"
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                                 @endisset>
@@ -57,22 +57,22 @@
                                     <div class="col-auto">
                                         <select class="form-select select2" name="payment_status"
                                             data-minimum-results-for-search="Infinity" id="payment_status">
-                                            <option value="">{{ localize('Payment Status') }}</option>
+                                            <option value="">{{ localize('Statut de paiement') }}</option>
                                             <option value="{{ paidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == paidPaymentStatus()) selected @endif>
-                                                {{ localize('Paid') }}</option>
+                                                {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Unpaid') }}</option>
+                                                {{ localize('Non payé') }}</option>
                                         </select>
                                     </div>
 
                                     <div class="col-auto">
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                                            <option value="">{{ localize('Delivery Status') }}</option>
+                                            <option value="">{{ localize('Statut de livraison') }}</option>
                                             <option value="order_placed" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
-                                                {{ localize('Order Placed') }}</option>
+                                                {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
                                                 {{ localize('Pending') }}
                                             <option value="processing" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
@@ -114,7 +114,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-primary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>

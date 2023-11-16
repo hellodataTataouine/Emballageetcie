@@ -48,7 +48,7 @@
           <strong>{{ formatPrice(getSubTotal($carts, false, '', false)) }}</strong>
       </div>
       <div class="tt-pos-cal">
-          <p class="mb-0">{{ localize('Tax') }}</p>
+          <p class="mb-0">{{ localize('Taxe') }}</p>
           <strong>{{ formatPrice(getTotalTax($carts)) }}</strong>
       </div>
 

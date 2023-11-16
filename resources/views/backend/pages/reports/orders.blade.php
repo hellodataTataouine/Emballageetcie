@@ -46,22 +46,22 @@
                                     <div class="col-auto">
                                         <select class="form-select select2" name="payment_status"
                                             data-minimum-results-for-search="Infinity" id="payment_status">
-                                            <option value="">{{ localize('Payment Status') }}</option>
+                                            <option value="">{{ localize('Statut de paiement') }}</option>
                                             <option value="{{ paidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == paidPaymentStatus()) selected @endif>
-                                                {{ localize('Paid') }}</option>
+                                                {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Unpaid') }}</option>
+                                                {{ localize('Non payé') }}</option>
                                         </select>
                                     </div>
 
                                     <div class="col-auto">
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                                            <option value="">{{ localize('Delivery Status') }}</option>
+                                            <option value="">{{ localize('Statut de livraison') }}</option>
                                             <option value="order_placed" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
-                                                {{ localize('Order Placed') }}</option>
+                                                {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
                                                 {{ localize('Pending') }}
                                             <option value="processing" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
@@ -76,7 +76,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                     <div class="col-auto flex-grow-1"></div>
@@ -99,8 +99,8 @@
                                     </th>
                                     <th>{{ localize('Placed On') }}</th>
                                     <th data-breakpoints="xs">{{ localize('Items') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Payment Status') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Delivery Status') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>
                                     <th data-breakpoints="xs" class="text-end">{{ localize('Amount') }}</th>
                                 </tr>
                             </thead>

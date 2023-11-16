@@ -2,7 +2,7 @@
     <!--Filter by search-->
     <div class="sidebar-widget search-widget bg-white py-5 px-4">
         <div class="widget-title d-flex">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Search Now') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Recherche Now') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <div class="search-form d-flex align-items-center mt-4">
@@ -11,7 +11,7 @@
                 @isset($searchKey)
        value="{{ $searchKey }}"
        @endisset
-                placeholder="{{ localize('Search') }}">
+                placeholder="{{ localize('Recherche') }}">
             <button type="submit" class="submit-icon-btn-secondary"><i
                     class="fa-solid fa-magnifying-glass"></i></button>
         </div>

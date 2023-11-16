@@ -127,7 +127,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                             </button>
                         </div>
                     </form>

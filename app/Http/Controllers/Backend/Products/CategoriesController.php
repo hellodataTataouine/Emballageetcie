@@ -100,11 +100,11 @@ class CategoriesController extends Controller
     public function edit(Request $request, $id)
     {
         $lang_key = $request->lang_key;
-        $language = Language::where('is_active', 1)->where('code', $lang_key)->first();
+      /*  $language = Language::where('is_active', 1)->where('code', $lang_key)->first();
         if (!$language) {
             flash(localize('Language you are trying to translate is not available or not active'))->error();
             return redirect()->route('admin.categories.index');
-        }
+        }*/
 
         $category = Category::findOrFail($id);
         $categories = Category::where('parent_id', 0)

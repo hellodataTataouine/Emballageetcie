@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Add Product') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Ajouter un produit') }}</h2>
                             </div>
 
                         </div>
@@ -29,21 +29,21 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Product Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom du produit') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type your product name') }}" name="name" required>
+                                        placeholder="{{ localize('Saisissez le nom de votre produit') }}" name="name" required>
                                     <span class="fs-sm text-muted">
-                                        {{ localize('Product name is required and recommended to be unique.') }}
+                                        {{ localize('Le nom du produit est requis et il est recommandé qu\'il soit unique..') }}
                                     </span>
                                 </div>
                                 <div class="mb-4">
                                     <label for="short_description"
-                                        class="form-label">{{ localize('Short Description') }}</label>
+                                        class="form-label">{{ localize('Description courte') }}</label>
                                     <textarea class="form-control" id="short_description"
-                                        placeholder="{{ localize('Type your product short description') }}" rows="5" name="short_description"></textarea>
+                                        placeholder="{{ localize('Saisissez la description courte de votre produit') }}" rows="5" name="short_description"></textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label for="description" class="form-label">{{ localize('Description') }}</label>
@@ -61,7 +61,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Thumbnail') }} (592x592)</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Product Thumbnail') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir  produit Thumbnail') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -77,9 +77,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Gallery') }}</label>
+                                    <label class="form-label">{{ localize('Galerie') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Gallery Images') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir les images de la galerie') }}</span>
 
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
@@ -102,10 +102,10 @@
                         <!--product category start-->
                         <div class="card mb-4" id="section-3">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Product Categories') }}</h5>
+                                <h5 class="mb-4">{{ localize('Catégories de produits') }}</h5>
                                 <div class="mb-4">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select categories') }}" name="category_ids[]"
+                                        data-placeholder="{{ localize('Sélectionner des catégories') }}" name="category_ids[]"
                                         required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">
@@ -125,10 +125,10 @@
                         <!--product tags start-->
                         <div class="card mb-4" id="section-tags">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Product Tags') }}</h5>
+                                <h5 class="mb-4">{{ localize('Produit Tags') }}</h5>
                                 <div class="mb-4">
                                     <select class="form-control select2" name="tag_ids[]" data-toggle="select2" multiple
-                                        data-placeholder="{{ localize('Select tags..') }}">
+                                        data-placeholder="{{ localize('Sélectionner des tags..') }}">
                                         @foreach ($tags as $tag)
                                             <option value="{{ $tag->id }}">
                                                 {{ $tag->name }}</option>
@@ -144,10 +144,10 @@
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Product Brand') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Marque du produit') }}</h5>
                                         <div class="tt-select-brand">
                                             <select class="select2 form-control" id="selectBrand" name="brand_id">
-                                                <option value="">{{ localize('Select Brand') }}</option>
+                                                <option value="">{{ localize('Sélectionner une Marque') }}</option>
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}">
                                                         {{ $brand->collectLocalization('name') }}
@@ -161,10 +161,10 @@
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Product Unit') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Unité du produit') }}</h5>
                                         <div class="tt-select-brand">
                                             <select class="select2 form-control" id="selectUnit" name="unit_id">
-                                                <option value="">{{ localize('Select Unit') }}</option>
+                                                <option value="">{{ localize('Sélectionner une unité') }}</option>
                                                 @foreach ($units as $unit)
                                                     <option value="{{ $unit->id }}">
                                                         {{ $unit->collectLocalization('name') }}
@@ -182,10 +182,10 @@
                         <div class="card mb-4" id="section-5">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mb-4">{{ localize('Price, Sku & Stock') }}</h5>
+                                    <h5 class="mb-4">{{ localize('Prix, Sku & Stock') }}</h5>
                                     <div class="form-check form-switch">
                                         <label class="form-check-label fw-medium text-primary"
-                                            for="is_variant">{{ localize('Has Variations?') }}</label>
+                                            for="is_variant">{{ localize('A des variations?') }}</label>
                                         <input type="checkbox" class="form-check-input" id="is_variant"
                                             onchange="isVariantProduct(this)" name="is_variant">
                                     </div>
@@ -196,18 +196,18 @@
                                     <div class="row g-3">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="price" class="form-label">{{ localize('Price') }}</label>
+                                                <label for="price" class="form-label">{{ localize('Prix') }}</label>
                                                 <input type="number" min="0" step="0.0001" id="price"
-                                                    name="price" placeholder="{{ localize('Product price') }}"
+                                                    name="price" placeholder="{{ localize('Prix du produit') }}"
                                                     class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="stock" class="form-label">{{ localize('Stock') }} <small
-                                                        class="text-warning">({{ localize('Default Location') }})</small></label>
+                                                        class="text-warning">({{ localize('Emplacement par défaut') }})</small></label>
                                                 <input type="number" id="stock"
-                                                    placeholder="{{ localize('Stock qty') }}" name="stock"
+                                                    placeholder="{{ localize('qté ') }}" name="stock"
                                                     class="form-control" required>
                                             </div>
                                         </div>
@@ -215,7 +215,7 @@
                                             <div class="mb-3">
                                                 <label for="sku" class="form-label">{{ localize('SKU') }}</label>
                                                 <input type="text" id="sku"
-                                                    placeholder="{{ localize('Product sku') }}" name="sku"
+                                                    placeholder="{{ localize(' sku Produit') }}" name="sku"
                                                     class="form-control" required>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
                                             <div class="mb-3">
                                                 <label for="code" class="form-label">{{ localize('Code') }}</label>
                                                 <input type="text" id="code"
-                                                    placeholder="{{ localize('Product code') }}" name="code"
+                                                    placeholder="{{ localize(' code Produit') }}" name="code"
                                                     class="form-control" required>
                                             </div>
                                         </div>
@@ -476,7 +476,7 @@
                                                 <label class="form-label">{{ $tax->name }}</label>
                                                 <input type="hidden" value="{{ $tax->id }}" name="tax_ids[]">
                                                 <input type="number" lang="en" min="0" value="0"
-                                                    step="0.01" placeholder="{{ localize('Tax') }}" name="taxes[]"
+                                                    step="0.01" placeholder="{{ localize('Taxe') }}" name="taxes[]"
                                                     class="form-control" required>
                                             </div>
                                         </div>
@@ -590,7 +590,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                     <li>
                                         <a href="#section-2">{{ localize('Product Images') }}</a>
@@ -599,7 +599,7 @@
                                         <a href="#section-3">{{ localize('Category') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-tags">{{ localize('Product tags') }}</a>
+                                        <a href="#section-tags">{{ localize('Produit tags') }}</a>
                                     </li>
                                     <li>
                                         <a href="#section-4">{{ localize('Product Brand & Unit') }}</a>

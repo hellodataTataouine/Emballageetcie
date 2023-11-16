@@ -139,7 +139,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
 
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
