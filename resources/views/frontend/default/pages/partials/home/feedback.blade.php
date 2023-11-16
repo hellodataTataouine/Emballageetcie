@@ -3,7 +3,7 @@
         class="position-absolute start-0 bottom-0 z--1 w-100">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/map-bg.png') }}" alt="map"
         class="position-absolute start-50 top-50 translate-middle z--1">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/fd-1.png') }}" alt="shape"
+    <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/fd-1.png') }}" alt="shape"
         class="position-absolute z--1 fd-1">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/fd-2.png') }}" alt="shape"
         class="position-absolute z--1 fd-2">
@@ -12,7 +12,7 @@
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/fd-4.png') }}" alt="shape"
         class="position-absolute z--1 fd-4">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/fd-5.png') }}" alt="shape"
-        class="position-absolute z--1 fd-5">
+        class="position-absolute z--1 fd-5"> -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-6">

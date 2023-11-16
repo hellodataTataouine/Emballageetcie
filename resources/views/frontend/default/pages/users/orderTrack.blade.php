@@ -19,7 +19,7 @@
 
                     <div class="order-tracking-wrap bg-white rounded py-5 px-4">
 
-                        <h6 class="mb-4">{{ localize('Order Tracking') }}</h6>
+                        <h6 class="mb-4">{{ localize('Suivi de commande') }}</h6>
                         <form class="search-form d-flex align-items-center mb-5 justify-content-center"
                             action="{{ route('customers.trackOrder') }}">
                             <div class="input-group mb-3 d-flex justify-content-center">

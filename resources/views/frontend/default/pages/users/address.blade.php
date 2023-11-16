@@ -19,9 +19,9 @@
                     <div class="address-book bg-white rounded p-5">
 
                         <div class="d-flex justify-content-between">
-                            <h4 class="mb-5">{{ localize('Address Book') }}</h4>
+                            <h4 class="mb-5">{{ localize('Carnet d\'adresses') }}</h4>
                             <a href="javascript:void(0);" onclick="addNewAddress()" class="fw-semibold"><i
-                                    class="fas fa-plus me-1"></i> {{ localize('Add Address') }}</a>
+                                    class="fas fa-plus me-1"></i> {{ localize('Ajouter une adresse') }}</a>
                         </div>
                         <div class="row g-4">
                             @forelse ($addresses as $address)
@@ -37,12 +37,12 @@
 
                                             <div class="tt-edit-address position-absolute">
                                                 <a href="javascript:void(0);" onclick="editAddress({{ $address->id }})"
-                                                    class="pe-1">{{ localize('Edit') }}</a>
+                                                    class="pe-1">{{ localize('Modifier') }}</a>
 
                                                 <a href="javascript:void(0);"
                                                     data-url="{{ route('address.delete', $address->id) }}"
                                                     onclick="deleteAddress(this)"
-                                                    class="text-danger">{{ localize('Delete') }}</a>
+                                                    class="text-danger">{{ localize('Supprimer') }}</a>
                                             </div>
                                         </div>
                                     </div>

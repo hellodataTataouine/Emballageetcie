@@ -6,12 +6,12 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Shopping Cart') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Panier d\'achat') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Carts') }}</li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Panier') }}</li>
             </ol>
         </nav>
     </div>
@@ -29,10 +29,10 @@
                 <table class="cart-table w-100 bg-white">
                     <thead>
                         <th>{{ localize('Image') }}</th>
-                        <th>{{ localize('Product Name') }}</th>
-                        <th>{{ localize('U. Price') }}</th>
-                        <th>{{ localize('Quantity') }}</th>
-                        <th>{{ localize('T. Price') }}</th>
+                        <th>{{ localize('Nom du produit') }}</th>
+                        <th>{{ localize('Prix unitaire') }}</th>
+                        <th>{{ localize('Quantité') }}</th>
+                        <th>{{ localize('Prix total') }}</th>
                         <th>{{ localize('Action') }}</th>
                     </thead>
                     <tbody class="cart-listing">
@@ -47,26 +47,26 @@
                     <div class="voucher-box py-7 px-5 position-relative z-1 overflow-hidden bg-white rounded mt-4">
                         <img src="{{ staticAsset('frontend/default/assets/img/shapes/circle-half.png') }}"
                             alt="circle shape" class="position-absolute end-0 top-0 z--1">
-                        <h4 class="mb-4">{{ localize('Have a coupon?') }}</h4>
-                        <div class="font-bold mb-2">{{ localize('Apply coupon to get discount.') }}</div>
+                        <h4 class="mb-4">{{ localize('Avez-vous un coupon ?') }}</h4>
+                        <div class="font-bold mb-2">{{ localize('Appliquez le coupon pour bénéficier d\'une réduction.') }}</div>
 
                         <!-- coupon form -->
                         <form class="d-flex align-items-center coupon-form">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            <input type="text" name="code" placeholder="{{ localize('Enter Your Coupon Code') }}"
+                            <input type="text" name="code" placeholder="{{ localize('Saisissez votre code coupon') }}"
                                 class="theme-input w-100 coupon-input"
                                 @if (isset($_COOKIE['coupon_code'])) value="{{ $_COOKIE['coupon_code'] }}" disabled @endif
                                 required>
 
                             @if (isset($_COOKIE['coupon_code']))
                                 <button type="submit"
-                                    class="btn btn-secondary flex-shrink-0 apply-coupon-btn d-none px-4">{{ localize('Apply Coupon') }}</button>
+                                    class="btn btn-secondary flex-shrink-0 apply-coupon-btn d-none px-4">{{ localize('Appliquer le coupon') }}</button>
                                 <button type="button" class="btn btn-secondary flex-shrink-0 clear-coupon-btn"><i
                                         class="fas fa-close"></i></button>
                             @else
                                 <button type="submit"
-                                    class="btn btn-secondary flex-shrink-0 apply-coupon-btn px-4">{{ localize('Apply Coupon') }}</button>
+                                    class="btn btn-secondary flex-shrink-0 apply-coupon-btn px-4">{{ localize('Appliquer le coupon') }}</button>
                                 <button type="button" class="btn btn-secondary flex-shrink-0 clear-coupon-btn d-none"><i
                                         class="fas fa-close"></i></button>
                             @endif
@@ -81,7 +81,7 @@
                         <table class="w-100">
                             <tr>
                                 <td class="py-3">
-                                    <h5 class="mb-0 fw-medium">{{ localize('Subtotal') }}</h5>
+                                    <h5 class="mb-0 fw-medium">{{ localize('Sous-total') }}</h5>
                                 </td>
                                 <td class="py-3">
                                     <h5 class="mb-0 text-end sub-total-price">
@@ -91,7 +91,7 @@
 
                             <tr class="coupon-discount-wrapper {{ getCoupon() == '' ? 'd-none' : '' }}">
                                 <td class="py-3">
-                                    <h5 class="mb-0 fw-medium">{{ localize('Coupon Discount') }}</h5>
+                                    <h5 class="mb-0 fw-medium">{{ localize('Réduction avec coupon') }}</h5>
                                 </td>
                                 <td class="py-3">
                                     <h5 class="mb-0 text-end coupon-discount-price">
@@ -100,14 +100,14 @@
                             </tr>
 
                         </table>
-                        <p class="mb-5 mt-2">{{ localize('Shipping options will be updated during checkout.') }}</p>
+                        <p class="mb-5 mt-2">{{ localize('Les options de livraison seront mises à jour lors du paiement.') }}</p>
                         <div class="btns-group d-flex flex-wrap gap-3">
 
                             <a href="{{ route('home') }}"
-                                class="btn btn-outline-secondary border-secondary btn-md rounded-1">{{ localize('Continue Shopping') }}</a>
+                                class="btn btn-outline-secondary border-secondary btn-md rounded-1">{{ localize('Continuer vos achats') }}</a>
 
                             <a href="{{ route('checkout.proceed') }}" type="submit"
-                                class="btn btn-primary btn-md rounded-1">{{ localize('Checkout') }}</a>
+                                class="btn btn-primary btn-md rounded-1">{{ localize('Paiement') }}</a>
                         </div>
                     </div>
                 </div>

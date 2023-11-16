@@ -5,16 +5,16 @@
                  <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
                  <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                     <h2 class="modal-title fs-5 mb-3">{{ localize('Add New Address') }}</h2>
+                     <h2 class="modal-title fs-5 mb-3">{{ localize('Ajouter une nouvelle adresse') }}</h2>
                      <div class="row align-items-center g-4 mt-3">
                          <form action="{{ route('address.store') }}" method="POST">
                              @csrf
                              <div class="row g-4">
                                  <div class="col-sm-6">
                                      <div class="w-100 label-input-field">
-                                         <label>{{ localize('Country') }}</label>
+                                         <label>{{ localize('Pays') }}</label>
                                          <select class="select2Address" name="country_id" required>
-                                             <option value="">{{ localize('Select Country') }}</option>
+                                             <option value="">{{ localize('Sélectionner pays') }}</option>
                                              @foreach ($countries as $country)
                                                  <option value="{{ $country->id }}">{{ $country->name }}</option>
                                              @endforeach
@@ -23,9 +23,9 @@
                                  </div>
                                  <div class="col-sm-6">
                                      <div class="w-100 label-input-field">
-                                         <label>{{ localize('State') }}</label>
+                                         <label>{{ localize('Province') }}</label>
                                          <select class="select2Address" required name="state_id">
-                                             <option value="">{{ localize('Select State') }}</option>
+                                             <option value="">{{ localize('Choisir une province') }}</option>
 
                                          </select>
                                      </div>
@@ -33,26 +33,26 @@
 
                                  <div class="col-sm-6">
                                      <div class="w-100 label-input-field">
-                                         <label>{{ localize('City') }}</label>
+                                         <label>{{ localize('Ville') }}</label>
                                          <select class="select2Address" required name="city_id">
-                                             <option value="">{{ localize('Select City') }}</option>
+                                             <option value="">{{ localize('Sélectionner une ville') }}</option>
 
                                          </select>
                                      </div>
                                  </div>
                                  <div class="col-sm-6">
                                      <div class="w-100 label-input-field">
-                                         <label>{{ localize('Default Address?') }}</label>
+                                         <label>{{ localize('Adresse par défaut ?') }}</label>
                                          <select class="select2Address" name="is_default">
-                                             <option value="0">{{ localize('No') }}</option>
-                                             <option value="1">{{ localize('Set Default') }}</option>
+                                             <option value="0">{{ localize('Non') }}</option>
+                                             <option value="1">{{ localize('Définir par défaut') }}</option>
                                          </select>
                                      </div>
                                  </div>
 
                                  <div class="col-sm-12">
                                      <div class="label-input-field">
-                                         <label>{{ localize('Address') }}</label>
+                                         <label>{{ localize('Adresse') }}</label>
                                          <textarea rows="4" placeholder="{{ localize('2/5 Elephant Road, New Town') }}" name="address" required></textarea>
                                      </div>
                                  </div>
@@ -60,7 +60,7 @@
                              </div>
                              <div class="mt-6 d-flex">
                                  <button type="submit"
-                                     class="btn btn-secondary btn-md me-3">{{ localize('Save') }}</button>
+                                     class="btn btn-secondary btn-md me-3">{{ localize('Sauvegarder') }}</button>
                              </div>
                          </form>
                      </div>
@@ -76,13 +76,13 @@
              <div class="modal-body">
                  <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                  <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                     <h2 class="modal-title fs-5 mb-3">{{ localize('Mettre à jour Address') }}</h2>
+                     <h2 class="modal-title fs-5 mb-3">{{ localize('Mettre à jour l\'adresse') }}</h2>
 
                      <div class="spinner pt-6 pb-8 d-none">
                          <div class="row align-items-center g-4 mt-3">
                              <div class="d-flex justify-content-center">
                                  <div class="spinner-border" role="status">
-                                     <span class="visually-hidden">Loading...</span>
+                                     <span class="visually-hidden">Chargement...</span>
                                  </div>
                              </div>
                          </div>

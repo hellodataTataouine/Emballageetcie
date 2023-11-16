@@ -4,22 +4,22 @@
 </div>
 
 <footer class="gshop-footer position-relative pt-8 bg-dark z-1 overflow-hidden">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/tomato.svg') }}" alt="tomato"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Bag.png') }}" alt="Bag"
         class="position-absolute z--1 tomato vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-lg.svg') }}" alt="pata"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 3.png') }}" alt="Lunchbox 3"
         class="position-absolute z--1 pata-lg vector-shape">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
         class="position-absolute z--1 pata-xs vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/frame-circle.svg') }}" alt="frame"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Paper roll.png') }}" alt="Paper roll"
         class="position-absolute z--1 frame-circle vector-shape">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/leaf.svg') }}" alt="leaf"
         class="position-absolute z--1 leaf vector-shape">
     <!--shape right -->
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/leaf.svg') }}" alt="pata"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Spoons 1.png') }}" alt="Plastic Spoons"
         class="position-absolute leaf-2 z--1 vector-shape">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
         class="position-absolute pata-xs-2 z--1 vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/tomato-slice.svg') }}" alt="tomato slice"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Cup.png') }}" alt="Plastic Cup"
         class="position-absolute tomato-slice vector-shape z--1">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/tomato-half.svg') }}" alt="tomato"
         class="position-absolute tomato-half z--1 vector-shape">
@@ -64,7 +64,7 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Quick Links') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Liens Rapides') }}</h5>
                     @php
                         $quick_links = getSetting('quick_links') != null ? json_decode(getSetting('quick_links')) : [];
                         $pages = \App\Models\Page::whereIn('id', $quick_links)->get();
@@ -80,20 +80,20 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Customer Pages') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Pages Clients') }}</h5>
                     <ul class="footer-nav">
-                        <li><a href="{{ route('customers.dashboard') }}">{{ localize('Your Account') }}</a></li>
-                        <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Your Orders') }}</a></li>
-                        <li><a href="{{ route('customers.wishlist') }}">{{ localize('Your Wishlist') }}</a></li>
-                        <li><a href="{{ route('customers.address') }}">{{ localize('Address Book') }}</a></li>
-                        <li><a href="{{ route('customers.profile') }}">{{ localize('Mettre à jour Profile') }}</a></li>
+                        <li><a href="{{ route('customers.dashboard') }}">{{ localize('Votre Compte') }}</a></li>
+                        <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Vos Commandes') }}</a></li>
+                        <li><a href="{{ route('customers.wishlist') }}">{{ localize('Liste d\'envies') }}</a></li>
+                        <li><a href="{{ route('customers.address') }}">{{ localize('Carnet d\'adresses') }}</a></li>
+                        <li><a href="{{ route('customers.profile') }}">{{ localize('Modifier Profil') }}</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Contact Info') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Informations de Contact') }}</h5>
                     <ul class="footer-nav">
                         <li class="text-white pb-2 fs-xs">{{ getSetting('topbar_location') }}</li>
                         <li class="text-white pb-2 fs-xs">{{ getSetting('navbar_contact_number') }}</li>
@@ -108,9 +108,7 @@
         <div class="container">
             <div class="row align-items-center g-3">
                 <div class="col-lg-4">
-                    <div class="copyright-text text-light">
-                        {!! getSetting('copyright_text') !!}
-                    </div>
+                   
                 </div>
                 <div class="col-lg-4 d-none d-lg-block">
                     <div class="logo-wrapper text-center">

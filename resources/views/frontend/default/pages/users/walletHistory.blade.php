@@ -18,8 +18,8 @@
                 <div class="col-xl-9">
                     <div class="recent-orders bg-white rounded py-5">
                         <div class="d-flex justify-content-between px-4 mb-4">
-                            <h6 class="">{{ localize('Wallet History') }}</h6>
-                            <span class="fw-bold">{{ localize('Wallet Balance') }}: <span
+                            <h6 class="">{{ localize('Historique du portefeuille') }}</h6>
+                            <span class="fw-bold">{{ localize('Solde du portefeuille') }}: <span
                                     class="text-secondary">{{ formatPrice(auth()->user()->user_balance) }}</span></span>
                         </div>
                         <div class="table-responsive">
@@ -27,9 +27,9 @@
                                 <tbody>
                                     <tr>
                                         <th>{{ localize('Date') }}</th>
-                                        <th>{{ localize('Amount') }}</th>
-                                        <th>{{ localize('Payment') }}</th>
-                                        <th class="text-end">{{ localize('Status') }}</th>
+                                        <th>{{ localize('Montant') }}</th>
+                                        <th>{{ localize('Paiement') }}</th>
+                                        <th class="text-end">{{ localize('Statut') }}</th>
                                     </tr>
 
                                     @forelse ($wallets as $wallet)

@@ -2,7 +2,11 @@
     <!--Filter by search-->
     <div class="sidebar-widget search-widget bg-white py-5 px-4">
         <div class="widget-title d-flex">
+<<<<<<< HEAD
             <h6 class="mb-0 flex-shrink-0">{{ localize('Recherche Now') }}</h6>
+=======
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Rechercher maintenant') }}</h6>
+>>>>>>> 896ea115bc135163b1977ee3f1b1f40fdc6b7f9b
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <div class="search-form d-flex align-items-center mt-4">
@@ -20,7 +24,7 @@
     <!--Filter by Categories-->
     <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top mobile-menu-wrapper scrollbar h-400px">
         <div class="widget-title d-flex">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Categories') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Catégories') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <ul class="widget-nav mt-4">
@@ -45,7 +49,7 @@
     <!--Filter by Price-->
     <div class="sidebar-widget price-filter-widget bg-white py-5 px-4 border-top">
         <div class="widget-title d-flex">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Filter by Price') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Filtrer par prix') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <div class="at-pricing-range mt-4">
@@ -63,7 +67,7 @@
                         data-value="{{ $max_value }}" data-max-range="{{ $max_range }}">
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm mt-3">{{ localize('Filter') }}</button>
+                <button type="submit" class="btn btn-primary btn-sm mt-3">{{ localize('Filtrer') }}</button>
             </form>
         </div>
     </div>
@@ -72,7 +76,7 @@
     <!--Filter by Tags-->
     <div class="sidebar-widget tags-widget py-5 px-4 bg-white">
         <div class="widget-title d-flex">
-            <h6 class="mb-0">{{ localize('Tags') }}</h6>
+            <h6 class="mb-0">{{ localize('Mots-clés') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <div class="mt-4 d-flex gap-2 flex-wrap">

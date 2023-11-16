@@ -40,10 +40,10 @@ class CartController extends Controller
                 } else {
                     $cart->guest_user_id    = (int) $_COOKIE['guest_user_id'];
                 }
-                $message =  localize('Product added to your cart');
+                $message =  localize('Produit ajouté à votre panier');
             } else {
                 $cart->qty                  += (int) $request->quantity;
-                $message =  localize('Quantity has been increased');
+                $message =  localize('La quantité a été augmentée');
             }
 
             $cart->save();

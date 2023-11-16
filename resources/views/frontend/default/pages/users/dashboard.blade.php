@@ -17,7 +17,7 @@
 
                 <div class="col-xl-9">
                     <div class="recent-orders bg-white rounded py-5">
-                        <h6 class="mb-4 px-4">{{ localize('Recent Orders') }}</h6>
+                        <h6 class="mb-4 px-4">{{ localize('Commandes Récentes') }}</h6>
                         @php
                             $recentOrders = \App\Models\Order::where('user_id', auth()->user()->id)
                                 ->latest()
@@ -28,11 +28,11 @@
                             <table class="order-history-table table">
                                 <tbody>
                                     <tr>
-                                        <th>{{ localize('Order Code') }}</th>
-                                        <th>{{ localize('Placed on') }}</th>
-                                        <th>{{ localize('Items') }}</th>
+                                        <th>{{ localize('Code de Commande') }}</th>
+                                        <th>{{ localize('Commandée le') }}</th>
+                                        <th>{{ localize('Articles') }}</th>
                                         <th>{{ localize('Total') }}</th>
-                                        <th>{{ localize('Status') }}</th>
+                                        <th>{{ localize('Statut') }}</th>
                                         <th class="text-center">{{ localize('Action') }}</th>
                                     </tr>
 
@@ -53,13 +53,13 @@
                                                 <a href="{{ route('customers.trackOrder') }}?code={{ $recentOrder->orderGroup->order_code }}"
                                                     class="view-invoice fs-xs me-2" target="_blank" data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
-                                                    data-bs-title="{{ localize('Track My Order') }}"><i
+                                                    data-bs-title="{{ localize('Suivre Ma Commande') }}"><i
                                                         class="fas fa-truck text-dark"></i></a>
 
                                                 <a href="{{ route('checkout.invoice', $recentOrder->orderGroup->order_code) }}"
                                                     class="view-invoice fs-xs" target="_blank" data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
-                                                    data-bs-title="{{ localize('View Details') }}"><i
+                                                    data-bs-title="{{ localize('Voir les détails') }}"><i
                                                         class="fas fa-eye"></i>
                                                 </a>
                                             </td>

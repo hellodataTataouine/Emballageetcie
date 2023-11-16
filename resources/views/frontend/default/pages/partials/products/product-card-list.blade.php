@@ -58,7 +58,7 @@
             <span class="card-progress bg-primary" data-progress="{{ sellCountPercentage($product) }}%"
                 style="width: {{ sellCountPercentage($product) }}%;"></span>
         </div>
-        <p class="mb-0 fw-semibold">{{ localize('Total Sold') }}: <span
+        <p class="mb-0 fw-semibold">{{ localize('Total Vendu ') }}: <span
                 class="fw-bold text-secondary">{{ $product->total_sale_count }}/{{ $product->sell_target }}</span></p>
         {{-- @endisset --}}
 
@@ -74,7 +74,7 @@
 
         @if ($isVariantProduct)
             <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
-                onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Add to Cart') }}</a>
+                onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
         @else
             <form action="" class="direct-add-to-cart-form">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -86,7 +86,7 @@
                         {{ localize('Out of Stock') }}</a>
                 @else
                     <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
-                        class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Add to Cart') }}</a>
+                        class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
                 @endif
             </form>
         @endif

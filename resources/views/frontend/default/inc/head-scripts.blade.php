@@ -4,7 +4,7 @@
     var TT = TT || {};
     TT.localize = {
         buyNow: '{{ localize('Buy Now') }}',
-        addToCart: '{{ localize('Add to Cart') }}',
+        addToCart: '{{ localize('Ajouter au panier') }}',
         outOfStock: '{{ localize('Out of Stock') }}',
         addingToCart: '{{ localize('Adding..') }}',
         optionsAlert: '{{ localize('Please choose all the available options') }}',

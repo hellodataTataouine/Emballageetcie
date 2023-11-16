@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Quick Links') }}</label>
+                                    <label class="form-label">{{ localize('Liens Rapides') }}</label>
                                     @php
                                         $quick_links = getSetting('quick_links') != null ? json_decode(getSetting('quick_links')) : [];
                                     @endphp

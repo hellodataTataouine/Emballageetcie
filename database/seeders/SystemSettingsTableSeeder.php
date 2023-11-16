@@ -31,7 +31,7 @@ class SystemSettingsTableSeeder extends Seeder
             array('id' => '12', 'entity' => 'site_address', 'value' => 'Cecilia Chapman, 711-2880 Nulla St, Mankato Mississippi 96522', 'created_at' => '2023-02-05 06:49:15', 'updated_at' => '2023-02-05 06:49:15', 'deleted_at' => NULL),
             array('id' => '13', 'entity' => 'registration_with', 'value' => 'email', 'created_at' => '2023-02-18 09:10:22', 'updated_at' => '2023-02-18 09:10:22', 'deleted_at' => NULL),
             array('id' => '14', 'entity' => 'registration_verification_with', 'value' => 'disable', 'created_at' => '2023-02-18 09:10:22', 'updated_at' => '2023-02-18 09:10:22', 'deleted_at' => NULL),
-            array('id' => '15', 'entity' => 'topbar_welcome_text', 'value' => 'Welcome to our Organic store', 'created_at' => '2023-02-20 06:41:46', 'updated_at' => '2023-02-20 06:41:46', 'deleted_at' => NULL),
+            array('id' => '15', 'entity' => 'topbar_welcome_text', 'value' => 'Bienvenue chez Emballage & Cie', 'created_at' => '2023-02-20 06:41:46', 'updated_at' => '2023-02-20 06:41:46', 'deleted_at' => NULL),
             array('id' => '16', 'entity' => 'topbar_email', 'value' => 'groshop@support.com', 'created_at' => '2023-02-20 06:41:46', 'updated_at' => '2023-02-20 06:41:46', 'deleted_at' => NULL),
             array('id' => '17', 'entity' => 'topbar_location', 'value' => 'Washington, New York, USA - 254230', 'created_at' => '2023-02-20 06:41:46', 'updated_at' => '2023-02-20 06:41:46', 'deleted_at' => NULL),
             array('id' => '18', 'entity' => 'navbar_logo', 'value' => '1', 'created_at' => '2023-02-20 06:41:46', 'updated_at' => '2023-03-12 05:04:45', 'deleted_at' => NULL),
