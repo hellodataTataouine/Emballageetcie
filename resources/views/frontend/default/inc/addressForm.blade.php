@@ -53,7 +53,9 @@
                                  <div class="col-sm-12">
                                      <div class="label-input-field">
                                          <label>{{ localize('Adresse') }}</label>
-                                         <textarea rows="4" placeholder="{{ localize('2/5 Elephant Road, New Town') }}" name="address" required></textarea>
+                                         <textarea rows="4" placeholder="{{ localize('10 Rue de la Paix,
+75002 Paris,
+France.') }}" name="address" required></textarea>
                                      </div>
                                  </div>
 

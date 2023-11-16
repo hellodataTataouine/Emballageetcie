@@ -85,7 +85,7 @@ class SystemSettingsTableSeeder extends Seeder
             array('id' => '65', 'entity' => 'about_intro_quote_by', 'value' => 'George Scholll', 'created_at' => '2023-03-04 04:54:12', 'updated_at' => '2023-03-04 04:54:12', 'deleted_at' => NULL),
             array('id' => '66', 'entity' => 'about_intro_image', 'value' => '60', 'created_at' => '2023-03-04 04:54:12', 'updated_at' => '2023-03-04 04:54:12', 'deleted_at' => NULL),
             array('id' => '67', 'entity' => 'about_popular_brand_ids', 'value' => '["1","2"]', 'created_at' => '2023-03-04 05:16:59', 'updated_at' => '2023-03-04 05:16:59', 'deleted_at' => NULL),
-            array('id' => '68', 'entity' => 'about_features_title', 'value' => 'Our Working Ability', 'created_at' => '2023-03-04 05:49:27', 'updated_at' => '2023-03-04 05:49:27', 'deleted_at' => NULL),
+            array('id' => '68', 'entity' => 'about_features_title', 'value' => 'Notre capacité de travail', 'created_at' => '2023-03-04 05:49:27', 'updated_at' => '2023-03-04 05:49:27', 'deleted_at' => NULL),
             array('id' => '69', 'entity' => 'about_features_sub_title', 'value' => 'Assertively target market lorem ipsum is simply free text available dolor incididunt simply free ut labore et dolore.', 'created_at' => '2023-03-04 05:49:27', 'updated_at' => '2023-03-04 05:49:27', 'deleted_at' => NULL),
             array('id' => '70', 'entity' => 'about_us_features', 'value' => '[]', 'created_at' => '2023-03-04 05:59:50', 'updated_at' => '2023-03-12 04:57:12', 'deleted_at' => NULL),
             array('id' => '71', 'entity' => 'about_why_choose_sub_title', 'value' => 'Why Choose Us', 'created_at' => '2023-03-04 06:59:45', 'updated_at' => '2023-03-04 06:59:45', 'deleted_at' => NULL),

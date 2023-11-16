@@ -24,7 +24,7 @@
     <!-- Recent Blogs -->
     <div class="sidebar-widget search-widget bg-white pt-5 pb-4 px-4 border-top">
         <div class="widget-title d-flex mb-3">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Recent Post') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Article récent') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <ul class="sidebar-posts">
@@ -49,7 +49,7 @@
 
     <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
         <div class="widget-title d-flex">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Categories') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Catégories') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <ul class="widget-nav mt-4">

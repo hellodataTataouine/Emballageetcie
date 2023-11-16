@@ -1,4 +1,4 @@
-<h4 class="mt-7">{{ localize('Available Logistics') }}</h4>
+<h4 class="mt-7">{{ localize('Logistiques disponibles') }}</h4>
 @forelse ($logisticZoneCities as $zoneCity)
     <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
         <div class="radio-left d-inline-flex align-items-center">
@@ -10,7 +10,7 @@
             <div>
                 <label for="logistic-{{ $zoneCity->logistic_zone_id }}" class="ms-3 mb-0">
                     <div class="h6 mb-0">{{ $zoneCity->logistic->name }}</div>
-                    <div> {{ localize('Shipping Charge') }}
+                    <div> {{ localize('Frais d\'expédition') }}
                         {{ formatPrice($zoneCity->logisticZone->standard_delivery_charge) }}</div>
                 </label>
             </div>
@@ -24,7 +24,7 @@
     <div class="col-12 mt-5">
         <div class="tt-address-content">
             <div class="alert alert-danger text-center">
-                {{ localize('We are not shipping to your city now.') }}
+                {{ localize('Nous n\'expédions pas actuellement vers votre ville.') }}
             </div>
         </div>
     </div>

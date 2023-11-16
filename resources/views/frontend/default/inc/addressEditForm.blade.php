@@ -17,9 +17,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="w-100 label-input-field">
-                    <label>{{ localize('State') }}</label>
+                    <label>{{ localize('État') }}</label>
                     <select class="select2Address" required name="state_id">
-                        <option value="">{{ localize('Select State') }}</option>
+                        <option value="">{{ localize('Sélectionner l\'État') }}</option>
                         @foreach ($states as $state)
                             <option value="{{ $state->id }}" @if ($address->state_id == $state->id) selected @endif>
                                 {{ $state->name }}</option>

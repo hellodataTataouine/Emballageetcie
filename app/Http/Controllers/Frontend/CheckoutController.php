@@ -89,12 +89,12 @@ class CheckoutController extends Controller
                 if($product->max_purchase_qty >= $cart->qty && $cart->qty >= $product->min_purchase_qty){
                     $productVariationStock = $cart->product_variation->product_variation_stock ? $cart->product_variation->product_variation_stock->stock_qty : 0;
                     if ($cart->qty > $productVariationStock) {
-                        $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('is out of stock');
+                        $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Est en rupture de stoc');
                         flash($message)->error();
                         return back();
                     }
                 }else{ 
-                    $message = localize('Minimum and maximum order quantity is '). $product->min_purchase_qty. ' & ' . $product->max_purchase_qty .' '. localize('for this product: '). $cart->product_variation->product->collectLocalization('name');
+                    $message = localize('La quantité de commande minimale et maximale est '). $product->min_purchase_qty. ' & ' . $product->max_purchase_qty .' '. localize(' pour ce produit est: '). $cart->product_variation->product->collectLocalization('name');
 
                     flash($message)->error();
                     return back();
@@ -138,7 +138,7 @@ class CheckoutController extends Controller
                 $balance = (float) $user->user_balance;
 
                 if ($balance < $orderGroup->grand_total_amount) {
-                    flash(localize("Your wallet balance is low"))->error();
+                    flash(localize("Votre solde de portefeuille est bas"))->error();
                     return back();
                 }
             }
@@ -269,15 +269,15 @@ class CheckoutController extends Controller
                 $user->user_balance -= $orderGroup->grand_total_amount;
                 $user->save();
 
-                flash(localize('Your order has been placed successfully'))->success();
+                flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             } else {
-                flash(localize('Your order has been placed successfully'))->success();
+                flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             }
         }
 
-        flash(localize('Your cart is empty'))->error();
+        flash(localize('Votre panier est vide'))->error();
         return back();
     }
 
@@ -318,7 +318,7 @@ class CheckoutController extends Controller
         $orderGroup->save();
 
         clearOrderSession();
-        flash(localize('Your order has been placed successfully'))->success();
+        flash(localize('Votre commande a été passée avec succès.'))->success();
         return redirect()->route('checkout.success', $orderGroup->order_code);
     }
 }
