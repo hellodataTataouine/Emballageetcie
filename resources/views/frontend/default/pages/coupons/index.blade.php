@@ -6,11 +6,11 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('All Coupons') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Tous les Coupons') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                 <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Coupons') }}</li>
             </ol>
         </nav>
@@ -41,7 +41,7 @@
           center / cover">
                             <div class="card-body text-center py-5 px-4">
                                 <div class="offer-text mb-2 justify-content-center">
-                                    <div class="up-to fw-bold text-light">{{ localize('UP TO') }}</div>
+                                    <div class="up-to fw-bold text-light">{{ localize('Jusqu\'à') }}</div>
                                     <div class="display-4 fw-bold text-danger">
                                         {{ $coupon->discount_type != 'flat' ? $coupon->discount_value : formatPrice($coupon->discount_value) }}
                                     </div>

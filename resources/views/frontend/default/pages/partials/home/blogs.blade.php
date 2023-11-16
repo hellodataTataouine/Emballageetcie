@@ -3,8 +3,8 @@
         <div class="row justify-content-center">
             <div class="col-xl-5">
                 <div class="section-title text-center">
-                    <h2 class="mb-3">{{ localize('Browse Recent Post') }}</h2>
-                    <p class="mb-0">{{ localize('Learn More About Our Recent Exclusive News, Updates & Articles') }}
+                    <h2 class="mb-3">{{ localize('Parcourir les articles récents') }}</h2>
+                    <p class="mb-0">{{ localize('Découvrez nos dernières actualités exclusives, mises à jour et articles.') }}
                     </p>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                             <p class="mb-0 mb-5">{{ $blog->collectLocalization('short_description') }}
                             </p>
                             <a href="{{ route('home.blogs.show', $blog->slug) }}"
-                                class="btn btn-primary-light btn-md">{{ localize('Explore More') }}<span
+                                class="btn btn-primary-light btn-md">{{ localize('Découvrir Plus') }}<span
                                     class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
                         </div>
                     </article>

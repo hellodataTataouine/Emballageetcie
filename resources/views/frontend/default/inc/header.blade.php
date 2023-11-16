@@ -138,10 +138,10 @@
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="btn btn-link p-0 tt-theme-toggle fw-normal">
                                 <div class="tt-theme-light" data-bs-toggle="tooltip" data-bs-placement="left"
-                                    data-bs-title="Dark">{{ localize('Dark') }} <i class="fas fa-moon fs-lg ms-1"></i>
+                                    data-bs-title="Dark">{{ localize('Sombre') }} <i class="fas fa-moon fs-lg ms-1"></i>
                                 </div>
                                 <div class="tt-theme-dark" data-bs-toggle="tooltip" data-bs-placement="left"
-                                    data-bs-title="Light">{{ localize('Light') }} <i class="fas fa-sun fs-lg ms-1"></i>
+                                    data-bs-title="Light">{{ localize('Clair') }} <i class="fas fa-sun fs-lg ms-1"></i>
                                 </div>
                             </a>
                         </li>
@@ -163,7 +163,7 @@
                         @if (getSetting('show_navbar_categories') != 0 || getSetting('show_navbar_categories') == null)
                             <div class="category-dropdown position-relative d-none d-md-inline-block">
                                 <a href="javascript:void(0)"
-                                    class="category-dropdown-btn fw-bold d-none d-sm-inline-block">{{ localize('Categories') }}<span
+                                    class="category-dropdown-btn fw-bold d-none d-sm-inline-block">{{ localize('Catégories') }}<span
                                         class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
 
                                 <div class="category-dropdown-box scrollbar">
@@ -207,9 +207,9 @@
                                         </li>
                                     @endforeach
                                 @else
-                                    <li><a href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                                    <li><a href="{{ route('products.index') }}">{{ localize('Products') }}</a></li>
-                                    <li><a href="{{ route('home.campaigns') }}">{{ localize('Campaigns') }}</a>
+                                    <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                                    <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
+                                    <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a>
                                     </li>
                                     <li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a>
                                     </li>
@@ -230,10 +230,10 @@
 
                                             <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
                                             <li><a
-                                                    href="{{ route('home.pages.aboutUs') }}">{{ localize('About Us') }}</a>
+                                                    href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a>
                                             </li>
                                             <li><a
-                                                    href="{{ route('home.pages.contactUs') }}">{{ localize('Contact Us') }}</a>
+                                                    href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a>
                                             </li>
 
                                             @foreach ($pages as $navbarPage)
@@ -291,30 +291,30 @@
                                         @auth
                                             @if (auth()->user()->user_type == 'customer')
                                                 <li><a href="{{ route('customers.dashboard') }}"><span class="me-2"><i
-                                                                class="fa-solid fa-user"></i></span>{{ localize('My Account') }}</a>
+                                                                class="fa-solid fa-user"></i></span>{{ localize('Mon compte') }}</a>
                                                 </li>
                                                 <li><a href="{{ route('customers.orderHistory') }}"><span
                                                             class="me-2"><i
-                                                                class="fa-solid fa-tags"></i></span>{{ localize('My Orders') }}</a>
+                                                                class="fa-solid fa-tags"></i></span>{{ localize('Mes commandes') }}</a>
                                                 </li>
                                                 <li><a href="{{ route('customers.wishlist') }}"><span class="me-2"><i
-                                                                class="fa-solid fa-heart"></i></span>{{ localize('My Wishlist') }}</a>
+                                                                class="fa-solid fa-heart"></i></span>{{ localize('Ma liste d\'envies') }}</a>
                                                 </li>
                                             @else
                                                 <li><a href="{{ route('admin.dashboard') }}"><span class="me-2"><i
-                                                                class="fa-solid fa-bars"></i></span>{{ localize('Dashboard') }}</a>
+                                                                class="fa-solid fa-bars"></i></span>{{ localize('Tableau de bord') }}</a>
                                                 </li>
                                             @endif
 
                                             <li><a href="{{ route('logout') }}"><span class="me-2"><i
-                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Sign Out') }}
+                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Déconnexion') }}
                                                 </a></li>
                                         @endauth
 
 
                                         @guest
                                             <li><a href="{{ route('login') }}"><span class="me-2"><i
-                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Sign In') }}</a>
+                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Se connecter') }}</a>
                                             </li>
                                         @endguest
 
@@ -360,7 +360,7 @@
 
                                         </ul>
                                         <div class="d-flex align-items-center justify-content-between mt-3">
-                                            <h6 class="mb-0">{{ localize('Subtotal') }}:</h6>
+                                            <h6 class="mb-0">{{ localize('Sous-total') }}:</h6>
                                             <span
                                                 class="fw-semibold text-secondary sub-total-price">{{ formatPrice(getSubTotal($carts, false)) }}</span>
                                         </div>
@@ -369,12 +369,12 @@
                                                 <a href="{{ route('carts.index') }}"
                                                     class="btn btn-secondary btn-md mt-4 w-100"><span
                                                         class="me-2"><i
-                                                            class="fa-solid fa-shopping-bag"></i></span>{{ localize('View Cart') }}</a>
+                                                            class="fa-solid fa-shopping-bag"></i></span>{{ localize('Voir le panier') }}</a>
                                             </div>
                                             <div class="col-6">
                                                 <a href="{{ route('checkout.proceed') }}"
                                                     class="btn btn-primary btn-md mt-4 w-100"><span class="me-2"><i
-                                                            class="fa-solid fa-credit-card"></i></span>{{ localize('Checkout') }}</a>
+                                                            class="fa-solid fa-credit-card"></i></span>{{ localize('Paiement') }}</a>
                                             </div>
 
 
@@ -398,7 +398,7 @@
                                     </svg>
                                 </span>
                                 <div class="ms-3">
-                                    <span class="text-muted fs-xs">{{ localize('Phone & Telephone') }}</span>
+                                    <span class="text-muted fs-xs">{{ localize('Numéro de téléphone') }}</span>
                                     <h6 class="mb-0 mt-1 fs-sm">{{ getSetting('navbar_contact_number') }}</h6>
                                 </div>
                             </a>

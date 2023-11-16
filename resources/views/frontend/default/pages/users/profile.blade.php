@@ -17,7 +17,7 @@
 
                 <div class="col-xl-9">
                     <div class="update-profile bg-white py-5 px-4">
-                        <h6 class="mb-4">{{ localize('Update Profile') }}</h6>
+                        <h6 class="mb-4">{{ localize('Mettre à jour le profil') }}</h6>
                         <form class="profile-form" action="{{ route('customers.updateProfile') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
@@ -26,56 +26,56 @@
                                 <input type="file" name="avatar">
                                 <img src="{{ staticAsset('frontend/default/assets/img/icons/image.svg') }}" alt="dp"
                                     class="img-fluid">
-                                <p class="text-dark fw-bold mb-2 mt-3">{{ localize('Drop your files here or browse') }}</p>
+                                <p class="text-dark fw-bold mb-2 mt-3">{{ localize('Déposez vos fichiers ici ou parcourez') }}</p>
                                 <p class="mb-0 file-name"></p>
                             </div>
                             <div class="row g-4">
                                 <div class="col-sm-12">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Name') }}</label>
-                                        <input type="text" name="name" placeholder="{{ localize('Your Name') }}"
+                                        <label>{{ localize('Nom') }}</label>
+                                        <input type="text" name="name" placeholder="{{ localize('Votre nom') }}"
                                             value="{{ $user->name }}" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Email Address') }}</label>
-                                        <input type="email" name="email" placeholder="{{ localize('Your Email') }}"
+                                        <label>{{ localize('Adresse e-mail') }}</label>
+                                        <input type="email" name="email" placeholder="{{ localize('Votre adresse e-mail') }}"
                                             value="{{ $user->email }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Phone') }}</label>
-                                        <input type="text" name="phone" placeholder="{{ localize('Your Phone') }}"
+                                        <label>{{ localize('Téléphone') }}</label>
+                                        <input type="text" name="phone" placeholder="{{ localize('Votre téléphone') }}"
                                             value="{{ $user->phone }}">
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-6">{{ localize('Update Profile') }}</button>
+                            <button type="submit" class="btn btn-primary mt-6">{{ localize('Mettre à jour le profil') }}</button>
                         </form>
                     </div>
 
                     <div class="change-password bg-white py-5 px-4 mt-4 rounded">
-                        <h6 class="mb-4">{{ localize('Change Password') }}</h6>
+                        <h6 class="mb-4">{{ localize('Changer le mot de passe') }}</h6>
                         <form class="password-reset-form" action="{{ route('customers.updateProfile') }}" method="POST">
                             @csrf
                             <input type="hidden" name="type" value="password">
                             <div class="row g-4">
                                 <div class="col-sm-6">
                                     <div class="label-input-field">
-                                        <label>{{ localize('New Password') }}</label>
+                                        <label>{{ localize('Nouveau mot de passe') }}</label>
                                         <input type="password" name="password" placeholder="******" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Re-type Password') }}</label>
+                                        <label>{{ localize('Re-tapez le mot de passe') }}</label>
                                         <input type="password" name="password_confirmation" placeholder="******" required>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-6">{{ localize('Change Password') }}</button>
+                            <button type="submit" class="btn btn-primary mt-6">{{ localize('Changer le mot de passe') }}</button>
                         </form>
                     </div>
                 </div>

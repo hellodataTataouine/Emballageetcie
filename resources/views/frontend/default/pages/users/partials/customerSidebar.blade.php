@@ -1,5 +1,5 @@
 <div class="account-nav bg-white rounded py-5">
-    <h6 class="mb-4 px-4">{{ localize('Manage My Account') }}</h6>
+    <h6 class="mb-4 px-4">{{ localize('Gérer Compte ') }}</h6>
     <ul class="nav nav-tabs border-0 d-block account-nav-menu" role="tablist">
         <li>
             <a href="{{ route('customers.dashboard') }}" class="{{ areActiveRoutes(['customers.dashboard'], 'active') }}">
@@ -20,7 +20,7 @@
                             fill="#212B36"></path>
                     </svg>
                 </span>
-                {{ localize('Dashboard') }}
+                {{ localize('Tableau de bord') }}
             </a>
         </li>
         <li>
@@ -43,7 +43,7 @@
                             fill="#212B36"></path>
                     </svg>
                 </span>
-                {{ localize('Order History') }}
+                {{ localize('Historique des commandes') }}
             </a>
         </li>
 
@@ -61,7 +61,7 @@
                         </svg>
 
                     </span>
-                    {{ localize('Reward Points') }}
+                    {{ localize('Points de récompense') }}
                 </a>
             </li>
         @endif
@@ -79,7 +79,7 @@
                         <line x1="1" y1="10" x2="23" y2="10"></line>
                     </svg>
                 </span>
-                {{ localize('Wallet History') }}
+                {{ localize('Historique du portefeuille') }}
             </a>
         </li>
 
@@ -97,7 +97,7 @@
                             <polyline points="12 19 5 12 12 5"></polyline>
                         </svg>
                     </span>
-                    {{ localize('Refund History') }}
+                    {{ localize('Historique des remboursements') }}
                 </a>
             </li>
         @endif
@@ -117,7 +117,7 @@
                     </svg>
 
                 </span>
-                {{ localize('Track Order') }}
+                {{ localize('Suivre Commandes') }}
             </a>
         </li>
 
@@ -133,7 +133,7 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-                {{ localize('Address Book') }}
+                {{ localize('Carnet d\'adresses') }}
             </a>
         </li>
 
@@ -151,7 +151,7 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-                {{ localize('Updated Profile') }}
+                {{ localize('Modifier Profil') }}
             </a>
         </li>
 
@@ -165,7 +165,7 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-                {{ localize('Log out') }}
+                {{ localize('Déconnexion') }}
             </a>
         </li>
     </ul>

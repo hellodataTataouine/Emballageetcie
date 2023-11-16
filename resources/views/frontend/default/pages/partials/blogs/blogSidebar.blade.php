@@ -8,7 +8,7 @@
 <div class="gshop-sidebar">
     <div class="sidebar-widget search-widget bg-white py-5 px-4">
         <div class="widget-title d-flex">
-            <h6 class="mb-0 flex-shrink-0">{{ localize('Search Now') }}</h6>
+            <h6 class="mb-0 flex-shrink-0">{{ localize('Rechercher maintenant') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <form class="search-form d-flex align-items-center mt-4" action="{{ route('home.blogs') }}">

@@ -31,7 +31,7 @@ class WishlistController extends Controller
 
         return [
             'success' => true,
-            'message'   => localize("Product added to your wishlist")
+            'message'   => localize("Produit ajouté à votre liste d'envies")
         ];
     }
 
@@ -44,7 +44,7 @@ class WishlistController extends Controller
             //throw $th;
         }
 
-        flash(localize('Product has been removed from your wishlist'))->success();
+        flash(localize('Le produit a été retiré de votre liste d\'envies'))->success();
         return back();
     }
 }

@@ -106,9 +106,9 @@
                                 </table>
                                 <!--pagination start-->
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <span>{{ localize('Showing') }}
-                                        {{ $categories->firstItem() }}-{{ $categories->lastItem() }} {{ localize('of') }}
-                                        {{ $categories->total() }} {{ localize('results') }}</span>
+                                    <span>{{ localize('"Affichage de') }}
+                                        {{ $categories->firstItem() }}-{{ $categories->lastItem() }} {{ localize('sur') }}
+                                        {{ $categories->total() }} {{ localize('résultat') }}</span>
                                     <nav>
                                         {{ $categories->appends(request()->input())->links() }}
                                     </nav>

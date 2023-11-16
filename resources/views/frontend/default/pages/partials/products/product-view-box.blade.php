@@ -65,7 +65,7 @@
                                 @if (!$isVariantProduct && $stock < 1)
                                     {{ localize('Out of Stock') }}
                                 @else
-                                    {{ localize('Add to Cart') }}
+                                    {{ localize('Ajouter au panier') }}
                                 @endif
                             </span>
                         </button>

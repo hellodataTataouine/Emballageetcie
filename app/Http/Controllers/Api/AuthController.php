@@ -39,13 +39,13 @@ class AuthController extends Controller
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
 
-                return $this->registrationFailed(localize('Email or Phone already exists.'));
+                return $this->registrationFailed(localize('L\'adresse e-mail ou le numéro de téléphone existe déjà.'));
             }
         }
 
         if ($request->phone != null) {
             if (User::where('phone', $request->phone)->first() != null) {
-                return $this->registrationFailed(localize('An user already exists with this phone number.'));
+                return $this->registrationFailed(localize('Un utilisateur existe déjà avec ce numéro de téléphone.'));
             }
         }
 
@@ -72,13 +72,13 @@ class AuthController extends Controller
                         $user->sendVerificationNotification();
                         return response()->json([
                             'result' => true,
-                            'message' => localize('Registration successful. Please verify your email.'),
+                            'message' => localize('Inscription réussie. Veuillez vérifier votre adresse e-mail'),
                             'access_token' => '',
                             'token_type' => ''
                         ]);
                     } catch (\Throwable $th) {
                         $user->delete();
-                        return $this->registrationFailed(localize('Registration failed. Please try again later.'));
+                        return $this->registrationFailed(localize('Inscription échouée. Veuillez réessayer ultérieurement.'));
                     }
                 }
                 // else being handled in verification controller
@@ -100,17 +100,17 @@ class AuthController extends Controller
                 if (Hash::check($request->password, $user->password)) {
 
                     if ($user->email_verified_at == null) {
-                        return $this->loginFailed(localize('Please verify your account'));
+                        return $this->loginFailed(localize('Veuillez vérifier votre compte.'));
                     }
                     return $this->loginSuccess($user);
                 } else {
-                    return $this->loginFailed(localize('Unauthorized'));
+                    return $this->loginFailed(localize('Non autorisé'));
                 }
             } else {
-                return $this->loginFailed(localize('User is banned'));
+                return $this->loginFailed(localize('Utilisateur exclu.'));
             }
         } else {
-            return $this->loginFailed(localize('User not found'));
+            return $this->loginFailed(localize('Utilisateur introuvable.'));
         }
     }
 
@@ -119,7 +119,7 @@ class AuthController extends Controller
         $token = $user->createToken('API Token')->plainTextToken;
         return response()->json([
             'result' => true,
-            'message' => localize('Successfully logged in'),
+            'message' => localize('"Connexion réussie.'),
             'access_token' => $token,
             'token_type' => 'Bearer',
             "user"=>[
@@ -183,7 +183,7 @@ class AuthController extends Controller
         return response()->json([
             'result' => false,
             "is_banned"=>true,
-            'message' => localize("You have been banned")
+            'message' => localize("Vous avez été exclu")
         ]);
         }
 
@@ -225,7 +225,7 @@ class AuthController extends Controller
         return response()->json([
             'result' => false,
             "is_banned"=>true,
-            'message' => localize("You have been banned")
+            'message' => localize("Vous avez été exclu")
         ]);
         }
 

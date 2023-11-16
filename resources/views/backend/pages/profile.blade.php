@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Update Profile') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour le profil') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Profile') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour le profil') }}</h2>
                             </div>
 
                         </div>
@@ -30,12 +30,12 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">{{ localize('Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type your name') }}" name="name" required
+                                        placeholder="{{ localize('Saisir votre nom') }}" name="name" required
                                         value="{{ $user->name }}">
                                 </div>
 
@@ -43,21 +43,21 @@
                                 <div class="mb-3">
                                     <label for="email" class="form-label">{{ localize('Email') }}</label>
                                     <input class="form-control" type="email" id="email"
-                                        placeholder="{{ localize('Type your email') }}" name="email" required
+                                        placeholder="{{ localize('Saisir votre email') }}" name="email" required
                                         value="{{ $user->email }}" disabled>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="phone" class="form-label">{{ localize('Phone') }}</label>
+                                    <label for="phone" class="form-label">{{ localize('Téléphone') }}</label>
                                     <input class="form-control" type="text" id="phone"
-                                        placeholder="{{ localize('Type your phone') }}"
+                                        placeholder="{{ localize('Entrez votre numéro de téléphone') }}"
                                         name="phone"value="{{ $user->phone }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">{{ localize('Avatar') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Avatar') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir un avatar') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -74,16 +74,16 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">{{ localize('Password') }}</label>
+                                    <label for="password" class="form-label">{{ localize('Mot de passe') }}</label>
                                     <input class="form-control" type="password" id="password"
-                                        placeholder="{{ localize('Type password') }}" name="password">
+                                        placeholder="{{ localize('Entrez votre mot de passe') }}" name="password">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="password_confirmation"
-                                        class="form-label">{{ localize('Confirm Password') }}</label>
+                                        class="form-label">{{ localize('Confirmer votre mot de passe') }}</label>
                                     <input class="form-control" type="password" id="password_confirmation"
-                                        placeholder="{{ localize('Re-type password') }}" name="password_confirmation">
+                                        placeholder="{{ localize('Retaper votre mot de passe') }}" name="password_confirmation">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -108,11 +108,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('User Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations de l\'utilisateur') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -6,12 +6,12 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Products') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Produits') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Products') }}</li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Produits') }}</li>
             </ol>
         </nav>
     </div>
@@ -56,13 +56,13 @@
                             <!--filter-->
                             <div
                                 class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-4 mb-5">
-                                <p class="mb-0 fw-bold">{{ localize('Showing') }}
-                                    {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('of') }}
-                                    {{ $products->total() }} {{ localize('results') }}</p>
+                                <p class="mb-0 fw-bold">{{ localize('Affichage de') }}
+                                    {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur ') }}
+                                    {{ $products->total() }} {{ localize('résultat') }}</p>
                                 <div class="listing-top-right text-end d-inline-flex align-items-center gap-3 flex-wrap">
                                     <div class="number-count-filter d-flex align-items-center gap-3">
                                         <label
-                                            class="fw-bold fs-xs text-dark flex-shrink-0">{{ localize('Show') }}:</label>
+                                            class="fw-bold fs-xs text-dark flex-shrink-0">{{ localize('Afficher') }}:</label>
                                         <input type="number"
                                             @isset($per_page)
                                         value="{{ $per_page }}"
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="select-filter d-inline-flex align-items-center gap-3">
                                         <label
-                                            class="fw-bold fs-xs text-dark flex-shrink-0">{{ localize('Sort by') }}:</label>
+                                            class="fw-bold fs-xs text-dark flex-shrink-0">{{ localize('Trier par') }}:</label>
                                         <select name="sort_by"
                                             class="sort_by form-select fs-xxs fw-medium theme-select select-sm">
                                             <option value="new"
@@ -82,14 +82,14 @@
                                                 selected
                                                 @endif
                                             @endisset>
-                                                {{ localize('Newest First') }}</option>
+                                                {{ localize('"Les plus récents') }}</option>
                                             <option value="best_selling"
                                                 @isset($sort_by)
                                             @if ($sort_by == 'best_selling')
                                             selected
                                             @endif
                                         @endisset>
-                                                {{ localize('Best Selling') }}</option>
+                                                {{ localize('Meilleures ventes') }}</option>
                                         </select>
                                     </div>
                                     <a href="{{ route('products.index') }}?view=grid"
