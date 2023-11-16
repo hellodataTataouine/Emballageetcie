@@ -4,7 +4,7 @@
     <li class="side-nav-item nav-item">
         <a href="{{ route('admin.dashboard') }}" class="side-nav-link">
             <span class="tt-nav-link-icon"><i data-feather="pie-chart"></i></span>
-            <span class="tt-nav-link-text">{{ localize('Dashboard') }}</span>
+            <span class="tt-nav-link-text">{{ localize('Tableau de bord') }}</span>
         </a>
     </li>
 
@@ -19,7 +19,7 @@
                 aria-expanded="{{ areActiveRoutes($productsActiveRoutes, 'true') }}" aria-controls="sidebarProducts"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="shopping-bag"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Products') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Produits') }}</span>
             </a>
 
             <div class="collapse {{ areActiveRoutes($productsActiveRoutes, 'show') }}" id="sidebarProducts">
@@ -29,7 +29,7 @@
                         <li
                             class="{{ areActiveRoutes(['admin.products.index', 'admin.products.create', 'admin.products.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.products.index') }}"
-                                class="{{ areActiveRoutes(['admin.products.index', 'admin.products.create', 'admin.products.edit']) }}">{{ localize('All Products') }}</a>
+                                class="{{ areActiveRoutes(['admin.products.index', 'admin.products.create', 'admin.products.edit']) }}">{{ localize('Produits') }}</a>
                         </li>
                     @endcan
 
@@ -37,7 +37,7 @@
                         <li
                             class="{{ areActiveRoutes(['admin.categories.index', 'admin.categories.create', 'admin.categories.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.categories.index') }}"
-                                class="{{ areActiveRoutes(['admin.categories.index', 'admin.categories.create', 'admin.categories.edit']) }}">{{ localize('All Categories') }}</a>
+                                class="{{ areActiveRoutes(['admin.categories.index', 'admin.categories.create', 'admin.categories.edit']) }}">{{ localize('Catégories') }}</a>
                         </li>
                     @endcan
 
@@ -53,28 +53,28 @@
                                     'admin.variations.edit',
                                     'admin.variationValues.index',
                                     'admin.variationValues.edit',
-                                ]) }}">{{ localize('All Variations') }}</a>
+                                ]) }}">{{ localize('Filtres') }}</a>
                         </li>
                     @endcan
 
                     @can('brands')
                         <li class="{{ areActiveRoutes(['admin.brands.index', 'admin.brands.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.brands.index') }}"
-                                class="{{ areActiveRoutes(['admin.brands.index', 'admin.brands.edit']) }}">{{ localize('All Brands') }}</a>
+                                class="{{ areActiveRoutes(['admin.brands.index', 'admin.brands.edit']) }}">{{ localize('Marques') }}</a>
                         </li>
                     @endcan
 
                     @can('units')
                         <li class="{{ areActiveRoutes(['admin.units.index', 'admin.units.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.units.index') }}"
-                                class="{{ areActiveRoutes(['admin.units.index']) }}">{{ localize('All Units') }}</a>
+                                class="{{ areActiveRoutes(['admin.units.index']) }}">{{ localize('Unités') }}</a>
                         </li>
                     @endcan
 
                     @can('taxes')
                         <li class="{{ areActiveRoutes(['admin.taxes.index', 'admin.taxes.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.taxes.index') }}"
-                                class="{{ areActiveRoutes(['admin.taxes.index']) }}">{{ localize('All Taxes') }}</a>
+                                class="{{ areActiveRoutes(['admin.taxes.index']) }}">{{ localize('Taxes') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -87,7 +87,7 @@
         <li class="side-nav-item nav-item">
             <a href="{{ route('admin.pos.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"><i data-feather="table"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Pos System') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Pos Système') }}</span>
             </a>
         </li>
     @endcan
@@ -100,14 +100,14 @@
                 class="side-nav-link {{ areActiveRoutes(['admin.orders.index', 'admin.orders.show']) }}">
                 <span class="tt-nav-link-icon"><i data-feather="shopping-cart"></i></span>
                 <span class="tt-nav-link-text">
-                    <span>{{ localize('Orders') }}</span>
+                    <span>{{ localize('Commandes') }}</span>
 
                     @php
                         $newOrdersCount = \App\Models\Order::isPlaced()->count();
                     @endphp
 
                     @if ($newOrdersCount > 0)
-                        <small class="badge bg-danger">{{ localize('New') }}</small>
+                        <small class="badge bg-danger">{{ localize('Nouveau') }}</small>
                     @endif
                 </span>
             </a>
@@ -124,7 +124,7 @@
                 aria-expanded="{{ areActiveRoutes($stockActiveRoutes, 'true') }}" aria-controls="manageStock"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="database"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Stocks') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Stockages') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($stockActiveRoutes, 'show') }}" id="manageStock">
                 <ul class="side-nav-second-level">
@@ -132,14 +132,14 @@
                     @can('add_stock')
                         <li class="{{ areActiveRoutes(['admin.stocks.create'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.stocks.create') }}"
-                                class="{{ areActiveRoutes(['admin.stocks.create']) }}">{{ localize('Add Stock') }}</a>
+                                class="{{ areActiveRoutes(['admin.stocks.create']) }}">{{ localize('Ajouter Stockage') }}</a>
                         </li>
                     @endcan
 
                     @can('show_locations')
                         <li
                             class="{{ areActiveRoutes(['admin.locations.index', 'admin.locations.create', 'admin.locations.edit'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.locations.index') }}">{{ localize('All Locations') }}</a>
+                            <a href="{{ route('admin.locations.index') }}">{{ localize('Emplacements') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -159,7 +159,7 @@
                 aria-expanded="{{ areActiveRoutes($refundsActiveRoutes, 'true') }}" aria-controls="manageRefunds"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="corner-up-left"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Refunds') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Remboursements') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($refundsActiveRoutes, 'show') }}" id="manageRefunds">
                 <ul class="side-nav-second-level">
@@ -167,25 +167,25 @@
                     @can('refund_configurations')
                         <li class="{{ areActiveRoutes(['admin.refund.configurations'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.refund.configurations') }}"
-                                class="{{ areActiveRoutes(['admin.refund.configurations']) }}">{{ localize('Refund Configurations') }}</a>
+                                class="{{ areActiveRoutes(['admin.refund.configurations']) }}">{{ localize('Configurations de remboursement') }}</a>
                         </li>
                     @endcan
 
                     @can('refund_requests')
                         <li class="{{ areActiveRoutes(['admin.refund.requests'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.refund.requests') }}">{{ localize('Refund Requests') }}</a>
+                            <a href="{{ route('admin.refund.requests') }}">{{ localize('Demandes de remboursement') }}</a>
                         </li>
                     @endcan
 
                     @can('approved_refunds')
                         <li class="{{ areActiveRoutes(['admin.refund.refunded'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.refund.refunded') }}">{{ localize('Approved Refunds') }}</a>
+                            <a href="{{ route('admin.refund.refunded') }}">{{ localize('Remboursements approuvés') }}</a>
                         </li>
                     @endcan
 
                     @can('rejected_refunds')
                         <li class="{{ areActiveRoutes(['admin.refund.rejected'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.refund.rejected') }}">{{ localize('Rejected Refunds') }}</a>
+                            <a href="{{ route('admin.refund.rejected') }}">{{ localize('Remboursements rejetés') }}</a>
                         </li>
                     @endcan
 
@@ -205,7 +205,7 @@
                 aria-expanded="{{ areActiveRoutes($rewardsActiveRoutes, 'true') }}" aria-controls="manageRewards"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="award"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Rewards & Wallet') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Récompenses & Portefeuille') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($rewardsActiveRoutes, 'show') }}" id="manageRewards">
                 <ul class="side-nav-second-level">
@@ -213,20 +213,20 @@
                     @can('reward_configurations')
                         <li class="{{ areActiveRoutes(['admin.rewards.configurations'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.rewards.configurations') }}"
-                                class="{{ areActiveRoutes(['admin.rewards.configurations']) }}">{{ localize('Reward Configurations') }}</a>
+                                class="{{ areActiveRoutes(['admin.rewards.configurations']) }}">{{ localize('Configurations de récompense') }}</a>
                         </li>
                     @endcan
 
                     @can('set_reward_points')
                         <li class="{{ areActiveRoutes(['admin.rewards.setPoints'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.rewards.setPoints') }}">{{ localize('Set Reward Points') }}</a>
+                            <a href="{{ route('admin.rewards.setPoints') }}">{{ localize('Définir les points de récompense') }}</a>
                         </li>
                     @endcan
 
                     @can('wallet_configurations')
                         <li class="{{ areActiveRoutes(['admin.wallet.configurations'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.wallet.configurations') }}"
-                                class="{{ areActiveRoutes(['admin.wallet.configurations']) }}">{{ localize('Wallet Configurations') }}</a>
+                                class="{{ areActiveRoutes(['admin.wallet.configurations']) }}">{{ localize('Configurations du portefeuille') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -236,7 +236,7 @@
 
     <!-- Users -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Users') }}</span>
+        <span class="tt-nav-title-text">{{ localize(' UTILISATEURS') }}</span>
     </li>
 
     <!-- customers -->
@@ -244,7 +244,7 @@
         <li class="side-nav-item nav-item">
             <a href="{{ route('admin.customers.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"> <i data-feather="users"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Customers') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Clients') }}</span>
             </a>
         </li>
     @endcan
@@ -255,14 +255,14 @@
             class="side-nav-item nav-item {{ areActiveRoutes(['admin.staffs.index', 'admin.staffs.create', 'admin.staffs.edit'], 'tt-menu-item-active') }}">
             <a href="{{ route('admin.staffs.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"> <i data-feather="user-check"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Employee Staffs') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Employés') }}</span>
             </a>
         </li>
     @endcan
 
     <!-- Contents -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Contents') }}</span>
+        <span class="tt-nav-title-text">{{ localize('Contenu') }}</span>
     </li>
 
     <!-- tags -->
@@ -310,14 +310,14 @@
                         <li
                             class="{{ areActiveRoutes(['admin.blogs.index', 'admin.blogs.create', 'admin.blogs.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.blogs.index') }}"
-                                class="{{ areActiveRoutes(['admin.blogs.index', 'admin.blogs.create', 'admin.blogs.edit']) }}">{{ localize('All Blogs') }}</a>
+                                class="{{ areActiveRoutes(['admin.blogs.index', 'admin.blogs.create', 'admin.blogs.edit']) }}">{{ localize('Blogs') }}</a>
                         </li>
                     @endcan
 
                     @can('blog_categories')
                         <li
                             class="{{ areActiveRoutes(['admin.blogCategories.index', 'admin.blogCategories.edit'], 'tt-menu-item-active') }}">
-                            <a href="{{ route('admin.blogCategories.index') }}">{{ localize('Categories') }}</a>
+                            <a href="{{ route('admin.blogCategories.index') }}">{{ localize('Catégories') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -330,7 +330,7 @@
         <li class="side-nav-item">
             <a href="{{ route('admin.mediaManager.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"> <i data-feather="folder"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Media Manager') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Gestionnaire de médias') }}</span>
             </a>
         </li>
     @endcan
@@ -357,14 +357,14 @@
                     @can('newsletters')
                         <li class="{{ areActiveRoutes(['admin.newsletters.index'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.newsletters.index') }}"
-                                class="{{ areActiveRoutes(['admin.newsletters.index']) }}">{{ localize('Bulk Emails') }}</a>
+                                class="{{ areActiveRoutes(['admin.newsletters.index']) }}">{{ localize('E-mails en masse') }}</a>
                         </li>
                     @endcan
 
                     @can('subscribers')
                         <li class="{{ areActiveRoutes(['admin.subscribers.index'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.subscribers.index') }}"
-                                lass="{{ areActiveRoutes(['admin.newsletters.index']) }}">{{ localize('Subscribers') }}</a>
+                                lass="{{ areActiveRoutes(['admin.newsletters.index']) }}">{{ localize('Abonnés') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -390,14 +390,14 @@
             class="side-nav-item nav-item {{ areActiveRoutes(['admin.campaigns.index', 'admin.campaigns.create', 'admin.campaigns.edit'], 'tt-menu-item-active') }}">
             <a href="{{ route('admin.campaigns.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"> <i data-feather="zap"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Campaigns') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Campagnes') }}</span>
             </a>
         </li>
     @endcan
 
     <!-- Fulfillment -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Fulfillment') }}</span>
+        <span class="tt-nav-title-text">{{ localize('EXÉCUTION') }}</span>
     </li>
     <!-- Logistics -->
     @can('logistics')
@@ -405,7 +405,7 @@
             class="side-nav-item nav-item {{ areActiveRoutes(['admin.logistics.index', 'admin.logistics.create', 'admin.logistics.edit'], 'tt-menu-item-active') }}">
             <a href="{{ route('admin.logistics.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"><i data-feather="cpu"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Logistics') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Logistique') }}</span>
             </a>
         </li>
     @endcan
@@ -419,14 +419,14 @@
             <a href="{{ route('admin.logisticZones.index') }}" class="side-nav-link">
                 <i class="uil-ship"></i>
                 <span class="tt-nav-link-icon"><i data-feather="truck"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Shipping Zones') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Zones d expédition') }}</span>
             </a>
         </li>
     @endcan
 
     <!-- Reports -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Reports') }}</span>
+        <span class="tt-nav-title-text">{{ localize('RAPPORTS') }}</span>
     </li>
 
     <!-- reports -->
@@ -441,7 +441,7 @@
                 aria-expanded="{{ areActiveRoutes($reportActiveRoutes, 'true') }}" aria-controls="reports"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="bar-chart"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Reports') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Rapports') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($reportActiveRoutes, 'show') }}" id="reports">
                 <ul class="side-nav-second-level">
@@ -449,35 +449,35 @@
                     @can('order_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.orders'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.orders') }}"
-                                class="{{ areActiveRoutes(['admin.reports.orders']) }}">{{ localize('Orders Report') }}</a>
+                                class="{{ areActiveRoutes(['admin.reports.orders']) }}">{{ localize('Rapport des commandes') }}</a>
                         </li>
                     @endcan
 
                     @can('product_sale_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.sales'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.sales') }}"
-                                class="{{ areActiveRoutes(['admin.reports.sales']) }}">{{ localize('Product Sales') }}</a>
+                                class="{{ areActiveRoutes(['admin.reports.sales']) }}">{{ localize('Ventes de produits') }}</a>
                         </li>
                     @endcan
 
                     @can('category_sale_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.categorySales'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.categorySales') }}"
-                                class="{{ areActiveRoutes(['admin.reports.categorySales']) }}">{{ localize('Category Wise Sales') }}</a>
+                                class="{{ areActiveRoutes(['admin.reports.categorySales']) }}">{{ localize('Ventes par catégorie') }}</a>
                         </li>
                     @endcan
 
                     @can('sales_amount_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.salesAmount'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.salesAmount') }}"
-                                class="{{ areActiveRoutes(['admin.reports.salesAmount']) }}">{{ localize('Sales Amount Report') }}</a>
+                                class="{{ areActiveRoutes(['admin.reports.salesAmount']) }}">{{ localize('Rapport du montant des ventes') }}</a>
                         </li>
                     @endcan
 
                     @can('delivery_status_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.deliveryStatus'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.deliveryStatus') }}"
-                                class="{{ areActiveRoutes(['admin.reports.deliveryStatus']) }}">{{ localize('Delivery Status Report') }}</a>
+                                class="{{ areActiveRoutes(['admin.reports.deliveryStatus']) }}">{{ localize('Rapport de l \'état de livraison') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -497,14 +497,14 @@
                 class="side-nav-link {{ areActiveRoutes(['admin.queries.index']) }}">
                 <span class="tt-nav-link-icon"><i data-feather="hash"></i></span>
                 <span class="tt-nav-link-text">
-                    <span>{{ localize('Queries') }}</span>
+                    <span>{{ localize('Requêtes') }}</span>
 
                     @php
                         $newMsgCount = \App\Models\ContactUsMessage::where('is_seen', 0)->count();
                     @endphp
 
                     @if ($newMsgCount > 0)
-                        <small class="badge bg-danger">{{ localize('New') }}</small>
+                        <small class="badge bg-danger">{{ localize('Nouveau') }}</small>
                     @endif
                 </span>
             </a>
@@ -513,7 +513,7 @@
 
     <!-- Settings -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Settings') }}</span>
+        <span class="tt-nav-title-text">{{ localize('PARAMÈTRES') }}</span>
     </li>
 
 
@@ -569,7 +569,7 @@
                 aria-expanded="{{ areActiveRoutes($appearanceActiveRoutes, 'true') }}" aria-controls="Appearance"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="layout"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Appearance') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Apparence') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($appearanceActiveRoutes, 'show') }}" id="Appearance">
                 <ul class="side-nav-second-level">
@@ -577,7 +577,7 @@
                     @can('homepage')
                         <li class="{{ areActiveRoutes($homepageActiveRoutes, 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.homepage.hero') }}"
-                                class="{{ areActiveRoutes($homepageActiveRoutes) }}">{{ localize('Homepage') }}</a>
+                                class="{{ areActiveRoutes($homepageActiveRoutes) }}">{{ localize('Page d\'accueil') }}</a>
                         </li>
                     @endcan
 
@@ -585,7 +585,7 @@
                     @can('product_page')
                         <li class="{{ areActiveRoutes(['admin.appearance.products.index'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.products.index') }}"
-                                class="{{ areActiveRoutes(['admin.appearance.products.index']) }}">{{ localize('Products Page') }}</a>
+                                class="{{ areActiveRoutes(['admin.appearance.products.index']) }}">{{ localize('Page des produits') }}</a>
                         </li>
                     @endcan
 
@@ -593,7 +593,7 @@
                         <li
                             class="{{ areActiveRoutes(['admin.appearance.products.details', 'admin.appearance.products.details.editWidget'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.products.details') }}"
-                                class="{{ areActiveRoutes(['admin.appearance.products.details']) }}">{{ localize('Product Details') }}</a>
+                                class="{{ areActiveRoutes(['admin.appearance.products.details']) }}">{{ localize('Détails du produit') }}</a>
                         </li>
                     @endcan
 
@@ -604,21 +604,21 @@
 
                         <li class="{{ areActiveRoutes($aboutUsActiveRoutes, 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.about-us.index') }}"
-                                class="{{ areActiveRoutes($aboutUsActiveRoutes) }}">{{ localize('About Us') }}</a>
+                                class="{{ areActiveRoutes($aboutUsActiveRoutes) }}">{{ localize('À propos de nous') }}</a>
                         </li>
                     @endcan
 
                     @can('header')
                         <li class="{{ areActiveRoutes(['admin.appearance.header'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.header') }}"
-                                class="{{ areActiveRoutes(['admin.appearance.header']) }}">{{ localize('Header') }}</a>
+                                class="{{ areActiveRoutes(['admin.appearance.header']) }}">{{ localize('En-tête') }}</a>
                         </li>
                     @endcan
 
                     @can('footer')
                         <li class="{{ areActiveRoutes(['admin.appearance.footer'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.appearance.footer') }}"
-                                class="{{ areActiveRoutes(['admin.appearance.footer']) }}">{{ localize('Footer') }}</a>
+                                class="{{ areActiveRoutes(['admin.appearance.footer']) }}">{{ localize('Pied de page') }}</a>
                         </li>
                     @endcan
                 </ul>
@@ -635,7 +635,7 @@
         <li class="side-nav-item nav-item {{ areActiveRoutes($rolesActiveRoutes, 'tt-menu-item-active') }}">
             <a href="{{ route('admin.roles.index') }}" class="side-nav-link">
                 <span class="tt-nav-link-icon"><i data-feather="unlock"></i></span>
-                <span class="tt-nav-link-text">{{ localize('Roles & Permissions') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Rôles & Permissions') }}</span>
             </a>
         </li>
     @endcan
@@ -652,7 +652,7 @@
                 aria-expanded="{{ areActiveRoutes($settingsActiveRoutes, 'true') }}" aria-controls="systemSetting"
                 class="side-nav-link tt-menu-toggle">
                 <span class="tt-nav-link-icon"><i data-feather="settings"></i></span>
-                <span class="tt-nav-link-text">{{ localize('System Settings') }}</span>
+                <span class="tt-nav-link-text">{{ localize('Paramètres du système') }}</span>
             </a>
             <div class="collapse {{ areActiveRoutes($settingsActiveRoutes, 'show') }}" id="systemSetting">
                 <ul class="side-nav-second-level">
@@ -660,14 +660,14 @@
                     @can('auth_settings')
                         <li class="{{ areActiveRoutes(['admin.settings.authSettings'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.settings.authSettings') }}"
-                                class="{{ areActiveRoutes(['admin.settings.authSettings']) }}">{{ localize('Auth Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.settings.authSettings']) }}">{{ localize('Paramètres d\'authentification') }}</a>
                         </li>
                     @endcan
 
                     @can('otp_settings')
                         <li class="{{ areActiveRoutes(['admin.settings.otpSettings'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.settings.otpSettings') }}"
-                                class="{{ areActiveRoutes(['admin.settings.otpSettings']) }}">{{ localize('OTP Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.settings.otpSettings']) }}">{{ localize(' Paramètres OTP') }}</a>
                         </li>
                     @endcan
 
@@ -675,7 +675,7 @@
                         <li
                             class="{{ areActiveRoutes(['admin.orderSettings', 'admin.timeslot.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.orderSettings') }}"
-                                class="{{ areActiveRoutes(['admin.generalSettings']) }}">{{ localize('Order Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.generalSettings']) }}">{{ localize('Paramètres de commande') }}</a>
                         </li>
                     @endcan
 
@@ -687,28 +687,28 @@
                     @can('smtp_settings')
                         <li class="{{ areActiveRoutes(['admin.smtpSettings.index'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.smtpSettings.index') }}"
-                                class="{{ areActiveRoutes(['admin.smtpSettings.index']) }}">{{ localize('SMTP Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.smtpSettings.index']) }}">{{ localize('Paramètres SMTP') }}</a>
                         </li>
                     @endcan
 
                     @can('general_settings')
                         <li class="{{ areActiveRoutes(['admin.generalSettings'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.generalSettings') }}"
-                                class="{{ areActiveRoutes(['admin.generalSettings']) }}">{{ localize('General Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.generalSettings']) }}">{{ localize('Paramètres généraux') }}</a>
                         </li>
                     @endcan
 
                     @can('payment_settings')
                         <li class="{{ areActiveRoutes(['admin.settings.paymentMethods'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.settings.paymentMethods') }}"
-                                class="{{ areActiveRoutes(['admin.settings.paymentMethods']) }}">{{ localize('Payment Methods') }}</a>
+                                class="{{ areActiveRoutes(['admin.settings.paymentMethods']) }}">{{ localize('Méthodes de paiement') }}</a>
                         </li>
                     @endcan
 
                     @can('social_login_settings')
                         <li class="{{ areActiveRoutes(['admin.settings.socialLogin'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.settings.socialLogin') }}"
-                                class="{{ areActiveRoutes(['admin.settings.socialLogin']) }}">{{ localize('Social Media Login') }}</a>
+                                class="{{ areActiveRoutes(['admin.settings.socialLogin']) }}">{{ localize('Connexion via les réseaux sociaux') }}</a>
                         </li>
                     @endcan
 
@@ -719,7 +719,7 @@
                                 'tt-menu-item-active',
                             ) }}">
                             <a href="{{ route('admin.languages.index') }}"
-                                class="{{ areActiveRoutes(['admin.languages.index', 'admin.languages.edit', 'admin.languages.localizations']) }}">{{ localize('Multilingual Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.languages.index', 'admin.languages.edit', 'admin.languages.localizations']) }}">{{ localize('Paramètres multilingues') }}</a>
                         </li>
                     @endcan
 
@@ -730,7 +730,7 @@
                                 'tt-menu-item-active',
                             ) }}">
                             <a href="{{ route('admin.currencies.index') }}"
-                                class="{{ areActiveRoutes(['admin.currencies.index', 'admin.currencies.edit', 'admin.currencies.localizations']) }}">{{ localize('Multi Currency Settings') }}</a>
+                                class="{{ areActiveRoutes(['admin.currencies.index', 'admin.currencies.edit', 'admin.currencies.localizations']) }}">{{ localize('Paramètres de devises multiples') }}</a>
                         </li>
                     @endcan
                 </ul>
