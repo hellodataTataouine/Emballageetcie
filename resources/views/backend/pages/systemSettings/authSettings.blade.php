@@ -55,7 +55,7 @@
                                         name="registration_verification_with" data-toggle="select2">
                                         <option value="disable"
                                             {{ getSetting('registration_verification_with') == 'disable' ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                         <option value="email"
                                             {{ getSetting('registration_verification_with') == 'email' ? 'selected' : '' }}>
                                             {{ localize('Email Verification') }}</option>
@@ -99,9 +99,9 @@
                                     <select id="enable_recaptcha" class="form-control text-uppercase select2"
                                         name="enable_recaptcha" data-toggle="select2">
                                         <option value="1" {{ getSetting('enable_recaptcha') == 1 ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0" {{ getSetting('enable_recaptcha') == 0 ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
 
@@ -111,7 +111,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>

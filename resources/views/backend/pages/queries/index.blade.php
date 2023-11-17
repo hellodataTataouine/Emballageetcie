@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Queries') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Requêtes') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Queries') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Requêtes') }}</h2>
                             </div>
                             <div class="tt-action">
                                 <button type="button" class="tt-remove btn btn-soft-danger d-flex align-items-center"
@@ -20,7 +20,7 @@
                                     data-bs-title="{{ localize('Remove all data') }}"
                                     data-href="{{ route('admin.queries.deleteAll') }}" onclick="confirmAllDelete(this)"><i
                                         data-feather="trash-2" class="icon-12 btn-icon"></i>
-                                    <span class="ms-1">{{ localize('Delete All') }}</span></button>
+                                    <span class="ms-1">{{ localize('Supprimer Tous') }}</span></button>
                             </div>
                         </div>
                     </div>
@@ -35,9 +35,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Email') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Phone') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Téléphone') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Issue') }}</th>
                                     <th data-breakpoints="xs sm md lg xl">{{ localize('Message') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
@@ -83,19 +83,19 @@
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.queries.markRead', ['id' => $message->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                         <i data-feather="check"
-                                                            class="me-2"></i>{{ $message->is_seen == 0 ? localize('Mark As Read') : localize('Mark As Unread') }}
+                                                            class="me-2"></i>{{ $message->is_seen == 0 ? localize('Marquer comme lu') : localize('Marquer comme non lu') }}
                                                     </a>
 
                                                     <a class="dropdown-item" href="mailto:{{ $message->email }}">
                                                         <i data-feather="message-circle"
-                                                            class="me-2"></i>{{ localize('Reply in Email') }}
+                                                            class="me-2"></i>{{ localize('Répondre par e-mail') }}
                                                     </a>
 
                                                     <a href="#" class="dropdown-item confirm-delete"
                                                         data-href="{{ route('admin.queries.delete', [$message->id, 'clear']) }}"
-                                                        title="{{ localize('Delete') }}">
+                                                        title="{{ localize('Supprimer') }}">
                                                         <i data-feather="trash-2" class="me-2"></i>
-                                                        {{ localize('Delete') }}
+                                                        {{ localize('Supprimer') }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -106,9 +106,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $messages->firstItem() }}-{{ $messages->lastItem() }} {{ localize('of') }}
-                                {{ $messages->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $messages->firstItem() }}-{{ $messages->lastItem() }} {{ localize('sur') }} 
+                                {{ $messages->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $messages->appends(request()->input())->links() }}
                             </nav>
@@ -139,7 +139,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
 
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');

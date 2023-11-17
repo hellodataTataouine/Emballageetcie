@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Sales Report') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Rapport des ventes de produits') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Product Sales Report') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Rapport des ventes de produits') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                                 @endisset>
@@ -47,13 +47,13 @@
                                                     @isset($order)
                                                          @if ($order == 'DESC') selected @endif
                                                         @endisset>
-                                                    {{ localize('High ⟶ Low') }}</option>
+                                                    {{ localize('Élevé  ⟶ Bas') }}</option>
 
                                                 <option value="ASC"
                                                     @isset($order)
                                                          @if ($order == 'ASC') selected @endif
                                                         @endisset>
-                                                    {{ localize('Low ⟶ High') }}</option>
+                                                    {{ localize('Bas ⟶ Élevé') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-primary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -73,8 +73,8 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('Product Name') }}</th>
-                                    <th class="text-end">{{ localize('Total Sales') }}</th>
+                                    <th>{{ localize('Nom du produit') }}</th>
+                                    <th class="text-end">{{ localize('Ventes totales ') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,9 +104,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('of') }}
-                                {{ $products->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }} 
+                                {{ $products->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $products->appends(request()->input())->links() }}
                             </nav>

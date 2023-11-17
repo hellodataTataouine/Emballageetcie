@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Update Time Slot') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour Time Slot') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Time Slot') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Time Slot') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                 </ul>
                             </div>

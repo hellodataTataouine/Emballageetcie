@@ -38,7 +38,7 @@
                                         $footer_categories = getSetting('footer_categories') != null ? json_decode(getSetting('footer_categories')) : [];
                                     @endphp
                                     <select class="form-control select2" name="footer_categories[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Select categories') }}"
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner categories') }}"
                                         multiple>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -55,7 +55,7 @@
                                     @endphp
                                     <input type="hidden" name="types[]" value="quick_links">
                                     <select class="form-control select2" name="quick_links[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Select quick link pages') }}"
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner quick link pages') }}"
                                         multiple>
                                         @foreach ($pages as $page)
                                             <option value="{{ $page->id }}"
@@ -84,7 +84,7 @@
                                     <label class="form-label">{{ localize('Footer Logo') }}</label>
                                     <input type="hidden" name="types[]" value="footer_logo">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Footer Logo') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Footer Logo') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -105,7 +105,7 @@
                                     <label class="form-label">{{ localize('Accepted Payment') }}</label>
                                     <input type="hidden" name="types[]" value="accepted_payment_banner">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Accepted Payment Banner') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Accepted Payment Banner') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -127,7 +127,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                             </button>
                         </div>
                     </form>

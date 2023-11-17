@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Update Language') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour Language') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Language') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Language') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -29,12 +29,12 @@
                         <!--language info start-->
                         <div class="card mb-4" id="section-2">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('Language Name') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type language name') }}" class="form-control" required
+                                        placeholder="{{ localize('Saisir language name') }}" class="form-control" required
                                         value="{{ $language->name }}">
                                 </div>
 
@@ -66,7 +66,7 @@
                                     <select id="is_rtl" class="form-control select2" name="is_rtl"
                                         data-toggle="select2">
                                         <option value="0" @if ($language->is_rtl == 0) selected @endif>
-                                            {{ localize('Disable') }}
+                                            {{ localize('Désactivé') }}
                                         </option>
                                         <option value="1" @if ($language->is_rtl == 1) selected @endif>
                                             {{ localize('Active') }}
@@ -82,7 +82,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                 </ul>
                             </div>

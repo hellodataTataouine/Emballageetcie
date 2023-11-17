@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Products Listing') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Liste des produits') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -32,10 +32,10 @@
                                     @php
                                         $product_listing_categories = getSetting('product_listing_categories') != null ? json_decode(getSetting('product_listing_categories')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Categories') }}</label>
+                                    <label class="form-label">{{ localize('Catégories') }}</label>
                                     <input type="hidden" name="types[]" value="product_listing_categories">
                                     <select class="select2 form-control product_listing_categories" multiple="multiple"
-                                        data-placeholder="{{ localize('Select categories') }}"
+                                        data-placeholder="{{ localize('Sélectionner categories') }}"
                                         name="product_listing_categories[]" required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -53,7 +53,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Product Page Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page produit') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.products.inc.rightSidebar')

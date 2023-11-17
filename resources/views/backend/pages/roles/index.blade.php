@@ -16,7 +16,7 @@
                         </div>
                         <div class="tt-action">
                             @can('add_roles_and_permissions')
-                            <a href="{{ route('admin.roles.create') }}" class="btn btn-primary"><i data-feather="plus"></i> {{ localize('Add Role') }}</a>
+                            <a href="{{ route('admin.roles.create') }}" class="btn btn-primary"><i data-feather="plus"></i> {{ localize('Ajouter Role') }}</a>
                             @endcan
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                     <div class="tt-search-box">
                                         <div class="input-group">
                                             <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i data-feather="search"></i></span>
-                                            <input class="form-control rounded-start w-100" type="text" id="search" name="search" placeholder="{{ localize('Search') }}" @isset($searchKey) value="{{ $searchKey }}" @endisset>
+                                            <input class="form-control rounded-start w-100" type="text" id="search" name="search" placeholder="{{ localize('Recherche') }}" @isset($searchKey) value="{{ $searchKey }}" @endisset>
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-secondary">
                                         <i data-feather="search" width="18"></i>
-                                        {{ localize('Search') }}
+                                        {{ localize('Recherche') }}
                                     </button>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                <th>{{ localize('Name') }}</th>
+                                <th>{{ localize('Nom') }}</th>
                                 <th>{{ localize('Created By') }}</th>
                                 <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                 </th>
@@ -88,14 +88,14 @@
 
                                             @can('edit_roles_and_permissions')
                                             <a class="dropdown-item" href="{{ route('admin.roles.edit', ['id' => $role->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                             </a>
                                             @endcan
 
                                             @can('delete_roles_and_permissions')
-                                            <a href="#" class="dropdown-item confirm-delete" data-href="{{ route('admin.roles.delete', $role->id) }}" title="{{ localize('Delete') }}">
+                                            <a href="#" class="dropdown-item confirm-delete" data-href="{{ route('admin.roles.delete', $role->id) }}" title="{{ localize('Supprimer') }}">
                                                 <i data-feather="trash-2" class="me-2"></i>
-                                                {{ localize('Delete') }}
+                                                {{ localize('Supprimer') }}
                                             </a>
                                             @endcan
                                         </div>
@@ -108,9 +108,9 @@
                     </table>
                     <!--pagination start-->
                     <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                        <span>{{ localize('Showing') }}
-                            {{ $roles->firstItem() }}-{{ $roles->lastItem() }} {{ localize('of') }}
-                            {{ $roles->total() }} {{ localize('results') }}</span>
+                        <span>{{ localize('Affichage') }} 
+                            {{ $roles->firstItem() }}-{{ $roles->lastItem() }} {{ localize('sur') }} 
+                            {{ $roles->total() }} {{ localize('résultats') }}  </span>
                         <nav>
                             {{ $roles->appends(request()->input())->links() }}
                         </nav>

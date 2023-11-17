@@ -29,7 +29,7 @@
                         @csrf
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
 
                                 <div class="mb-4">
@@ -50,7 +50,7 @@
                                         <input type="hidden" name="types[]" value="MAIL_HOST">
                                         <label for="MAIL_HOST" class="form-label">{{ localize('Mail Host') }}</label>
                                         <input type="text" name="MAIL_HOST" id="MAIL_HOST" class="form-control"
-                                            placeholder="{{ localize('Type mail Host') }}" required
+                                            placeholder="{{ localize('Saisir mail Host') }}" required
                                             value="{{ env('MAIL_HOST') }}">
                                     </div>
 
@@ -58,7 +58,7 @@
                                         <input type="hidden" name="types[]" value="MAIL_PORT">
                                         <label for="MAIL_PORT" class="form-label">{{ localize('Mail Port') }}</label>
                                         <input type="text" name="MAIL_PORT" id="MAIL_PORT" class="form-control"
-                                            placeholder="{{ localize('Type mail port') }}" required
+                                            placeholder="{{ localize('Saisir mail port') }}" required
                                             value="{{ env('MAIL_PORT') }}">
                                     </div>
 
@@ -67,7 +67,7 @@
                                         <label for="MAIL_USERNAME"
                                             class="form-label">{{ localize('Mail Username') }}</label>
                                         <input type="text" name="MAIL_USERNAME" id="MAIL_USERNAME" class="form-control"
-                                            placeholder="{{ localize('Type mail username') }}" required
+                                            placeholder="{{ localize('Saisir mail username') }}" required
                                             value="{{ env('MAIL_USERNAME') }}">
                                     </div>
 
@@ -76,7 +76,7 @@
                                         <label for="MAIL_PASSWORD"
                                             class="form-label">{{ localize('Mail Password') }}</label>
                                         <input type="text" name="MAIL_PASSWORD" id="MAIL_PASSWORD" class="form-control"
-                                            placeholder="{{ localize('Type mail password') }}" required
+                                            placeholder="{{ localize('Saisir mail password') }}" required
                                             value="{{ env('MAIL_PASSWORD') }}">
                                     </div>
 
@@ -85,7 +85,7 @@
                                         <label for="MAIL_ENCRYPTION"
                                             class="form-label">{{ localize('Mail Encryption') }}</label>
                                         <input type="text" name="MAIL_ENCRYPTION" id="MAIL_ENCRYPTION"
-                                            class="form-control" placeholder="{{ localize('Type mail encryption') }}"
+                                            class="form-control" placeholder="{{ localize('Saisir mail encryption') }}"
                                             required value="{{ env('MAIL_ENCRYPTION') }}">
                                     </div>
 
@@ -94,7 +94,7 @@
                                         <label for="MAIL_FROM_ADDRESS"
                                             class="form-label">{{ localize('Mail From Address') }}</label>
                                         <input type="text" name="MAIL_FROM_ADDRESS" id="MAIL_FROM_ADDRESS"
-                                            class="form-control" placeholder="{{ localize('Type mail from address') }}"
+                                            class="form-control" placeholder="{{ localize('Saisir mail from address') }}"
                                             required value="{{ env('MAIL_FROM_ADDRESS') }}">
                                     </div>
 
@@ -103,7 +103,7 @@
                                         <label for="MAIL_FROM_NAME"
                                             class="form-label">{{ localize('Mail From Name') }}</label>
                                         <input type="text" name="MAIL_FROM_NAME" id="MAIL_FROM_NAME"
-                                            class="form-control" placeholder="{{ localize('Type mail from name') }}"
+                                            class="form-control" placeholder="{{ localize('Saisir mail from name') }}"
                                             required value="{{ env('MAIL_FROM_NAME') }}">
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
 
                         <div class="mb-4">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>

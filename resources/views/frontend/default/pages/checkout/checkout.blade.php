@@ -34,6 +34,7 @@
                             <!-- shipping address -->
                             <div class="d-flex justify-content-between">
                                 <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
+                                <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
                                 <a href="javascript:void(0);" onclick="addNewAddress()" class="fw-semibold"><i
                                         class="fas fa-plus me-1"></i> {{ localize('Ajouter une adresse') }}</a>
                             </div>
@@ -78,6 +79,7 @@
 
                             <!-- billing address -->
                             @if (count($addresses) > 0)
+                                <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <div class="row g-4">
                                     @foreach ($addresses as $address)
@@ -189,6 +191,7 @@
                                 <div class="row g-4">
                                     <div class="col-sm-6">
                                         <div class="label-input-field">
+                                            <label>{{ localize('Téléphone') }}</label>
                                             <label>{{ localize('Téléphone') }}</label>
                                             <input type="text" name="phone"
                                                 placeholder="{{ localize('Numéro de téléphone') }}" value="{{ $user->phone }}"

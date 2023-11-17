@@ -2,7 +2,7 @@
 
 
 @section('title')
-    {{ localize('Update Unit') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mise à jour de l\'unité') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -15,21 +15,11 @@
                             <div class="row g-3 align-items-center">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Update Unit') }} <sup
-                                                class="badge bg-soft-warning px-2">{{ $lang_key }}</sup></h2>
+                                        <h2 class="h5 mb-0">{{ localize('Mise à jour de l\'unité') }} </h2>
                                     </div>
                                 </div>
                                 <div class="col-4 col-md-2">
-                                    <select id="language" class="w-100 form-control text-capitalize country-flag-select"
-                                        data-toggle="select2" onchange="localizeData(this.value)">
-                                        @foreach (\App\Models\Language::all() as $key => $language)
-                                            <option value="{{ $language->code }}"
-                                                {{ $lang_key == $language->code ? 'selected' : '' }}
-                                                data-flag="{{ staticAsset('backend/assets/img/flags/' . $language->flag . '.png') }}">
-                                                {{ $language->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -48,20 +38,20 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Unit Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom de l\'unité') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type unit name') }}" class="form-control" required
+                                        placeholder="{{ localize('Tapez le nom de l\'unité') }}" class="form-control" required
                                         value="{{ $unit->collectLocalization('name', $lang_key) }}">
                                 </div>
 
                                 @if (env('DEFAULT_LANGUAGE') == $lang_key)
                                     <div class="mb-4">
-                                        <label for="slug" class="form-label">{{ localize('Unit Slug') }}</label>
+                                        <label for="slug" class="form-label">{{ localize('Slug de l\'unité') }}</label>
                                         <input type="text" name="slug" id="slug"
-                                            placeholder="{{ localize('Type unit slug') }}" class="form-control" required
+                                            placeholder="{{ localize('Tapez le slug de l\'unité') }}" class="form-control" required
                                             value="{{ $unit->slug }}">
                                     </div>
                                 @endif
@@ -74,7 +64,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications ') }}
                                     </button>
                                 </div>
                             </div>
@@ -88,11 +78,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Unit Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations sur l\'unité') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -20,7 +20,7 @@
                     <button type="button" class="btn btn-secondary cancel-code-btn"
                         data-bs-dismiss="modal">{{ localize('Cancel') }}</button>
                     <button type="submit"
-                        class="btn btn-primary add-item-by-code-btn">{{ localize('Add This Item') }}</button>
+                        class="btn btn-primary add-item-by-code-btn">{{ localize('Ajouter This Item') }}</button>
                 </div>
             </form>
         </div>

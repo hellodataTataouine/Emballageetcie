@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -30,18 +30,18 @@
 
                                 <div class="mb-3">
                                     <label for="about_intro_sub_title"
-                                        class="form-label">{{ localize('Sub Title') }}</label>
+                                        class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_sub_title">
                                     <input type="text" name="about_intro_sub_title" id="about_intro_sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
                                         value="{{ getSetting('about_intro_sub_title') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="about_intro_title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="about_intro_title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_title">
                                     <input type="text" name="about_intro_title" id="about_intro_title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ getSetting('about_intro_title') }}">
                                 </div>
 
@@ -49,7 +49,7 @@
                                     <label for="about_intro_text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_text">
                                     <input type="text" name="about_intro_text" id="about_intro_text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
                                         value="{{ getSetting('about_intro_text') }}">
                                 </div>
 
@@ -75,7 +75,7 @@
                                     <label for="about_intro_quote_by" class="form-label">{{ localize('Quote By') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_quote_by">
                                     <input type="text" name="about_intro_quote_by" id="text"
-                                        placeholder="{{ localize('Type name of the user') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir name of the user') }}" class="form-control"
                                         value="{{ getSetting('about_intro_quote_by') }}">
                                 </div>
 
@@ -84,7 +84,7 @@
                                     <label class="form-label">{{ localize('Image') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_image">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Banner Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -108,7 +108,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>

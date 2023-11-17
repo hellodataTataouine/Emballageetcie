@@ -11,7 +11,7 @@
         {{-- uploader --}}
         <div class="col-12 col-lg-6 order-first order-md-last mb-2 mb-md-0 ps-md-3">
             @can('add_media')
-                <h5>{{ localize('Add files here') }}</h5>
+                <h5>{{ localize('Ajouter files here') }}</h5>
                 <div class="uppy-drag-drop-area"></div>
             @endcan
         </div>
@@ -34,14 +34,14 @@
                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                         data-feather="search"></i></span>
                                 <input class="form-control rounded-start w-100" type="text" id="search"
-                                    name="media-search" placeholder="{{ localize('Search by name') }}">
+                                    name="media-search" placeholder="{{ localize('Recherche by name') }}">
                             </div>
                         </div>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-secondary">
                             <i data-feather="search" width="18"></i>
-                            {{ localize('Search') }}
+                            {{ localize('Recherche') }}
                         </button>
                     </div>
                 </div>

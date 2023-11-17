@@ -29,12 +29,12 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('User') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Order Code') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Product') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Amount') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Payment') }}</th>
-                                    <th data-breakpoints="xs sm md lg xl">{{ localize('Reason') }}</th>
+                                    <th>{{ localize('Utilisateur') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Code Commande') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Produit') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Montant ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Paiement  ') }}</th>
+                                    <th data-breakpoints="xs sm md lg xl">{{ localize('Raison') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
@@ -108,14 +108,14 @@
                                                     <a class="dropdown-item confirm-approval" href="#"
                                                         data-href="{{ route('admin.refund.approve', $refundRequest->id) }}">
                                                         <i data-feather="check-circle"
-                                                            class="me-2"></i>{{ localize('Approve') }}
+                                                            class="me-2"></i>{{ localize('Approuver') }}
                                                     </a>
 
                                                     <a href="#" class="dropdown-item confirm-rejection"
                                                         data-href="{{ route('admin.refund.reject', $refundRequest->id) }}"
-                                                        title="{{ localize('Reject') }}">
+                                                        title="{{ localize('Rejeter') }}">
                                                         <i data-feather="x-octagon" class="me-2"></i>
-                                                        {{ localize('Reject') }}
+                                                        {{ localize('Rejeter') }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -127,9 +127,9 @@
 
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $refundRequests->firstItem() }}-{{ $refundRequests->lastItem() }} {{ localize('of') }}
-                                {{ $refundRequests->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $refundRequests->firstItem() }}-{{ $refundRequests->lastItem() }} {{ localize('sur') }} 
+                                {{ $refundRequests->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $refundRequests->appends(request()->input())->links() }}
                             </nav>

@@ -24,7 +24,7 @@
                                 <div class="col-auto">
                                     @can('add_shipping_cities')
                                         <a href="{{ route('admin.cities.create') }}" class="btn btn-primary"><i
-                                                data-feather="plus"></i>{{ localize('Add City') }}</a>
+                                                data-feather="plus"></i>{{ localize('Ajouter City') }}</a>
                                     @endcan
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2">
                                                     <i data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                 value="{{ $searchKey }}"
                             @endisset>
@@ -56,7 +56,7 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchState">
-                                                <option value="">{{ localize('Select an State') }}</option>
+                                                <option value="">{{ localize('Sélectionner an State') }}</option>
                                                 @foreach (\App\Models\State::where('is_active', 1)->get() as $state)
                                                     <option value="{{ $state->id }}"
                                                         @if ($searchState == $state->id) selected @endif>
@@ -69,7 +69,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th>{{ localize('State') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
@@ -125,7 +125,7 @@
                                                     @can('edit_shipping_cities')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.cities.edit', ['id' => $city->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -137,10 +137,10 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
+                            <span>{{ localize('Affichage') }} 
                                 {{ $cities->firstItem() }}-{{ $cities->lastItem() }}
-                                {{ localize('of') }}
-                                {{ $cities->total() }} {{ localize('results') }}</span>
+                                {{ localize('sur') }} 
+                                {{ $cities->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $cities->appends(request()->input())->links() }}
                             </nav>
@@ -171,7 +171,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }

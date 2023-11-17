@@ -37,7 +37,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                                 @endisset>
@@ -47,7 +47,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                            <th class="all">{{ localize('Name') }}</th>
+                                            <th class="all">{{ localize('Nom') }}</th>
                                             @if ($variation->id == 2)
                                                 <th class="all">{{ localize('Code') }}</th>
                                             @endif
@@ -108,7 +108,7 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.variationValues.edit', ['id' => $variationValue->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -120,10 +120,10 @@
                                 </table>
                                 <!--pagination start-->
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <span>{{ localize('Showing') }}
+                                    <span>{{ localize('Affichage') }} 
                                         {{ $variationValues->firstItem() }}-{{ $variationValues->lastItem() }}
-                                        {{ localize('of') }}
-                                        {{ $variationValues->total() }} {{ localize('results') }}</span>
+                                        {{ localize('sur') }} 
+                                        {{ $variationValues->total() }} {{ localize('résultats') }}  </span>
                                     <nav>
                                         {{ $variationValues->appends(request()->input())->links() }}
                                     </nav>
@@ -141,12 +141,12 @@
                             <!--variation value info start-->
                             <div class="card mb-4" id="section-2">
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Add New Variation Value') }}</h5>
+                                    <h5 class="mb-4">{{ localize('Ajouter Nouveau Variation Value') }}</h5>
 
                                     <div class="mb-4">
                                         <label for="name" class="form-label">{{ localize('Variation Value Name') }}</label>
                                         <input class="form-control" type="text" id="name" name="name"
-                                            placeholder="{{ localize('Type variation value name') }}" required>
+                                            placeholder="{{ localize('Saisir variation value name') }}" required>
                                     </div>
 
                                     @if ($variation->id == 2)
@@ -164,7 +164,7 @@
                                 <div class="col-12">
                                     <div class="mb-4">
                                         <button class="btn btn-primary" type="submit">
-                                            <i data-feather="save" class="me-1"></i> {{ localize('Save Value') }}
+                                            <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Value') }}
                                         </button>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@
 
                                     @can('add_variation_values')
                                         <li>
-                                            <a href="#section-2">{{ localize('Add New Variation Value') }}</a>
+                                            <a href="#section-2">{{ localize('Ajouter Nouveau Variation Value') }}</a>
                                         </li>
                                     @endcan
                                 </ul>
@@ -217,7 +217,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }

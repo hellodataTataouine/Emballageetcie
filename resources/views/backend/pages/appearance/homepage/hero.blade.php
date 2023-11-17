@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize(' Configuration de la page d\'accueil') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Hero Section Configuration') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configuration de la section Hero') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                             <th>{{ localize('Image') }}</th>
-                                            <th>{{ localize('Sub Title') }}</th>
-                                            <th data-breakpoints="xs sm">{{ localize('Title') }}</th>
+                                            <th>{{ localize('Sous-titre') }}</th>
+                                            <th data-breakpoints="xs sm">{{ localize('Titre') }}</th>
                                             <th data-breakpoints="xs sm md lg xl">{{ localize('Text') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">
                                                 {{ localize('Action') }}
@@ -75,14 +75,14 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('admin.appearance.homepage.editHero', ['id' => $slider->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                 <i data-feather="edit-3"
-                                                                    class="me-2"></i>{{ localize('Edit') }}
+                                                                    class="me-2"></i>{{ localize('Modifier') }}
                                                             </a>
 
                                                             <a href="#" class="dropdown-item confirm-delete"
                                                                 data-href="{{ route('admin.appearance.homepage.deleteHero', $slider->id) }}"
-                                                                title="{{ localize('Delete') }}">
+                                                                title="{{ localize('Supprimer') }}">
                                                                 <i data-feather="trash-2" class="me-2"></i>
-                                                                {{ localize('Delete') }}
+                                                                {{ localize('Supprimer') }}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -101,29 +101,29 @@
                         <!--slider info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Add New Slider') }}</h5>
+                                <h5 class="mb-4">{{ localize('Ajouter un Nouveau Slider') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="sub_title" class="form-label">{{ localize('Sub Title') }}</label>
+                                    <label for="sub_title" class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="text" name="sub_title" id="sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control" required>
+                                        placeholder="{{ localize('Saisir Sous-titre') }}" class="form-control" required>
                                 </div>
 
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control" required>
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="text" name="text" id="text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control" required>
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="link" class="form-label">{{ localize('Link') }}</label>
+                                    <label for="link" class="form-label">{{ localize('Lien') }}</label>
                                     <input type="url" name="link" id="link"
                                         placeholder="{{ env('APP_URL') }}/example" class="form-control">
                                 </div>
@@ -131,7 +131,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Slider Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Slider Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Slider Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -155,7 +155,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Slider') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Slider') }}
                                     </button>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

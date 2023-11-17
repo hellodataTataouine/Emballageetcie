@@ -39,7 +39,7 @@
 
                                     <div class="input-group mb-3">
                                         <input type="number" id="affiliate_commission" name="affiliate_commission"
-                                            class="form-control" placeholder="{{ localize('Type affiliate commission %') }}"
+                                            class="form-control" placeholder="{{ localize('Saisir affiliate commission %') }}"
                                             step="0.001" value="{{ getSetting('affiliate_commission') }}" min="0"
                                             max="100">
                                         <span class="input-group-text">%</span>
@@ -56,7 +56,7 @@
                                     <div class="input-group mb-3">
                                         <input type="number" id="minimum_withdrawal_amount"
                                             name="minimum_withdrawal_amount" class="form-control"
-                                            placeholder="{{ localize('Type minimum withdrawal amount') }}" step="0.001"
+                                            placeholder="{{ localize('Saisir minimum withdrawal amount') }}" step="0.001"
                                             value="{{ getSetting('minimum_withdrawal_amount') }}" min="0">
                                         <span class="input-group-text">$</span>
                                     </div>
@@ -72,7 +72,7 @@
                                     <input type="hidden" name="types[]" value="affiliate_payout_payment_methods">
                                     <select class="form-select select2" id="affiliate_payout_payment_methods"
                                         name="affiliate_payout_payment_methods[]"
-                                        data-placeholder="{{ localize('Select payout payment methods') }}" multiple>
+                                        data-placeholder="{{ localize('Sélectionner payout payment methods') }}" multiple>
                                         <option value="bank_payment"@if (in_array('bank_payment', $affiliatePaymentMethods)) selected @endif>
                                             {{ localize('Bank Payment') }}
                                         </option>
@@ -108,10 +108,10 @@
                                     <select class="form-select select2" id="enable_affiliate_system"
                                         name="enable_affiliate_system" required>
                                         <option value="1" @if (getSetting('enable_affiliate_system') == '1') selected @endif>
-                                            {{ localize('Enable') }}
+                                            {{ localize('Activé') }}
                                         </option>
                                         <option value="0" @if (getSetting('enable_affiliate_system') == '0') selected @endif>
-                                            {{ localize('Disable') }}
+                                            {{ localize('Désactivé') }}
                                         </option>
                                     </select>
                                 </div>
@@ -122,7 +122,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>

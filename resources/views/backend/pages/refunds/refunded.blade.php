@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Approved Refunds') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Remboursements approuvés') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Approved Refunds') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Remboursements approuvés') }}</h2>
                             </div>
 
                         </div>
@@ -29,11 +29,11 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('User') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Order Code') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Product') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Amount') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Payment') }}</th>
+                                    <th>{{ localize('Utilisateur') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Code de commande') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Produit') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Montant ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Paiement  ') }}</th>
                                     <th data-breakpoints="xs sm md lg xl">{{ localize('Reason') }}</th>
                                 </tr>
                             </thead>
@@ -103,9 +103,9 @@
 
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $refundRequests->firstItem() }}-{{ $refundRequests->lastItem() }} {{ localize('of') }}
-                                {{ $refundRequests->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $refundRequests->firstItem() }}-{{ $refundRequests->lastItem() }} {{ localize('sur') }} 
+                                {{ $refundRequests->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $refundRequests->appends(request()->input())->links() }}
                             </nav>

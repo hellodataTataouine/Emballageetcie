@@ -44,17 +44,17 @@
                             <ol id="progress-bar">
 
                                 <li class="fs-xs tt-step @if ($order->delivery_status != orderCancelledStatus()) tt-step-done @endif">
-                                    {{ localize('Order Placed') }}</li>
+                                    {{ localize('Commande passée') }}</li>
                                 <li
                                     class="fs-xs tt-step @if ($order->delivery_status == orderProcessingStatus() || $order->delivery_status == orderDeliveredStatus()) tt-step-done  
 @elseif ($order->delivery_status == orderPendingStatus())
 active @endif">
-                                    {{ localize('Pending') }}</li>
+                                    {{ localize('En attente') }} </li>
                                 <li
                                     class="fs-xs tt-step @if ($order->delivery_status == orderDeliveredStatus()) tt-step-done  
                                     @elseif ($order->delivery_status == orderProcessingStatus())
                                     active @endif">
-                                    {{ localize('Processing') }}</li>
+                                    {{ localize('En cours') }} </li>
                                 <li class="fs-xs tt-step @if ($order->delivery_status == orderDeliveredStatus()) tt-step-done @endif">
                                     {{ localize('Delivered') }}</li>
                             </ol>

@@ -37,7 +37,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey)
                                     value="{{ $searchKey }}"
                                 @endisset>
@@ -47,7 +47,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">{{ localize('S/L') }}</th>
-                                            <th class="all">{{ localize('Name') }}</th>
+                                            <th class="all">{{ localize('Nom') }}</th>
                                             <th>{{ localize('Symbol') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('Code') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('Alignment') }}</th>
@@ -114,7 +114,7 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.currencies.edit', $currency->id) }}">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -133,25 +133,25 @@
                                 <!--currency info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Add New Currency') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Currency') }}</h5>
 
                                         <div class="mb-4">
                                             <label for="name" class="form-label">{{ localize('Currency Name') }}</label>
                                             <input type="text" name="name" id="name"
-                                                placeholder="{{ localize('Type currency name') }}" class="form-control"
+                                                placeholder="{{ localize('Saisir currency name') }}" class="form-control"
                                                 required>
                                         </div>
 
                                         <div class="mb-4">
                                             <label for="symbol" class="form-label">{{ localize('Currency Symbol') }}</label>
                                             <input type="text" name="symbol" id="symbol"
-                                                placeholder="{{ localize('Type symbol') }}" class="form-control" required>
+                                                placeholder="{{ localize('Saisir symbol') }}" class="form-control" required>
                                         </div>
 
                                         <div class="mb-4">
                                             <label for="code" class="form-label">{{ localize('Currency Code') }}</label>
                                             <input type="text" name="code" id="code"
-                                                placeholder="{{ localize('Type code') }}" class="form-control" required>
+                                                placeholder="{{ localize('Saisir code') }}" class="form-control" required>
                                         </div>
 
                                         <div class="mb-4">
@@ -184,7 +184,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Save Currency') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Currency') }}
                                             </button>
                                         </div>
                                     </div>
@@ -225,7 +225,7 @@
                                             name="no_of_decimals" data-toggle="select2">
                                             <option value="0"
                                                 {{ getSetting('no_of_decimals') == '0' ? 'selected' : '' }}>
-                                                {{ localize('Disable') }}</option>
+                                                {{ localize('Désactivé') }}</option>
                                             <option value="1"
                                                 {{ getSetting('no_of_decimals') == '1' ? 'selected' : '' }}>123.0
                                             </option>
@@ -261,7 +261,7 @@
                                     <div class="mb-4">
                                         <button class="btn btn-primary" type="submit">
                                             <i data-feather="save" class="me-1"></i>
-                                            {{ localize('Save Configurations') }}
+                                            {{ localize('Enregistrer Configurations') }}
                                         </button>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@
                                         <a href="#section-1" class="active">{{ localize('All Currencies') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-2">{{ localize('Add New Currency') }}</a>
+                                        <a href="#section-2">{{ localize('Ajouter Nouveau Currency') }}</a>
                                     </li>
                                     <li>
                                         <a href="#section-3">{{ localize('Currency Configurations') }}</a>
@@ -315,7 +315,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else if (data == 2) {
                         notifyMe('danger', '{{ localize('Default currency can not be disabled') }}');
                     } else {

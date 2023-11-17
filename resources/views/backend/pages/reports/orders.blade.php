@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Orders Report') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Rapport des commandes') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Orders Report') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Rapport des commandes') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                                             @endphp
 
                                             <input class="form-control date-range-picker date-range" type="text"
-                                                placeholder="{{ localize('Start date - End date') }}" name="date_range"
+                                                placeholder="{{ localize('Date Début - Date Fin') }}" name="date_range"
                                                 data-startdate="'{{ $start_date }}'" data-enddate="'{{ $end_date }}'">
                                         </div>
                                     </div>
@@ -46,43 +46,43 @@
                                     <div class="col-auto">
                                         <select class="form-select select2" name="payment_status"
                                             data-minimum-results-for-search="Infinity" id="payment_status">
-                                            <option value="">{{ localize('Payment Status') }}</option>
+                                            <option value="">{{ localize('Statut de paiement') }}</option>
                                             <option value="{{ paidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == paidPaymentStatus()) selected @endif>
-                                                {{ localize('Paid') }}</option>
+                                                {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Unpaid') }}</option>
+                                                {{ localize('Non payé') }}</option>
                                         </select>
                                     </div>
 
                                     <div class="col-auto">
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                                            <option value="">{{ localize('Delivery Status') }}</option>
+                                            <option value="">{{ localize('Statut de livraison') }}</option>
                                             <option value="order_placed" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
-                                                {{ localize('Order Placed') }}</option>
+                                                {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
-                                                {{ localize('Pending') }}
+                                                {{ localize('En attente') }} 
                                             <option value="processing" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
-                                                {{ localize('Processing') }}
+                                                {{ localize('En cours') }} 
                                             <option value="delivered" @if (isset($deliveryStatus) && $deliveryStatus == orderDeliveredStatus()) selected @endif>
-                                                {{ localize('Delivered') }}
+                                                {{ localize('Livré ') }} 
                                             <option value="cancelled" @if (isset($deliveryStatus) && $deliveryStatus == orderCancelledStatus()) selected @endif>
-                                                {{ localize('Cancelled') }}
+                                                {{ localize('Annulé') }} 
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                     <div class="col-auto flex-grow-1"></div>
                                     <div class="col-auto text-end">
                                         <span class="fs-sm">
-                                            {{ localize('Total Amount') }}
+                                            {{ localize('Montant total') }}
                                         </span>
                                         <div class="fw-bold text-accent">
                                             {{ formatPrice($totalAmount) }}
@@ -98,10 +98,10 @@
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
                                     <th>{{ localize('Placed On') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Items') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Payment Status') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Delivery Status') }}</th>
-                                    <th data-breakpoints="xs" class="text-end">{{ localize('Amount') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Articles ') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>
+                                    <th data-breakpoints="xs" class="text-end">{{ localize('Montant ') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,9 +162,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('of') }}
-                                {{ $orders->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('sur') }} 
+                                {{ $orders->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $orders->appends(request()->input())->links() }}
                             </nav>

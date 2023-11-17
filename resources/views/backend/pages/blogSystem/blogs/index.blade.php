@@ -17,7 +17,7 @@
                             <div class="tt-action">
                                 @can('add_blogs')
                                     <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Add Blog') }}</a>
+                                            data-feather="plus"></i> {{ localize('Ajouter Blog') }}</a>
                                 @endcan
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                             @endisset>
@@ -48,7 +48,7 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Select status') }}</option>
+                                                <option value="">{{ localize('Sélectionner status') }}</option>
                                                 <option value="1"
                                                     @isset($is_published)
                                                      @if ($is_published == 1) selected @endif
@@ -58,14 +58,14 @@
                                                     @isset($is_published)
                                                      @if ($is_published == 0) selected @endif
                                                     @endisset>
-                                                    {{ localize('Hidden') }}</option>
+                                                    {{ localize('Caché') }}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Title') }}</th>
+                                    <th>{{ localize('Titre') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Category') }}</th>
                                     <th data-breakpoints="xs sm md">{{ localize('Tags') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
@@ -142,21 +142,21 @@
                                                     @can('edit_blogs')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.blogs.edit', ['id' => $blog->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
 
                                                     <a class="dropdown-item"
                                                         href="{{ route('home.blogs.show', $blog->slug) }}" target="_blank">
-                                                        <i data-feather="eye" class="me-2"></i>{{ localize('View') }}
+                                                        <i data-feather="eye" class="me-2"></i>{{ localize('Afficher') }}
                                                     </a>
 
                                                     @can('delete_blogs')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.blogs.delete', $blog->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -168,9 +168,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} {{ localize('of') }}
-                                {{ $blogs->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} {{ localize('sur') }} 
+                                {{ $blogs->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $blogs->appends(request()->input())->links() }}
                             </nav>
@@ -200,7 +200,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }
@@ -220,7 +220,7 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else {
                         notifyMe('danger', '{{ localize('Something went wrong') }}');
                     }

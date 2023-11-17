@@ -88,7 +88,7 @@ class StatesController extends Controller
             $city->save();
         }
 
-        flash(localize('Status updated successfully'))->success();
+        flash(localize('Statut mis à jour avec succès'))->success();
         return 1;
     }
 }

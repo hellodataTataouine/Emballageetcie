@@ -56,9 +56,9 @@
                                     <select id="google_login" class="form-control select2" name="google_login"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('google_login') == '0' ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                         <option value="1" {{ getSetting('google_login') == '1' ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -92,9 +92,9 @@
                                     <select id="facebook_login" class="form-control select2" name="facebook_login"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('facebook_login') == '0' ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                         <option value="1" {{ getSetting('facebook_login') == '1' ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>

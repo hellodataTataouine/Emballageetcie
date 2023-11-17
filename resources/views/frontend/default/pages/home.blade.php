@@ -60,7 +60,7 @@
         // runs when the document is ready 
         $(document).ready(function() {
             @if (\App\Models\Location::where('is_published', 1)->count() > 1)
-                notifyMe('info', '{{ localize('Select your location if not selected') }}');
+                notifyMe('info', '{{ localize('Sélectionner your location if not selected') }}');
             @endif
         });
     </script>

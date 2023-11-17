@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('What Clients Say') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Ce que disent les clients') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                             <th>{{ localize('Image') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm md lg xl">{{ localize('Review') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">
                                                 {{ localize('Action') }}
@@ -72,14 +72,14 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('admin.appearance.homepage.editClientFeedback', ['id' => $singleFeedback->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                 <i data-feather="edit-3"
-                                                                    class="me-2"></i>{{ localize('Edit') }}
+                                                                    class="me-2"></i>{{ localize('Modifier') }}
                                                             </a>
 
                                                             <a href="#" class="dropdown-item confirm-delete"
                                                                 data-href="{{ route('admin.appearance.homepage.deleteClientFeedback', $singleFeedback->id) }}"
-                                                                title="{{ localize('Delete') }}">
+                                                                title="{{ localize('Supprimer') }}">
                                                                 <i data-feather="trash-2" class="me-2"></i>
-                                                                {{ localize('Delete') }}
+                                                                {{ localize('Supprimer') }}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -98,16 +98,16 @@
                         <!--slider info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Add New Feedback') }}</h5>
+                                <h5 class="mb-4">{{ localize('Ajouter Nouveau Feedback') }}</h5>
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">{{ localize('Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type reviewer name') }}" class="form-control" required>
+                                        placeholder="{{ localize('Saisir le nom de l\'évaluateur') }}" class="form-control" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Rating') }}</label>
+                                    <label class="form-label">{{ localize('Note') }}</label>
                                     <select class="select2 form-control" name="rating"
                                         data-minimum-results-for-search="Infinity">
                                         <option value="1">1</option>
@@ -120,15 +120,15 @@
 
 
                                 <div class="mb-3">
-                                    <label for="review" class="form-label">{{ localize('Review') }}</label>
-                                    <textarea name="review" id="review" placeholder="{{ localize('Type review') }}" class="form-control" required></textarea>
+                                    <label for="review" class="form-label">{{ localize('Avis') }}</label>
+                                    <textarea name="review" id="review" placeholder="{{ localize('Saisir l\'avis') }}" class="form-control" required></textarea>
                                 </div>
 
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Avatar Image') }}</label>
+                                    <label class="form-label">{{ localize('Image d\'avatar') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Avatar Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir l\'image d\'avatar') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -152,7 +152,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Feedback') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Feedback') }}
                                     </button>
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="site_address" class="form-label">{{ localize('Address') }}</label>
+                                    <label for="site_address" class="form-label">{{ localize('Adresse') }}</label>
                                     <input type="hidden" name="types[]" value="site_address">
                                     <input type="text" id="site_address" name="site_address" class="form-control"
                                         value="{{ getSetting('site_address') }}">
@@ -68,7 +68,7 @@
                                         class="form-label">{{ localize('Dashboard Logo') }}</label>
                                     <input type="hidden" name="types[]" value="admin_panel_logo">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Dashboard Logo') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Dashboard Logo') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -89,7 +89,7 @@
                                     <label for="favicon" class="form-label">{{ localize('Favicon') }}</label>
                                     <input type="hidden" name="types[]" value="favicon">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Favicon') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Favicon') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -122,10 +122,10 @@
                                         </option>
                                         <option value="1"
                                             {{ getSetting('enable_maintenance_mode') == '1' ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0"
                                             {{ getSetting('enable_maintenance_mode') == '0' ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                         class="form-label">{{ localize('Meta Title') }}</label>
                                     <input type="hidden" name="types[]" value="global_meta_title">
                                     <input type="text" name="global_meta_title" id="global_meta_title"
-                                        placeholder="{{ localize('Type meta title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir meta title') }}" class="form-control"
                                         value="{{ getSetting('global_meta_title') }}">
                                     <span class="fs-sm text-muted">
                                         {{ localize('Set a meta tag title. Recommended to be simple and unique.') }}
@@ -154,7 +154,7 @@
                                         class="form-label">{{ localize('Meta Description') }}</label>
                                     <input type="hidden" name="types[]" value="global_meta_description">
                                     <textarea class="form-control" name="global_meta_description" id="global_meta_description" rows="4"
-                                        placeholder="{{ localize('Type your meta description') }}">{{ getSetting('global_meta_description') }}</textarea>
+                                        placeholder="{{ localize('Saisir your meta description') }}">{{ getSetting('global_meta_description') }}</textarea>
                                 </div>
 
                                 <div class="mb-4">
@@ -169,7 +169,7 @@
                                     <label class="form-label">{{ localize('Meta Image') }}</label>
                                     <input type="hidden" name="types[]" value="global_meta_image">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Meta Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Meta Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -191,7 +191,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>

@@ -5,10 +5,10 @@
             <thead>
                 <tr>
                     <td width="40%" class="align-middle">
-                        <span>{{ localize('Product') }}</span>
+                        <span>{{ localize('Produit') }}</span>
                     </td>
                     <td data-breakpoints="xs sm md" width="10%" class="align-middle">
-                        <span>{{ localize('Base Price') }}</span>
+                        <span>{{ localize('Prix de base') }}</span>
                     </td>
                     <td data-breakpoints="xs sm md" class="align-middle">
                         <span>{{ localize('Discount') }}</span>

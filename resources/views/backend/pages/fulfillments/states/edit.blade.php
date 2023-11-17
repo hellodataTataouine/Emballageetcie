@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Update State') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour State') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update State') }} </h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour State') }} </h2>
                             </div>
                         </div>
                     </div>
@@ -30,12 +30,12 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('State Name') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type state name') }}" name="name" required
+                                        placeholder="{{ localize('Saisir state name') }}" name="name" required
                                         value="{{ $state->name }}">
                                 </div>
 
@@ -43,7 +43,7 @@
                                     <label for="country_id" class="form-label">{{ localize('Country') }}</label>
                                     <select class="form-control select2" name="country_id" class="w-100"
                                         data-toggle="select2" required>
-                                        <option value="">{{ localize('Select a country') }}</option>
+                                        <option value="">{{ localize('Sélectionner a country') }}</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"
                                                 {{ $state->country->id == $country->id ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -17,7 +17,11 @@
 
                 <div class="col-xl-9">
                     <div class="update-profile bg-white py-5 px-4">
+<<<<<<< HEAD
+                        <h6 class="mb-4">{{ localize('Mettre à jour Profile') }}</h6>
+=======
                         <h6 class="mb-4">{{ localize('Mettre à jour le profil') }}</h6>
+>>>>>>> 896ea115bc135163b1977ee3f1b1f40fdc6b7f9b
                         <form class="profile-form" action="{{ route('customers.updateProfile') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
@@ -52,7 +56,11 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
+                            <button type="submit" class="btn btn-primary mt-6">{{ localize('Mettre à jour Profile') }}</button>
+=======
                             <button type="submit" class="btn btn-primary mt-6">{{ localize('Mettre à jour le profil') }}</button>
+>>>>>>> 896ea115bc135163b1977ee3f1b1f40fdc6b7f9b
                         </form>
                     </div>
 

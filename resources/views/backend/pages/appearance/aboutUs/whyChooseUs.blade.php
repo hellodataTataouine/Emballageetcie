@@ -31,19 +31,19 @@
 
                                 <div class="mb-3">
                                     <label for="about_why_choose_sub_title"
-                                        class="form-label">{{ localize('Sub Title') }}</label>
+                                        class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_sub_title">
                                     <input type="text" name="about_why_choose_sub_title" id="about_why_choose_sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
                                         value="{{ getSetting('about_why_choose_sub_title') }}">
                                 </div>
 
 
                                 <div class="mb-3">
-                                    <label for="about_why_choose_title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="about_why_choose_title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_title">
                                     <input type="text" name="about_why_choose_title" id="about_why_choose_title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ getSetting('about_why_choose_title') }}">
                                 </div>
 
@@ -52,7 +52,7 @@
                                     <label for="about_why_choose_text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_text">
                                     <input type="text" name="about_why_choose_text" id="about_why_choose_text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
                                         value="{{ getSetting('about_why_choose_text') }}">
                                 </div>
 
@@ -60,7 +60,7 @@
                                     <label class="form-label">{{ localize('Image') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_banner">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Banner Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -86,7 +86,7 @@
                             <div class="col-12">
                                 <div class="mb-5">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                     <tr>
                                         <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                         <th>{{ localize('Icon') }}</th>
-                                        <th data-breakpoints="xs sm">{{ localize('Title') }}</th>
+                                        <th data-breakpoints="xs sm">{{ localize('Titre') }}</th>
                                         <th data-breakpoints="xs sm md lg">{{ localize('Text') }}</th>
                                         <th data-breakpoints="xs sm" class="text-end">
                                             {{ localize('Action') }}
@@ -144,14 +144,14 @@
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.appearance.about-us.editWhyChooseUs', ['id' => $each_why_choose_us->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                             <i data-feather="edit-3"
-                                                                class="me-2"></i>{{ localize('Edit') }}
+                                                                class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
 
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.appearance.about-us.deleteWhyChooseUs', $each_why_choose_us->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -172,23 +172,23 @@
                         <!--slider info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Add New Widget') }}</h5>
+                                <h5 class="mb-4">{{ localize('Ajouter Nouveau Widget') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control" required>
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="text" class="form-label">{{ localize('Text') }}</label>
-                                    <textarea name="text" id="text" placeholder="{{ localize('Type text') }}" class="form-control" required></textarea>
+                                    <textarea name="text" id="text" placeholder="{{ localize('Saisir text') }}" class="form-control" required></textarea>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Icon Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Icon Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Icon Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -212,7 +212,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Widget') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Widget') }}
                                     </button>
                                 </div>
                             </div>

@@ -46,7 +46,7 @@ class CountriesController extends Controller
             }
         }
 
-        flash(localize('Status updated successfully'))->success();
+        flash(localize('Statut mis à jour avec succès'))->success();
         return 1;
     }
 }

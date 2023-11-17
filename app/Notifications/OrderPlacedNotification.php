@@ -32,7 +32,7 @@ class OrderPlacedNotification extends Notification implements ShouldQueue
         return (new MailMessage)
             ->view('backend.pages.orders.invoice', ['order' => $this->order])
             ->from(env('MAIL_FROM_ADDRESS'))
-            ->subject(localize('Order Placed') . ' - ' . env('APP_NAME'));
+            ->subject(localize('Commande passée') . ' - ' . env('APP_NAME'));
     }
 
     public function toArray($notifiable)

@@ -109,7 +109,7 @@
                                     <label class="form-label">{{ localize('Navbar Logo') }}</label>
                                     <input type="hidden" name="types[]" value="navbar_logo">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Navbar Logo') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Navbar Logo') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -145,7 +145,7 @@
                                         $navbar_categories = getSetting('navbar_categories') != null ? json_decode(getSetting('navbar_categories')) : [];
                                     @endphp
                                     <select class="form-control select2" name="navbar_categories[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Select categories') }}"
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner categories') }}"
                                         multiple>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -211,7 +211,7 @@
                                         </div>'
                                         data-target=".header-menu-list">
                                         <i data-feather="plus" class="me-1"></i>
-                                        {{ localize('Add New') }}
+                                        {{ localize('Ajouter Nouveau') }}
                                     </button>
 
                                 </div>
@@ -236,7 +236,7 @@
                                     @endphp
                                     <input type="hidden" name="types[]" value="navbar_pages">
                                     <select class="form-control select2" name="navbar_pages[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Select pages') }}" multiple>
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner pages') }}" multiple>
                                         @foreach ($pages as $page)
                                             <option value="{{ $page->id }}"
                                                 @if (in_array($page->id, $navbar_pages)) selected @endif>
@@ -260,7 +260,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                             </button>
                         </div>
                     </form>

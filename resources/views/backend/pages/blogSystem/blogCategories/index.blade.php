@@ -36,7 +36,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey)
                                         value="{{ $searchKey }}"
                                     @endisset>
@@ -46,7 +46,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                             </th>
                                         </tr>
@@ -85,16 +85,16 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.blogCategories.edit', ['id' => $category->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
 
                                                             @can('delete_blog_categories')
                                                                 <a href="#" class="dropdown-item confirm-delete"
                                                                     data-href="{{ route('admin.blogCategories.delete', $category->id) }}"
-                                                                    title="{{ localize('Delete') }}">
+                                                                    title="{{ localize('Supprimer') }}">
                                                                     <i data-feather="trash-2" class="me-2"></i>
-                                                                    {{ localize('Delete') }}
+                                                                    {{ localize('Supprimer') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -123,12 +123,12 @@
                                 <!-- Category info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Add New Blog Category') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Blog Category') }}</h5>
 
                                         <div class="mb-4">
-                                            <label for="name" class="form-label">{{ localize('Category Name') }}</label>
+                                            <label for="name" class="form-label">{{ localize('Nom de la catégorie') }}</label>
                                             <input class="form-control" type="text" id="name" name="name"
-                                                placeholder="{{ localize('Type category name') }}" required>
+                                                placeholder="{{ localize('Saisir Nom de la catégorie') }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Save Category') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Category') }}
                                             </button>
                                         </div>
                                     </div>
@@ -160,7 +160,7 @@
                                     </li>
                                     @can('add_blog_categories')
                                         <li>
-                                            <a href="#section-2">{{ localize('Add New Category') }}</a>
+                                            <a href="#section-2">{{ localize('Ajouter Nouveau Category') }}</a>
                                         </li>
                                     @endcan
                                 </ul>

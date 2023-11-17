@@ -40,7 +40,7 @@
                                 @isset($searchKey)
                                     value="{{ $searchKey }}"
                                 @endisset
-                                placeholder="{{ localize('Search') }}...">
+                                placeholder="{{ localize('Recherche') }}...">
                         </div>
                     </form>
                 </div>

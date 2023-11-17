@@ -132,7 +132,7 @@ class CurrenciesController extends Controller
 
         $currency->is_active = $request->is_active;
         if ($currency->save()) {
-            flash(localize('Status updated successfully'))->success();
+            flash(localize('Statut mis à jour avec succès'))->success();
             return 1;
         }
         return 0;

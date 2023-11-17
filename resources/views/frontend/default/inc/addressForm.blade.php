@@ -110,7 +110,7 @@ France.') }}" name="address" required></textarea>
                          <h6>{{ localize('Want to delete this address?') }}</h6>
                      </div>
                      <div class="text-center">
-                         <a href="" class="btn btn-secondary delete-address-link">{{ localize('Delete') }}</a>
+                         <a href="" class="btn btn-secondary delete-address-link">{{ localize('Supprimer') }}</a>
                      </div>
                  </div>
              </div>

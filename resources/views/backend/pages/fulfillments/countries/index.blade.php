@@ -38,7 +38,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2">
                                                     <i data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                         value="{{ $searchKey }}"
                     @endisset>
@@ -49,7 +49,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th>{{ localize('Code') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Active') }}</th>
 
@@ -97,10 +97,10 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
+                            <span>{{ localize('Affichage') }} 
                                 {{ $countries->firstItem() }}-{{ $countries->lastItem() }}
-                                {{ localize('of') }}
-                                {{ $countries->total() }} {{ localize('results') }}</span>
+                                {{ localize('sur') }} 
+                                {{ $countries->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $countries->appends(request()->input())->links() }}
                             </nav>

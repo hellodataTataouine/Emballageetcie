@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Feature') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Feature') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -43,23 +43,23 @@
 
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ $feature->title }}" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="text" name="text" id="text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
                                         value="{{ $feature->text }}" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Icon Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Icon Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Icon Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -83,7 +83,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Update Feature') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Mettre à jour Feature') }}</a>
                                     </li>
                                 </ul>
                             </div>

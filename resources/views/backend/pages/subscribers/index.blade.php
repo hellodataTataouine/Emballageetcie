@@ -31,7 +31,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                             @endisset>
@@ -42,7 +42,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-primary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -82,9 +82,9 @@
                                                     @can('delete_subscribers')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.subscribers.delete', $subscriber->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -96,9 +96,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $subscribers->firstItem() }}-{{ $subscribers->lastItem() }} {{ localize('of') }}
-                                {{ $subscribers->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $subscribers->firstItem() }}-{{ $subscribers->lastItem() }} {{ localize('sur') }} 
+                                {{ $subscribers->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $subscribers->appends(request()->input())->links() }}
                             </nav>

@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Wallet Configurations') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configurations du portefeuille') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Wallet Configurations') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configurations du portefeuille') }}</h2>
                             </div>
 
                         </div>
@@ -30,16 +30,16 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-3">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-3">{{ localize('Informations de base') }}</h5>
                                 <div class="mb-3">
                                     <label for="enable_wallet_checkout"
-                                        class="form-label">{{ localize('Enable Wallet Checkout') }}</label>
+                                        class="form-label">{{ localize('Activer le paiement par portefeuille') }}</label>
                                     <input type="hidden" name="types[]" value="enable_wallet_checkout">
                                     <select class="select2 form-control" name="enable_wallet_checkout">
                                         <option value="1" @if (getSetting('enable_wallet_checkout') == 1) selected @endif>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0" @if (getSetting('enable_wallet_checkout') == 0) selected @endif>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Configurations') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configurations') }}
                                     </button>
                                 </div>
                             </div>
@@ -64,11 +64,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-3">{{ localize('Wallet Information') }}</h5>
+                            <h5 class="mb-3">{{ localize('Informations sur le portefeuille') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Wallet Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations sur le portefeuille') }}</a>
                                     </li>
                                 </ul>
                             </div>

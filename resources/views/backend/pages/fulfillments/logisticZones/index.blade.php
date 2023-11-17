@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Shipping Zones') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Zones d\'expédition') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -14,7 +14,7 @@
                             <div class="row justify-content-between align-items-center g-3">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Shipping Zones') }}</h2>
+                                        <h2 class="h5 mb-0">{{ localize('Zones d\'expédition') }}</h2>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -23,7 +23,7 @@
                                 @can('add_shipping_zones')
                                     <div class="col-auto">
                                         <a href="{{ route('admin.logisticZones.create') }}" class="btn btn-primary"><i
-                                                data-feather="plus"></i>{{ localize('Add Zone') }}</a>
+                                                data-feather="plus"></i>{{ localize('Ajouter une Zone') }}</a>
                                     </div>
                                 @endcan
                             </div>
@@ -44,7 +44,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2">
                                                     <i data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                     value="{{ $searchKey }}"
                                 @endisset>
@@ -56,7 +56,7 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchLogistic"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Select a Logistic') }}</option>
+                                                <option value="">{{ localize('Sélectionner un Logistic') }}</option>
                                                 @foreach (\App\Models\Logistic::where('is_published', 1)->get() as $logistic)
                                                     <option value="{{ $logistic->id }}"
                                                         @if ($searchLogistic == $logistic->id) selected @endif>
@@ -69,7 +69,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -80,11 +80,11 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                    <th width="10%">{{ localize('Name') }}</th>
-                                    <th width="15%">{{ localize('Logistic') }}</th>
+                                    <th width="10%">{{ localize('Nom') }}</th>
+                                    <th width="15%">{{ localize('Logistique') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Cities') }}</th>
-                                    <th data-breakpoints="xs sm" width="10%">{{ localize('Shipping Time') }}</th>
-                                    <th data-breakpoints="xs sm" width="10%">{{ localize('Shipping Charge') }}</th>
+                                    <th data-breakpoints="xs sm" width="10%">{{ localize('Temps d\'expédition') }}</th>
+                                    <th data-breakpoints="xs sm" width="10%">{{ localize('Charge Temps d\'expédition') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>
                                 </tr>
@@ -142,16 +142,16 @@
                                                     @can('edit_shipping_zones')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.logisticZones.edit', ['id' => $logisticZone->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
 
                                                     @can('delete_shipping_zones')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.logisticZones.delete', $logisticZone->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -163,10 +163,10 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
+                            <span>{{ localize('Affichage') }} 
                                 {{ $logisticZones->firstItem() }}-{{ $logisticZones->lastItem() }}
-                                {{ localize('of') }}
-                                {{ $logisticZones->total() }} {{ localize('results') }}</span>
+                                {{ localize('sur') }} 
+                                {{ $logisticZones->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $logisticZones->appends(request()->input())->links() }}
                             </nav>

@@ -2,7 +2,7 @@
     <div class="col-lg-6">
         <div class="mb-0">
             <select class="form-select select2" onchange="getVariationValues(this)" name="chosen_variations[]">
-                <option value="">{{ localize('Select a Variation') }}
+                <option value="">{{ localize('Sélectionner a Variation') }}
                 </option>
                 @foreach ($variations as $key => $variation)
                     <option value="{{ $variation->id }}">
@@ -16,7 +16,7 @@
             <div class="row flex-grow-1">
                 <div class="variationvalues">
                     <input type="text" class="form-control"
-                        placeholder="{{ localize('Select variation values') }}" />
+                        placeholder="{{ localize('Sélectionner variation values') }}" />
                 </div>
             </div>
 

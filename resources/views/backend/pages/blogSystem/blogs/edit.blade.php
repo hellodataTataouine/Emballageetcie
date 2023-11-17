@@ -2,7 +2,7 @@
 
 
 @section('title')
-    {{ localize('Update Blog') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour Blog') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -16,7 +16,7 @@
                             <div class="row g-3 align-items-center">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Update Blog') }} <sup
+                                        <h2 class="h5 mb-0">{{ localize('Mettre à jour Blog') }} <sup
                                                 class="badge bg-soft-warning px-2">{{ $lang_key }}</sup></h2>
                                     </div>
                                 </div>
@@ -49,12 +49,12 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Basic Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('Blog Title') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type blog title') }}" class="form-control" required
+                                        placeholder="{{ localize('Saisir blog title') }}" class="form-control" required
                                         value="{{ $blog->collectLocalization('title', $lang_key) }}">
                                 </div>
 
@@ -63,7 +63,7 @@
                                     <div class="mb-4">
                                         <label for="slug" class="form-label">{{ localize('Blog Slug') }}</label>
                                         <input type="text" name="slug" id="slug"
-                                            placeholder="{{ localize('Type blog slug') }}" class="form-control" required
+                                            placeholder="{{ localize('Saisir blog slug') }}" class="form-control" required
                                             value="{{ $blog->slug }}">
                                     </div>
 
@@ -71,7 +71,7 @@
                                         <label for="category_id" class="form-label">{{ localize('Category') }}</label>
                                         <select class="form-control select2" name="category_id" data-toggle="select2"
                                             required>
-                                            <option value="">{{ localize('Select a category') }}</option>
+                                            <option value="">{{ localize('Sélectionner a category') }}</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ $blog->blog_category_id == $category->id ? 'selected' : '' }}>
@@ -88,7 +88,7 @@
                                         @endphp
 
                                         <select class="form-control select2" name="tag_ids[]" data-toggle="select2" multiple
-                                            data-placeholder="{{ localize('Select tags..') }}">
+                                            data-placeholder="{{ localize('Sélectionner tags..') }}">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ $blogTags->contains($tag->id) ? 'selected' : '' }}>
@@ -110,7 +110,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Short Description') }}</label>
                                     <textarea class="form-control" name="short_description" id="short_description" rows="4"
-                                        placeholder="{{ localize('Type your short description') }}">{{ $blog->collectLocalization('short_description', $lang_key) }}</textarea>
+                                        placeholder="{{ localize('Saisir your short description') }}">{{ $blog->collectLocalization('short_description', $lang_key) }}</textarea>
                                 </div>
 
                                 <div class="mb-4">
@@ -129,7 +129,7 @@
                                     <div class="mb-4">
                                         <label class="form-label">{{ localize('Thumbnail Image') }} (600x400)</label>
                                         <div class="tt-image-drop rounded">
-                                            <span class="fw-semibold">{{ localize('Choose Blog Thumbnail') }}</span>
+                                            <span class="fw-semibold">{{ localize('Choisir Blog Thumbnail') }}</span>
                                             <!-- choose media -->
                                             <div class="tt-product-thumb show-selected-files mt-3">
                                                 <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -150,7 +150,7 @@
                                         <label class="form-label">{{ localize('Blog Details Image') }}
                                             (1200x700)</label>
                                         <div class="tt-image-drop rounded">
-                                            <span class="fw-semibold">{{ localize('Choose Blog Details Image') }}</span>
+                                            <span class="fw-semibold">{{ localize('Choisir Blog Details Image') }}</span>
                                             <!-- choose media -->
                                             <div class="tt-product-thumb show-selected-files mt-3">
                                                 <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -177,7 +177,7 @@
                                     <div class="mb-4">
                                         <label for="meta_title" class="form-label">{{ localize('Meta Title') }}</label>
                                         <input type="text" name="meta_title" id="meta_title"
-                                            placeholder="{{ localize('Type meta title') }}" class="form-control"
+                                            placeholder="{{ localize('Saisir meta title') }}" class="form-control"
                                             value="{{ $blog->meta_title }}">
                                         <span class="fs-sm text-muted">
                                             {{ localize('Set a meta tag title. Recommended to be simple and unique.') }}
@@ -188,12 +188,12 @@
                                         <label for="meta_description"
                                             class="form-label">{{ localize('Meta Description') }}</label>
                                         <textarea class="form-control" name="meta_description" id="meta_description" rows="4"
-                                            placeholder="{{ localize('Type your meta description') }}">{{ $blog->meta_description }}</textarea>
+                                            placeholder="{{ localize('Saisir your meta description') }}">{{ $blog->meta_description }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">{{ localize('Meta Image') }}</label>
                                         <div class="tt-image-drop rounded">
-                                            <span class="fw-semibold">{{ localize('Choose Meta Image') }}</span>
+                                            <span class="fw-semibold">{{ localize('Choisir Meta Image') }}</span>
                                             <!-- choose media -->
                                             <div class="tt-product-thumb show-selected-files mt-3">
                                                 <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -219,7 +219,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Basic Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
                                     @if (env('DEFAULT_LANGUAGE') == $lang_key)
                                         <li>

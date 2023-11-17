@@ -62,6 +62,7 @@
         </div>
         <div class="mt-6 d-flex">
             <button type="submit" class="btn btn-secondary btn-md me-3">{{ localize('Mettre à jour') }}</button>
+            <button type="submit" class="btn btn-secondary btn-md me-3">{{ localize('Mettre à jour') }}</button>
         </div>
     </form>
 </div>

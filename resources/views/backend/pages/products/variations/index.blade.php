@@ -36,7 +36,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey) value="{{ $searchKey }}" @endisset>
                                                     </div>
                                                 </div>
@@ -45,14 +45,14 @@
                                                 <div class="input-group">
                                                     <select class="form-select select2" name="is_published"
                                                         data-minimum-results-for-search="Infinity">
-                                                        <option value="">{{ localize('Select status') }}</option>
+                                                        <option value="">{{ localize('Sélectionnez le statut') }}</option>
                                                         <option value="1"
                                                             @isset($is_published) @if ($is_published == 1) selected @endif @endisset>
                                                             {{ localize('Active') }}
                                                         </option>
                                                         <option value="0"
                                                             @isset($is_published) @if ($is_published == 0) selected @endif @endisset>
-                                                            {{ localize('Hidden') }}
+                                                            {{ localize('Caché') }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -60,7 +60,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">
                                                 {{ localize('Action') }}
@@ -112,7 +112,7 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.variations.edit', ['id' => $variation->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
 
@@ -120,15 +120,15 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.variationValues.index', ['id' => $variation->id]) }}">
                                                                     <i data-feather="plus"
-                                                                        class="me-2"></i>{{ localize('Add Values') }}
+                                                                        class="me-2"></i>{{ localize('Ajouter des valeurs') }}
                                                                 </a>
                                                             @endcan
                                                             @can('delete_variations')
                                                                 <a href="#" class="dropdown-item confirm-delete"
                                                                     data-href="{{ route('admin.variations.delete', $variation->id) }}"
-                                                                    title="{{ localize('Delete') }}">
+                                                                    title="{{ localize('Supprimer') }}">
                                                                     <i data-feather="trash-2" class="me-2"></i>
-                                                                    {{ localize('Delete') }}
+                                                                    {{ localize('Supprimer') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -140,9 +140,9 @@
                                 </table>
                                 <!--pagination start-->
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <span>{{ localize('Showing') }}
-                                        {{ $variations->firstItem() }}-{{ $variations->lastItem() }} {{ localize('of') }}
-                                        {{ $variations->total() }} {{ localize('results') }}</span>
+                                    <span>{{ localize('Affichage') }}
+                                        {{ localize('de') }} {{ $variations->firstItem() }}-{{ $variations->lastItem() }} {{ localize('sur') }}
+                                        {{ $variations->total() }} {{ localize('résultats') }} </span>
                                     <nav>
                                         {{ $variations->appends(request()->input())->links() }}
                                     </nav>
@@ -159,12 +159,12 @@
                             <!--variation info start-->
                             <div class="card mb-4" id="section-2">
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Add New Variation') }}</h5>
+                                    <h5 class="mb-4">{{ localize('Ajouter une nouvelle variation') }}</h5>
 
                                     <div class="mb-4">
-                                        <label for="name" class="form-label">{{ localize('Variation Name') }}</label>
+                                        <label for="name" class="form-label">{{ localize('Nom de la Variation ') }}</label>
                                         <input class="form-control" type="text" id="name" name="name"
-                                            placeholder="{{ localize('Type variation name') }}" required
+                                            placeholder="{{ localize('Saississez le nom de la variation ') }}" required
                                             value="{{ old('name') }}">
                                         @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -179,7 +179,7 @@
                                 <div class="col-12">
                                     <div class="mb-4">
                                         <button class="btn btn-primary" type="submit">
-                                            <i data-feather="save" class="me-1"></i> {{ localize('Save Variation') }}
+                                            <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer la variation') }}
                                         </button>
                                     </div>
                                 </div>
@@ -192,16 +192,16 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Variation Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations sur la variation') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('All Variations') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Toutes les variations') }}</a>
                                     </li>
 
                                     @can('add_variations')
                                         <li>
-                                            <a href="#section-2">{{ localize('Add New Variation') }}</a>
+                                            <a href="#section-2">{{ localize('Ajouter une nouvelle variation') }}</a>
                                         </li>
                                     @endcan
                                 </ul>
@@ -232,9 +232,9 @@
                 },
                 function(data) {
                     if (data == 1) {
-                        notifyMe('success', '{{ localize('Status updated successfully') }}');
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succè') }}');
                     } else {
-                        notifyMe('danger', '{{ localize('Something went wrong') }}');
+                        notifyMe('danger', '{{ localize('Quelque chose s est mal passé') }}');
                     }
                 });
         }

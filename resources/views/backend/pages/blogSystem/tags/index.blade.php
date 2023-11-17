@@ -36,7 +36,7 @@
                                                             <i data-feather="search"></i></span>
                                                         <input class="form-control rounded-start w-100" type="text"
                                                             id="search" name="search"
-                                                            placeholder="{{ localize('Search') }}"
+                                                            placeholder="{{ localize('Recherche') }}"
                                                             @isset($searchKey)
                                             value="{{ $searchKey }}"
                                         @endisset>
@@ -46,7 +46,7 @@
                                             <div class="col-auto">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i data-feather="search" width="18"></i>
-                                                    {{ localize('Search') }}
+                                                    {{ localize('Recherche') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                             </th>
                                         </tr>
@@ -84,16 +84,16 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.tags.edit', ['id' => $tag->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
 
                                                             @can('delete_tags')
                                                                 <a href="#" class="dropdown-item confirm-delete"
                                                                     data-href="{{ route('admin.tags.delete', $tag->id) }}"
-                                                                    title="{{ localize('Delete') }}">
+                                                                    title="{{ localize('Supprimer') }}">
                                                                     <i data-feather="trash-2" class="me-2"></i>
-                                                                    {{ localize('Delete') }}
+                                                                    {{ localize('Supprimer') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -105,9 +105,9 @@
                                 </table>
                                 <!--pagination start-->
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <span>{{ localize('Showing') }}
-                                        {{ $tags->firstItem() }}-{{ $tags->lastItem() }} {{ localize('of') }}
-                                        {{ $tags->total() }} {{ localize('results') }}</span>
+                                    <span>{{ localize('Affichage') }} 
+                                        {{ $tags->firstItem() }}-{{ $tags->lastItem() }} {{ localize('sur') }} 
+                                        {{ $tags->total() }} {{ localize('résultats') }}  </span>
                                     <nav>
                                         {{ $tags->appends(request()->input())->links() }}
                                     </nav>
@@ -122,12 +122,12 @@
                                 <!-- tag info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Add New Tag') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Tag') }}</h5>
 
                                         <div class="mb-4">
-                                            <label for="name" class="form-label">{{ localize('Tag Name') }}</label>
+                                            <label for="name" class="form-label">{{ localize('Nom du Tag ') }}</label>
                                             <input class="form-control" type="text" id="name" name="name"
-                                                placeholder="{{ localize('Type tag name') }}" required>
+                                                placeholder="{{ localize('Saisir Nom du tag ') }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Save Tag') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Tag') }}
                                             </button>
                                         </div>
                                     </div>
@@ -151,15 +151,15 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Tag Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations sur les tags ') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('All Tags') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Tous les tags') }}</a>
                                     </li>
                                     @can('add_tags')
                                         <li>
-                                            <a href="#section-2">{{ localize('Add New Tag') }}</a>
+                                            <a href="#section-2">{{ localize('Ajouter un Nouveau Tag') }}</a>
                                         </li>
                                     @endcan
                                 </ul>

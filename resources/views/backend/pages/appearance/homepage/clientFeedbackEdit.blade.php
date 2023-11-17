@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Update Feedback') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Feedback') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,9 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">{{ localize('Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type reviewer name') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir reviewer name') }}" class="form-control"
                                         value="{{ $singleFeedback->name }}" required>
                                 </div>
 
@@ -62,14 +62,14 @@
 
                                 <div class="mb-3">
                                     <label for="review" class="form-label">{{ localize('Review') }}</label>
-                                    <textarea name="review" id="review" placeholder="{{ localize('Type review') }}" class="form-control" required>{{ $singleFeedback->review }}</textarea>
+                                    <textarea name="review" id="review" placeholder="{{ localize('Saisir review') }}" class="form-control" required>{{ $singleFeedback->review }}</textarea>
                                 </div>
 
 
                                 <div class="mb-3">
                                     <label class="form-label">{{ localize('Avatar Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Avatar Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Avatar Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -93,7 +93,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Changes') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les modifications') }}
                                     </button>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Update Feedback') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Mettre à jour Feedback') }}</a>
                                     </li>
                                 </ul>
                             </div>

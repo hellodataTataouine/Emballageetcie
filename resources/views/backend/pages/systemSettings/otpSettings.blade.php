@@ -58,7 +58,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>
@@ -74,7 +74,7 @@
                                     <input type="hidden" name="types[]" value="active_sms_gateway">
                                     <select id="enable_twilio" class="form-control text-uppercase select2"
                                         name="active_sms_gateway" data-toggle="select2">
-                                        <option value="" disabled selected>{{ localize('Select SMS gateway') }}
+                                        <option value="" disabled selected>{{ localize('Sélectionner SMS gateway') }}
                                         </option>
                                         <option value="twilio"
                                             {{ getSetting('active_sms_gateway') == 'twilio' ? 'selected' : '' }}>
@@ -88,7 +88,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
 

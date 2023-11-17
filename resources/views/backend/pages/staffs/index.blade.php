@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Employee Staffs') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Employés du personnel') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,12 +12,12 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Employee Staffs') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Employés') }}</h2>
                             </div>
                             <div class="tt-action">
                                 @can('add_staffs')
                                     <a href="{{ route('admin.staffs.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Add Employee') }}</a>
+                                            data-feather="plus"></i> {{ localize('Ajouter Employé') }}</a>
                                 @endcan
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
-                                                    id="search" name="search" placeholder="{{ localize('Search') }}"
+                                                    id="search" name="search" placeholder="{{ localize('Recherche') }}"
                                                     @isset($searchKey)
                                                         value="{{ $searchKey }}"
                                                     @endisset>
@@ -48,7 +48,7 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
-                                            {{ localize('Search') }}
+                                            {{ localize('Recherche') }}
                                         </button>
                                     </div>
                                 </div>
@@ -59,10 +59,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Role') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Email') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Phone') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Téléphone') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>
                                 </tr>
@@ -111,15 +111,15 @@
                                                     @can('edit_staffs')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.staffs.edit', ['id' => $staff->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
                                                     @can('delete_staffs')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.staffs.delete', $staff->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -131,9 +131,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $staffs->firstItem() }}-{{ $staffs->lastItem() }} {{ localize('of') }}
-                                {{ $staffs->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $staffs->firstItem() }}-{{ $staffs->lastItem() }} {{ localize('sur') }} 
+                                {{ $staffs->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $staffs->appends(request()->input())->links() }}
                             </nav>

@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Trending Products') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Produits tendance') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -32,10 +32,10 @@
                                     @php
                                         $trending_product_categories = getSetting('trending_product_categories') != null ? json_decode(getSetting('trending_product_categories')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Categories') }}</label>
+                                    <label class="form-label">{{ localize('Catégories') }}</label>
                                     <input type="hidden" name="types[]" value="trending_product_categories">
                                     <select class="select2Max3 form-control trending_product_categories" multiple="multiple"
-                                        data-placeholder="{{ localize('Select categories') }}"
+                                        data-placeholder="{{ localize('Sélectionner catégories') }}"
                                         name="trending_product_categories[]" required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -46,10 +46,10 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Top Trending Products') }}</label>
+                                    <label class="form-label">{{ localize('Top produits tendance') }}</label>
                                     <input type="hidden" name="types[]" value="top_trending_products">
                                     <select class="select2 form-control top_trending_products" multiple="multiple"
-                                        data-placeholder="{{ localize('Select products') }}" name="top_trending_products[]"
+                                        data-placeholder="{{ localize('Sélectionner les produits') }}" name="top_trending_products[]"
                                         required>
 
                                     </select>
@@ -63,7 +63,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

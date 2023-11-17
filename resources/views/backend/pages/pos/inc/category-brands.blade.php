@@ -83,7 +83,7 @@
                                     </h6>
                                     <span
                                         class="fs-xs tt-available-item">{{ \App\Models\Product::isPublished()->count() }}
-                                        {{ localize('Items') }}
+                                        {{ localize('Articles ') }}
                                     </span>
                                 </label>
                             </div>
@@ -106,7 +106,7 @@
                                             {{ $category->collectLocalization('name') }}</h6>
                                         <span
                                             class="fs-xs tt-available-item">{{ \App\Models\ProductCategory::where('category_id', $category->id)->count() }}
-                                            {{ localize('Items') }}
+                                            {{ localize('Articles ') }}
                                         </span>
                                     </label>
                                 </div>
@@ -168,7 +168,7 @@
                                     </h6>
                                     <span
                                         class="fs-xs tt-available-item">{{ \App\Models\Product::isPublished()->count() }}
-                                        {{ localize('Items') }}
+                                        {{ localize('Articles ') }}
                                     </span>
                                 </label>
                             </div>
@@ -191,7 +191,7 @@
                                             {{ $brand->collectLocalization('name') }}</h6>
                                         <span
                                             class="fs-xs tt-available-item">{{ \App\Models\Product::where('brand_id', $brand->id)->count() }}
-                                            {{ localize('Items') }}
+                                            {{ localize('Articles ') }}
                                         </span>
                                     </label>
                                 </div>
