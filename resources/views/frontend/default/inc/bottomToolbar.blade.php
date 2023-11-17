@@ -2,7 +2,7 @@
     <div class="d-table table-layout-fixed w-100">
         <a class="d-table-cell mobile-toolbar-item  mobile-menu-toggle">
             <span class="mobile-toolbar-icon"><i class="fas fa-bars"></i></span><span
-                class="mobile-toolbar-label">{{ localize('Category') }}
+                class="mobile-toolbar-label">{{ localize('Catégorie') }}
             </span>
         </a>
         <div class="gshop-header-search dropdown d-table-cell mobile-toolbar-item">
@@ -18,11 +18,11 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-                <span class="mobile-toolbar-label">{{ localize('Search') }}</span>
+                <span class="mobile-toolbar-label">{{ localize('Recherche') }}</span>
             </button>
             <div class="dropdown-menu dropdown-menu-start border-0">
                 <form class="search-form d-flex align-items-center" action="{{ route('products.index') }}">
-                    <input type="text" placeholder="{{ localize('Search products') }}..." class="w-100"
+                    <input type="text" placeholder="{{ localize('Rechercher des produits') }}..." class="w-100"
                         name="search" @isset($searchKey) value="{{ $searchKey }}" @endisset>
                     <button type="submit" class="submit-icon-btn-secondary"><i
                             class="fa-solid fa-magnifying-glass"></i></button>
@@ -41,7 +41,7 @@
                         fill="#5D6374" stroke="#5D6374" stroke-width="0.2" />
                 </svg>
             </span>
-            <span class="mobile-toolbar-label">{{ localize('Account') }}</span>
+            <span class="mobile-toolbar-label">{{ localize('Compte') }}</span>
         </a>
         <a class="d-table-cell mobile-toolbar-item" href="{{ route('carts.index') }}">
 

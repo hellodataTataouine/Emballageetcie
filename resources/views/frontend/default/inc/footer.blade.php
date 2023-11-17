@@ -27,11 +27,11 @@
         <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6">
                 <div class="gshop_subscribe_form text-center">
-                    <h4 class="text-white gshop-title">{{ localize('Subscribe to the us') }}<mark
-                            class="p-0 position-relative text-secondary bg-transparent"> {{ localize('New Arrivals') }}
+                    <h4 class="text-white gshop-title">{{ localize('Abonnez-vous') }}<mark
+                            class="p-0 position-relative text-secondary bg-transparent"> {{ localize('Nouveautés') }}
                             <img src="{{ staticAsset('frontend/default/assets/img/shapes/border-line.svg') }}"
                                 alt="border line" class="position-absolute border-line"></mark><br
-                            class="d-none d-sm-block">{{ localize('& Other Information.') }}</h4>
+                            class="d-none d-sm-block">{{ localize('& Autres Informations.') }}</h4>
                     <form class="mt-5 d-flex align-items-center bg-white rounded subscribe_form"
                         action="{{ route('subscribe.store') }}" method="POST">
                         @csrf
@@ -39,7 +39,7 @@
                         <input type="email" class="form-control" placeholder="{{ localize('Enter Email Address') }}"
                             type="email" name="email" required>
                         <button type="submit"
-                            class="btn btn-primary flex-shrink-0">{{ localize('Subscribe Now') }}</button>
+                            class="btn btn-primary flex-shrink-0">{{ localize('Abonnez-vous maintenant') }}</button>
                     </form>
                 </div>
             </div>
@@ -48,7 +48,7 @@
         <div class="row g-5">
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                 <div class="footer-widget">
-                    <h5 class="text-white mb-4">{{ localize('Category') }}</h5>
+                    <h5 class="text-white mb-4">{{ localize('Catégorie') }}</h5>
                     @php
                         $footer_categories = getSetting('footer_categories') != null ? json_decode(getSetting('footer_categories')) : [];
                         $categories = \App\Models\Category::whereIn('id', $footer_categories)->get();

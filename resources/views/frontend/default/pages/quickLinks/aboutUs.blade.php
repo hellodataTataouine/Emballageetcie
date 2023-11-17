@@ -1,7 +1,7 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('About Us') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('À propos de nous') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('breadcrumb-contents')

@@ -2,10 +2,10 @@
     <strong>{{ $address->address }}</strong>
 </address>
 
-<strong> {{ localize('City') }}: </strong>{{ $address->city->name }}
+<strong> {{ localize('Ville') }}: </strong>{{ $address->city->name }}
 <br>
 
-<strong>{{ localize('State') }}: </strong>{{ $address->state->name }}
+<strong>{{ localize('État') }}: </strong>{{ $address->state->name }}
 
 <br>
-<strong>{{ localize('Country') }}: </strong> {{ $address->country->name }}
+<strong>{{ localize('Pays') }}: </strong> {{ $address->country->name }}

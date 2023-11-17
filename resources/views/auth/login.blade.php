@@ -22,8 +22,8 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Hey there!') }}
-                            <br>{{ localize('Welcome back to Grostore.') }}
+                        <h2 class="mb-4 h3">{{ localize('Salut !') }}
+                            <br>{{ localize('Bienvenue chez Emballage & Cie') }}
                         </h2>
 
                         <div class="row g-3">
@@ -34,34 +34,34 @@
                                     <span class="login-email @if (old('login_with') == 'phone') d-none @endif">
                                         <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}</label>
                                         <input type="email" id="email" name="email"
-                                            placeholder="{{ localize('Enter your email') }}" class="theme-input mb-1"
+                                            placeholder="{{ localize('Entrez votre adresse e-mail') }}" class="theme-input mb-1"
                                             value="{{ old('email') }}" required>
                                         <small class="">
                                             <a href="javascript:void(0);" class="fs-sm login-with-phone-btn"
                                                 onclick="handleLoginWithPhone()">
-                                                {{ localize('Login with phone?') }}</a>
+                                                {{ localize('Se connecter avec le téléphone ?') }}</a>
                                         </small>
                                     </span>
 
                                     <span class="login-phone @if (old('login_with') == 'email' || old('login_with') == '') d-none @endif">
-                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Phone') }}</label>
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Téléphone') }}</label>
                                         <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
                                             class="theme-input mb-1" value="{{ old('phone') }}">
 
                                         <small class="">
                                             <a href="javascript:void(0);" class="fs-sm login-with-email-btn"
                                                 onclick="handleLoginWithEmail()">
-                                                {{ localize('Login with email?') }}</a>
+                                                {{ localize('Se connecter avec email?') }}</a>
                                         </small>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Password') }}</label>
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de passe') }}</label>
                                     <div class="check-password">
                                         <input type="password" name="password" id="password"
-                                            placeholder="{{ localize('Password') }}" class="theme-input" required>
+                                            placeholder="{{ localize('Mot de passe') }}" class="theme-input" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                     </div>
@@ -75,9 +75,9 @@
                                     <input type="checkbox" id="save-password">
                                     <span class="checkbox-field"><i class="fa-solid fa-check"></i></span>
                                 </div>
-                                <label for="save-password" class="fs-sm"> {{ localize('Remember me') }}</label>
+                                <label for="save-password" class="fs-sm"> {{ localize('N\'oubliez pas de moi') }}</label>
                             </div>
-                            <a href="{{ route('password.request') }}" class="fs-sm">{{ localize('Forgot Password') }}</a>
+                            <a href="{{ route('password.request') }}" class="fs-sm">{{ localize('Mot de passe oublié') }}</a>
                         </div>
 
                         @if (env('DEMO_MODE') == 'On')
@@ -86,7 +86,7 @@
                                     <label class="fw-bold">Admin Access</label>
                                     <div
                                         class="d-flex flex-wrap align-items-center justify-content-between border-bottom pb-3">
-                                        <small>admin@themetags.com</small>
+                                        <small>admin@embalage&cie.fr</small>
                                         <small>123456</small>
                                         <button class="btn btn-sm btn-secondary py-0 px-2" type="button"
                                             onclick="copyAdmin()">Copy</button>
@@ -96,7 +96,7 @@
                                 <div class="col-12 mt-3">
                                     <label class="fw-bold">Customer Access</label>
                                     <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                        <small>customer@themetags.com</small>
+                                        <small>customer@embalage&cie.fr</small>
                                         <small>123456</small>
 
                                         <button class="btn btn-sm btn-secondary py-0 px-2" type="button"
@@ -109,7 +109,7 @@
                         <div class="row g-4 mt-3">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary w-100 sign-in-btn"
-                                    onclick="handleSubmit()">{{ localize('Sign In') }}</button>
+                                    onclick="handleSubmit()">{{ localize('Se connecter') }}</button>
                             </div>
 
                         </div>
@@ -120,8 +120,8 @@
                             <!--social login-->
 
                         </div>
-                        <p class="mb-0 fs-xs mt-3">{{ localize("Don't have an Account?") }} <a
-                                href="{{ route('register') }}">{{ localize('Sign Up') }}</a></p>
+                        <p class="mb-0 fs-xs mt-3">{{ localize("Vous n'avez pas de compte ?") }} <a
+                                href="{{ route('register') }}">{{ localize('S\'inscrire') }}</a></p>
                     </form>
                 </div>
             </div>

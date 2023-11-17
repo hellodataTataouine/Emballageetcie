@@ -245,7 +245,7 @@
                                 <div class="col-sm-12">
                                     <div class="label-input-field">
                                         <label>{{ localize('Refund Reason') }}</label>
-                                        <textarea rows="4" placeholder="{{ localize('Type refund reason') }}" name="refund_reason" required></textarea>
+                                        <textarea rows="4" placeholder="{{ localize('Indiquez la raison du remboursement') }}" name="refund_reason" required></textarea>
                                     </div>
                                 </div>
                             </div>

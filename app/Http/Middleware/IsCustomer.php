@@ -20,12 +20,12 @@ class IsCustomer
             if (Auth::user()->user_type == 'customer') {
                 return $next($request);
             } else {
-                flash(localize('Please login as customer to continue'))->error();
+                flash(localize('Veuillez vous connecter en tant que client pour continuer.'))->error();
                 return redirect()->route('home');
             }
         } else {
             session(['link' => url()->current()]);
-            flash(localize('Please login to continue'))->error();
+            flash(localize('Veuillez vous connecter pour continuer.'))->error();
             return redirect()->route('login');
         }
     }

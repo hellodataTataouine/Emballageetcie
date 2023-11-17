@@ -266,7 +266,7 @@
                                 <div class="dropdown-menu dropdown-menu-end border-0">
                                     <form class="search-form d-flex align-items-center"
                                         action="{{ route('products.index') }}">
-                                        <input type="text" placeholder="{{ localize('Search products') }}"
+                                        <input type="text" placeholder="{{ localize('Rechercher des produits') }}"
                                             class="w-100" name="search"
                                             @isset($searchKey) value="{{ $searchKey }}" @endisset>
                                         <button type="submit" class="submit-icon-btn-secondary"><i

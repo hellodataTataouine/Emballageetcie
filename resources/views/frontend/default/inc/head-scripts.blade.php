@@ -3,13 +3,13 @@
 
     var TT = TT || {};
     TT.localize = {
-        buyNow: '{{ localize('Buy Now') }}',
+        buyNow: '{{ localize('Acheter maintenant') }}',
         addToCart: '{{ localize('Ajouter au panier') }}',
-        outOfStock: '{{ localize('Out of Stock') }}',
-        addingToCart: '{{ localize('Adding..') }}',
-        optionsAlert: '{{ localize('Please choose all the available options') }}',
-        applyCoupon: '{{ localize('Apply Coupon') }}',
-        pleaseWait: '{{ localize('Please Wait') }}',
+        outOfStock: '{{ localize('Épuisé') }}',
+        addingToCart: '{{ localize('Ajout en cours...') }}',
+        optionsAlert: '{{ localize('Veuillez choisir toutes les options disponibles') }}',
+        applyCoupon: '{{ localize('Appliquer le coupon') }}',
+        pleaseWait: '{{ localize('Veuillez patienter') }}',
     }
 
     TT.ProductSliders = () => {
