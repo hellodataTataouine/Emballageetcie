@@ -74,13 +74,13 @@
                                             <option value="order_placed" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
                                                 {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
-                                                {{ localize('Pending') }}
+                                                {{ localize('En attente') }} 
                                             <option value="processing" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
-                                                {{ localize('Processing') }}
+                                                {{ localize('En cours') }} 
                                             <option value="delivered" @if (isset($deliveryStatus) && $deliveryStatus == orderDeliveredStatus()) selected @endif>
-                                                {{ localize('Delivered') }}
+                                                {{ localize('Livré ') }} 
                                             <option value="cancelled" @if (isset($deliveryStatus) && $deliveryStatus == orderCancelledStatus()) selected @endif>
-                                                {{ localize('Cancelled') }}
+                                                {{ localize('Annulé') }} 
                                             </option>
                                         </select>
                                     </div>
@@ -89,7 +89,7 @@
                                         <div class="col-auto">
                                             <select class="form-select select2" name="location_id"
                                                 data-minimum-results-for-search="Infinity" id="location_id">
-                                                <option value="">{{ localize('Location') }}</option>
+                                                <option value="">{{ localize('Emplacement') }} </option>
                                                 @foreach ($locations as $location)
                                                     <option value="{{ $location->id }}"
                                                         @if (isset($locationId) && $locationId == $location->id) selected @endif>
@@ -104,10 +104,10 @@
                                         <select class="form-select select2" name="is_pos_order"
                                             data-minimum-results-for-search="Infinity" id="is_pos_order">
                                             <option value="0" @if (isset($posOrder) && $posOrder == 0) selected @endif>
-                                                {{ localize('Online Orders') }}
+                                                {{ localize('Commandes en ligne') }}
                                             </option>
                                             <option value="1" @if (isset($posOrder) && $posOrder == 1) selected @endif>
-                                                {{ localize('POS Orders') }}
+                                                {{ localize('POS Commandes ') }}
                                             </option>
                                         </select>
                                     </div>
@@ -126,15 +126,15 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('Order Code') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Customer') }}</th>
-                                    <th>{{ localize('Placed On') }}</th>
-                                    <th data-breakpoints="xs">{{ localize('Items') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Payment') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Status') }}</th>
+                                    <th>{{ localize('Code de commande') }}</th>
+                                    <th data-breakpoints="xs sm md">{{ localize('Client ') }}</th>
+                                    <th>{{ localize('Date de commande') }}</th>
+                                    <th data-breakpoints="xs">{{ localize('Articles ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Paiement ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Statut ') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
                                     @if (count($locations) > 0)
-                                        <th data-breakpoints="xs sm">{{ localize('Location') }}</th>
+                                        <th data-breakpoints="xs sm">{{ localize('Emplacement') }} </th>
                                     @endif
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
@@ -238,9 +238,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('of') }}
-                                {{ $orders->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('sur') }} 
+                                {{ $orders->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $orders->appends(request()->input())->links() }}
                             </nav>

@@ -44,7 +44,7 @@
 
             @if (getCouponDiscount(getSubTotal($carts, false), getCoupon()) > 0)
                 <tr>
-                    <td>(-) {{ localize('Coupon Discount') }}:</td>
+                    <td>(-) {{ localize('Remise coupon') }}:</td>
                     <td class="text-end">{{ formatPrice(getCouponDiscount(getSubTotal($carts, false), getCoupon())) }}
                     </td>
                 </tr>

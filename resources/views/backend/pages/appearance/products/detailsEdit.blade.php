@@ -41,23 +41,23 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ $widget->title }}" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="sub_title" class="form-label">{{ localize('Sub Title') }}</label>
+                                    <label for="sub_title" class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="text" name="sub_title" id="sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
                                         value="{{ $widget->sub_title }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">{{ localize('Slider Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Slider Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Slider Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"

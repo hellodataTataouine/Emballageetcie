@@ -142,7 +142,7 @@
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
                                     <span>{{ localize('Affichage') }}
                                         {{ localize('de') }} {{ $variations->firstItem() }}-{{ $variations->lastItem() }} {{ localize('sur') }}
-                                        {{ $variations->total() }} {{ localize('résultats') }}</span>
+                                        {{ $variations->total() }} {{ localize('résultats') }} </span>
                                     <nav>
                                         {{ $variations->appends(request()->input())->links() }}
                                     </nav>

@@ -2,7 +2,7 @@
 
 @section('title')
     {{ localize('Produits') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
-    {{ localize('Produits') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    
 @endsection
 
 @section('contents')
@@ -14,13 +14,13 @@
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
                                 <h2 class="h5 mb-lg-0">{{ localize('Produits') }}</h2>
-                                <h2 class="h5 mb-lg-0">{{ localize('Produits') }}</h2>
+                                
                             </div>
                             <div class="tt-action">
                                 @can('add_products')
                                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i
                                             data-feather="plus"></i> {{ localize('Ajouter Produit') }}</a>
-                                            data-feather="plus"></i> {{ localize('Ajouter Produit') }}</a>
+                                            
                                 @endcan
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                                         data-feather="search"></i></span>
                                                 <input class="form-control rounded-start w-100" type="text"
                                                     id="search" name="search" placeholder="{{ localize('Rechercher') }}"
-                                                    id="search" name="search" placeholder="{{ localize('Rechercher') }}"
+                                                    
                                                     @isset($searchKey)
                                                 value="{{ $searchKey }}"
                                                 @endisset>
@@ -52,7 +52,7 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="brand_id">
                                                 <option value="">{{ localize('Sélectionner la marque') }}</option>
-                                                <option value="">{{ localize('Sélectionner la marque') }}</option>
+                                                
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}"
                                                         @isset($brand_id)
@@ -68,18 +68,18 @@
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
                                                 <option value="">{{ localize('Sélectionner le statut') }}</option>
-                                                <option value="">{{ localize('Sélectionner le statut') }}</option>
+                                                
                                                 <option value="1"
                                                     @isset($is_published)
                                                          @if ($is_published == 1) selected @endif
                                                         @endisset>
                                                     {{ localize('Publié') }}</option>
-                                                    {{ localize('Publié') }}</option>
+                                                   
                                                 <option value="0"
                                                     @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
                                                         @endisset>
-                                                    {{ localize('Hidden') }}</option>
+                                                    {{ localize('Caché') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
                                             {{ localize('Rechercher') }}
-                                            {{ localize('Rechercher') }}
+                                           
                                         </button>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@
                                                         target="_blank">
                                                         <i data-feather="eye"
                                                             class="me-2"></i>{{ localize('Voir Détailles') }}
-                                                            class="me-2"></i>{{ localize('Voir Détailles') }}
+                                                            
                                                     </a>
                                                 </div>
                                             </div>
@@ -198,10 +198,10 @@
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
                             <span>{{ localize('Affichage') }}  {{ localize('de') }}
                                 {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }}
-                                {{ $products->total() }} {{ localize('résultats') }}</span>
+                                {{ $products->total() }} {{ localize('résultats') }} </span>
                             <span>{{ localize('Affichage') }}  {{ localize('de') }}
                                 {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }}
-                                {{ $products->total() }} {{ localize('résultats') }}</span>
+                                {{ $products->total() }} {{ localize('résultats') }} </span>
                             <nav>
                                 {{ $products->appends(request()->input())->links() }}
                             </nav>

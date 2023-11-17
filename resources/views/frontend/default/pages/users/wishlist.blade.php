@@ -25,7 +25,7 @@
                 <table class="wishlist-table w-100 bg-white">
                     <thead>
                         <th>{{ localize('Image') }}</th>
-                        <th>{{ localize('Product Name') }}</th>
+                        <th>{{ localize('Nom du produit') }}</th>
                         <th>{{ localize('U. Price') }}</th>
                         <th>{{ localize('Action') }}</th>
                     </thead>
@@ -43,7 +43,7 @@
                                     </h6>
                                 </td>
                                 <td>
-                                    <span class="text-dark fw-bold me-2 d-lg-none">{{ localize('Unit Price') }}:</span>
+                                    <span class="text-dark fw-bold me-2 d-lg-none">{{ localize('Prix unitaire') }}:</span>
                                     <span class="text-dark fw-bold">
                                         @include('frontend.default.pages.partials.products.pricing', [
                                             'product' => $item->product,

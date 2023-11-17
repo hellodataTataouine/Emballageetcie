@@ -57,7 +57,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">{{ localize('S/L') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                             </th>
@@ -105,16 +105,16 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.logistics.edit', ['id' => $logistic->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
 
                                                             @can('delete_logistics')
                                                                 <a href="#" class="dropdown-item confirm-delete"
                                                                     data-href="{{ route('admin.logistics.delete', $logistic->id) }}"
-                                                                    title="{{ localize('Delete') }}">
+                                                                    title="{{ localize('Supprimer') }}">
                                                                     <i data-feather="trash-2" class="me-2"></i>
-                                                                    {{ localize('Delete') }}
+                                                                    {{ localize('Supprimer') }}
                                                                 </a>
                                                             @endcan
                                                         </div>
@@ -126,9 +126,9 @@
                                 </table>
                                 <!--pagination start-->
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                    <span>{{ localize('Showing') }}
-                                        {{ $logistics->firstItem() }}-{{ $logistics->lastItem() }} {{ localize('of') }}
-                                        {{ $logistics->total() }} {{ localize('results') }}</span>
+                                    <span>{{ localize('Affichage') }} 
+                                        {{ $logistics->firstItem() }}-{{ $logistics->lastItem() }} {{ localize('sur') }} 
+                                        {{ $logistics->total() }} {{ localize('résultats') }}  </span>
                                     <nav>
                                         {{ $logistics->appends(request()->input())->links() }}
                                     </nav>
@@ -143,18 +143,18 @@
                                 <!-- Logistic info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Add New Logistic') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Logistic') }}</h5>
 
                                         <div class="mb-4">
-                                            <label for="name" class="form-label">{{ localize('Logistic Name') }}</label>
+                                            <label for="name" class="form-label">{{ localize('Nom du Logistic ') }}</label>
                                             <input class="form-control" type="text" id="name" name="name"
-                                                placeholder="{{ localize('Type logistic name') }}" required>
+                                                placeholder="{{ localize('Saisir logistic name') }}" required>
                                         </div>
 
                                         <div class="mb-4">
                                             <label class="form-label">{{ localize('Logistic Image') }}</label>
                                             <div class="tt-image-drop rounded">
-                                                <span class="fw-semibold">{{ localize('Choose Logistic Thumbnail') }}</span>
+                                                <span class="fw-semibold">{{ localize('Choisir Logistic Thumbnail') }}</span>
                                                 <!-- choose media -->
                                                 <div class="tt-product-thumb show-selected-files mt-3">
                                                     <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -178,7 +178,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Save Logistic') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Logistic') }}
                                             </button>
                                         </div>
                                     </div>
@@ -192,16 +192,16 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">Logistic Information</h5>
+                            <h5 class="mb-4">"Informations logistiques</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">All Logistics</a>
+                                        <a href="#section-1" class="active">Toutes les logistiques</a>
                                     </li>
 
                                     @can('add_logistics')
                                         <li>
-                                            <a href="#section-2">Add New Logistic</a>
+                                            <a href="#section-2">Ajouter une nouvelle logistique</a>
                                         </li>
                                     @endcan
                                 </ul>

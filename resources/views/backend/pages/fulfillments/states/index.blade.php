@@ -24,7 +24,7 @@
                                 <div class="col-auto">
                                     @can('add_shipping_states')
                                         <a href="{{ route('admin.states.create') }}" class="btn btn-primary"><i
-                                                data-feather="plus"></i>{{ localize('Add State') }}</a>
+                                                data-feather="plus"></i>{{ localize('Ajouter State') }}</a>
                                     @endcan
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchCountry">
-                                                <option value="">{{ localize('Select a country') }}</option>
+                                                <option value="">{{ localize('Sélectionner a country') }}</option>
                                                 @foreach (\App\Models\Country::where('is_active', 1)->get() as $country)
                                                     <option value="{{ $country->id }}"
                                                         @if ($searchCountry == $country->id) selected @endif>
@@ -80,7 +80,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th>{{ localize('Country') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
@@ -123,7 +123,7 @@
                                                     @can('edit_shipping_states')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.states.edit', ['id' => $state->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -135,10 +135,10 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
+                            <span>{{ localize('Affichage') }} 
                                 {{ $states->firstItem() }}-{{ $states->lastItem() }}
-                                {{ localize('of') }}
-                                {{ $states->total() }} {{ localize('results') }}</span>
+                                {{ localize('sur') }} 
+                                {{ $states->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $states->appends(request()->input())->links() }}
                             </nav>

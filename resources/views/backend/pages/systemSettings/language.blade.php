@@ -59,7 +59,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">{{ localize('S/L') }}</th>
-                                            <th>{{ localize('Name') }}</th>
+                                            <th>{{ localize('Nom') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('ISO 639-1 Code') }}</th>
                                             <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
@@ -113,7 +113,7 @@
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('admin.languages.edit', $language->id) }}">
                                                                     <i data-feather="edit-3"
-                                                                        class="me-2"></i>{{ localize('Edit') }}
+                                                                        class="me-2"></i>{{ localize('Modifier') }}
                                                                 </a>
                                                             @endcan
 
@@ -139,12 +139,12 @@
                                 <!--language info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Add New Language') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Language') }}</h5>
 
                                         <div class="mb-4">
                                             <label for="name" class="form-label">{{ localize('Language Name') }}</label>
                                             <input type="text" name="name" id="name"
-                                                placeholder="{{ localize('Type language name') }}" class="form-control"
+                                                placeholder="{{ localize('Saisir language name') }}" class="form-control"
                                                 required>
                                         </div>
 
@@ -171,7 +171,7 @@
                                             <select id="is_rtl" class="form-control select2" name="is_rtl"
                                                 data-toggle="select2">
                                                 <option value="0">
-                                                    {{ localize('Disable') }}
+                                                    {{ localize('Désactivé') }}
                                                 </option>
                                                 <option value="1">
                                                     {{ localize('Active') }}
@@ -186,7 +186,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Save Language') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Language') }}
                                             </button>
                                         </div>
                                     </div>
@@ -234,7 +234,7 @@
                                         <a href="#section-1" class="active">{{ localize('All Languages') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-2">{{ localize('Add New Language') }}</a>
+                                        <a href="#section-2">{{ localize('Ajouter Nouveau Language') }}</a>
                                     </li>
 
                                     @can('default_language')

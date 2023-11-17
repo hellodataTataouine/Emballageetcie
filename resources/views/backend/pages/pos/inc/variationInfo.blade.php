@@ -56,5 +56,5 @@
   <div class="modal-footer justify-content-start border-top-0">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ localize('Cancel') }}</button>
       <button type="button" class="btn btn-primary"
-          onclick="addVariationProductToCart()">{{ localize('Add This Item') }}</button>
+          onclick="addVariationProductToCart()">{{ localize('Ajouter This Item') }}</button>
   </div>

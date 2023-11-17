@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -41,29 +41,29 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-4">
-                                    <label for="sub_title" class="form-label">{{ localize('Sub Title') }}</label>
+                                    <label for="sub_title" class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="text" name="sub_title" id="sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
                                         value="{{ $slider->sub_title }}" required>
                                 </div>
 
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ $slider->title }}" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="text" name="text" id="text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
                                         value="{{ $slider->text }}" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="link" class="form-label">{{ localize('Link') }}</label>
+                                    <label for="link" class="form-label">{{ localize('Lien') }}</label>
                                     <input type="url" name="link" id="link"
                                         placeholder="{{ env('APP_URL') }}/example" class="form-control"
                                         value="{{ $slider->link }}">
@@ -72,7 +72,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Slider Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Slider Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Slider Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"

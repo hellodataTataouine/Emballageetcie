@@ -57,7 +57,7 @@
                                     @enderror
 
                                     <span class="reset-phone @if (old('reset_with') == 'email' || old('reset_with') == '') d-none @endif">
-                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Phone') }}</label>
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Téléphone') }}</label>
                                         <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
                                             class="theme-input mb-1" value="{{ old('phone') }}">
 

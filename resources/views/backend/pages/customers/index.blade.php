@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Customers') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Clients') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Customers') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Clients') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_banned"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Select status') }}</option>
+                                                <option value="">{{ localize('Sélectionner le statut') }}</option>
 
                                                 <option value="0"
                                                     @isset($is_banned)
@@ -54,7 +54,7 @@
                                                     @isset($is_banned)
                                                      @if ($is_banned == 1) selected @endif
                                                     @endisset>
-                                                    {{ localize('Banned') }}</option>
+                                                    {{ localize('banni') }}</option>
 
                                             </select>
                                         </div>
@@ -73,10 +73,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Email') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Phone') }}</th>
-                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('Banned') }}
+                                    <th data-breakpoints="xs sm">{{ localize('Téléphone') }}</th>
+                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('banni') }}
                                     </th>
                                 </tr>
                             </thead>
@@ -119,9 +119,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $customers->firstItem() }}-{{ $customers->lastItem() }} {{ localize('of') }}
-                                {{ $customers->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $customers->firstItem() }}-{{ $customers->lastItem() }} {{ localize('sur') }} 
+                                {{ $customers->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $customers->appends(request()->input())->links() }}
                             </nav>

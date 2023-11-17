@@ -18,7 +18,7 @@
                             <div class="tt-action">
                                 @can('add_coupons')
                                     <a href="{{ route('admin.coupons.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Add Coupon') }}</a>
+                                            data-feather="plus"></i> {{ localize('Ajouter Coupon') }}</a>
                                 @endcan
                             </div>
                         </div>
@@ -102,16 +102,16 @@
                                                     @can('edit_coupons')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.coupons.edit', ['id' => $coupon->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
 
                                                     @can('delete_coupons')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.coupons.delete', $coupon->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -123,9 +123,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $coupons->firstItem() }}-{{ $coupons->lastItem() }} {{ localize('of') }}
-                                {{ $coupons->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $coupons->firstItem() }}-{{ $coupons->lastItem() }} {{ localize('sur') }} 
+                                {{ $coupons->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $coupons->appends(request()->input())->links() }}
                             </nav>

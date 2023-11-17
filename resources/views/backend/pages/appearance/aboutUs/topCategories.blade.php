@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Select Top Categories') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Sélectionner Top Categories') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                                     @endphp
                                     <input type="hidden" name="types[]" value="top_category_ids">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select top categories') }}" name="top_category_ids[]"
+                                        data-placeholder="{{ localize('Sélectionner top categories') }}" name="top_category_ids[]"
                                         required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -51,7 +51,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

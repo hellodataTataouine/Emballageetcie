@@ -62,7 +62,7 @@
                                     <label for="short_description"
                                         class="form-label">{{ localize('Description courte') }}</label>
                                     <textarea class="form-control" id="short_description"
-                                        placeholder="{{ localize('Type your product short description') }}" rows="5" name="short_description">{{ $product->collectLocalization('short_description') }}</textarea>
+                                        placeholder="{{ localize('Saisir your product short description') }}" rows="5" name="short_description">{{ $product->collectLocalization('short_description') }}</textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label for="description" class="form-label">{{ localize('Description') }}</label>

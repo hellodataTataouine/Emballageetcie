@@ -34,14 +34,14 @@
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('Currency Name') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type currency name') }}" class="form-control" required
+                                        placeholder="{{ localize('Saisir currency name') }}" class="form-control" required
                                         value="{{ $currency->name }}">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="symbol" class="form-label">{{ localize('Currency Symbol') }}</label>
                                     <input type="text" name="symbol" id="symbol"
-                                        placeholder="{{ localize('Type symbol') }}" class="form-control" required
+                                        placeholder="{{ localize('Saisir symbol') }}" class="form-control" required
                                         value="{{ $currency->symbol }}">
                                 </div>
 
@@ -49,7 +49,7 @@
                                     <div class="mb-4">
                                         <label for="code" class="form-label">{{ localize('Currency Code') }}</label>
                                         <input type="text" name="code" id="code"
-                                            placeholder="{{ localize('Type code') }}" class="form-control" required
+                                            placeholder="{{ localize('Saisir code') }}" class="form-control" required
                                             value="{{ $currency->code }}">
                                     </div>
                                 @else

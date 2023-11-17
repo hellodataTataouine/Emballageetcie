@@ -31,9 +31,9 @@
                             <div class="card-body">
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Category Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom de la catégorie') }}</label>
                                     <input class="form-control" type="text" id="name" name="name"
-                                        placeholder="{{ localize('Type category name') }}" required
+                                        placeholder="{{ localize('Saisir Nom de la catégorie') }}" required
                                         value="{{ $category->name }}">
                                 </div>
                             </div>

@@ -31,7 +31,7 @@
                         <a href="{{ route('home') }}">{{ localize('Home') }}</a>
                     </li>
                     <li>
-                        <a href="{{ route('products.index') }}">{{ localize('Products') }}</a>
+                        <a href="{{ route('products.index') }}">{{ localize('Produits') }}</a>
                     </li>
                     <li>
                         <a href="{{ route('home.campaigns') }}">{{ localize('Campaigns') }}</a>

@@ -33,15 +33,15 @@
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Logistic Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom du Logistic ') }}</label>
                                     <input type="text" name="name" value="{{ $logistic->name }}" id="name"
-                                        placeholder="{{ localize('Logistic name') }}" class="form-control" required>
+                                        placeholder="{{ localize('Nom du Logistic ') }}" class="form-control" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Logistic Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Logistic Thumbnail') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Logistic Thumbnail') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -81,7 +81,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Logistic Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations logistiques') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>

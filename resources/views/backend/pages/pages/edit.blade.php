@@ -14,7 +14,7 @@
                             <div class="row g-3 align-items-center">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Mettre à jour Page') }} <sup
+                                        <h2 class="h5 mb-0">{{ localize('Mettre à jour la Page') }} <sup
                                                 class="badge bg-soft-warning px-2">{{ $lang_key }}</sup></h2>
                                     </div>
                                 </div>
@@ -50,18 +50,18 @@
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Page Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre de la Page') }}</label>
                                     <input class="form-control" type="text" id="title"
-                                        placeholder="{{ localize('Type page title') }}" name="title" required
+                                        placeholder="{{ localize('Saisir le titre de la page') }}" name="title" required
                                         value="{{ $page->collectLocalization('title', $lang_key) }}">
                                 </div>
 
 
                                 @if (env('DEFAULT_LANGUAGE') == $lang_key)
                                     <div class="mb-4">
-                                        <label for="slug" class="form-label">{{ localize('Page Slug') }}</label>
+                                        <label for="slug" class="form-label">{{ localize('Slug de la page') }}</label>
                                         <input class="form-control" type="text" id="slug"
-                                            placeholder="{{ localize('Type page slug') }}" name="titslugle" required
+                                            placeholder="{{ localize('Saisir page slug') }}" name="titslugle" required
                                             value="{{ $page->slug }}">
                                     </div>
                                 @endif
@@ -81,9 +81,9 @@
                                     <h5 class="mb-4">{{ localize('SEO Meta Configuration') }}</h5>
 
                                     <div class="mb-4">
-                                        <label for="meta_title" class="form-label">{{ localize('Meta Title') }}</label>
+                                        <label for="meta_title" class="form-label">{{ localize('Titre Meta') }}</label>
                                         <input type="text" name="meta_title" id="meta_title"
-                                            placeholder="{{ localize('Type meta title') }}" class="form-control"
+                                            placeholder="{{ localize('Saisir meta title') }}" class="form-control"
                                             value="{{ $page->meta_title }}">
                                         <span class="fs-sm text-muted">
                                             {{ localize('Set a meta tag title. Recommended to be simple and unique.') }}
@@ -94,12 +94,12 @@
                                         <label for="meta_description"
                                             class="form-label">{{ localize('Meta Description') }}</label>
                                         <textarea class="form-control" name="meta_description" id="meta_description" rows="4"
-                                            placeholder="{{ localize('Type your meta description') }}">{{ $page->meta_description }}</textarea>
+                                            placeholder="{{ localize('Saisir your meta description') }}">{{ $page->meta_description }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">{{ localize('Meta Image') }}</label>
                                         <div class="tt-image-drop rounded">
-                                            <span class="fw-semibold">{{ localize('Choose Meta Image') }}</span>
+                                            <span class="fw-semibold">{{ localize('Choisir Meta Image') }}</span>
                                             <!-- choose media -->
                                             <div class="tt-product-thumb show-selected-files mt-3">
                                                 <div class="avatar avatar-xl cursor-pointer choose-media"

@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Refund Configurations') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de remboursement') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Refund Configurations') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configuration de remboursement') }}</h2>
                             </div>
 
                         </div>
@@ -35,22 +35,22 @@
 
                                 <div class="mb-3">
                                     <label for="refund_within_days"
-                                        class="form-label">{{ localize('Allow Refund Within Days') }}</label>
+                                        class="form-label">{{ localize('Autoriser les remboursements dans un délai de jours') }}</label>
                                     <input type="hidden" name="types[]" value="refund_within_days">
                                     <input class="form-control" type="number" min="0" id="refund_within_days"
-                                        placeholder="{{ localize('Type refund days') }}" name="refund_within_days"
+                                        placeholder="{{ localize('Saisir le nombre de jours pour les remboursements') }}" name="refund_within_days"
                                         value="{{ getSetting('refund_within_days') }}" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="enable_refund_system"
-                                        class="form-label">{{ localize('Enable Refund System') }}</label>
+                                        class="form-label">{{ localize('Activer le système de remboursement') }}</label>
                                     <input type="hidden" name="types[]" value="enable_refund_system">
                                     <select class="select2 form-control" name="enable_refund_system">
                                         <option value="1" @if (getSetting('enable_refund_system') == 1) selected @endif>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0" @if (getSetting('enable_refund_system') == 0) selected @endif>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
 
@@ -64,7 +64,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Configurations') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer les Configurations') }}
                                     </button>
                                 </div>
                             </div>
@@ -77,11 +77,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-3">{{ localize('Refund Information') }}</h5>
+                            <h5 class="mb-3">{{ localize('Information de remboursement') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Refund Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Information de remboursement') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -33,9 +33,9 @@
                         <div class="checkout-steps">
                             <!-- shipping address -->
                             <div class="d-flex justify-content-between">
-                                <h4 class="mb-3">{{ localize('Shipping Address') }}</h4>
+                                <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
                                 <a href="javascript:void(0);" onclick="addNewAddress()" class="fw-semibold"><i
-                                        class="fas fa-plus me-1"></i> {{ localize('Add Address') }}</a>
+                                        class="fas fa-plus me-1"></i> {{ localize('Ajouter Address') }}</a>
                             </div>
                             <div class="row g-4">
                                 @forelse ($addresses as $address)
@@ -64,7 +64,7 @@
                                     <div class="col-12 mt-5">
                                         <div class="tt-address-content">
                                             <div class="alert alert-secondary text-center">
-                                                {{ localize('Add your address to checkout') }}
+                                                {{ localize('Ajouter your address to checkout') }}
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
 
                             <!-- billing address -->
                             @if (count($addresses) > 0)
-                                <h4 class="mb-3 mt-7">{{ localize('Billing Address') }}</h4>
+                                <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <div class="row g-4">
                                     @foreach ($addresses as $address)
                                         <div class="col-lg-6 col-sm-6">
@@ -189,7 +189,7 @@
                                 <div class="row g-4">
                                     <div class="col-sm-6">
                                         <div class="label-input-field">
-                                            <label>{{ localize('Phone') }}</label>
+                                            <label>{{ localize('Téléphone') }}</label>
                                             <input type="text" name="phone"
                                                 placeholder="{{ localize('Phone Number') }}" value="{{ $user->phone }}"
                                                 required>
@@ -205,9 +205,9 @@
 
                                     <div class="col-sm-12">
                                         <div class="label-input-field">
-                                            <label>{{ localize('Additional Info') }}</label>
+                                            <label>{{ localize('Ajouteritional Info') }}</label>
                                             <textarea rows="3" type="text" name="additional_info"
-                                                placeholder="{{ localize('Type your additional informations here') }}"></textarea>
+                                                placeholder="{{ localize('Saisir your additional informations here') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +215,7 @@
                             <!-- personal information -->
 
                             <!-- payment methods -->
-                            <h4 class="mt-7">{{ localize('Payment Method') }}</h4>
+                            <h4 class="mt-7">{{ localize('Méthode de paiement') }}</h4>
                             @include('frontend.default.pages.checkout.inc.paymentMethods')
                             <!-- payment methods -->
                         </div>

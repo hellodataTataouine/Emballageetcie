@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Set Reward Points') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configurer les points de récompense') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Set Reward Points') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configurer les points de récompense') }}</h2>
                             </div>
 
                         </div>
@@ -61,8 +61,8 @@
                                     <tr>
                                         <th class="text-center">{{ localize('S/L') }}
                                         </th>
-                                        <th>{{ localize('Product Name') }}</th>
-                                        <th data-breakpoints="xs sm">{{ localize('Base Price') }}</th>
+                                        <th>{{ localize('Nom du produit') }}</th>
+                                        <th data-breakpoints="xs sm">{{ localize('Prix de base') }}</th>
                                         <th data-breakpoints="xs sm md" class="text-end">{{ localize('Points') }}</th>
                                     </tr>
                                 </thead>
@@ -104,9 +104,9 @@
                             </table>
                             <!--pagination start-->
                             <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                                <span>{{ localize('Showing') }}
-                                    {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('of') }}
-                                    {{ $products->total() }} {{ localize('results') }}</span>
+                                <span>{{ localize('Affichage') }} 
+                                    {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }} 
+                                    {{ $products->total() }} {{ localize('résultats') }}  </span>
                                 <nav>
                                     {{ $products->appends(request()->input())->links() }}
                                 </nav>
@@ -124,22 +124,22 @@
                         <!--basic information start-->
                         <div class="card mb-4" id="section-2">
                             <div class="card-body">
-                                <h5 class="mb-3">{{ localize('Price Range Wise') }}</h5>
+                                <h5 class="mb-3">{{ localize('Selon la plage de prix') }}</h5>
 
                                 <div class="mb-3">
                                     <label for="points" class="form-label">{{ localize('Points') }}</label>
                                     <input class="form-control" type="number" min="0" id="points"
-                                        placeholder="{{ localize('Type reward points') }}" name="points"
+                                        placeholder="{{ localize('Saisir les points de récompense') }}" name="points"
                                         value="{{ getSetting('points') }}" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="min_price" class="form-label">{{ localize('Minimum Price') }}</label>
+                                    <label for="min_price" class="form-label">{{ localize('Prix minimum') }}</label>
                                     <input class="form-control" type="number" min="0" id="min_price"
                                         name="min_price" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="max_price" class="form-label">{{ localize('Maximum Price') }}</label>
+                                    <label for="max_price" class="form-label">{{ localize('Prix maximum') }}</label>
                                     <input class="form-control" type="number" min="0" id="max_price"
                                         name="max_price" required>
                                 </div>
@@ -152,7 +152,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Points') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Points') }}
                                     </button>
                                 </div>
                             </div>
@@ -166,11 +166,11 @@
                         <input type="hidden" name="points_for" value="all">
                         <div class="card mb-4" id="section-3">
                             <div class="card-body">
-                                <h5 class="mb-3">{{ localize('For All Products') }}</h5>
+                                <h5 class="mb-3">{{ localize('Pour tous les produits') }}</h5>
                                 <div class="mb-3">
                                     <label for="points" class="form-label">{{ localize('Points') }}</label>
                                     <input class="form-control" type="number" min="0" id="points"
-                                        placeholder="{{ localize('Type reward points') }}" name="points"
+                                        placeholder="{{ localize('Saisir les points de récompense') }}" name="points"
                                         value="{{ getSetting('points') }}" required>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Points') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Points') }}
                                     </button>
                                 </div>
                             </div>
@@ -194,19 +194,19 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-3">{{ localize('Reward Points') }}</h5>
+                            <h5 class="mb-3">{{ localize('Points de récompense') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Each Product Wise') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Pour chaque produit') }}</a>
                                     </li>
 
                                     <li>
-                                        <a href="#section-2" class="">{{ localize('Price Range Wise') }}</a>
+                                        <a href="#section-2" class="">{{ localize('Plage de prix') }}</a>
                                     </li>
 
                                     <li>
-                                        <a href="#section-3" class="">{{ localize('For All Products') }}</a>
+                                        <a href="#section-3" class="">{{ localize('Pour tous les produits') }}</a>
                                     </li>
                                 </ul>
                             </div>

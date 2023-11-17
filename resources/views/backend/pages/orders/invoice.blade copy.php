@@ -2,7 +2,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ localize('INVOICE') }}</title>
+    <title>{{ localize('Facture') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="UTF-8">
     <style type="text/css">
@@ -62,12 +62,12 @@
             <td colspan="4"
                 style="border-right: 1px solid #e4e4e4; width: 300px; color: #323232; line-height: 1.5; vertical-align: top;">
                 <p style="font-size: 15px; color: #5b5b5b; font-weight: bold; line-height: 1; vertical-align: top; ">
-                    {{ localize('INVOICE') }}</p>
+                    {{ localize('Facture') }}</p>
                 <br>
                 <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
                     {{ localize('Invoice No') }} : {{ getSetting('order_code_prefix') }}
                     {{ $order->orderGroup->order_code }}<br>
-                    {{ localize('Order Date') }} : {{ date('d M, Y', strtotime($order->created_at)) }}
+                    {{ {{ localize('Date de la commande') }} }} : {{ date('d M, Y', strtotime($order->created_at)) }}
                 </p>
 
                 @if ($order->location_id != null)
@@ -83,7 +83,7 @@
                     {{ getSetting('system_title') }}</p>
                 <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
                     {{ getSetting('topbar_location') }}<br>
-                    {{ localize('Phone') }}: {{ getSetting('navbar_contact_number') }}
+                    {{ localize('Téléphone') }}: {{ getSetting('navbar_contact_number') }}
                 </p>
             </td>
         </tr>
@@ -126,13 +126,13 @@
                             {{ localize('Alternative Phone') }}: {{ $order->orderGroup->alternative_phone_no }}
                         @endif
                         <br>
-                        {{ localize('Logistic') }}: {{ $order->logistic_name }}
+                        {{ localize('Logistique') }}: {{ $order->logistic_name }}
                         <br>
                         @php
                             $deliveryInfo = json_decode($order->scheduled_delivery_info);
                         @endphp
 
-                    <p class="mb-0">{{ localize('Delivery Type') }}:
+                    <p class="mb-0">{{ localize('Saisir de livraison') }}:
                         <span
                             class="badge bg-primary">{{ Str::title(Str::replace('_', ' ', $order->shipping_delivery_type)) }}</span>
 
@@ -141,7 +141,7 @@
 
                     @if ($order->shipping_delivery_type == getScheduledDeliveryType())
                         <p class="mb-0">
-                            {{ localize('Delivery Time') }}:
+                            {{ localize('Heure de livraison') }}:
                             {{ date('d F', $deliveryInfo->scheduled_date) }},
                             {{ $deliveryInfo->timeline }}</p>
                     @endif
@@ -205,7 +205,7 @@
                                                 <th style="font-size: 12px; color: #000000; font-weight: normal;
                   line-height: 1; vertical-align: top; padding: 0 0 7px; text-align: center; "
                                                     align="center">
-                                                    {{ localize('Qty') }}
+                                                    {{ localize('QTE') }}
                                                 </th>
                                                 <th style="font-size: 12px; color: #000000; font-weight:
                   normal; line-height: 1; vertical-align: top; padding: 0 0 7px; text-align: right; "
@@ -328,7 +328,7 @@
                                                 <tr>
                                                     <td
                                                         style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                                                        {{ localize('Coupon Discount') }}
+                                                        {{ localize('Remise coupon') }}
                                                     </td>
                                                     <td
                                                         style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">

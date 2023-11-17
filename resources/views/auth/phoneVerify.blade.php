@@ -25,7 +25,7 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Phone') }}
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Téléphone') }}
                                         <sup class="text-danger">*</sup>
                                         <small>({{ localize('Enter phone number with country code') }})</small></label>
                                     <input type="phone" id="phone" name="phone"

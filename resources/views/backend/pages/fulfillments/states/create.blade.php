@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Add State') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Ajouter State') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Add State') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Ajouter State') }}</h2>
                             </div>
 
                         </div>
@@ -34,14 +34,14 @@
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('State Name') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type state name') }}" name="name" required>
+                                        placeholder="{{ localize('Saisir state name') }}" name="name" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="country_id" class="form-label">{{ localize('Country') }}</label>
                                     <select class="form-control select2" name="country_id" class="w-100"
                                         data-toggle="select2" required>
-                                        <option value="">{{ localize('Select a country') }}</option>
+                                        <option value="">{{ localize('Sélectionner a country') }}</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}">
                                                 {{ $country->name }}</option>
@@ -58,7 +58,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save State') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer State') }}
                                     </button>
                                 </div>
                             </div>

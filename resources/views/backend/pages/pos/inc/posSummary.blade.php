@@ -54,7 +54,7 @@
 
       <div class="tt-pos-cal">
           <p class="mb-0">{{ localize('Shipping Charge') }}</p>
-          <input class="form-control col-6" type="number" placeholder="{{ localize('Type discount amount') }}"
+          <input class="form-control col-6" type="number" placeholder="{{ localize('Saisir discount amount') }}"
               id="total_shipping_cost" value="{{ $shippingInputValue }}" step="0.001" min="0"
               name="total_shipping_cost">
       </div>
@@ -62,10 +62,10 @@
       <div class="tt-pos-cal">
           <div class="row g-3">
               <div class="col-12">
-                  <label for="discount_value" class="form-label">{{ localize('Additional Discount') }}</label>
+                  <label for="discount_value" class="form-label">{{ localize('Ajouteritional Discount') }}</label>
                   <div class="input-group row g-0">
                       <input class="form-control col-6 rounded-end-0" type="number"
-                          placeholder="{{ localize('Type discount amount') }}" id="additional_discount_value"
+                          placeholder="{{ localize('Saisir discount amount') }}" id="additional_discount_value"
                           value="{{ $discountInputValue }}" step="0.001" min="0"
                           name="additional_discount_value">
 

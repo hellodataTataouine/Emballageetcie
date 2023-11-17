@@ -137,7 +137,7 @@
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
                             <span>{{ localize('Affichage') }}
                                 {{ localize('de') }} {{ $categories->firstItem() }}-{{ $categories->lastItem() }} {{ localize('sur') }}
-                                {{ $categories->total() }} {{ localize('results') }}</span>
+                                {{ $categories->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $categories->appends(request()->input())->links() }}
                             </nav>

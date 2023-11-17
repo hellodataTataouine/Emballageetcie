@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Add Shipping Zone') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Ajouter une Zone d\'expédition') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Add Shipping Zone') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Ajouter une Zone d\'expédition') }}</h2>
                             </div>
 
                         </div>
@@ -32,16 +32,16 @@
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
 
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Zone Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom de la Zone ') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type your zone name') }}" name="name" required>
+                                        placeholder="{{ localize('Saisir Nom de la Zone') }}" name="name" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="logistic_id" class="form-label">{{ localize('Logistic') }}</label>
+                                    <label for="logistic_id" class="form-label">{{ localize('Logistique') }}</label>
                                     <select class="form-control select2" name="logistic_id" class="w-100" id="logistic_id"
                                         data-toggle="select2" required>
-                                        <option value="">{{ localize('Select logistic') }}</option>
+                                        <option value="">{{ localize('Sélectionner Logistique') }}</option>
                                         @foreach ($logistics as $logistic)
                                             <option value="{{ $logistic->id }}">
                                                 {{ $logistic->name }}</option>
@@ -50,9 +50,9 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Cities') }}</label>
+                                    <label class="form-label">{{ localize('Villes') }}</label>
                                     <select class="form-control select2" name="city_ids[]" class="w-100" id="city_ids"
-                                        data-toggle="select2" data-placeholder="{{ localize('Select cities') }}" multiple
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner les Villes') }}" multiple
                                         required>
                                     </select>
                                 </div>
@@ -60,18 +60,18 @@
 
                                 <div class="mb-4">
                                     <label for="name"
-                                        class="form-label">{{ localize('Standard Delivery Charge') }}</label>
+                                        class="form-label">{{ localize('Frais de livraison standard') }}</label>
                                     <input type="number" step="0.001" name="standard_delivery_charge"
                                         id="standard_delivery_charge"
-                                        placeholder="{{ localize('Standard delivery charge') }}" class="form-control"
+                                        placeholder="{{ localize('Frais de livraison standard') }}" class="form-control"
                                         min="0" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="name"
-                                        class="form-label">{{ localize('Standard Delivery Time') }}</label>
+                                        class="form-label">{{ localize('Temps de livraison standard') }}</label>
                                     <input type="text" name="standard_delivery_time" id="standard_delivery_time"
-                                        placeholder="{{ localize('1 - 3 days') }}" class="form-control" required>
+                                        placeholder="{{ localize('1 - 3 jours') }}" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Zone') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer la Zone') }}
                                     </button>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Zone Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Zone Informations') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>

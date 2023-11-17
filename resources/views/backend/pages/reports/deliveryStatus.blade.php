@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Delivery Status Report') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Rapport par statut de livraison') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Delivery Status Wise Report') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Rapport par statut de livraison') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                             @endphp
 
                                             <input class="form-control date-range-picker date-range" type="text"
-                                                placeholder="{{ localize('Start date - End date') }}" name="date_range"
+                                                placeholder="{{ localize('Date de début - Date de fin') }}" name="date_range"
                                                 data-startdate="'{{ $start_date }}'" data-enddate="'{{ $end_date }}'">
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
                                     <th>{{ localize('Date') }}</th>
-                                    <th class="text-end">{{ localize('Total Sales') }}</th>
+                                    <th class="text-end">{{ localize('Ventes totales ') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,9 +90,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('of') }}
-                                {{ $orders->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ localize('sur') }} 
+                                {{ $orders->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $orders->appends(request()->input())->links() }}
                             </nav>

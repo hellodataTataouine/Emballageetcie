@@ -43,23 +43,23 @@
 
 
                                 <div class="mb-4">
-                                    <label for="title" class="form-label">{{ localize('Title') }}</label>
+                                    <label for="title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="text" name="title" id="title"
-                                        placeholder="{{ localize('Type title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le titre') }}" class="form-control"
                                         value="{{ $each_why_choose_us->title }}" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="text" name="text" id="text"
-                                        placeholder="{{ localize('Type text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
                                         value="{{ $each_why_choose_us->text }}" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Icon Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Icon Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Icon Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"

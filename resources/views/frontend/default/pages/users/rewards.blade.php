@@ -28,7 +28,7 @@
                             <table class="order-history-table table">
                                 <tbody>
                                     <tr>
-                                        <th>{{ localize('Order Code') }}</th>
+                                        <th>{{ localize('Code de commande') }}</th>
                                         <th>{{ localize('Points') }}</th>
                                         <th>{{ localize('Status') }}</th>
                                         <th>{{ localize('Date') }}</th>
@@ -49,7 +49,7 @@
                                                     </span>
                                                 @else
                                                     <span class="badge bg-info">
-                                                        {{ localize('Pending') }}
+                                                        {{ localize('En attente') }} 
                                                     </span>
                                                 @endif
 

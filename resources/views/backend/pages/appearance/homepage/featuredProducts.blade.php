@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Featured Products') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Produits vedettes') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -29,10 +29,10 @@
                             <div class="card-body">
                                 <div class="mb-4">
                                     <label for="featured_sub_title"
-                                        class="form-label">{{ localize('Section Sub Title') }}</label>
+                                        class="form-label">{{ localize('Section Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="featured_sub_title">
                                     <input type="text" name="featured_sub_title" id="featured_sub_title"
-                                        placeholder="{{ localize('Type sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
                                         value="{{ getSetting('featured_sub_title') }}">
                                 </div>
 
@@ -40,10 +40,10 @@
                                     @php
                                         $featured_products_left = getSetting('featured_products_left') != null ? json_decode(getSetting('featured_products_left')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Left Column Products') }}</label>
+                                    <label class="form-label">{{ localize('Produits de la colonne de gauche') }}</label>
                                     <input type="hidden" name="types[]" value="featured_products_left">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select products for left column') }}"
+                                        data-placeholder="{{ localize('Sélectionner le produits de la colonne de gauche') }}"
                                         name="featured_products_left[]" required>
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}"
@@ -57,10 +57,10 @@
                                     @php
                                         $featured_products_right = getSetting('featured_products_right') != null ? json_decode(getSetting('featured_products_right')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Right Column Products') }}</label>
+                                    <label class="form-label">{{ localize('Produits de la colonne de droite') }}</label>
                                     <input type="hidden" name="types[]" value="featured_products_right">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select products for right column') }}"
+                                        data-placeholder="{{ localize('Sélectionner le produits de la colonne de droite') }}"
                                         name="featured_products_right[]" required>
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}"
@@ -71,10 +71,10 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Center Banner Image') }}</label>
+                                    <label class="form-label">{{ localize('Image de bannière centrale') }}</label>
                                     <input type="hidden" name="types[]" value="featured_center_banner">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Image de bannière') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -93,7 +93,7 @@
 
                                 <div class="mb-4">
                                     <label for="featured_banner_link"
-                                        class="form-label">{{ localize('Banner Link') }}</label>
+                                        class="form-label">{{ localize('Lien de la bannière') }}</label>
                                     <input type="hidden" name="types[]" value="featured_banner_link">
                                     <input type="url" name="featured_banner_link" id="featured_banner_link"
                                         placeholder="{{ env('APP_URL') . '/example' }}" class="form-control"
@@ -108,7 +108,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

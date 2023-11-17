@@ -10,7 +10,7 @@
                         <div class="mb-0">
                             <label for="customerName" class="form-label">{{ localize('Owner Name') }}</label>
                             <input class="form-control" type="text" id="customerName"
-                                placeholder="{{ localize('Type owner name') }}" name="card_owner_name">
+                                placeholder="{{ localize('Saisir owner name') }}" name="card_owner_name">
                         </div>
                     </div>
 

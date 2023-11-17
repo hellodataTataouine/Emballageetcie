@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -42,7 +42,7 @@
                             <div class="card-body">
 
                                 <div class="mb-4">
-                                    <label for="link" class="form-label">{{ localize('Link') }}</label>
+                                    <label for="link" class="form-label">{{ localize('Lien') }}</label>
                                     <input type="url" name="link" id="link"
                                         placeholder="{{ env('APP_URL') }}/example" class="form-control"
                                         value="{{ $banner->link }}">
@@ -51,7 +51,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Slider Image') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Slider Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Slider Image') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"

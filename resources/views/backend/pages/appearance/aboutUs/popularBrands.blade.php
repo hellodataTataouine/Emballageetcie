@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -34,7 +34,7 @@
                                     <label class="form-label">{{ localize('Popular Brands') }}</label>
                                     <input type="hidden" name="types[]" value="about_popular_brand_ids">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select popular brands') }}"
+                                        data-placeholder="{{ localize('Sélectionner popular brands') }}"
                                         name="about_popular_brand_ids[]" required>
                                         @foreach ($brands as $brand)
                                             <option value="{{ $brand->id }}"

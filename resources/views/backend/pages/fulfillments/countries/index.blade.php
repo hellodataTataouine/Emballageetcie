@@ -60,7 +60,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Name') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
                                     <th>{{ localize('Code') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Active') }}</th>
 
@@ -97,10 +97,10 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
+                            <span>{{ localize('Affichage') }} 
                                 {{ $countries->firstItem() }}-{{ $countries->lastItem() }}
-                                {{ localize('of') }}
-                                {{ $countries->total() }} {{ localize('results') }}</span>
+                                {{ localize('sur') }} 
+                                {{ $countries->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $countries->appends(request()->input())->links() }}
                             </nav>

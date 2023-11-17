@@ -39,10 +39,10 @@
                                         name="enable_scheduled_order" data-toggle="select2">
                                         <option value="1"
                                             {{ getSetting('enable_scheduled_order') == '1' ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0"
                                             {{ getSetting('enable_scheduled_order') == '0' ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
 
@@ -75,7 +75,7 @@
                                         class="form-label">{{ localize('Invoice Thank You Message') }}</label>
                                     <input type="hidden" name="types[]" value="invoice_thanksgiving">
                                     <textarea rows="4" id="invoice_thanksgiving" name="invoice_thanksgiving" class="form-control"
-                                        placeholder="{{ localize('Type your thank you message for invoice') }}">{{ getSetting('invoice_thanksgiving') }}</textarea>
+                                        placeholder="{{ localize('Saisir your thank you message for invoice') }}">{{ getSetting('invoice_thanksgiving') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save Configuration') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Configuration') }}
                             </button>
                         </div>
                     </form>
@@ -135,14 +135,14 @@
                                                             <a class="dropdown-item"
                                                                 href="{{ route('admin.timeslot.edit', ['id' => $slot->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
                                                                 <i data-feather="edit-3"
-                                                                    class="me-2"></i>{{ localize('Edit') }}
+                                                                    class="me-2"></i>{{ localize('Modifier') }}
                                                             </a>
 
                                                             <a href="#" class="dropdown-item confirm-delete"
                                                                 data-href="{{ route('admin.timeslot.delete', $slot->id) }}"
-                                                                title="{{ localize('Delete') }}">
+                                                                title="{{ localize('Supprimer') }}">
                                                                 <i data-feather="trash-2" class="me-2"></i>
-                                                                {{ localize('Delete') }}
+                                                                {{ localize('Supprimer') }}
                                                             </a>
                                                         </div>
                                                     </div>
@@ -162,7 +162,7 @@
                         <!--timeslot-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Add New Time Slot') }}</h5>
+                                <h5 class="mb-4">{{ localize('Ajouter Nouveau Time Slot') }}</h5>
                                 <div class="mb-3">
                                     <label for="timeline" class="form-label">{{ localize('Time Slot') }}</label>
                                     <input type="text" id="timeline" name="timeline" class="form-control"
@@ -183,7 +183,7 @@
 
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                             </button>
                         </div>
                     </form>
@@ -205,7 +205,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="#section-3">{{ localize('Add New Time Slot') }}</a>
+                                        <a href="#section-3">{{ localize('Ajouter Nouveau Time Slot') }}</a>
                                     </li>
 
                                 </ul>

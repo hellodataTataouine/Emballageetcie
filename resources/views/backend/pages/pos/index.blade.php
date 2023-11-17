@@ -41,7 +41,7 @@
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
                                         data-bs-target="#addItemCode">
-                                        <i data-feather="plus"></i> {{ localize('Add Item by Code') }}
+                                        <i data-feather="plus"></i> {{ localize('Ajouter Item by Code') }}
                                     </button>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                     <div class="me-2 mb-1 mb-md-0">
                                         <select class="form-select py-1" name="delivery_status">
                                             <option value="{{ orderDeliveredStatus() }}" selected>
-                                                {{ localize('Delivered') }}</option>
+                                                {{ localize('Livré ') }} </option>
                                             <option value="{{ orderPlacedStatus() }}">{{ localize('Commande passée') }}
                                             </option>
                                         </select>
@@ -123,7 +123,7 @@
                                     <thead class="sticky-top bg-secondary-subtle">
                                         <tr>
                                             <th>{{ localize('Item') }}</th>
-                                            <th data-breakpoints="xs sm" class="text-center">{{ localize('Qty') }}</th>
+                                            <th data-breakpoints="xs sm" class="text-center">{{ localize('QTE') }}</th>
                                             <th data-breakpoints="xs sm md">{{ localize('Price') }}</th>
                                             <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                         </tr>

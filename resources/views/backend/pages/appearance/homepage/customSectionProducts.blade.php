@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Custom Products Section') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Section personnalisée de produits') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -30,22 +30,22 @@
 
                                 <div class="mb-3">
                                     <label for="enable_custom_product_section"
-                                        class="form-label">{{ localize('Enable Section') }}</label>
+                                        class="form-label">{{ localize('Activer la section') }}</label>
                                     <input type="hidden" name="types[]" value="enable_custom_product_section">
                                     <select id="enable_custom_product_section" class="form-control text-uppercase select2"
                                         name="enable_custom_product_section" data-toggle="select2">
                                         <option value="1"
                                             {{ getSetting('enable_custom_product_section') == 1 ? 'selected' : '' }}>
-                                            {{ localize('Enable') }}</option>
+                                            {{ localize('Activé') }}</option>
                                         <option value="0"
                                             {{ getSetting('enable_custom_product_section') == 0 ? 'selected' : '' }}>
-                                            {{ localize('Disable') }}</option>
+                                            {{ localize('Désactivé') }}</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="custom_section_products_title"
-                                        class="form-label">{{ localize('Section Title') }}</label>
+                                        class="form-label">{{ localize('Section Titre') }}</label>
                                     <input type="hidden" name="types[]" value="custom_section_products_title">
                                     <input type="text" name="custom_section_products_title"
                                         id="custom_section_products_title" class="form-control"
@@ -55,7 +55,7 @@
 
                                 <div class="mb-3">
                                     <label for="custom_section_products_sub_title"
-                                        class="form-label">{{ localize('Section Sub Title') }}</label>
+                                        class="form-label">{{ localize('Section Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="custom_section_products_sub_title">
                                     <input type="text" name="custom_section_products_sub_title"
                                         id="custom_section_products_sub_title" class="form-control"
@@ -66,10 +66,10 @@
                                     @php
                                         $custom_section_products = getSetting('custom_section_products') != null ? json_decode(getSetting('custom_section_products')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Best Selling Products') }}</label>
+                                    <label class="form-label">{{ localize('Meilleurs produits vendus') }}</label>
                                     <input type="hidden" name="types[]" value="custom_section_products">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select products') }}"
+                                        data-placeholder="{{ localize('Sélectionner les produits') }}"
                                         name="custom_section_products[]" required>
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}"
@@ -88,7 +88,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-3">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-3">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

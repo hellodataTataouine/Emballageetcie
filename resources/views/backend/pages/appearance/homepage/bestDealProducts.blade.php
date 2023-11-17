@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Homepage Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de la page d\'accueil du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -29,7 +29,7 @@
                             <div class="card-body">
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Date Range') }}</label>
+                                    <label class="form-label">{{ localize('Plage de dates') }}</label>
                                     @php
                                         $best_deal_end_date = getSetting('best_deal_end_date');
                                         if (!is_null($best_deal_end_date)) {
@@ -39,7 +39,7 @@
                                     <div class="input-group">
                                         <input type="hidden" name="types[]" value="best_deal_end_date">
                                         <input class="form-control date-picker" type="text"
-                                            placeholder="{{ localize('End date') }}" name="best_deal_end_date"
+                                            placeholder="{{ localize('Date de fin') }}" name="best_deal_end_date"
                                             @if ($best_deal_end_date != null) data-date="'{{ $best_deal_end_date }}'" @endif>
                                     </div>
                                 </div>
@@ -48,10 +48,10 @@
                                     @php
                                         $weekly_best_deals = getSetting('weekly_best_deals') != null ? json_decode(getSetting('weekly_best_deals')) : [];
                                     @endphp
-                                    <label class="form-label">{{ localize('Best Deal Products') }}</label>
+                                    <label class="form-label">{{ localize('Meilleures offres produits') }}</label>
                                     <input type="hidden" name="types[]" value="weekly_best_deals">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Select products') }}" name="weekly_best_deals[]"
+                                        data-placeholder="{{ localize('Sélectionner les produits') }}" name="weekly_best_deals[]"
                                         required>
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}"
@@ -63,10 +63,10 @@
 
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Banner Image') }}</label>
+                                    <label class="form-label">{{ localize('Image de bannière') }}</label>
                                     <input type="hidden" name="types[]" value="best_deal_banner">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir une image de bannière') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -85,7 +85,7 @@
 
                                 <div class="mb-3">
                                     <label for="best_deal_banner_link"
-                                        class="form-label">{{ localize('Banner Link') }}</label>
+                                        class="form-label">{{ localize('Lien de la bannière') }}</label>
                                     <input type="hidden" name="types[]" value="best_deal_banner_link">
                                     <input type="url" name="best_deal_banner_link" id="best_deal_banner_link"
                                         placeholder="{{ env('APP_URL') . '/example' }}" class="form-control"
@@ -100,7 +100,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Sauvegarder') }}
                                     </button>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-3">{{ localize('Homepage Configuration') }}</h5>
+                            <h5 class="mb-3">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.homepage.inc.rightSidebar')

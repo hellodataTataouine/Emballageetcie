@@ -53,9 +53,9 @@
                                 <div class="input-field">
                                     <label class="fw-bold text-dark fs-sm mb-1">
                                         @if (getSetting('registration_with') == 'email_and_phone')
-                                            {{ localize('Phone') }}<sup class="text-danger">*</sup>
+                                            {{ localize('Téléphone') }}<sup class="text-danger">*</sup>
                                         @else
-                                            {{ localize('Phone') }}
+                                            {{ localize('Téléphone') }}
                                         @endif
                                         <small>({{ localize('Enter phone number with country code') }})</small>
                                     </label>

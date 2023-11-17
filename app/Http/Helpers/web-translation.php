@@ -27,7 +27,7 @@
           <div class="col-12 col-md-4 mb-2 mb-md-0 text-end">
               <button type="button" class="btn btn-primary"
                   onclick="copyTranslation()">{{ localize('Copy Translations') }}</button>
-              <button type="submit" class="btn btn-primary">{{ localize('Save') }}</button>
+              <button type="submit" class="btn btn-primary">{{ localize('Sauvegarder') }}</button>
           </div>
       </div>
   </form>

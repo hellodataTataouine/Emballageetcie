@@ -82,9 +82,9 @@
                                                     @can('delete_subscribers')
                                                         <a href="#" class="dropdown-item confirm-delete"
                                                             data-href="{{ route('admin.subscribers.delete', $subscriber->id) }}"
-                                                            title="{{ localize('Delete') }}">
+                                                            title="{{ localize('Supprimer') }}">
                                                             <i data-feather="trash-2" class="me-2"></i>
-                                                            {{ localize('Delete') }}
+                                                            {{ localize('Supprimer') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -96,9 +96,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $subscribers->firstItem() }}-{{ $subscribers->lastItem() }} {{ localize('of') }}
-                                {{ $subscribers->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $subscribers->firstItem() }}-{{ $subscribers->lastItem() }} {{ localize('sur') }} 
+                                {{ $subscribers->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $subscribers->appends(request()->input())->links() }}
                             </nav>

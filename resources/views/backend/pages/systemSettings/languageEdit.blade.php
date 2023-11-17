@@ -34,7 +34,7 @@
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('Language Name') }}</label>
                                     <input type="text" name="name" id="name"
-                                        placeholder="{{ localize('Type language name') }}" class="form-control" required
+                                        placeholder="{{ localize('Saisir language name') }}" class="form-control" required
                                         value="{{ $language->name }}">
                                 </div>
 
@@ -66,7 +66,7 @@
                                     <select id="is_rtl" class="form-control select2" name="is_rtl"
                                         data-toggle="select2">
                                         <option value="0" @if ($language->is_rtl == 0) selected @endif>
-                                            {{ localize('Disable') }}
+                                            {{ localize('Désactivé') }}
                                         </option>
                                         <option value="1" @if ($language->is_rtl == 1) selected @endif>
                                             {{ localize('Active') }}

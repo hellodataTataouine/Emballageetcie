@@ -86,7 +86,7 @@
 
                                 <div class="col-sm-12">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Name') }}</label>
+                                        <label>{{ localize('Nom') }}</label>
                                         <input type="text" name="name" placeholder="{{ localize('Your name') }}"
                                             required>
                                     </div>
@@ -102,7 +102,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="label-input-field">
-                                        <label>{{ localize('Phone') }}</label>
+                                        <label>{{ localize('Téléphone') }}</label>
                                         <input type="text" name="phone" placeholder="{{ localize('You phone') }}"
                                             required>
                                     </div>

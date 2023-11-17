@@ -33,7 +33,7 @@
 
                             <div class="mb-4">
                                 <label for="name" class="form-label">{{ localize('Role Name') }}<span class="text-danger ms-1">*</span></label>
-                                <input class="form-control" type="text" id="name" placeholder="{{ localize('Type role name') }}" name="name" required value="{{ $role->name }}">
+                                <input class="form-control" type="text" id="name" placeholder="{{ localize('Saisir role name') }}" name="name" required value="{{ $role->name }}">
                                 @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
@@ -53,7 +53,7 @@
                                         <h2 class="h5 mb-lg-0">{{ localize('Permissions') }}</h2>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <label class="form-check-label fw-medium text-primary" for="all_permissions">{{ localize('Select All') }}</label>
+                                        <label class="form-check-label fw-medium text-primary" for="all_permissions">{{ localize('Sélectionner All') }}</label>
                                         <input type="checkbox" class="form-check-input" id="all_permissions" onchange="toggleSelectAll(this)" name="all_permissions">
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                     <div class="card mb-4">
                         <div class="card-body group-wrapper">
                             <div class="d-lg-flex align-items-center align-items-center">
-                                <label class="form-check-label fs-sm h6 bagde bg-soft-info rounded-pill px-3 p-2 cursor-pointer" for="group-{{ $permission_group[0]['id'] }}">{{ localize('Select all of') }}
+                                <label class="form-check-label fs-sm h6 bagde bg-soft-info rounded-pill px-3 p-2 cursor-pointer" for="group-{{ $permission_group[0]['id'] }}">{{ localize('Sélectionner all of') }}
                                     {{ localize(ucwords(str_replace('_', ' ', $permission_group[0]['group_name']))) }}</label>
 
                                 <div class="form-check form-switch ms-3 opacity-0">

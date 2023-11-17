@@ -35,7 +35,7 @@
                                 <div class="mb-4">
                                     <label for="name" class="form-label">{{ localize('State Name') }}</label>
                                     <input class="form-control" type="text" id="name"
-                                        placeholder="{{ localize('Type state name') }}" name="name" required
+                                        placeholder="{{ localize('Saisir state name') }}" name="name" required
                                         value="{{ $state->name }}">
                                 </div>
 
@@ -43,7 +43,7 @@
                                     <label for="country_id" class="form-label">{{ localize('Country') }}</label>
                                     <select class="form-control select2" name="country_id" class="w-100"
                                         data-toggle="select2" required>
-                                        <option value="">{{ localize('Select a country') }}</option>
+                                        <option value="">{{ localize('Sélectionner a country') }}</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"
                                                 {{ $state->country->id == $country->id ? 'selected' : '' }}>

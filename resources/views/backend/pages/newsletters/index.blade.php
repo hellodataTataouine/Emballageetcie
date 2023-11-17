@@ -32,9 +32,9 @@
 
                                 <input type="hidden" name="user_emails[]">
                                 <div class="d-none">
-                                    <label for="user_emails" class="form-label">{{ localize('Select Users') }}</label>
+                                    <label for="user_emails" class="form-label">{{ localize('Sélectionner Users') }}</label>
                                     <select class="form-select form-control select2"
-                                        data-placeholder="{{ localize('Select Users') }}" data-toggle="select2"
+                                        data-placeholder="{{ localize('Sélectionner Users') }}" data-toggle="select2"
                                         name="user_emails[]" multiple>
                                         @foreach ($users as $user)
                                             @if ($user->email)
@@ -49,7 +49,7 @@
                                 <div class="mb-4">
                                     <label for="subscriber_emails" class="form-label">{{ localize('Subscribers') }}</label>
                                     <select class="form-select form-control select2"
-                                        data-placeholder="{{ localize('Select Subscribers') }}" data-toggle="select2"
+                                        data-placeholder="{{ localize('Sélectionner Subscribers') }}" data-toggle="select2"
                                         name="subscriber_emails[]" multiple required>
                                         @foreach ($subscribers as $subscriber)
                                             @if ($subscriber->email)

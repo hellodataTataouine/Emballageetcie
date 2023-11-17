@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Add new coupon') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Ajouter Nouveau coupon') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Add Coupon') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Ajouter Coupon') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                                 <div class="mb-4">
                                     <label for="code" class="form-label">{{ localize('Coupon Code') }}</label>
                                     <input class="form-control" type="text" id="code"
-                                        placeholder="{{ localize('Type coupon code') }}" name="code" required>
+                                        placeholder="{{ localize('Saisir coupon code') }}" name="code" required>
                                 </div>
 
                                 <div class="mb-4">
@@ -43,7 +43,7 @@
                                                 <label for="discount_value"
                                                     class="form-label">{{ localize('Discount Amount') }}</label>
                                                 <input class="form-control" type="number"
-                                                    placeholder="{{ localize('Type discount amount') }}" id="discount_value"
+                                                    placeholder="{{ localize('Saisir discount amount') }}" id="discount_value"
                                                     value="0" step="0.001" name="discount_value" required>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                                 <label class="form-label">{{ localize('Date Range') }}</label>
                                                 <div class="input-group">
                                                     <input class="form-control date-range-picker date-range" type="text"
-                                                        placeholder="{{ localize('Start date - End date') }}"
+                                                        placeholder="{{ localize('Date de début - Date de fin') }}"
                                                         name="date_range">
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Banner') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choose Coupon Banner') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Coupon Banner') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -119,7 +119,7 @@
                                 <div class="mb-4">
                                     <label class="form-label">{{ localize('Categories') }}</label>
                                     <select class="form-control select2" class="w-100" data-toggle="select2"
-                                        data-placeholder="{{ localize('Select Categories') }}" name="category_ids[]"
+                                        data-placeholder="{{ localize('Sélectionner Categories') }}" name="category_ids[]"
                                         multiple>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">
@@ -136,9 +136,9 @@
 
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Products') }}</label>
+                                    <label class="form-label">{{ localize('Produits') }}</label>
                                     <select class="form-control select2" class="w-100" data-toggle="select2"
-                                        data-placeholder="{{ localize('Select Products') }}" name="product_ids[]"
+                                        data-placeholder="{{ localize('Sélectionner le produits') }}" name="product_ids[]"
                                         multiple>
                                         @foreach ($products as $product)
                                             <option value="{{ $product->id }}">
@@ -189,7 +189,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Save Coupon') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Coupon') }}
                                     </button>
                                 </div>
                             </div>

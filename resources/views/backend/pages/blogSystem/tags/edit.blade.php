@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Mettre à jour Tag') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Mettre à jour le Tag') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Tag') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour le Tag') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -32,9 +32,9 @@
                             <div class="card-body">
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
                                 <div class="mb-4">
-                                    <label for="name" class="form-label">{{ localize('Tag Name') }}</label>
+                                    <label for="name" class="form-label">{{ localize('Nom du Tag ') }}</label>
                                     <input class="form-control" type="text" id="name" name="name"
-                                        placeholder="{{ localize('Type tag name') }}" required value="{{ $tag->name }}">
+                                        placeholder="{{ localize('Saisir le nom du tag ') }}" required value="{{ $tag->name }}">
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Tag Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations sur les tags') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>

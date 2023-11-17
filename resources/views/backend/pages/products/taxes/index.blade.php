@@ -52,7 +52,7 @@
                                                             @isset($is_published)
                                                          @if ($is_published == 1) selected @endif
                                                         @endisset>
-                                                            {{ localize('Actif') }}</option>
+                                                            {{ localize('Activé') }}</option>
                                                         <option value="0"
                                                             @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
@@ -75,7 +75,7 @@
                                         <tr>
                                             <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                             <th>{{ localize('Nom') }}</th>
-                                            <th data-breakpoints="xs sm">{{ localize('Actif') }}</th>
+                                            <th data-breakpoints="xs sm">{{ localize('Activé') }}</th>
                                             <th data-breakpoints="xs sm" class="text-end">
                                                 {{ localize('Action') }}
                                             </th>
@@ -138,7 +138,7 @@
                                 <div class="d-flex align-items-center justify-content-between px-4 pb-4">
                                     <span>{{ localize('Affichage') }}
                                         {{ localize('de') }}   {{ $taxes->firstItem() }}-{{ $taxes->lastItem() }} {{ localize('sur') }}
-                                        {{ $taxes->total() }} {{ localize('results') }}</span>
+                                        {{ $taxes->total() }} {{ localize('résultats') }}  </span>
                                     <nav>
                                         {{ $taxes->appends(request()->input())->links() }}
                                     </nav>

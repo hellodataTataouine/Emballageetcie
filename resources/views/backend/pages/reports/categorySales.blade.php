@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Category Sales Report') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Rapport des ventes par catégorie') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Category Wise Sales Report') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Rapport des ventes par catégorie') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -47,13 +47,13 @@
                                                     @isset($order)
                                                          @if ($order == 'DESC') selected @endif
                                                         @endisset>
-                                                    {{ localize('High ⟶ Low') }}</option>
+                                                    {{ localize('Élevé ⟶ Bas') }}</option>
 
                                                 <option value="ASC"
                                                     @isset($order)
                                                          @if ($order == 'ASC') selected @endif
                                                         @endisset>
-                                                    {{ localize('Low ⟶ High') }}</option>
+                                                    {{ localize('Bas⟶ Élevé ') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -72,8 +72,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
-                                    <th>{{ localize('Category Name') }}</th>
-                                    <th class="text-end">{{ localize('Total Sales') }}</th>
+                                    <th>{{ localize('Nom de la catégorie') }}</th>
+                                    <th class="text-end">{{ localize('Ventes totales ') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,9 +104,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $categories->firstItem() }}-{{ $categories->lastItem() }} {{ localize('of') }}
-                                {{ $categories->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $categories->firstItem() }}-{{ $categories->lastItem() }} {{ localize('sur') }} 
+                                {{ $categories->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $categories->appends(request()->input())->links() }}
                             </nav>

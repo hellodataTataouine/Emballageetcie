@@ -56,7 +56,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        flash(localize('Address has been inserted successfully'))->success();
+        flash(localize('Ajouterress has been inserted successfully'))->success();
         return back();
     }
 
@@ -96,7 +96,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        flash(localize('Address has been inserted successfully'))->success();
+        flash(localize('Ajouterress has been inserted successfully'))->success();
         return back();
     }
 
@@ -106,7 +106,7 @@ class AddressController extends Controller
         $user = auth()->user();
         UserAddress::where('user_id', $user->id)->where('id', $id)->delete();
 
-        flash(localize('Address has been deleted successfully'))->success();
+        flash(localize('Ajouterress has been deleted successfully'))->success();
         return back();
     }
 }

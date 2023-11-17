@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Locations') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Emplacements') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,12 +12,12 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Locations') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Emplacements') }}</h2>
                             </div>
                             <div class="tt-action">
                                 @can('add_locations')
                                     <a href="{{ route('admin.locations.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Add Location') }}</a>
+                                            data-feather="plus"></i> {{ localize('Ajouter Emplacement') }}</a>
                                 @endcan
                             </div>
                         </div>
@@ -49,17 +49,17 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Select Status') }}</option>
+                                                <option value="">{{ localize('Sélectionner Statut') }}</option>
                                                 <option value="1"
                                                     @isset($is_published)
                                                          @if ($is_published == 1) selected @endif
                                                         @endisset>
-                                                    {{ localize('Published') }}</option>
+                                                    {{ localize('Publié') }}</option>
                                                 <option value="0"
                                                     @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
                                                         @endisset>
-                                                    {{ localize('Hidden') }}</option>
+                                                    {{ localize('Caché') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -78,10 +78,10 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('Name') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Address') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Default') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Published') }}</th>
+                                    <th>{{ localize('Nom') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Adresse') }}</th>
+                                    <th data-breakpoints="xs sm md">{{ localize('Par défaut') }}</th>
+                                    <th data-breakpoints="xs sm md">{{ localize('Publié') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
@@ -135,7 +135,7 @@
                                                     @can('edit_locations')
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.locations.edit', ['id' => $location->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}&localize">
-                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Edit') }}
+                                                            <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
                                                 </div>
@@ -147,9 +147,9 @@
                         </table>
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
-                            <span>{{ localize('Showing') }}
-                                {{ $locations->firstItem() }}-{{ $locations->lastItem() }} {{ localize('of') }}
-                                {{ $locations->total() }} {{ localize('results') }}</span>
+                            <span>{{ localize('Affichage') }} 
+                                {{ $locations->firstItem() }}-{{ $locations->lastItem() }} {{ localize('sur') }} 
+                                {{ $locations->total() }} {{ localize('résultats') }}  </span>
                             <nav>
                                 {{ $locations->appends(request()->input())->links() }}
                             </nav>

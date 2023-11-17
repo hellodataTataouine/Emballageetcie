@@ -11,7 +11,7 @@
                 <form action="" class="rejection-form" method="post">
                     @csrf
                     <div class="mb-4">
-                        <textarea class="form-control" id="refund_reject_reason" placeholder="{{ localize('Type rejection reason') }}"
+                        <textarea class="form-control" id="refund_reject_reason" placeholder="{{ localize('Saisir rejection reason') }}"
                             name="refund_reject_reason" required></textarea>
                     </div>
 

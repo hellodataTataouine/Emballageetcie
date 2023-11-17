@@ -498,7 +498,7 @@ class PosController extends Controller
         } else {
             return [
                 'success' => false,
-                'message' => localize('Add products to list to make order')
+                'message' => localize('Ajouter products to list to make order')
             ];
         }
     }

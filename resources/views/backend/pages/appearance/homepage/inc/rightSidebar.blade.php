@@ -8,11 +8,11 @@
 </li>
 <li>
     <a href="{{ route('admin.appearance.homepage.featuredProducts') }}"
-        class="{{ areActiveRoutes(['admin.appearance.homepage.featuredProducts']) }}">{{ localize('Featured Products') }}</a>
+        class="{{ areActiveRoutes(['admin.appearance.homepage.featuredProducts']) }}">{{ localize('Produits vedettes') }}</a>
 </li>
 <li>
     <a href="{{ route('admin.appearance.homepage.topTrendingProducts') }}"
-        class="{{ areActiveRoutes(['admin.appearance.homepage.topTrendingProducts']) }}">{{ localize('Top Trending Products') }}</a>
+        class="{{ areActiveRoutes(['admin.appearance.homepage.topTrendingProducts']) }}">{{ localize('Top produits tendance') }}</a>
 </li>
 <li>
     <a href="{{ route('admin.appearance.homepage.bannerOne') }}"

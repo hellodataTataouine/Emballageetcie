@@ -44,7 +44,7 @@
                                     </span>
 
                                     <span class="login-phone @if (old('login_with') == 'email' || old('login_with') == '') d-none @endif">
-                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Phone') }}</label>
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Téléphone') }}</label>
                                         <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
                                             class="theme-input mb-1" value="{{ old('phone') }}">
 

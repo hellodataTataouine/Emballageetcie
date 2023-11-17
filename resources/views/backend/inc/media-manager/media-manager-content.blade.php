@@ -11,7 +11,7 @@
         {{-- uploader --}}
         <div class="col-12 col-lg-6 order-first order-md-last mb-2 mb-md-0 ps-md-3">
             @can('add_media')
-                <h5>{{ localize('Add files here') }}</h5>
+                <h5>{{ localize('Ajouter files here') }}</h5>
                 <div class="uppy-drag-drop-area"></div>
             @endcan
         </div>

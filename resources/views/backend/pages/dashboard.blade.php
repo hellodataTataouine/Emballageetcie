@@ -25,7 +25,7 @@
                                     @can('add_products')
                                         <a href="{{ route('admin.products.create') }}" class="btn btn-primary ms-2"><i
                                                 data-feather="plus" class="me-2"></i>
-                                            {{ localize('Add Product') }}</a>
+                                            {{ localize('Ajouter Product') }}</a>
                                     @endcan
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                                                 </div>
                                                 <span class="fw-bold heading-font text-end  cursor-pointer"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="{{ localize('Total Sales') }}">({{ $product->total_sale_count }})</span>
+                                                    title="{{ localize('Ventes totales ') }}">({{ $product->total_sale_count }})</span>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -263,13 +263,13 @@
                                 <table class="table tt-footable border-top align-middle" data-use-parent-width="true">
                                     <thead>
                                         <tr>
-                                            <th class="ps-4">{{ localize('Order Code') }}</th>
+                                            <th class="ps-4">{{ localize('Code de commande') }}</th>
                                             <th data-breakpoints="xs sm md">{{ localize('Customer') }}</th>
                                             <th>{{ localize('Placed On') }}</th>
-                                            <th data-breakpoints="xs">{{ localize('Items') }}</th>
+                                            <th data-breakpoints="xs">{{ localize('Articles ') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>
-                                            <th data-breakpoints="xs">{{ localize('Delivery Type') }}</th>
+                                            <th data-breakpoints="xs">{{ localize('Saisir de livraison') }}</th>
                                             <th data-breakpoints="xs" class="text-end">{{ localize('Action') }}</th>
                                         </tr>
                                     </thead>

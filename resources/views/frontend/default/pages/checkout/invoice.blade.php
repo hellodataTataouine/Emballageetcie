@@ -24,7 +24,7 @@
                             </div>
                             <table class="invoice-table-sm">
                                 <tr>
-                                    <td><strong>{{ localize('Order Code') }}</strong></td>
+                                    <td><strong>{{ localize('Code de commande') }}</strong></td>
                                     <td>{{ getSetting('order_code_prefix') }}{{ $orderGroup->order_code }}</td>
                                 </tr>
 
@@ -54,7 +54,7 @@
                                     $deliveryInfo = json_decode($order->scheduled_delivery_info);
                                 @endphp
 
-                                <p class="mb-0">{{ localize('Delivery Type') }}:
+                                <p class="mb-0">{{ localize('Saisir de livraison') }}:
                                     <span
                                         class="badge bg-primary">{{ Str::title(Str::replace('_', ' ', $order->shipping_delivery_type)) }}</span>
 
@@ -62,7 +62,7 @@
                                 </p>
                                 @if ($order->shipping_delivery_type == getScheduledDeliveryType())
                                     <p class="mb-0">
-                                        {{ localize('Delivery Time') }}:
+                                        {{ localize('Heure de livraison') }}:
                                         {{ date('d F', $deliveryInfo->scheduled_date) }},
                                         {{ $deliveryInfo->timeline }}</p>
                                 @endif
@@ -72,7 +72,7 @@
                             @if (!$order->orderGroup->is_pos_order)
                                 <div class="shipping-address d-flex justify-content-md-end">
                                     <div class="border-end pe-2">
-                                        <h6 class="mb-2">{{ localize('Shipping Address') }}</h6>
+                                        <h6 class="mb-2">{{ localize('Adresse de livraison') }}</h6>
                                         @php
                                             $shippingAddress = $orderGroup->shippingAddress;
                                         @endphp
@@ -82,7 +82,7 @@
                                             {{ optional(optional($shippingAddress)->country)->name }}</p>
                                     </div>
                                     <div class="ms-4">
-                                        <h6 class="mb-2">{{ localize('Billing Address') }}</h6>
+                                        <h6 class="mb-2">{{ localize('Adresse de facturation') }}</h6>
                                         @php
                                             $billingAddress = $orderGroup->billingAddress;
                                         @endphp
@@ -99,9 +99,9 @@
                         <table class="table invoice-table">
                             <tr>
                                 <th>{{ localize('S/L') }}</th>
-                                <th>{{ localize('Products') }}</th>
+                                <th>{{ localize('Produits') }}</th>
                                 <th>{{ localize('U.Price') }}</th>
-                                <th>{{ localize('QTY') }}</th>
+                                <th>{{ localize('QTE') }}</th>
                                 <th>{{ localize('T.Price') }}</th>
                                 @if (getSetting('enable_refund_system') == 1)
                                     <th>{{ localize('Refund') }}</th>
@@ -189,12 +189,12 @@
                         <table class="table footer-table">
                             <tr>
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Payment Method') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Méthode de paiement') }}</strong>
                                     <span> {{ ucwords(str_replace('_', ' ', $orderGroup->payment_method)) }}</span>
                                 </td>
 
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Sub Total') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
                                     <span>{{ formatPrice($orderGroup->sub_total_amount) }}</span>
                                 </td>
 
@@ -210,13 +210,13 @@
                                 @if ($orderGroup->total_coupon_discount_amount > 0)
                                     <td>
                                         <strong
-                                            class="text-dark d-block text-nowrap">{{ localize('Coupon Discount') }}</strong>
+                                            class="text-dark d-block text-nowrap">{{ localize('Remise coupon') }}</strong>
                                         <span>{{ formatPrice($orderGroup->total_coupon_discount_amount) }}</span>
                                     </td>
                                 @endif
 
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Total Price') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Prix Total') }}</strong>
                                     <span
                                         class="text-primary fw-bold">{{ formatPrice($orderGroup->grand_total_amount) }}</span>
                                 </td>
@@ -245,7 +245,7 @@
                                 <div class="col-sm-12">
                                     <div class="label-input-field">
                                         <label>{{ localize('Refund Reason') }}</label>
-                                        <textarea rows="4" placeholder="{{ localize('Type refund reason') }}" name="refund_reason" required></textarea>
+                                        <textarea rows="4" placeholder="{{ localize('Saisir refund reason') }}" name="refund_reason" required></textarea>
                                     </div>
                                 </div>
                             </div>

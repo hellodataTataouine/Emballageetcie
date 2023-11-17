@@ -76,7 +76,7 @@
             <div class="col-lg-12">
                 <div class="mb-3">
                     <label for="stock" class="form-label">{{ localize('Stock') }}</label>
-                    <input type="number" id="stock" placeholder="{{ localize('Stock qty') }}" name="stock"
+                    <input type="number" id="stock" placeholder="{{ localize('Stock qté') }}" name="stock"
                         class="form-control" value="{{ $stock_qty }}" required>
                 </div>
             </div>
