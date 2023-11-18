@@ -41,7 +41,7 @@
             <div class="d-flex justify-content-between align-items-center mt-10">
                 <span class="flex-grow-1">
                     <a href="javascript:void(0);" class="fs-xs fw-bold mt-10 d-inline-block explore-btn"
-                        onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Buy Now') }}<span
+                        onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Acheter maintenant') }}<span
                             class="ms-1"><i class="fa-solid fa-arrow-right"></i></span></a>
                 </span>
 
@@ -64,13 +64,13 @@
                     <span class="flex-grow-1">
                         @if (!$isVariantProduct && $stock < 1)
                             <a href="javascript:void(0);" class="fs-xs fw-bold d-inline-block explore-btn">
-                                {{ localize('Out of Stock') }}
+                                {{ localize('Épuisé') }}
                                 <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                             </a>
                         @else
                             <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
                                 class="fs-xs fw-bold d-inline-block explore-btn direct-add-to-cart-btn">
-                                <span class="add-to-cart-text">{{ localize('Buy Now') }}</span>
+                                <span class="add-to-cart-text">{{ localize('Acheter maintenant') }}</span>
                                 <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                             </a>
                         @endif

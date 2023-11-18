@@ -277,7 +277,7 @@
             success: function(data) {
                 parent.find('.direct-add-to-cart-btn').prop('disabled', false);
 
-                if (text.includes("Buy Now")) {
+                if (text.includes("Acheter maintenant")) {
                     parent.find('.add-to-cart-text').html(TT.localize.buyNow);
                 } else {
                     parent.find('.add-to-cart-text').html(TT.localize.addToCart);

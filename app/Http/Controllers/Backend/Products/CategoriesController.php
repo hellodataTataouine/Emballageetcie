@@ -92,7 +92,7 @@ class CategoriesController extends Controller
         $category->save();
         $categoryLocalization->save();
 
-        flash(localize('Category has been inserted successfully'))->success();
+        flash(localize('La catégorie a été insérée avec succès.'))->success();
         return redirect()->route('admin.categories.index');
     }
 
@@ -169,7 +169,7 @@ class CategoriesController extends Controller
 
         $category->save();
         $categoryLocalization->save();
-        flash(localize('Category has been updated successfully'))->success();
+        flash(localize('La catégorie a été mise à jour avec succès.'))->success();
         return back();
     }
 
@@ -209,7 +209,7 @@ class CategoriesController extends Controller
 
             $category->delete();
         }
-        flash(localize('Category has been deleted successfully'))->success();
+        flash(localize('La catégorie a été supprimée avec succès.'))->success();
         return back();
     }
 

@@ -40,7 +40,7 @@ class BlogCategoriesController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        flash(localize('Category has been inserted successfully'))->success();
+        flash(localize('La catégorie a été insérée avec succès.'))->success();
         return redirect()->route('admin.blogCategories.index');
     }
 
@@ -57,7 +57,7 @@ class BlogCategoriesController extends Controller
         $category = BlogCategory::findOrFail($request->id);
         $category->name = $request->name;
         $category->save();
-        flash(localize('Category has been updated successfully'))->success();
+        flash(localize('La catégorie a été mise à jour avec succès.'))->success();
         return back();
     }
 
@@ -68,7 +68,7 @@ class BlogCategoriesController extends Controller
         $category = BlogCategory::findOrFail($id);
         Blog::where('blog_category_id', $category->id)->delete();
         $category->delete();
-        flash(localize('Category has been deleted successfully'))->success();
+        flash(localize('La catégorie a été supprimée avec succès.'))->success();
         return back();
     }
 }

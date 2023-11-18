@@ -44,11 +44,7 @@
 
             @if (getCouponDiscount(getSubTotal($carts, false), getCoupon()) > 0)
                 <tr>
-<<<<<<< HEAD
                     <td>(-) {{ localize('Remise de coupon') }}:</td>
-=======
-                    <td>(-) {{ localize('Remise coupon') }}:</td>
->>>>>>> 9eefc245bcf1050ee00ebfd4da945ae7b5cd4c6b
                     <td class="text-end">{{ formatPrice(getCouponDiscount(getSubTotal($carts, false), getCoupon())) }}
                     </td>
                 </tr>

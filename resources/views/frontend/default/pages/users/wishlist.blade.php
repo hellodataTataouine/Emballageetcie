@@ -26,11 +26,7 @@
                     <thead>
                         <th>{{ localize('Image') }}</th>
                         <th>{{ localize('Nom du produit') }}</th>
-<<<<<<< HEAD
                         <th>{{ localize('Prix unitaire') }}</th>
-=======
-                        <th>{{ localize('U. Price') }}</th>
->>>>>>> 9eefc245bcf1050ee00ebfd4da945ae7b5cd4c6b
                         <th>{{ localize('Action') }}</th>
                     </thead>
                     <tbody class="text-center">
