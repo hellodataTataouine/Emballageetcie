@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Sélectionner Top Categories') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Sélectionner Top Catégories') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                                     @endphp
                                     <input type="hidden" name="types[]" value="top_category_ids">
                                     <select class="select2 form-control" multiple="multiple"
-                                        data-placeholder="{{ localize('Sélectionner top categories') }}" name="top_category_ids[]"
+                                        data-placeholder="{{ localize('Sélectionner top catégories') }}" name="top_category_ids[]"
                                         required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"

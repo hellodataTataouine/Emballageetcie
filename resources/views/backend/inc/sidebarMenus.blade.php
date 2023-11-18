@@ -363,7 +363,7 @@
         <span class="tt-nav-title-text">{{ localize('Promotions') }}</span>
     </li>
     <!-- newsletter -->
-    @php
+  <!--  @php
         $newsletterActiveRoutes = ['admin.newsletters.index', 'admin.subscribers.index'];
     @endphp
     @canany(['newsletters', 'subscribers'])
@@ -395,7 +395,7 @@
                 </ul>
             </div>
         </li>
-    @endcan
+    @endcan -->
 
     <!-- Coupons -->
     @can('coupons')
@@ -409,7 +409,7 @@
         </li>
     @endcan
 
-    <!-- campaigns -->
+    <!-- campaigns
     @can('campaigns')
         <li
             class="side-nav-item nav-item {{ areActiveRoutes(['admin.campaigns.index', 'admin.campaigns.create', 'admin.campaigns.edit'], 'tt-menu-item-active') }}">
@@ -419,7 +419,7 @@
                 
             </a>
         </li>
-    @endcan
+    @endcan -->
 
     <!-- Fulfillment -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
@@ -759,7 +759,7 @@
                         </li>
                     @endcan
 
-                    @can('language_settings')
+                  <!-- @can('language_settings')
                         <li
                             class="{{ areActiveRoutes(
                                 ['admin.languages.index', 'admin.languages.edit', 'admin.languages.localizations'],
@@ -768,7 +768,7 @@
                             <a href="{{ route('admin.languages.index') }}"
                                 class="{{ areActiveRoutes(['admin.languages.index', 'admin.languages.edit', 'admin.languages.localizations']) }}">{{ localize('Multilingual Settings') }}</a>
                         </li>
-                    @endcan
+                    @endcan -->
 
                     @can('currency_settings')
                         <li

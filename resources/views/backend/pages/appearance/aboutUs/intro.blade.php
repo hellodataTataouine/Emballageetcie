@@ -33,7 +33,7 @@
                                         class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_sub_title">
                                     <input type="text" name="about_intro_sub_title" id="about_intro_sub_title"
-                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir Sous-titre') }}" class="form-control"
                                         value="{{ getSetting('about_intro_sub_title') }}">
                                 </div>
 
@@ -66,16 +66,16 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="about_intro_quote" class="form-label">{{ localize('Quote') }}</label>
+                                    <label for="about_intro_quote" class="form-label">{{ localize('Citation') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_quote">
                                     <textarea name="about_intro_quote" id="about_intro_quote" class="form-control">{{ getSetting('about_intro_quote') }}</textarea>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="about_intro_quote_by" class="form-label">{{ localize('Quote By') }}</label>
+                                    <label for="about_intro_quote_by" class="form-label">{{ localize('Citation Par') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_quote_by">
                                     <input type="text" name="about_intro_quote_by" id="text"
-                                        placeholder="{{ localize('Saisir name of the user') }}" class="form-control"
+                                        placeholder="{{ localize('Entrez le nom de l\'utilisateur') }}" class="form-control"
                                         value="{{ getSetting('about_intro_quote_by') }}">
                                 </div>
 
@@ -84,7 +84,7 @@
                                     <label class="form-label">{{ localize('Image') }}</label>
                                     <input type="hidden" name="types[]" value="about_intro_image">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Cliquez pour choisir une image de bannière') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -120,7 +120,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('About Us Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de la page À propos de nous') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.aboutUs.inc.rightSidebar')

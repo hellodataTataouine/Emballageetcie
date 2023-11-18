@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Website Header Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configuration de l\'en-tête du site web') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Website Header Configuration') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configuration de l\'en-tête du site web') }}</h2>
                             </div>
 
                         </div>
@@ -30,11 +30,11 @@
                         <!--Topbar-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Topbar Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('TInformations de la barre supérieure') }}</h5>
 
                                 <div class="mb-3">
                                     <label for="topbar_welcome_text"
-                                        class="form-label">{{ localize('Welcome Text') }}</label>
+                                        class="form-label">{{ localize('Texte de bienvenue') }}</label>
                                     <input type="hidden" name="types[]" value="topbar_welcome_text">
                                     <input type="text" name="topbar_welcome_text" id="topbar_welcome_text"
                                         class="form-control" placeholder="{{ localize('Bienvenue chez Emballage & Cie') }}"
@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="topbar_email" class="form-label">{{ localize('Topbar Email') }}</label>
+                                    <label for="topbar_email" class="form-label">{{ localize('Email de la barre supérieure') }}</label>
                                     <input type="hidden" name="types[]" value="topbar_email">
                                     <input type="email" name="topbar_email" id="topbar_email" class="form-control"
                                         placeholder="{{ localize('grostore@support.com') }}"
@@ -51,7 +51,7 @@
 
                                 <div class="mb-3">
                                     <label for="topbar_location"
-                                        class="form-label">{{ localize('Topbar Location') }}</label>
+                                        class="form-label">{{ localize('Localisation de la barre supérieure') }}</label>
                                     <input type="hidden" name="types[]" value="topbar_location">
                                     <input type="text" name="topbar_location" id="topbar_location" class="form-control"
                                         placeholder="{{ localize('Washington, New York, USA - 254230') }}"
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="facebook_link" class="form-label">{{ localize('Facebook Link') }}</label>
+                                    <label for="facebook_link" class="form-label">{{ localize('Lien Facebook') }}</label>
                                     <input type="hidden" name="types[]" value="facebook_link">
                                     <input type="url" name="facebook_link" id="facebook_link" class="form-control"
                                         placeholder="https://facebook.com/example"
@@ -67,14 +67,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="twitter_link" class="form-label">{{ localize('Twitter Link') }}</label>
+                                    <label for="twitter_link" class="form-label">{{ localize('Lien Twitter') }}</label>
                                     <input type="hidden" name="types[]" value="twitter_link">
                                     <input type="url" name="twitter_link" id="twitter_link" class="form-control"
                                         placeholder="https://twitter.com/example" value="{{ getSetting('twitter_link') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="linkedin_link" class="form-label">{{ localize('LinkedIn Link') }}</label>
+                                    <label for="linkedin_link" class="form-label">{{ localize('Lien LinkedIn') }}</label>
                                     <input type="hidden" name="types[]" value="linkedin_link">
                                     <input type="url" name="linkedin_link" id="linkedin_link" class="form-control"
                                         placeholder="https://linkedin.com/example"
@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="youtube_link" class="form-label">{{ localize('Youtube Link') }}</label>
+                                    <label for="youtube_link" class="form-label">{{ localize('Lien Youtube') }}</label>
                                     <input type="hidden" name="types[]" value="youtube_link">
                                     <input type="url" name="youtube_link" id="youtube_link" class="form-control"
                                         placeholder="https://youtube.com/example"
@@ -91,7 +91,7 @@
 
 
                                 <div class="mb-3">
-                                    <label for="about_us" class="form-label">{{ localize('About Us') }}</label>
+                                    <label for="about_us" class="form-label">{{ localize('À propos de nous') }}</label>
                                     <input type="hidden" name="types[]" value="about_us">
                                     <textarea name="about_us" id="about_us" class="form-control">{{ getSetting('about_us') }}</textarea>
                                 </div>
@@ -103,13 +103,13 @@
                         <!--Navbar-->
                         <div class="card mb-4" id="section-2">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Navbar Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations de la barre de navigation') }}</h5>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Navbar Logo') }}</label>
+                                    <label class="form-label">{{ localize('Logo de la barre de navigation') }}</label>
                                     <input type="hidden" name="types[]" value="navbar_logo">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir Navbar Logo') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir le logo de la barre de navigation') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -127,12 +127,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label class="form-label">{{ localize('Categories') }}</label>
+                                        <label class="form-label">{{ localize('Catégories') }}</label>
 
                                         <input type="hidden" name="types[]" value="show_navbar_categories">
                                         <div class="form-check form-switch">
                                             <label class="form-check-label fw-medium text-primary"
-                                                for="show_navbar_categories">{{ localize('Show Categories?') }}</label>
+                                                for="show_navbar_categories">{{ localize('Afficher les catégories?') }}</label>
                                             <input type="checkbox" class="form-check-input" id="show_navbar_categories"
                                                 name="show_navbar_categories"
                                                 @if (getSetting('show_navbar_categories') == 1) checked @endif>
@@ -145,7 +145,7 @@
                                         $navbar_categories = getSetting('navbar_categories') != null ? json_decode(getSetting('navbar_categories')) : [];
                                     @endphp
                                     <select class="form-control select2" name="navbar_categories[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner categories') }}"
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner les catégories') }}"
                                         multiple>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -167,7 +167,7 @@
                                     <input type="hidden" name="types[]" value="header_menu_links">
 
                                     <label for="navbar_contact_number"
-                                        class="form-label">{{ localize('Header Nav Menu') }}</label>
+                                        class="form-label">{{ localize('Menu de navigation en-tête') }}</label>
 
                                     <div class="header-menu-list">
                                         @php
@@ -179,7 +179,7 @@
                                                 class="d-flex justify-content-between align-items-center each-menu-list mt-2">
                                                 <input type="text" name="header_menu_labels[]"
                                                     class="form-control w-50 w-lg-25"
-                                                    placeholder="{{ localize('Menu label') }}"
+                                                    placeholder="{{ localize('  ') }}"
                                                     value="{{ $labels[$menuKey] }}" required>
                                                 <input type="url" name="header_menu_links[]"
                                                     class="form-control ms-2"
@@ -200,7 +200,7 @@
                                         data-content='<div class="d-flex justify-content-between align-items-center each-menu-list mt-2">
                                             <input type="text" name="header_menu_labels[]"
                                                 class="form-control w-50 w-lg-25"
-                                                placeholder="{{ localize('Menu label') }}" required>
+                                                placeholder="{{ localize('Libellé du menu') }}" required>
                                             <input type="url" name="header_menu_links[]" class="form-control ms-2"
                                                 placeholder="https://grostore.themetags.com/" required>
 
@@ -225,7 +225,7 @@
                                         <input type="hidden" name="types[]" value="show_navbar_pages">
                                         <div class="form-check form-switch">
                                             <label class="form-check-label fw-medium text-primary"
-                                                for="show_navbar_pages">{{ localize('Show Pages?') }}</label>
+                                                for="show_navbar_pages">{{ localize('Afficher les Pages?') }}</label>
                                             <input type="checkbox" class="form-check-input" id="show_navbar_pages"
                                                 name="show_navbar_pages" @if (getSetting('show_navbar_pages') == 1) checked @endif>
                                         </div>
@@ -236,7 +236,7 @@
                                     @endphp
                                     <input type="hidden" name="types[]" value="navbar_pages">
                                     <select class="form-control select2" name="navbar_pages[]" class="w-100"
-                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner pages') }}" multiple>
+                                        data-toggle="select2" data-placeholder="{{ localize('Sélectionner les pages') }}" multiple>
                                         @foreach ($pages as $page)
                                             <option value="{{ $page->id }}"
                                                 @if (in_array($page->id, $navbar_pages)) selected @endif>
@@ -247,7 +247,7 @@
 
                                 <div class="mb-3">
                                     <label for="navbar_contact_number"
-                                        class="form-label">{{ localize('Contact Number') }}</label>
+                                        class="form-label">{{ localize('Numéro du Contact') }}</label>
                                     <input type="hidden" name="types[]" value="navbar_contact_number">
                                     <input type="text" name="navbar_contact_number" id="navbar_contact_number"
                                         class="form-control" placeholder="+80 157 058 4567"
@@ -270,14 +270,14 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Header Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration de l\'en-tête') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Topbar Information') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Informations de la barre supérieure') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-2">{{ localize('Navbar Information') }}</a>
+                                        <a href="#section-2">{{ localize('Informations de la barre de navigation') }}</a>
                                     </li>
                                 </ul>
                             </div>
