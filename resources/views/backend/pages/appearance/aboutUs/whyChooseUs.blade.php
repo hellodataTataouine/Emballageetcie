@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Why Choose Us Section') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Section Pourquoi nous choisir') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <!--about intro info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('General Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations générales') }}</h5>
 
                                 <div class="mb-3">
                                     <label for="about_why_choose_sub_title"
@@ -52,7 +52,7 @@
                                     <label for="about_why_choose_text" class="form-label">{{ localize('Text') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_text">
                                     <input type="text" name="about_why_choose_text" id="about_why_choose_text"
-                                        placeholder="{{ localize('Saisir text') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir le text') }}" class="form-control"
                                         value="{{ getSetting('about_why_choose_text') }}">
                                 </div>
 
@@ -60,7 +60,7 @@
                                     <label class="form-label">{{ localize('Image') }}</label>
                                     <input type="hidden" name="types[]" value="about_why_choose_banner">
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir Banner Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir une image de bannière') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"
@@ -96,7 +96,7 @@
                     <!-- features -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Features') }}</h5>
+                            <h5 class="mb-4">{{ localize('Caractéristiques') }}</h5>
                             <table class="table tt-footable" data-use-parent-width="true">
                                 <thead>
                                     <tr>
@@ -186,9 +186,9 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ localize('Icon Image') }}</label>
+                                    <label class="form-label">{{ localize('Image de \'icône') }}</label>
                                     <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir Icon Image') }}</span>
+                                        <span class="fw-semibold">{{ localize('Choisir Image de l\'icône') }}</span>
                                         <!-- choose media -->
                                         <div class="tt-product-thumb show-selected-files mt-3">
                                             <div class="avatar avatar-xl cursor-pointer choose-media"

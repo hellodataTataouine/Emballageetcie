@@ -55,7 +55,7 @@
 
 
 
-                    <li class="nav-item dropdown">
+                   <!-- <li class="nav-item dropdown">
                         @php
                             if (Session::has('locale')) {
                                 $locale = Session::get('locale', Config::get('app.locale'));
@@ -77,7 +77,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end py-0 shadow border-0">
                             @foreach (\App\Models\Language::where('is_active', 1)->get() as $key => $language)
-                                <!-- item-->
+                                
                                 <li>
                                     <a href="javascript:void(0);"
                                         class="dropdown-item @if ($currentLanguage->code == $language->code) active @endif"
@@ -89,7 +89,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </li>
+                    </li> -->
 
 
                     @php
