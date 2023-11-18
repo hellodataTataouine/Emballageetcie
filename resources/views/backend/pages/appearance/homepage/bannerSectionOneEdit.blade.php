@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Banner') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Mettre à jour Bannière') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -87,11 +87,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Banner Section One') }}</h5>
+                            <h5 class="mb-4">{{ localize('Bannière Section 1') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Mettre à jour Banner') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Mettre à jour Bannière') }}</a>
                                     </li>
                                 </ul>
                             </div>

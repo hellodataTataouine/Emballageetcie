@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Social Login Configurations') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Configurations de connexion sociale') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Social Login Configurations') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Configurations de connexion sociale') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Is Active?') }}</label>
+                                    <label class="form-label">{{ localize('Est actif ?') }}</label>
 
                                     <input type="hidden" name="types[]" value="google_login">
                                     <select id="google_login" class="form-control select2" name="google_login"
@@ -86,7 +86,7 @@
                                         placeholder="{{ localize('Facebook App Secret') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Is Active?') }}</label>
+                                    <label class="form-label">{{ localize('Est actif ?') }}</label>
 
                                     <input type="hidden" name="types[]" value="facebook_login">
                                     <select id="facebook_login" class="form-control select2" name="facebook_login"
@@ -115,7 +115,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Social Login Configurations') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configurations de connexion sociale') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>

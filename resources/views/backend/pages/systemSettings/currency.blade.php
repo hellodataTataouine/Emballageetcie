@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Currencies') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Devises') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Currencies') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Devises') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -133,29 +133,29 @@
                                 <!--currency info start-->
                                 <div class="card mb-4" id="section-2">
                                     <div class="card-body">
-                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Currency') }}</h5>
+                                        <h5 class="mb-4">{{ localize('Ajouter Nouveau Devise') }}</h5>
 
                                         <div class="mb-4">
-                                            <label for="name" class="form-label">{{ localize('Currency Name') }}</label>
+                                            <label for="name" class="form-label">{{ localize('Nom de Devise') }}</label>
                                             <input type="text" name="name" id="name"
-                                                placeholder="{{ localize('Saisir currency name') }}" class="form-control"
+                                                placeholder="{{ localize('Saisir Nom de Devise') }}" class="form-control"
                                                 required>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="symbol" class="form-label">{{ localize('Currency Symbol') }}</label>
+                                            <label for="symbol" class="form-label">{{ localize('Symbol de Devise') }}</label>
                                             <input type="text" name="symbol" id="symbol"
                                                 placeholder="{{ localize('Saisir symbol') }}" class="form-control" required>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="code" class="form-label">{{ localize('Currency Code') }}</label>
+                                            <label for="code" class="form-label">{{ localize('Code de Devise') }}</label>
                                             <input type="text" name="code" id="code"
                                                 placeholder="{{ localize('Saisir code') }}" class="form-control" required>
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="rate" class="form-label">{{ localize('Rate') }} <small>(
+                                            <label for="rate" class="form-label">{{ localize('Taux') }} <small>(
                                                     {{ localize('1 USD = ?') }} )</small></label>
                                             <input type="number" step="0.001" min="0" name="rate"
                                                 id="rate" placeholder="{{ localize('Rate') }}" class="form-control"
@@ -184,7 +184,7 @@
                                     <div class="col-12">
                                         <div class="mb-4">
                                             <button class="btn btn-primary" type="submit">
-                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Currency') }}
+                                                <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Devise') }}
                                             </button>
                                         </div>
                                     </div>
@@ -197,13 +197,13 @@
                             @csrf
                             <div class="card mb-4" id="section-3">
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Set Default Currency') }}</h5>
+                                    <h5 class="mb-4">{{ localize('"Définir la devise par défaut') }}</h5>
 
                                     @can('default_currency')
                                         <div class="mb-4">
                                             <input type="hidden" name="types[]" value="DEFAULT_CURRENCY">
                                             <label for="symbol"
-                                                class="form-label">{{ localize('Default Currency') }}</label>
+                                                class="form-label">{{ localize('Devise par défaut') }}</label>
                                             <select id="DEFAULT_CURRENCY" class="form-control country-flag-select"
                                                 name="DEFAULT_CURRENCY" data-toggle="select2">
                                                 @foreach ($currencies as $currency)
@@ -220,7 +220,7 @@
                                     <div class="mb-4">
                                         <input type="hidden" name="types[]" value="no_of_decimals">
                                         <label for="no_of_decimals"
-                                            class="form-label">{{ localize('No of Decimals') }}</label>
+                                            class="form-label">{{ localize('Nombre de décimales') }}</label>
                                         <select id="no_of_decimals" class="form-control country-flag-select"
                                             name="no_of_decimals" data-toggle="select2">
                                             <option value="0"
@@ -242,15 +242,15 @@
                                     <div class="mb-4">
                                         <input type="hidden" name="types[]" value="truncate_price">
                                         <label for="truncate_price"
-                                            class="form-label">{{ localize('Price Format') }}</label>
+                                            class="form-label">{{ localize('Format des prix') }}</label>
                                         <select id="truncate_price" class="form-control country-flag-select"
                                             name="truncate_price" data-toggle="select2">
                                             <option value="0"
                                                 {{ getSetting('truncate_price') == '0' ? 'selected' : '' }}>
-                                                {{ localize('Show Full Price (1000000)') }}</option>
+                                                {{ localize('Afficher le prix complet (1000000)') }}</option>
                                             <option value="1"
                                                 {{ getSetting('truncate_price') == '1' ? 'selected' : '' }}>
-                                                {{ localize('Truncate Price (1M/1B)') }}</option>
+                                                {{ localize('Tronquer le prix (1M/1B)') }}</option>
                                         </select>
                                     </div>
 
@@ -276,17 +276,17 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Currency Information') }}</h5>
+                            <h5 class="mb-4">{{ localize('Informations sur la devise') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('All Currencies') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Toutes les devises') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-2">{{ localize('Ajouter Nouveau Currency') }}</a>
+                                        <a href="#section-2">{{ localize('Ajouter une nouvelle devise') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-3">{{ localize('Currency Configurations') }}</a>
+                                        <a href="#section-3">{{ localize('Configurations des devises') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -317,9 +317,9 @@
                     if (data == 1) {
                         notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
                     } else if (data == 2) {
-                        notifyMe('danger', '{{ localize('Default currency can not be disabled') }}');
+                        notifyMe('danger', '{{ localize('La devise par défaut ne peut pas être désactivée') }}');
                     } else {
-                        notifyMe('danger', '{{ localize('Something went wrong') }}');
+                        notifyMe('danger', '{{ localize(' Une erreur s\'est produite') }}');
                     }
                 });
         }

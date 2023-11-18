@@ -20,8 +20,8 @@ class CurrenciesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => '1',
-                'code' => 'usd',
-                'name' => 'US Dollar',
+                'code' => 'Eur',
+                'name' => 'Euro',
                 'symbol' => '$',
                 'alignment' => '0',
                 'rate' => '1',

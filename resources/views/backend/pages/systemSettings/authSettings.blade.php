@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Auth Settings') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Paramètres d\'authentification') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Auth Settings') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Paramètres d\'authentification') }}</h2>
                             </div>
 
                         </div>
@@ -30,26 +30,26 @@
                         <!--login settings-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Login & Registration') }}</h5>
+                                <h5 class="mb-4">{{ localize('Connexion et inscription') }}</h5>
 
                                 <div class="mb-3">
                                     <label for="registration_with"
-                                        class="form-label">{{ localize('Customer Registration') }}</label>
+                                        class="form-label">{{ localize(' Inscription client') }}</label>
                                     <input type="hidden" name="types[]" value="registration_with">
                                     <select id="registration_with" class="form-control text-uppercase select2"
                                         name="registration_with" data-toggle="select2">
                                         <option value="email"
                                             {{ getSetting('registration_with') == 'email' ? 'selected' : '' }}>
-                                            {{ localize('Email Required') }}</option>
+                                            {{ localize('Email requis') }}</option>
                                         <option value="email_and_phone"
                                             {{ getSetting('registration_with') == 'email_and_phone' ? 'selected' : '' }}>
-                                            {{ localize('Email & Phone Both Required') }}</option>
+                                            {{ localize(' Email et téléphone tous deux requis') }}</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="registration_verification_with"
-                                        class="form-label">{{ localize('Registration Verification') }}</label>
+                                        class="form-label">{{ localize('Vérification de l\'inscription') }}</label>
                                     <input type="hidden" name="types[]" value="registration_verification_with">
                                     <select id="registration_verification_with" class="form-control text-uppercase select2"
                                         name="registration_verification_with" data-toggle="select2">
@@ -58,10 +58,10 @@
                                             {{ localize('Désactivé') }}</option>
                                         <option value="email"
                                             {{ getSetting('registration_verification_with') == 'email' ? 'selected' : '' }}>
-                                            {{ localize('Email Verification') }}</option>
+                                            {{ localize('Vérification par email') }}</option>
                                         <option value="phone"
                                             {{ getSetting('registration_verification_with') == 'phone' ? 'selected' : '' }}>
-                                            {{ localize('OTP Verification') }}</option>
+                                            {{ localize('Vérification OTP') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
 
                                 <div class="mb-3">
                                     <label for="RECAPTCHAV3_SITEKEY"
-                                        class="form-label">{{ localize('Recaptcha Site Key') }}</label>
+                                        class="form-label">{{ localize('Clé de site Recaptcha') }}</label>
                                     <input type="hidden" name="types[]" value="RECAPTCHAV3_SITEKEY">
                                     <input type="text" id="RECAPTCHAV3_SITEKEY" name="RECAPTCHAV3_SITEKEY"
                                         class="form-control" value="{{ env('RECAPTCHAV3_SITEKEY') }}">
@@ -85,7 +85,7 @@
 
                                 <div class="mb-3">
                                     <label for="RECAPTCHAV3_SECRET"
-                                        class="form-label">{{ localize('Recaptcha Secret Key') }}</label>
+                                        class="form-label">{{ localize('Clé secrète Recaptcha') }}</label>
                                     <input type="hidden" name="types[]" value="RECAPTCHAV3_SECRET">
                                     <input type="text" id="RECAPTCHAV3_SECRET" name="RECAPTCHAV3_SECRET"
                                         class="form-control" value="{{ env('RECAPTCHAV3_SECRET') }}">
@@ -94,7 +94,7 @@
 
                                 <div class="mb-3">
                                     <label for="enable_recaptcha"
-                                        class="form-label">{{ localize('Enable Recaptcha') }}</label>
+                                        class="form-label">{{ localize('Activer Recaptcha') }}</label>
                                     <input type="hidden" name="types[]" value="enable_recaptcha">
                                     <select id="enable_recaptcha" class="form-control text-uppercase select2"
                                         name="enable_recaptcha" data-toggle="select2">
@@ -121,11 +121,11 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Configure General Settings') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configurer les paramètres généraux') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Login & Registration') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Connexion et inscription') }}</a>
                                     </li>
                                     <li>
                                         <a href="#section-2" class="">{{ localize('Google Recaptcha') }}</a>

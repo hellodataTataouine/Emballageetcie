@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Payment Methods Settings') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Paramètres des méthodes de paiement') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Payment Methods Settings') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Paramètres des méthodes de paiement') }}</h2>
                             </div>
 
                         </div>
@@ -30,10 +30,10 @@
                         <!--cod settings-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Cash On Delivery') }}</h5>
+                                <h5 class="mb-4">{{ localize('Paiement à la livraison') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="cod">
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable COD') }}</label>
+                                    <label class="form-label">{{ localize('Activer le paiement à la livraison') }}</label>
                                     <select id="enable_cod" class="form-control select2" name="enable_cod"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('enable_cod') == '0' ? 'selected' : '' }}>
@@ -51,25 +51,25 @@
                         <!--paypal settings-->
                         <div class="card mb-4" id="section-2">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Paypal Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants Paypal') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="paypal">
                                 <div class="mb-3">
                                     <label for="PAYPAL_CLIENT_ID"
-                                        class="form-label">{{ localize('Paypal Client ID') }}</label>
+                                        class="form-label">{{ localize('Identifiant client Paypal') }}</label>
                                     <input type="hidden" name="types[]" value="PAYPAL_CLIENT_ID">
                                     <input type="text" id="PAYPAL_CLIENT_ID" name="PAYPAL_CLIENT_ID" class="form-control"
                                         value="{{ env('PAYPAL_CLIENT_ID') }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="PAYPAL_CLIENT_SECRET"
-                                        class="form-label">{{ localize('Paypal Client Secret') }}</label>
+                                        class="form-label">{{ localize('Clé secrète client Paypal') }}</label>
                                     <input type="hidden" name="types[]" value="PAYPAL_CLIENT_SECRET">
                                     <input type="text" id="PAYPAL_CLIENT_SECRET" name="PAYPAL_CLIENT_SECRET"
                                         class="form-control" value="{{ env('PAYPAL_CLIENT_SECRET') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable Paypal') }}</label>
+                                    <label class="form-label">{{ localize('Activer Paypal') }}</label>
                                     <select id="enable_paypal" class="form-control select2" name="enable_paypal"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('enable_paypal') == '0' ? 'selected' : '' }}>
@@ -80,7 +80,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable Test Sandbox Mode') }}</label>
+                                    <label class="form-label">{{ localize('Activer le mode Sandbox') }}</label>
                                     <select id="paypal_sandbox" class="form-control select2" name="paypal_sandbox"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('paypal_sandbox') == '0' ? 'selected' : '' }}>
@@ -97,23 +97,23 @@
                         <!--stripe settings-->
                         <div class="card mb-4" id="section-3">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Stripe Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants Stripe') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="stripe">
                                 <div class="mb-3">
-                                    <label for="STRIPE_KEY" class="form-label">{{ localize('Stripe Key') }}</label>
+                                    <label for="STRIPE_KEY" class="form-label">{{ localize('Clé Stripe') }}</label>
                                     <input type="hidden" name="types[]" value="STRIPE_KEY">
                                     <input type="text" id="STRIPE_KEY" name="STRIPE_KEY" class="form-control"
                                         value="{{ env('STRIPE_KEY') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="STRIPE_SECRET" class="form-label">{{ localize('Stripe Secret') }}</label>
+                                    <label for="STRIPE_SECRET" class="form-label">{{ localize('Secret Stripe') }}</label>
                                     <input type="hidden" name="types[]" value="STRIPE_SECRET">
                                     <input type="text" id="STRIPE_SECRET" name="STRIPE_SECRET" class="form-control"
                                         value="{{ env('STRIPE_SECRET') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable Stripe') }}</label>
+                                    <label class="form-label">{{ localize('Activer Stripe') }}</label>
                                     <select id="enable_stripe" class="form-control select2" name="enable_stripe"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('enable_stripe') == '0' ? 'selected' : '' }}>
@@ -130,11 +130,11 @@
                         <!--paytm settings-->
                         <div class="card mb-4" id="section-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('PayTm Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants PayTm') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="paytm">
                                 <div class="mb-3">
                                     <label for="PAYTM_ENVIRONMENT"
-                                        class="form-label">{{ localize('PayTm Environment') }}</label>
+                                        class="form-label">{{ localize('Environnement PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_ENVIRONMENT">
                                     <input type="text" id="PAYTM_ENVIRONMENT" name="PAYTM_ENVIRONMENT"
                                         class="form-control" value="{{ env('PAYTM_ENVIRONMENT') }}">
@@ -142,7 +142,7 @@
 
                                 <div class="mb-3">
                                     <label for="PAYTM_MERCHANT_ID"
-                                        class="form-label">{{ localize('PayTm Merchant ID') }}</label>
+                                        class="form-label">{{ localize('Identifiant marchand PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_MERCHANT_ID">
                                     <input type="text" id="PAYTM_MERCHANT_ID" name="PAYTM_MERCHANT_ID"
                                         class="form-control" value="{{ env('PAYTM_MERCHANT_ID') }}">
@@ -150,7 +150,7 @@
 
                                 <div class="mb-3">
                                     <label for="PAYTM_MERCHANT_KEY"
-                                        class="form-label">{{ localize('PayTm Merchant Key') }}</label>
+                                        class="form-label">{{ localize('Clé marchand PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_MERCHANT_KEY">
                                     <input type="text" id="PAYTM_MERCHANT_KEY" name="PAYTM_MERCHANT_KEY"
                                         class="form-control" value="{{ env('PAYTM_MERCHANT_KEY') }}">
@@ -158,14 +158,14 @@
 
                                 <div class="mb-3">
                                     <label for="PAYTM_MERCHANT_WEBSITE"
-                                        class="form-label">{{ localize('PayTm Merchant Website') }}</label>
+                                        class="form-label">{{ localize('Site Web marchand PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_MERCHANT_WEBSITE">
                                     <input type="text" id="PAYTM_MERCHANT_WEBSITE" name="PAYTM_MERCHANT_WEBSITE"
                                         class="form-control" value="{{ env('PAYTM_MERCHANT_WEBSITE') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="PAYTM_CHANNEL" class="form-label">{{ localize('PayTm Channel') }}</label>
+                                    <label for="PAYTM_CHANNEL" class="form-label">{{ localize('Canal PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_CHANNEL">
                                     <input type="text" id="PAYTM_CHANNEL" name="PAYTM_CHANNEL" class="form-control"
                                         value="{{ env('PAYTM_CHANNEL') }}">
@@ -173,14 +173,14 @@
 
                                 <div class="mb-3">
                                     <label for="PAYTM_INDUSTRY_TYPE"
-                                        class="form-label">{{ localize('PayTm Industry Type') }}</label>
+                                        class="form-label">{{ localize('Type d\'industrie PayTm') }}</label>
                                     <input type="hidden" name="types[]" value="PAYTM_INDUSTRY_TYPE">
                                     <input type="text" id="PAYTM_INDUSTRY_TYPE" name="PAYTM_INDUSTRY_TYPE"
                                         class="form-control" value="{{ env('PAYTM_INDUSTRY_TYPE') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable PayTm') }}</label>
+                                    <label class="form-label">{{ localize('Activer PayTm') }}</label>
                                     <select id="enable_paytm" class="form-control select2" name="enable_paytm"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('enable_paytm') == '0' ? 'selected' : '' }}>
@@ -198,24 +198,24 @@
                         <!--razorpay settings-->
                         <div class="card mb-4" id="section-5">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Razorpay Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants Razorpay') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="razorpay">
                                 <div class="mb-3">
-                                    <label for="RAZORPAY_KEY" class="form-label">{{ localize('Razorpay Key') }}</label>
+                                    <label for="RAZORPAY_KEY" class="form-label">{{ localize('Clé Razorpay') }}</label>
                                     <input type="hidden" name="types[]" value="RAZORPAY_KEY">
                                     <input type="text" id="RAZORPAY_KEY" name="RAZORPAY_KEY" class="form-control"
                                         value="{{ env('RAZORPAY_KEY') }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="RAZORPAY_SECRET"
-                                        class="form-label">{{ localize('Razorpay Secret') }}</label>
+                                        class="form-label">{{ localize('Secret Razorpay') }}</label>
                                     <input type="hidden" name="types[]" value="RAZORPAY_SECRET">
                                     <input type="text" id="RAZORPAY_SECRET" name="RAZORPAY_SECRET"
                                         class="form-control" value="{{ env('RAZORPAY_SECRET') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable Razorpay') }}</label>
+                                    <label class="form-label">{{ localize('Activer Razorpay') }}</label>
                                     <select id="enable_razorpay" class="form-control select2" name="enable_razorpay"
                                         data-toggle="select2">
                                         <option value="0"
@@ -234,11 +234,11 @@
                         <!--iyzico settings-->
                         <div class="card mb-4" id="section-6">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('IyZico Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants IyZico') }}</h5>
                                 <input type="hidden" name="payment_methods[]" value="iyzico">
                                 <div class="mb-3">
                                     <label for="IYZICO_API_KEY"
-                                        class="form-label">{{ localize('IyZico API Key') }}</label>
+                                        class="form-label">{{ localize('Clé API IyZico') }}</label>
                                     <input type="hidden" name="types[]" value="IYZICO_API_KEY">
                                     <input type="text" id="IYZICO_API_KEY" name="IYZICO_API_KEY" class="form-control"
                                         value="{{ env('IYZICO_API_KEY') }}">
@@ -246,14 +246,14 @@
 
                                 <div class="mb-3">
                                     <label for="IYZICO_SECRET_KEY"
-                                        class="form-label">{{ localize('IyZico Secret Key') }}</label>
+                                        class="form-label">{{ localize('Clé secrète IyZico') }}</label>
                                     <input type="hidden" name="types[]" value="IYZICO_SECRET_KEY">
                                     <input type="text" id="IYZICO_SECRET_KEY" name="IYZICO_SECRET_KEY"
                                         class="form-control" value="{{ env('IYZICO_SECRET_KEY') }}">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable IyZico') }}</label>
+                                    <label class="form-label">{{ localize('Activer IyZico') }}</label>
                                     <select id="enable_iyzico" class="form-control select2" name="enable_iyzico"
                                         data-toggle="select2">
                                         <option value="0" {{ getSetting('enable_iyzico') == '0' ? 'selected' : '' }}>
@@ -264,7 +264,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">{{ localize('Enable Test Sandbox Mode') }}</label>
+                                    <label class="form-label">{{ localize('Activer le mode Sandbox') }}</label>
                                     <select id="iyzico_sandbox" class="form-control select2" name="iyzico_sandbox"
                                         data-toggle="select2">
                                         <option value="0"
@@ -293,26 +293,26 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Payment Methods Settings') }}</h5>
+                            <h5 class="mb-4">{{ localize('Paramètres des méthodes de paiement') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="#section-1" class="active">{{ localize('Cash On Delivery') }}</a>
+                                        <a href="#section-1" class="active">{{ localize('Paiement à la livraison') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-2">{{ localize('Paypal Credentials') }}</a>
+                                        <a href="#section-2">{{ localize('Identifiants Paypal') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-3">{{ localize('Stripe Credentials') }}</a>
+                                        <a href="#section-3">{{ localize('Identifiants Stripe') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-4">{{ localize('PayTm Credentials') }}</a>
+                                        <a href="#section-4">{{ localize('Identifiants PayTm') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-5">{{ localize('Razorpay Credentials') }}</a>
+                                        <a href="#section-5">{{ localize('Identifiants Razorpay') }}</a>
                                     </li>
                                     <li>
-                                        <a href="#section-6">{{ localize('IyZico Credentials') }}</a>
+                                        <a href="#section-6">{{ localize('Identifiants IyZico') }}</a>
                                     </li>
                                 </ul>
                             </div>

@@ -472,7 +472,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <h4 class="mb-1">{{ formatPrice($todayEarning) }}</h4>
-                                        <span class="text-muted">{{ localize('Gains d\'aujourd\'hui') }}</span>
+                                        <span class="text-muted">{{ localize('Gains d\'aujourd\'hui ') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -563,7 +563,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <h4 class="mb-1">{{ $todaySaleCount }}</h4>
-                                        <span class="text-muted">{{ localize("Vente de produits aujourd\'hui") }}</span>
+                                        <span class="text-muted">{{ localize(' Vente de produits aujourd\'hui ') }}</span>
                                     </div>
                                 </div>
                             </div>

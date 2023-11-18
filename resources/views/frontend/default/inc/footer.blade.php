@@ -8,20 +8,20 @@
         class="position-absolute z--1 tomato vector-shape">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 3.png') }}" alt="Lunchbox 3"
         class="position-absolute z--1 pata-lg vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
-        class="position-absolute z--1 pata-xs vector-shape">
+    <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
+        class="position-absolute z--1 pata-xs vector-shape"> -->
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Paper roll.png') }}" alt="Paper roll"
         class="position-absolute z--1 frame-circle vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/leaf.svg') }}" alt="leaf"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/recycle.png') }}" alt="recycle"
         class="position-absolute z--1 leaf vector-shape">
     <!--shape right -->
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Spoons 1.png') }}" alt="Plastic Spoons"
         class="position-absolute leaf-2 z--1 vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/cocacola.png') }}" alt="cocacola"
         class="position-absolute pata-xs-2 z--1 vector-shape">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Cup.png') }}" alt="Plastic Cup"
         class="position-absolute tomato-slice vector-shape z--1">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/tomato-half.svg') }}" alt="tomato"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Kit-couvert-4-en-1.png') }}" alt="Kit-couvert-4-en-1"
         class="position-absolute tomato-half z--1 vector-shape">
     <div class="container">
         <div class="row justify-content-center">

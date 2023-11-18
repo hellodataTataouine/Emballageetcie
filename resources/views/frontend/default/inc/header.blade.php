@@ -71,7 +71,7 @@
                             @endif
                         </li>
 
-
+<!--
                         @php
                             if (Session::has('locale')) {
                                 $locale = Session::get('locale', Config::get('app.locale'));
@@ -133,7 +133,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="btn btn-link p-0 tt-theme-toggle fw-normal">

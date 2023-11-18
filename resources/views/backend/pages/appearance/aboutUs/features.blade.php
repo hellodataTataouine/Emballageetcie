@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Features Section') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Section des fonctionnalités') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <!--about intro info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('General Information') }}</h5>
+                                <h5 class="mb-4">{{ localize('Informations générales') }}</h5>
                                 <div class="mb-3">
                                     <label for="about_features_title" class="form-label">{{ localize('Titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_features_title">
@@ -41,7 +41,7 @@
                                         class="form-label">{{ localize('Sous-titre') }}</label>
                                     <input type="hidden" name="types[]" value="about_features_sub_title">
                                     <input type="text" name="about_features_sub_title" id="about_features_sub_title"
-                                        placeholder="{{ localize('Saisir sub title') }}" class="form-control"
+                                        placeholder="{{ localize('Saisir Sous-titre') }}" class="form-control"
                                         value="{{ getSetting('about_features_sub_title') }}">
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                     <!-- features -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Features') }}</h5>
+                            <h5 class="mb-4">{{ localize('Fonctionnalités') }}</h5>
                             <table class="table tt-footable" data-use-parent-width="true">
                                 <thead>
                                     <tr>
@@ -137,7 +137,7 @@
                         <!--slider info start-->
                         <div class="card mb-4">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Ajouter Nouveau Feature') }}</h5>
+                                <h5 class="mb-4">{{ localize('Ajouter Nouveau fonctionnalité') }}</h5>
 
                                 <div class="mb-4">
                                     <label for="title" class="form-label">{{ localize('Titre') }}</label>
@@ -178,7 +178,7 @@
                             <div class="col-12">
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">
-                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer Feature') }}
+                                        <i data-feather="save" class="me-1"></i> {{ localize('Enregistrer fonctionnalité') }}
                                     </button>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('About Us Configuration') }}</h5>
+                            <h5 class="mb-4">{{ localize('Configuration À propos de nous') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
                                     @include('backend.pages.appearance.aboutUs.inc.rightSidebar')
