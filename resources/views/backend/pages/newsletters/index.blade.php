@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Send Bulk Emails') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Envoyer des courriels en masse') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Send Bulk Emails') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Envoyer des courriels en masse') }}</h2>
                             </div>
 
                         </div>
@@ -32,9 +32,9 @@
 
                                 <input type="hidden" name="user_emails[]">
                                 <div class="d-none">
-                                    <label for="user_emails" class="form-label">{{ localize('Sélectionner Users') }}</label>
+                                    <label for="user_emails" class="form-label">{{ localize('Sélectionner Clients') }}</label>
                                     <select class="form-select form-control select2"
-                                        data-placeholder="{{ localize('Sélectionner Users') }}" data-toggle="select2"
+                                        data-placeholder="{{ localize('Sélectionner Clients') }}" data-toggle="select2"
                                         name="user_emails[]" multiple>
                                         @foreach ($users as $user)
                                             @if ($user->email)
@@ -47,9 +47,9 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="subscriber_emails" class="form-label">{{ localize('Subscribers') }}</label>
+                                    <label for="subscriber_emails" class="form-label">{{ localize('Abonnés') }}</label>
                                     <select class="form-select form-control select2"
-                                        data-placeholder="{{ localize('Sélectionner Subscribers') }}" data-toggle="select2"
+                                        data-placeholder="{{ localize('Sélectionner Abonnés') }}" data-toggle="select2"
                                         name="subscriber_emails[]" multiple required>
                                         @foreach ($subscribers as $subscriber)
                                             @if ($subscriber->email)
@@ -62,12 +62,12 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="subject" class="form-label">{{ localize('Email Subject') }}</label>
+                                    <label for="subject" class="form-label">{{ localize('Objet du courriel') }}</label>
                                     <input type="text" name="subject" id="subject" class="form-control" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="content" class="form-label">{{ localize('Email Body') }}</label>
+                                    <label for="content" class="form-label">{{ localize('Corps du courriel') }}</label>
                                     <textarea id="content" class="editor form-control" name="content"></textarea>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
 
                         <div class="mb-4">
                             <button class="btn btn-primary" type="submit">
-                                <i data-feather="save" class="me-1"></i> {{ localize('Send Emails') }}
+                                <i data-feather="save" class="me-1"></i> {{ localize('Envoyer des courriels') }}
                             </button>
                         </div>
                     </form>
@@ -85,7 +85,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar d-none d-xl-block">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('Send Bulk Emails') }}</h5>
+                            <h5 class="mb-4">{{ localize('Envoyer des courriels en masse') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>

@@ -56,7 +56,7 @@ class VariationsController extends Controller
 
         $variationLocalization->save();
 
-        flash(localize('Variation has been inserted successfully'))->success();
+        flash(localize('La variation a été insérée avec succès.'))->success();
         return redirect()->route('admin.variations.index');
     }
 
@@ -88,7 +88,7 @@ $lang_key = $request->lang_key;
         $variation->save();
         $variationLocalization->save();
 
-        flash(localize('Variation has been updated successfully'))->success();
+        flash(localize('La variation a été mise à jour avec succès."'))->success();
         return back();
     }
 
@@ -108,7 +108,7 @@ $lang_key = $request->lang_key;
     {
         $variation = Variation::findOrFail($id);
         $variation->delete();
-        flash(localize('Variation has been deleted successfully'))->success();
+        flash(localize('La variation a été supprimée avec succès.'))->success();
         return back();
     }
 }
