@@ -38,7 +38,7 @@
                                     
                                     <input class="form-control" type="text" id="name"
                                         placeholder="{{ localize('Saisissez le nom de votre produit') }}" name="name" required>
-                                        placeholder="{{ localize('Saisissez le nom de votre produit') }}" name="name" required>
+                                        
                                     <span class="fs-sm text-muted">
                                         {{ localize('Le nom du produit est requis et il est recommandé qu\'il soit unique..') }}
                                         
@@ -47,7 +47,7 @@
                                 <div class="mb-4">
                                     <label for="short_description"
                                         class="form-label">{{ localize('Description courte') }}</label>
-                                        class="form-label">{{ localize('Description courte') }}</label>
+                                        
                                     <textarea class="form-control" id="short_description"
                                         placeholder="{{ localize('Saisissez la description courte de votre produit') }}" rows="5" name="short_description"></textarea>
                                         

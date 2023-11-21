@@ -104,11 +104,7 @@
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
                                     <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
-                                    <th>{{ localize('Nom du produit') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
+                                 
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
