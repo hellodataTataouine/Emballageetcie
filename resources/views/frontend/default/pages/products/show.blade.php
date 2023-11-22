@@ -8,7 +8,7 @@
     @if ($detailedProduct->meta_title)
         {{ $detailedProduct->meta_title }}
     @else
-        {{ localize('Product Details') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+        {{ localize('Détails du produit') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
     @endif
 @endsection
 
@@ -55,13 +55,13 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Product Details') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Détails du produit') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                 <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Produits') }}</li>
-                <li class="breadcrumb-item active fw-bold" aria-current="page">{{ localize('Product Details') }}</li>
+                <li class="breadcrumb-item active fw-bold" aria-current="page">{{ localize('Détails du produit') }}</li>
             </ol>
         </nav>
     </div>

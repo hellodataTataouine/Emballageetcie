@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\SubscribersController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Backend\Payments\IyZico\IyZicoController;
 use App\Http\Controllers\Backend\Payments\Paypal\PaypalController;
@@ -23,6 +24,9 @@ use App\Http\Controllers\Frontend\RefundsController;
 use App\Http\Controllers\Frontend\RewardPointsController;
 use App\Http\Controllers\Frontend\WalletController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\CatalogController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +46,9 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/social-login/redirect/{provider}', 'redirectToProvider')->name('social.login');
     Route::get('/social-login/{provider}/callback', 'handleProviderCallback')->name('social.callback');
 });
+
+Route::get('/verify-client/{CODETIERS}', [RegisterController::class, 'verifyClient'])->name('verify.client');
+
 
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-phone', 'verifyPhone')->name('verification.phone');
@@ -63,6 +70,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/brands', [HomeController::class, 'allBrands'])->name('home.brands');
 Route::get('/categories', [HomeController::class, 'allCategories'])->name('home.categories');
 
+
 # products
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
@@ -79,6 +87,10 @@ Route::get('/clear-coupon', [CartsController::class, 'clearCoupon'])->name('cart
 # blogs
 Route::get('/blogs', [HomeController::class, 'allBlogs'])->name('home.blogs');
 Route::get('/blogs/{slug}', [HomeController::class, 'showBlog'])->name('home.blogs.show');
+
+# catalogues
+Route::get('/catalogues', [HomeController::class, 'allcatalogues'])->name('home.catalogues.index');
+Route::get('/catalogues/{slug}', [CatalogController::class, 'showCatalog'])->name('home.catalogues.show');
 
 # campaigns
 Route::get('/campaigns', [HomeController::class, 'campaignIndex'])->name('home.campaigns');
@@ -173,3 +185,5 @@ Route::group(['prefix' => ''], function () {
     # iyzico
     Route::any('/iyzico/payment/callback', [IyZicoController::class, 'callback'])->name('iyzico.callback');
 });
+
+

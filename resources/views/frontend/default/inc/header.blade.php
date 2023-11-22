@@ -159,6 +159,7 @@
                 </div>
                 <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
                     <div class="gshop-navbar-right d-flex align-items-center justify-content-end position-relative">
+                        
 
                         @if (getSetting('show_navbar_categories') != 0 || getSetting('show_navbar_categories') == null)
                             <div class="category-dropdown position-relative d-none d-md-inline-block">
@@ -209,10 +210,10 @@
                                 @else
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
-                                    <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a>
+                                    <!-- <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a> -->
                                     </li>
-                                    <li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a>
-                                    </li>
+                                    <li><a href="{{ route('home.catalogues.index') }}">{{ localize('Catalogues') }}</a></li>
+                                    <!--<li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a> </li> -->
                                 @endif
 
                                 @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)

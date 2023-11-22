@@ -1,7 +1,7 @@
 <div class="product-info-tab bg-white rounded-2 overflow-hidden pt-6 mt-4">
     <ul class="nav nav-tabs border-bottom justify-content-center gap-5 pt-info-tab-nav">
         <li><a href="#description" class="active" data-bs-toggle="tab">{{ localize('Description') }}</a></li>
-        <li><a href="#info" data-bs-toggle="tab">{{ localize('Ajouteritional Information') }}</a></li>
+        <li><a href="#info" data-bs-toggle="tab">{{ localize('Informations complémentaires') }}</a></li>
 
     </ul>
     <div class="tab-content">
@@ -9,12 +9,12 @@
             @if ($product->description)
                 {!! $product->collectLocalization('description') !!}
             @else
-                <div class="text-dark text-center border py-2">{{ localize('Not Available') }}
+                <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}
                 </div>
             @endif
         </div>
         <div class="tab-pane fade px-4 py-5" id="info">
-            <h6 class="mb-2">{{ localize('Ajouteritional Information') }}:</h6>
+            <h6 class="mb-2">{{ localize('Informations complémentaires') }}:</h6>
             <table class="w-100 product-info-table">
                 @forelse (generateVariationOptions($product->variation_combinations) as $variation)
                     <tr>
@@ -29,7 +29,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td class="text-dark text-center" colspan="2">{{ localize('Not Available') }}
+                            <td class="text-dark text-center" colspan="2">{{ localize('Non disponible') }}
                             </td>
                         </tr>
                     @endforelse

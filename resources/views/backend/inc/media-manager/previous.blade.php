@@ -28,5 +28,5 @@
     </div>
 
 @empty
-    <div class="text-center text-danger p-5">{{ localize('No data found') }}</div>
+    <div class="text-center text-danger p-5">{{ localize('Aucune donnée trouvée') }}</div>
 @endforelse

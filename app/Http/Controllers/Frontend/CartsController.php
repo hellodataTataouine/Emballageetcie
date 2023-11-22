@@ -89,7 +89,7 @@ class CartsController extends Controller
                         $cart->save();
                     }
                 }else{ 
-                    $message = localize('You have reached maximum order quantity at a time for this product');
+                    $message = localize('Vous avez atteint la quantité maximale de commande pour ce produit');
                     return $this->getCartsInfo($message, true, '', 'warning');
                 }
                 
@@ -135,7 +135,7 @@ class CartsController extends Controller
                         if ($carts && validateCouponForProductsAndCategories($carts, $coupon)) {
                             # SUCCESS:: can apply coupon
                             setCoupon($coupon);
-                            return $this->getCartsInfo(localize('Coupon applied successfully'), true, $coupon->code);
+                            return $this->getCartsInfo(localize('Coupon appliqué avec succès'), true, $coupon->code);
                         }
 
                         # coupon not valid for your cart items  
@@ -145,22 +145,22 @@ class CartsController extends Controller
 
                     # SUCCESS::can apply coupon - not product or category based
                     setCoupon($coupon);
-                    return $this->getCartsInfo(localize('Coupon applied successfully'), true, $coupon->code);
+                    return $this->getCartsInfo(localize('Coupon appliqué avec succès'), true, $coupon->code);
                 }
 
                 # min spend
                 removeCoupon();
-                return $this->couponApplyFailed('Please shop for atleast ' . formatPrice($coupon->min_spend));
+                return $this->couponApplyFailed('Veuillez faire des achats d\'au moins ' . formatPrice($coupon->min_spend));
             }
 
             # expired 
             removeCoupon();
-            return $this->couponApplyFailed(localize('Coupon is expired'));
+            return $this->couponApplyFailed(localize('Le coupon a expiré'));
         }
 
         // coupon not found
         removeCoupon();
-        return $this->couponApplyFailed(localize('Coupon is not valid'));
+        return $this->couponApplyFailed(localize('Le coupon n\'est pas valide'));
     }
 
     # coupon apply failed
@@ -175,7 +175,7 @@ class CartsController extends Controller
     public function clearCoupon()
     {
         removeCoupon();
-        return $this->couponApplyFailed(localize('Coupon has been removed'), true);
+        return $this->couponApplyFailed(localize('Le coupon a été retiré'), true);
     }
 
     # get cart information

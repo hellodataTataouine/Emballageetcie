@@ -2,7 +2,7 @@
 
     <!-- dashboard -->
     <li class="side-nav-item nav-item">
-        <a href="{{ route('admin.dashboard') }}" class="side-nav-link">
+        <a href="{{ route('admin.dashboard') }}" class="side-nav-link"> 
             <span class="tt-nav-link-icon"><i data-feather="pie-chart"></i></span>
             <span class="tt-nav-link-text">{{ localize('Tableau de bord') }}</span>
             
@@ -88,6 +88,40 @@
             </div>
         </li>
     @endcan
+
+
+    @php
+    $catalogActiveRoutes = ['admin.catalogues.create', 'admin.catalogues.index', 'admin.catalogues.edit'];
+@endphp
+@canany(['add_catalog', 'list_catalogues'])
+    <li class="side-nav-item nav-item {{ areActiveRoutes($catalogActiveRoutes, 'tt-menu-item-active') }}">
+        <a data-bs-toggle="collapse" href="#manageCatalog"
+            aria-expanded="{{ areActiveRoutes($catalogActiveRoutes, 'true') }}" aria-controls="manageCatalog"
+            class="side-nav-link tt-menu-toggle">
+            <span class="tt-nav-link-icon"><i data-feather="book"></i></span>
+            <span class="tt-nav-link-text">{{ localize('Catalogues') }}</span>
+        </a>
+        <div class="collapse {{ areActiveRoutes($catalogActiveRoutes, 'show') }}" id="manageCatalog">
+            <ul class="side-nav-second-level">
+
+                @can('add_catalog')
+                    <li class="{{ areActiveRoutes(['admin.catalogues.create'], 'tt-menu-item-active') }}">
+                        <a href="{{ route('admin.catalogues.create') }}">{{ localize('Ajouter Catalogue') }}</a>
+                    </li>
+                @endcan
+
+                @can('list_catalogues')
+                    <li
+                        class="{{ areActiveRoutes(['admin.catalogues.index', 'admin.catalogues.edit'], 'tt-menu-item-active') }}">
+                        <a href="{{ route('admin.catalogues.index') }}">{{ localize('Catalogues') }}</a>
+                    </li>
+                @endcan
+            </ul>
+        </div>
+    </li>
+@endcan
+
+
 
     <!-- pos -->
     @canany(['pos'])

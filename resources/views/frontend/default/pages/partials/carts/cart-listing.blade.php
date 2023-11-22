@@ -50,6 +50,6 @@
     </tr>
 @empty
     <tr>
-        <td colspan="6" class="py-4">{{ localize('No data found') }}</td>
+        <td colspan="6" class="py-4">{{ localize('Aucune donnée trouvée') }}</td>
     </tr>
 @endforelse

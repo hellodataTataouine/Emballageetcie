@@ -1,10 +1,8 @@
 @extends('layouts.auth')
 
-
 @section('title')
     {{ localize('Sign Up') }}
 @endsection
-
 
 @section('contents')
     <section class="login-section py-5">
@@ -28,93 +26,254 @@
                             <br>{{ localize('S\'inscrire en tant que client') }}
                         </h2>
 
-                        <div class="row g-3">
-                            <div class="col-sm-12">
-                                <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Nom complet') }}<sup
-                                            class="text-danger">*</sup>
-                                    </label>
-                                    <input type="text" id="name" name="name"
-                                        placeholder="{{ localize('Entrez votre nom') }}" class="theme-input"
-                                        value="{{ old('name') }}" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}<sup
-                                            class="text-danger">*</sup></label>
-                                    <input type="email" id="email" name="email"
-                                        placeholder="{{ localize('Entrez votre email') }}" class="theme-input"
-                                        value="{{ old('email') }}" required>
+                        <div id="verification-section">
+                            <div class="row g-3">
+                                <!-- Display Numero Client Field and Verify Button -->
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-primary w-100"
+                                        onclick="showNumeroClientPopup()">{{ localize('Vérifier') }}</button>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
-                                <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">
-                                        @if (getSetting('registration_with') == 'email_and_phone')
-                                            {{ localize('Téléphone') }}<sup class="text-danger">*</sup>
-                                        @else
-                                            {{ localize('Téléphone') }}
-                                        @endif
-                                        <small>({{ localize('Entrez le numéro de téléphone avec le code pays') }})</small>
-                                    </label>
-                                    <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
-                                        class="theme-input" value="{{ old('phone') }}"
-                                        @if (getSetting('registration_with') == 'email_and_phone') required @endif>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de passe') }}<sup
-                                            class="text-danger">*</sup></label>
-                                    <div class="check-password">
-                                        <input type="password" name="password" placeholder="{{ localize('Mot de passe') }}"
-                                            class="theme-input" required>
-                                        <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
-                                        <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirmer le mot de passe') }}<sup
-                                            class="text-danger">*</sup></label>
-                                    <div class="check-password">
-                                        <input type="password" name="password_confirmation"
-                                            placeholder="{{ localize('Confirmer le mot de passe') }}" class="theme-input" required>
-                                        <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
-                                        <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
+                            <!-- Modal for Numéro de client -->
+                            <div class="modal fade" id="numeroClientModal" tabindex="-1"
+                                aria-labelledby="numeroClientModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="numeroClientModalLabel">{{ localize('Numéro de client') }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{{ localize('Veuillez saisir votre numéro de client.') }}</p>
+                                            <input type="text" id="client_number_modal" class="form-control"
+                                                placeholder="{{ localize('Entrez votre numéro de client') }}" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">{{ localize('Fermer') }}</button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="onNumeroClientConfirmed()">{{ localize('Confirmer') }}</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-4 mt-3">
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary w-100 sign-in-btn"
-                                    onclick="handleSubmit()">{{ localize('S\'inscrire') }}</button>
-                            </div>
 
+                        <!-- Display the rest of the form after verification -->
+                        <div id="rest-of-form" style="display: none;">
+                            <div class="row g-3">
+                                <div class="col-sm-12">
+                                    <div class="input-field">
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Société') }}<sup
+                                                class="text-danger">*</sup>
+                                        </label>
+                                        <input type="text" id="name" name="name"
+                                            placeholder="{{ localize('Entrez votre nom') }}" class="theme-input"
+                                            value="{{ old('name') }}" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <div class="input-field">
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}<sup
+                                                class="text-danger">*</sup></label>
+                                        <input type="email" id="email" name="email"
+                                            placeholder="{{ localize('Entrez votre email') }}" class="theme-input"
+                                            value="{{ old('email') }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="input-field">
+                                        <label class="fw-bold text-dark fs-sm mb-1">
+                                            @if (getSetting('registration_with') == 'email_and_phone')
+                                                {{ localize('Téléphone') }}<sup class="text-danger">*</sup>
+                                            @else
+                                                {{ localize('Téléphone') }}
+                                            @endif
+                                            <!-- <small>({{ localize('Entrez le numéro de téléphone avec le code pays') }})</small> -->
+                                        </label>
+                                        <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
+                                            class="theme-input" value="{{ old('phone') }}"
+                                            @if (getSetting('registration_with') == 'email_and_phone') required @endif>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="input-field check-password">
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de passe') }}<sup
+                                                class="text-danger">*</sup></label>
+                                        <div class="check-password">
+                                            <input type="password" name="password" placeholder="{{ localize('Mot de passe') }}"
+                                                class="theme-input" required>
+                                            <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
+                                            <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="input-field check-password">
+                                        <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirmer le mot de passe') }}<sup
+                                                class="text-danger">*</sup></label>
+                                        <div class="check-password">
+                                            <input type="password" name="password_confirmation"
+                                                placeholder="{{ localize('Confirmer le mot de passe') }}" class="theme-input" required>
+                                            <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
+                                            <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            <div class="row g-4 mt-3">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary w-100 sign-in-btn"
+                                        onclick="handleSubmit()">{{ localize('S\'inscrire') }}</button>
+                                </div>
+                            </div>
                         </div>
-                        <p class="mb-0 fs-xs mt-4">{{ localize('Vous avez déjà un compte ?') }} <a
+
+                        <p id="login-link" class="mb-0 fs-xs mt-4">{{ localize('Vous avez déjà un compte ?') }} <a
                                 href="{{ route('login') }}">{{ localize('Se connecter') }}</a></p>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-@endsection
 
-@section('scripts')
+
     <script>
-        "use strict";
+"use strict";
 
-        // disable login button
-        function handleSubmit() {
-            $('#login-form').on('submit', function(e) {
-                $('.sign-in-btn').prop('disabled', true);
-            });
+$(document).ready(function () {
+});
+
+function showNumeroClientPopup() {
+    $('#numeroClientModal').modal('show');
+}
+
+
+
+
+function onNumeroClientConfirmed() {
+    var codeTiers = document.getElementById('client_number_modal').value;
+
+    $.ajax({
+        url: '/verify-client/' + codeTiers,
+        type: 'GET',
+        success: function(response) {
+            if (response.exists) {
+                console.log('User exists:', response.data);
+                fillFormWithClientData(response.data);
+            } else {
+                console.error(response.error);
+                displayMessage('Le client n\'existe pas ou une erreur s\'est produite lors de la vérification.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error verifying client:', status, error);
+            displayMessage('Erreur lors de la vérification du client.');
         }
-    </script>
+    });
+}
+
+function displayMessage(message) {
+    alert(message);
+}
+
+function fillFormWithClientData(clientData) {
+    try {
+        console.log('Received clientData:', clientData);
+
+        if (clientData.length > 0) {
+            const firstClient = clientData[0];
+            const fullName = firstClient.Société;
+            const email = firstClient.EMail;
+            const phone = extractPhoneNumber(firstClient);
+
+            console.log('Extracted values:', { fullName, email, phone });
+
+            setFieldValueAndReadonly('#name', fullName);
+            setFieldValueAndReadonly('#email', email);
+            setFieldValueAndReadonly('#phone', phone);
+
+            $('#numeroClientModal').modal('hide');
+            $('#verification-section').hide();
+            $('#rest-of-form').show();
+            $('#login-link').show();
+        } else {
+            console.error('No data for the given codeTiers.');
+            resetForm();
+            $('#numeroClientModal').modal('hide');
+            $('#verification-section').hide();
+            $('#rest-of-form').show();
+            $('#login-link').show();
+        }
+    } catch (error) {
+        console.error('Error in fillFormWithClientData:', error);
+        resetForm();
+        $('#numeroClientModal').modal('hide');
+        $('#verification-section').hide();
+        $('#rest-of-form').show();
+        $('#login-link').show();
+    }
+}
+
+function extractPhoneNumber(client) {
+    const phoneFields = ["Portable", "T\u00e9l\u00e9phone", "Mobile"];
+
+    // Find the first phone number field that is not null or undefined
+    const validPhoneField = phoneFields.find(field => client[field] != null);
+
+    // Use the value of the valid phone field, or an empty string if none is found
+    return validPhoneField ? client[validPhoneField] : '';
+}
+
+
+function resetForm() {
+
+    setFieldValueAndReadonly('#name', '');
+    setFieldValueAndReadonly('#email', '');
+    setFieldValueAndReadonly('#phone', '');
+}
+function setFieldValueAndReadonly(selector, value) {
+    const field = $(selector);
+
+    if (field.length > 0) {
+        if (value && value.trim() !== '') {
+            field.val(value).prop('readonly', true).addClass('filled-readonly');
+        } else {
+            field.val('').prop('readonly', false).removeClass('filled-readonly');
+        }
+    } else {
+        console.error(`Field with selector '${selector}' not found.`);
+    }
+}
+
+function continueWithRegistrationForm() {
+    $('#numeroClientModal').modal('hide');
+    $('#verification-section').hide();
+    $('#rest-of-form').show();
+    $('#login-link').show();
+}
+
+
+function handleSubmit() {
+    $('#login-form').on('submit', function (e) {
+        $('.sign-in-btn').prop('disabled', true);
+    });
+}
+
+</script>
+
+<style>.filled-readonly {
+    background-color: #f0f0f0; 
+    color: #777; 
+    cursor: not-allowed;
+}
+</style>
+
 @endsection

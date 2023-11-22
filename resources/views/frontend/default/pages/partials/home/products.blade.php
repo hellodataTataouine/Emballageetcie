@@ -6,7 +6,7 @@
                     <div class="col-lg-6">
                         <div class="product-listing-box bg-white rounded-2">
                             <div class="d-flex align-items-center justify-content-between gap-3 mb-5 flex-wrap">
-                                <h4 class="mb-0">{{ localize('Nouveaux Produits"') }}</h4>
+                                <h4 class="mb-0">{{ localize('Nouveaux Produits') }}</h4>
                                 <a href="{{ route('products.index') }}"
                                     class="explore-btn text-secondary fw-bold">{{ localize('Voir plus') }}<span
                                         class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
