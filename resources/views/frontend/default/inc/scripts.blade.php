@@ -277,7 +277,7 @@
             success: function(data) {
                 parent.find('.direct-add-to-cart-btn').prop('disabled', false);
 
-                if (text.includes("Buy Now")) {
+                if (text.includes("Acheter maintenant")) {
                     parent.find('.add-to-cart-text').html(TT.localize.buyNow);
                 } else {
                     parent.find('.add-to-cart-text').html(TT.localize.addToCart);
@@ -447,21 +447,21 @@
     $(document).on('submit', '.checkout-form', function(e) {
         // shipping address not selected
         if ($('.checkout-form input[name=shipping_address_id]:checked').length == 0) {
-            notifyMe('error', '{{ localize('Please select shipping address') }}');
+            notifyMe('error', '{{ localize('Veuillez sélectionner l\'adresse de livraison') }}');
             e.preventDefault();;
             return false;
         }
 
         // logistic not selected
         if ($('.checkout-form input[name=chosen_logistic_zone_id]:checked').length == 0) {
-            notifyMe('error', '{{ localize('Please select logistic') }}');
+            notifyMe('error', '{{ localize('Veuillez sélectionner la logistique') }}');
             e.preventDefault();;
             return false;
         }
 
         // billing address not selected
         if ($('.checkout-form input[name=billing_address_id]:checked').length == 0) {
-            notifyMe('error', '{{ localize('Please select billing address') }}');
+            notifyMe('error', '{{ localize('Veuillez sélectionner l\'adresse de facturation') }}');
             e.preventDefault();;
             return false;
         }

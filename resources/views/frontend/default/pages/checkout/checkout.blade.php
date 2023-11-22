@@ -1,17 +1,17 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Checkout') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Paiement') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Check Out') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Paiement') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Checkout') }}</li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Paiement') }}</li>
             </ol>
         </nav>
     </div>
@@ -34,8 +34,9 @@
                             <!-- shipping address -->
                             <div class="d-flex justify-content-between">
                                 <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
+                                <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
                                 <a href="javascript:void(0);" onclick="addNewAddress()" class="fw-semibold"><i
-                                        class="fas fa-plus me-1"></i> {{ localize('Ajouter Address') }}</a>
+                                        class="fas fa-plus me-1"></i> {{ localize('Ajouter une adresse') }}</a>
                             </div>
                             <div class="row g-4">
                                 @forelse ($addresses as $address)
@@ -55,7 +56,7 @@
                                                 ])
                                                 <!-- address -->
                                                 <a href="javascript:void(0);" onclick="editAddress({{ $address->id }})"
-                                                    class="tt-edit-address checkout-radio-link position-absolute">{{ localize('Edit') }}</a>
+                                                    class="tt-edit-address checkout-radio-link position-absolute">{{ localize('Modifier') }}</a>
                                             </label>
 
                                         </div>
@@ -64,7 +65,7 @@
                                     <div class="col-12 mt-5">
                                         <div class="tt-address-content">
                                             <div class="alert alert-secondary text-center">
-                                                {{ localize('Ajouter your address to checkout') }}
+                                                {{ localize('Ajoutez votre adresse pour finaliser l\'achat') }}
                                             </div>
                                         </div>
                                     </div>
@@ -78,6 +79,7 @@
 
                             <!-- billing address -->
                             @if (count($addresses) > 0)
+                                <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <div class="row g-4">
                                     @foreach ($addresses as $address)
@@ -96,7 +98,7 @@
                                                     <!-- address -->
                                                     <a href="javascript:void(0);"
                                                         onclick="editAddress({{ $address->id }})"
-                                                        class="tt-edit-address checkout-radio-link position-absolute">{{ localize('Edit') }}</a>
+                                                        class="tt-edit-address checkout-radio-link position-absolute">{{ localize('Modifier') }}</a>
                                                 </label>
                                             </div>
                                         </div>
@@ -106,7 +108,7 @@
                             <!-- billing address -->
 
                             <!-- Delivery Time -->
-                            <h4 class="mt-7 mb-3">{{ localize('Preferred Delivery Time') }}</h4>
+                            <h4 class="mt-7 mb-3">{{ localize('Heure de livraison préférée') }}</h4>
                             <div class="row g-4">
                                 <div class="col-12">
                                     <div class="tt-address-content">
@@ -116,10 +118,10 @@
                                             class="tt-address-info bg-white rounded p-4 position-relative">
                                             <div class="d-flex flex-wrap justify-content-between align-items-center">
                                                 <span class=""><i class="fas fa-truck me-1"></i>
-                                                    {{ localize('Regular Delivery') }}
+                                                    {{ localize('Livraison standard') }}
                                                 </span>
                                                 <p class="mb-0 fs-sm">
-                                                    {{ localize('We will deliver your products soon.') }}
+                                                    {{ localize('Nous livrerons vos produits bientôt.') }}
                                                 </p>
                                             </div>
                                         </label>
@@ -136,7 +138,7 @@
                                                 <div class="row flex-wrap justify-content-between align-items-center">
                                                     <div class="col-12 col-md-4 mb-2 mb-md-0">
                                                         <i class="fas fa-clock me-1"></i>
-                                                        {{ localize('Scheduled Delivery') }}
+                                                        {{ localize('Livraison programmée') }}
                                                     </div>
 
                                                     <div
@@ -184,30 +186,31 @@
                             </div>
 
                             <!-- personal information -->
-                            <h4 class="mt-7">{{ localize('Personal Information') }}</h4>
+                            <h4 class="mt-7">{{ localize('Informations personnelles') }}</h4>
                             <div class="checkout-form mt-3 p-5 bg-white rounded-2">
                                 <div class="row g-4">
                                     <div class="col-sm-6">
                                         <div class="label-input-field">
                                             <label>{{ localize('Téléphone') }}</label>
+                                            <label>{{ localize('Téléphone') }}</label>
                                             <input type="text" name="phone"
-                                                placeholder="{{ localize('Phone Number') }}" value="{{ $user->phone }}"
+                                                placeholder="{{ localize('Numéro de téléphone') }}" value="{{ $user->phone }}"
                                                 required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="label-input-field">
-                                            <label>{{ localize('Alternative Phone') }}</label>
+                                            <label>{{ localize('Téléphone alternatif') }}</label>
                                             <input type="text" name="alternative_phone"
-                                                placeholder="{{ localize('Your Alternative Phone') }}">
+                                                placeholder="{{ localize('Votre téléphone alternatif') }}">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12">
                                         <div class="label-input-field">
-                                            <label>{{ localize('Ajouteritional Info') }}</label>
+                                            <label>{{ localize('Informations supplémentaires') }}</label>
                                             <textarea rows="3" type="text" name="additional_info"
-                                                placeholder="{{ localize('Saisir your additional informations here') }}"></textarea>
+                                                placeholder="{{ localize('Entrez vos informations supplémentaires ici') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +218,7 @@
                             <!-- personal information -->
 
                             <!-- payment methods -->
-                            <h4 class="mt-7">{{ localize('Méthode de paiement') }}</h4>
+                            <h4 class="mt-7">{{ localize('Moyen de Paiement') }}</h4>
                             @include('frontend.default.pages.checkout.inc.paymentMethods')
                             <!-- payment methods -->
                         </div>

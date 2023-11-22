@@ -1,7 +1,7 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Home') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Accueil') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')

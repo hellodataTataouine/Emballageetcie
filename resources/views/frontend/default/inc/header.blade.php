@@ -71,7 +71,7 @@
                             @endif
                         </li>
 
-
+<!--
                         @php
                             if (Session::has('locale')) {
                                 $locale = Session::get('locale', Config::get('app.locale'));
@@ -133,7 +133,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a href="javascript:void(0)" class="btn btn-link p-0 tt-theme-toggle fw-normal">
@@ -266,7 +266,7 @@
                                 <div class="dropdown-menu dropdown-menu-end border-0">
                                     <form class="search-form d-flex align-items-center"
                                         action="{{ route('products.index') }}">
-                                        <input type="text" placeholder="{{ localize('Recherche products') }}"
+                                        <input type="text" placeholder="{{ localize('Rechercher des produits') }}"
                                             class="w-100" name="search"
                                             @isset($searchKey) value="{{ $searchKey }}" @endisset>
                                         <button type="submit" class="submit-icon-btn-secondary"><i

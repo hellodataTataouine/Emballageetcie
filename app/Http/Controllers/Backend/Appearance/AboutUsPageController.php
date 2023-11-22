@@ -90,7 +90,7 @@ class AboutUsPageController extends Controller
             $aboutUsFeatures->save();
         }
         cacheClear();
-        flash(localize('Feature added successfully'))->success();
+        flash(localize('Caractéristique ajoutée avec succès.'))->success();
         return back();
     }
 
@@ -123,7 +123,7 @@ class AboutUsPageController extends Controller
         $aboutUsFeatures->value = json_encode($tempFeatures);
         $aboutUsFeatures->save();
         cacheClear();
-        flash(localize('Feature updated successfully'))->success();
+        flash(localize('Caractéristique mise à jour avec succès.'))->success();
         return redirect()->route('admin.appearance.about-us.features');
     }
 
@@ -145,7 +145,7 @@ class AboutUsPageController extends Controller
         $aboutUsFeatures->save();
 
         cacheClear();
-        flash(localize('Feature deleted successfully'))->success();
+        flash(localize('Caractéristique supprimée avec succès.'))->success();
         return redirect()->route('admin.appearance.about-us.features');
     }
 
@@ -210,7 +210,7 @@ class AboutUsPageController extends Controller
             $whyChooseUs->save();
         }
         cacheClear();
-        flash(localize('Widget added successfully'))->success();
+        flash(localize('Widget ajouté avec succès.'))->success();
         return back();
     }
 
@@ -243,7 +243,7 @@ class AboutUsPageController extends Controller
         $whyChooseUs->value = json_encode($tempWhyChooseUs);
         $whyChooseUs->save();
         cacheClear();
-        flash(localize('Widget updated successfully'))->success();
+        flash(localize('Widget mise à jour avec succès.'))->success();
         return redirect()->route('admin.appearance.about-us.whyChooseUs');
     }
 
@@ -265,7 +265,7 @@ class AboutUsPageController extends Controller
         $whyChooseUs->save();
 
         cacheClear();
-        flash(localize('Widget deleted successfully'))->success();
+        flash(localize('Widget supprimée avec succès.'))->success();
         return redirect()->route('admin.appearance.about-us.whyChooseUs');
     }
 }

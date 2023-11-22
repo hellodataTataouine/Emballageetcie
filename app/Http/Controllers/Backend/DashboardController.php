@@ -124,14 +124,14 @@ class DashboardController extends Controller
     private function totalSalesChart($time)
     {
         $timeline                   = 7; // 7, 30 or 90 days 
-        $timelineText               = localize('Last 7 days');
+        $timelineText               = localize('Les 7 derniers jours');
 
         if ((int)$time > 7) {
             $timeline = (int) $time;
             if ($timeline == 30) {
-                $timelineText               = localize('Last 30 days');
+                $timelineText               = localize('Les 30 derniers jours');
             } else {
-                $timelineText               = localize('Last 3 months');
+                $timelineText               = localize('Les 3 derniers mois');
             }
         }
 

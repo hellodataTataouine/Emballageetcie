@@ -15,7 +15,7 @@ class AddressController extends Controller
     public function getStates(Request $request)
     {
         $states = State::isActive()->where('country_id', $request->country_id)->get();
-        $html = '<option value="">' . localize("Select State") . '</option>';
+        $html = '<option value="">' . localize("Choisir une province") . '</option>';
 
         foreach ($states as $state) {
             $html .= '<option value="' . $state->id . '">' . $state->name . '</option>';
@@ -28,7 +28,7 @@ class AddressController extends Controller
     public function getCities(Request $request)
     {
         $cities = City::isActive()->where('state_id', $request->state_id)->get();
-        $html = '<option value="">' . localize("Select City") . '</option>';
+        $html = '<option value="">' . localize("Sélectionner une ville") . '</option>';
 
         foreach ($cities as $city) {
             $html .= '<option value="' . $city->id . '">' . $city->name . '</option>';
@@ -56,7 +56,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        flash(localize('Ajouterress has been inserted successfully'))->success();
+        flash(localize('L\'adresse a été insérée avec succès.'))->success();
         return back();
     }
 
@@ -96,7 +96,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        flash(localize('Ajouterress has been inserted successfully'))->success();
+        flash(localize('L\'adresse a été insérée avec succès.'))->success();
         return back();
     }
 
@@ -106,7 +106,7 @@ class AddressController extends Controller
         $user = auth()->user();
         UserAddress::where('user_id', $user->id)->where('id', $id)->delete();
 
-        flash(localize('Ajouterress has been deleted successfully'))->success();
+        flash(localize('L\'adresse a été supprimée avec succès'))->success();
         return back();
     }
 }

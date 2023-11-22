@@ -1,7 +1,7 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Invoice') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Facture') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -17,13 +17,14 @@
                     <div class="row g-5 justify-content-between">
                         <div class="col-lg-6">
                             <div class="invoice-title d-flex align-items-center">
-                                <h3>{{ localize('Invoice') }}</h3>
+                                <h3>{{ localize('Facture') }}</h3>
                                 <span class="badge rounded-pill bg-primary-light text-primary fw-medium ms-3">
                                     {{ ucwords(str_replace('_', ' ', $order->delivery_status)) }}
                                 </span>
                             </div>
                             <table class="invoice-table-sm">
                                 <tr>
+                                    <td><strong>{{ localize('Code de commande') }}</strong></td>
                                     <td><strong>{{ localize('Code de commande') }}</strong></td>
                                     <td>{{ getSetting('order_code_prefix') }}{{ $orderGroup->order_code }}</td>
                                 </tr>
@@ -48,13 +49,13 @@
                             <div class="welcome-message">
                                 <h4 class="mb-2">{{ auth()->user()->name }}</h4>
                                 <p class="mb-0">
-                                    {{ localize('Here are your order details. We thank you for your purchase.') }}</p>
+                                    {{ localize('Voici les détails de votre commande. Nous vous remercions pour votre achat.') }}</p>
 
                                 @php
                                     $deliveryInfo = json_decode($order->scheduled_delivery_info);
                                 @endphp
 
-                                <p class="mb-0">{{ localize('Saisir de livraison') }}:
+                                <p class="mb-0">{{ localize('Type de livraison') }}:
                                     <span
                                         class="badge bg-primary">{{ Str::title(Str::replace('_', ' ', $order->shipping_delivery_type)) }}</span>
 
@@ -62,7 +63,7 @@
                                 </p>
                                 @if ($order->shipping_delivery_type == getScheduledDeliveryType())
                                     <p class="mb-0">
-                                        {{ localize('Heure de livraison') }}:
+                                        {{ localize('Délai de livraison') }}:
                                         {{ date('d F', $deliveryInfo->scheduled_date) }},
                                         {{ $deliveryInfo->timeline }}</p>
                                 @endif
@@ -73,6 +74,7 @@
                                 <div class="shipping-address d-flex justify-content-md-end">
                                     <div class="border-end pe-2">
                                         <h6 class="mb-2">{{ localize('Adresse de livraison') }}</h6>
+                                        <h6 class="mb-2">{{ localize('Adresse de livraison') }}</h6>
                                         @php
                                             $shippingAddress = $orderGroup->shippingAddress;
                                         @endphp
@@ -82,6 +84,7 @@
                                             {{ optional(optional($shippingAddress)->country)->name }}</p>
                                     </div>
                                     <div class="ms-4">
+                                        <h6 class="mb-2">{{ localize('Adresse de facturation') }}</h6>
                                         <h6 class="mb-2">{{ localize('Adresse de facturation') }}</h6>
                                         @php
                                             $billingAddress = $orderGroup->billingAddress;
@@ -100,11 +103,11 @@
                             <tr>
                                 <th>{{ localize('S/L') }}</th>
                                 <th>{{ localize('Produits') }}</th>
-                                <th>{{ localize('U.Price') }}</th>
-                                <th>{{ localize('QTE') }}</th>
-                                <th>{{ localize('T.Price') }}</th>
+                                <th>{{ localize('Prix unitaire') }}</th>
+                                <th>{{ localize('Qte') }}</th>
+                                <th>{{ localize('Prix total') }}</th>
                                 @if (getSetting('enable_refund_system') == 1)
-                                    <th>{{ localize('Refund') }}</th>
+                                    <th>{{ localize('Remboursement') }}</th>
                                 @endif
                             </tr>
                             @foreach ($orderItems as $key => $item)
@@ -189,34 +192,35 @@
                         <table class="table footer-table">
                             <tr>
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Méthode de paiement') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Moyen de paiement') }}</strong>
                                     <span> {{ ucwords(str_replace('_', ' ', $orderGroup->payment_method)) }}</span>
                                 </td>
 
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
                                     <span>{{ formatPrice($orderGroup->sub_total_amount) }}</span>
                                 </td>
 
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Tips') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Pourboire') }}</strong>
                                     <span>{{ formatPrice($orderGroup->total_tips_amount) }}</span>
                                 </td>
 
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Shipping Cost') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Coût d\'expédition') }}</strong>
                                     <span>{{ formatPrice($orderGroup->total_shipping_cost) }}</span>
                                 </td>
                                 @if ($orderGroup->total_coupon_discount_amount > 0)
                                     <td>
                                         <strong
-                                            class="text-dark d-block text-nowrap">{{ localize('Remise coupon') }}</strong>
+                                            class="text-dark d-block text-nowrap">{{ localize('Remise de coupon') }}</strong>
                                         <span>{{ formatPrice($orderGroup->total_coupon_discount_amount) }}</span>
                                     </td>
                                 @endif
 
                                 <td>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Prix Total') }}</strong>
+                                    <strong class="text-dark d-block text-nowrap">{{ localize('Prix total') }}</strong>
                                     <span
                                         class="text-primary fw-bold">{{ formatPrice($orderGroup->grand_total_amount) }}</span>
                                 </td>
@@ -237,7 +241,7 @@
                 <div class="modal-body">
                     <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="gstore-product-quick-view bg-white rounded-3 pt-3 pb-6 px-4">
-                        <h2 class="modal-title fs-5 mb-3">{{ localize('Request Refund') }}</h2>
+                        <h2 class="modal-title fs-5 mb-3">{{ localize('Demander un remboursement') }}</h2>
                         <form action="{{ route('customers.requestRefund') }}" method="post">
                             @csrf
                             <input type="hidden" name="order_item_id" value="" class="order_item_id">
@@ -245,13 +249,13 @@
                                 <div class="col-sm-12">
                                     <div class="label-input-field">
                                         <label>{{ localize('Refund Reason') }}</label>
-                                        <textarea rows="4" placeholder="{{ localize('Saisir refund reason') }}" name="refund_reason" required></textarea>
+                                        <textarea rows="4" placeholder="{{ localize('Indiquez la raison du remboursement') }}" name="refund_reason" required></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-6 d-flex">
                                 <button type="submit"
-                                    class="btn btn-secondary btn-md me-3">{{ localize('Submit') }}</button>
+                                    class="btn btn-secondary btn-md me-3">{{ localize('Soumettre') }}</button>
                             </div>
                         </form>
                     </div>

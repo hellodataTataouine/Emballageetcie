@@ -71,7 +71,7 @@ class BrandsController extends Controller
         $brandLocalization->save();
 
         $brand->save();
-        flash(localize('Brand has been inserted successfully'))->success();
+        flash(localize('La marque a été insérée avec succès'))->success();
         return redirect()->route('admin.brands.index');
     }
 
@@ -111,7 +111,7 @@ class BrandsController extends Controller
         $brand->save();
         $brandLocalization->save();
 
-        flash(localize('Brand has been updated successfully'))->success();
+        flash(localize('La marque a été mise à jour avec succès'))->success();
         return back();
     }
 
@@ -140,7 +140,7 @@ class BrandsController extends Controller
         }
 
         $brand->delete();
-        flash(localize('Brand has been deleted successfully'))->success();
+        flash(localize('La marque a été supprimée avec succès'))->success();
         return back();
     }
 }

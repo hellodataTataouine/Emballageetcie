@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('SMTP Configuration') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Paramètres SMTP') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 
@@ -13,7 +13,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('SMTP Settings') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Paramètres SMTP') }}</h2>
                             </div>
 
                         </div>

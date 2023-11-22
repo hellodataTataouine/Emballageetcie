@@ -10,7 +10,7 @@
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
                         href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
             </ol>
@@ -52,7 +52,7 @@
                                         {{ $blog->short_description }}
                                     </p>
                                     <a href="{{ route('home.blogs.show', $blog->slug) }}"
-                                        class="btn btn-outline-primary btn-md">{{ localize('Explore More') }}<span
+                                        class="btn btn-outline-primary btn-md">{{ localize('Découvrir davantage') }}<span
                                             class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
                                 </div>
                             </article>

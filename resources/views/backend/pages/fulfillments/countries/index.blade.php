@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Shipping Countries') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Pays de livraison') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -14,7 +14,7 @@
                             <div class="row justify-content-between align-items-center g-3">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Shipping Countries') }}</h2>
+                                        <h2 class="h5 mb-0">{{ localize('Pays de livraison') }}</h2>
                                     </div>
                                 </div>
                                 <div class="col-auto">

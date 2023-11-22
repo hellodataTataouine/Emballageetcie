@@ -54,7 +54,7 @@
                             <tr>
                                 <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                 <th>{{ localize('Nom') }}</th>
-                                <th>{{ localize('Created By') }}</th>
+                                <th>{{ localize('Créé par') }}</th>
                                 <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                 </th>
                             </tr>

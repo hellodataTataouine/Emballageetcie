@@ -97,7 +97,7 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
-                                    <th>{{ localize('Placed On') }}</th>
+                                    <th>{{ localize('Passée le') }}</th>
                                     <th data-breakpoints="xs">{{ localize('Articles ') }}</th>
                                     <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
                                     <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>

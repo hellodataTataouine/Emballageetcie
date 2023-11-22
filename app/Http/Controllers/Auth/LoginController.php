@@ -60,7 +60,7 @@ class LoginController extends Controller
                 $user = Socialite::driver($provider)->stateless()->user();
             }
         } catch (\Exception $e) {
-            flash("Something Went wrong. Please try again.")->error();
+            flash("Quelque chose s\'est mal passé. Veuillez réessayer.")->error();
             return redirect()->route('home');
         }
 
@@ -130,7 +130,7 @@ class LoginController extends Controller
         }
             
         $request->validate($data,[
-            'score.min' => localize('Google recaptcha validation error, seems like you are not a human.')
+            'score.min' => localize('Erreur de validation Google reCAPTCHA, il semble que vous ne soyez pas un humain')
         ]); 
     }
 
@@ -198,7 +198,7 @@ class LoginController extends Controller
     # Get the failed login response instance.  
     protected function sendFailedLoginResponse(Request $request)
     {
-        flash(localize('Invalid login credentials.'))->error();
+        flash(localize('Identifiants de connexion invalides.'))->error();
         return back()->withInput();
     }
 }

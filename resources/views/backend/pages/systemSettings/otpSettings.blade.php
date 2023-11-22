@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('OTP Settings') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Paramètres OTP') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('OTP Settings') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Paramètres OTP') }}</h2>
                             </div>
 
                         </div>
@@ -29,9 +29,9 @@
                         <!--Twilio settings-->
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Twilio Credentials') }}</h5>
+                                <h5 class="mb-4">{{ localize('Identifiants Twilio') }}</h5>
                                 <div class="mb-3">
-                                    <label for="TWILIO_SID" class="form-label">{{ localize('Twilio SID') }}</label>
+                                    <label for="TWILIO_SID" class="form-label">{{ localize('SID Twilio') }}</label>
                                     <input type="hidden" name="types[]" value="TWILIO_SID">
                                     <input type="text" id="TWILIO_SID" name="TWILIO_SID" class="form-control"
                                         value="{{ env('TWILIO_SID') }}">
@@ -39,7 +39,7 @@
 
                                 <div class="mb-3">
                                     <label for="TWILIO_AUTH_TOKEN"
-                                        class="form-label">{{ localize('Twilio Auth Token') }}</label>
+                                        class="form-label">{{ localize('Jeton d\'authentification Twilio') }}</label>
                                     <input type="hidden" name="types[]" value="TWILIO_AUTH_TOKEN">
                                     <input type="text" id="TWILIO_AUTH_TOKEN" name="TWILIO_AUTH_TOKEN"
                                         class="form-control" value="{{ env('TWILIO_AUTH_TOKEN') }}">
@@ -47,7 +47,7 @@
 
                                 <div class="mb-3">
                                     <label for="VALID_TWILIO_NUMBER"
-                                        class="form-label">{{ localize('Valid Twilo Number') }}</label>
+                                        class="form-label">{{ localize('Numéro Twilio valide') }}</label>
                                     <input type="hidden" name="types[]" value="VALID_TWILIO_NUMBER">
                                     <input type="text" id="VALID_TWILIO_NUMBER" name="VALID_TWILIO_NUMBER"
                                         class="form-control" value="{{ env('VALID_TWILIO_NUMBER') }}">
@@ -68,13 +68,13 @@
                         <!--Active-->
                         <div class="card mb-4" id="section-active-gateway">
                             <div class="card-body">
-                                <h5 class="mb-4">{{ localize('Active SMS Gateway') }}</h5>
+                                <h5 class="mb-4">{{ localize('Passerelle SMS active') }}</h5>
 
                                 <div class="mb-3">
                                     <input type="hidden" name="types[]" value="active_sms_gateway">
                                     <select id="enable_twilio" class="form-control text-uppercase select2"
                                         name="active_sms_gateway" data-toggle="select2">
-                                        <option value="" disabled selected>{{ localize('Sélectionner SMS gateway') }}
+                                        <option value="" disabled selected>{{ localize('Sélectionner Passerelle SMS') }}
                                         </option>
                                         <option value="twilio"
                                             {{ getSetting('active_sms_gateway') == 'twilio' ? 'selected' : '' }}>
@@ -99,7 +99,7 @@
                 <div class="col-xl-3 order-1 order-md-1 order-lg-1 order-xl-2">
                     <div class="card tt-sticky-sidebar">
                         <div class="card-body">
-                            <h5 class="mb-4">{{ localize('OTP Settings') }}</h5>
+                            <h5 class="mb-4">{{ localize('Paramètres OTP') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
                                     <li>
@@ -108,7 +108,7 @@
 
                                     <li>
                                         <a href="#section-active-gateway"
-                                            class="">{{ localize('Active SMS Gateway') }}</a>
+                                            class="">{{ localize('Active Passerelle SMS') }}</a>
                                     </li>
                                 </ul>
                             </div>

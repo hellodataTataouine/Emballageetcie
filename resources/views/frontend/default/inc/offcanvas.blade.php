@@ -4,9 +4,9 @@
         <a href="{{ route('home') }}" class="logo-wrapper d-inline-block mb-5"><img
                 src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo"></a>
         <div class="offcanvas-content">
-            <h4 class="mb-4">{{ 'About Us' }}</h4>
+            <h4 class="mb-4">{{ 'À propos de nous' }}</h4>
             <p>{{ getSetting('about_us') }}</p>
-            <a href="{{ route('home.pages.aboutUs') }}" class="btn btn-primary mt-4">{{ 'About Us' }}</a>
+            <a href="{{ route('home.pages.aboutUs') }}" class="btn btn-primary mt-4">{{ 'À propos de nous' }}</a>
         </div>
     </div>
 
@@ -28,13 +28,13 @@
                     @endforeach
                 @else
                     <li>
-                        <a href="{{ route('home') }}">{{ localize('Home') }}</a>
+                        <a href="{{ route('home') }}">{{ localize('Accueil') }}</a>
                     </li>
                     <li>
                         <a href="{{ route('products.index') }}">{{ localize('Produits') }}</a>
                     </li>
                     <li>
-                        <a href="{{ route('home.campaigns') }}">{{ localize('Campaigns') }}</a>
+                        <a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a>
                     </li>
                     <li>
                         <a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a>
@@ -55,8 +55,8 @@
                             @endphp
 
                             <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
-                            <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('About Us') }}</a></li>
-                            <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact Us') }}</a></li>
+                            <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a></li>
+                            <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a></li>
                             @foreach ($pages as $navbarPage)
                                 <li><a
                                         href="{{ route('home.pages.show', $navbarPage->slug) }}">{{ $navbarPage->title }}</a>
@@ -129,12 +129,12 @@
 
                 @auth
                     <li>
-                        <a href="{{ route('logout') }}">{{ localize('Sign Out') }}</a>
+                        <a href="{{ route('logout') }}">{{ localize('Déconnexion') }}</a>
                     </li>
                 @endauth
                 @guest
                     <li>
-                        <a href="{{ route('login') }}">{{ localize('Sign In') }}</a>
+                        <a href="{{ route('login') }}">{{ localize('Se connecter') }}</a>
                     </li>
                 @endguest
             </ul>
@@ -143,7 +143,7 @@
     </div>
 
     <div class="offcanvas-contact mt-4">
-        <h5 class="mb-4 mt-5">{{ 'Contact Info' }}</h5>
+        <h5 class="mb-4 mt-5">{{ 'Coordonnées' }}</h5>
         <address>
             {{ getSetting('topbar_location') }} <br>
             <a href="tel:{{ getSetting('navbar_contact_number') }}">{{ getSetting('navbar_contact_number') }}</a> <br>

@@ -1,11 +1,11 @@
 <div class="sidebar-widget py-6 px-4 bg-white rounded-2">
     <div class="widget-title d-flex">
-        <h5 class="mb-0 flex-shrink-0">{{ localize('Order Summery') }}</h5>
+        <h5 class="mb-0 flex-shrink-0">{{ localize('Résumé de la commande') }}</h5>
         <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
     </div>
     <table class="sidebar-table w-100 mt-5">
         <tr>
-            <td>(+) {{ localize('Items') }}({{ count($carts) }}):</td>
+            <td>(+) {{ localize('Articles') }}({{ count($carts) }}):</td>
             <td class="text-end">{{ formatPrice(getSubTotal($carts, false, '', false)) }}</td>
         </tr>
 
@@ -16,7 +16,7 @@
 
         @if (isset($shippingAmount))
             <tr>
-                <td>(+) {{ localize('Shipping Charge') }}:</td>
+                <td>(+) {{ localize('Frais d\'expédition') }}:</td>
                 <td class="text-end">{{ formatPrice($shippingAmount) }}</td>
             </tr>
         @endif
@@ -44,7 +44,7 @@
 
             @if (getCouponDiscount(getSubTotal($carts, false), getCoupon()) > 0)
                 <tr>
-                    <td>(-) {{ localize('Remise coupon') }}:</td>
+                    <td>(-) {{ localize('Remise de coupon') }}:</td>
                     <td class="text-end">{{ formatPrice(getCouponDiscount(getSubTotal($carts, false), getCoupon())) }}
                     </td>
                 </tr>
@@ -52,7 +52,7 @@
 
             @if ($is_free_shipping && isset($shippingAmount))
                 <tr>
-                    <td>(-) {{ localize('Shipping Discount') }}:</td>
+                    <td>(-) {{ localize('Remise sur la livraison') }}:</td>
                     <td class="text-end">{{ formatPrice($shippingAmount) }}
                     </td>
                 </tr>
@@ -70,9 +70,9 @@
     <span class="sidebar-spacer d-block my-4 opacity-50"></span>
 
     <div class="label-input-field mt-6">
-        <label>{{ 'Add Tips For Deliveryman?' }}</label>
+        <label>{{ 'Ajouter un pourboire pour le livreur ?' }}</label>
         <input type="number" name="tips" value="0" min="0" step="0.001">
     </div>
 
-    <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">{{ localize('Place Order') }}</button>
+    <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">{{ localize('Passer la Commande') }}</button>
 </div>

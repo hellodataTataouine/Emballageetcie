@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Intro Section') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Section d\'introduction') }}</h2>
                             </div>
                         </div>
                     </div>

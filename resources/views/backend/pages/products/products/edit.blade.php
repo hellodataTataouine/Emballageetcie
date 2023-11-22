@@ -33,7 +33,7 @@
                         @csrf
 
                         <input type="hidden" name="id" value="{{ $product->id }}">
-                       
+                        <input type="hidden" name="lang_key" value="{{ $lang_key }}">
 
                         <!--basic information start-->
                         <div class="card mb-4" id="section-1">

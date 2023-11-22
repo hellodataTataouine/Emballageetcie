@@ -1,18 +1,18 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('About Us') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('À propos de nous') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('About Us') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('À propos de nous') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Pages') }}</li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('About') }}</li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Accueil') }}</li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('À propos') }}</li>
             </ol>
         </nav>
     </div>
@@ -63,7 +63,7 @@
                                         <img src="{{ staticAsset('frontend/default/assets/img/icons/hand-icon.svg') }}"
                                             alt="hand icon" class="img-fluid">
                                     </div>
-                                    <h4 class="mt-3">{{ localize('Our Mission') }}</h4>
+                                    <h4 class="mt-3">{{ localize('Notre mission') }}</h4>
                                     <p class="mb-0">{{ getSetting('about_intro_mission') }}</p>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                         <img src="{{ staticAsset('frontend/default/assets/img/icons/hand-icon.svg') }}"
                                             alt="hand icon" class="img-fluid">
                                     </div>
-                                    <h4 class="mt-3">{{ localize('Our Vision') }}</h4>
+                                    <h4 class="mt-3">{{ localize('Notre vision') }}</h4>
                                     <p class="mb-0">{{ getSetting('about_intro_vision') }}</p>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
             class="position-absolute start-0 bottom-0 w-100 z--1 bg-shape">
         <div class="container">
             <div class="brand-wrapper px-5 rounded-4">
-                <h4 class="section-title mb-0">{{ localize('The Most Popular Brands') }}</h4>
+                <h4 class="section-title mb-0">{{ localize('Les marques les plus populaires') }}</h4>
                 <div class="brands-slider swiper px-2 pt-4 pb-7">
                     @php
                         $about_popular_brand_ids = getSetting('about_popular_brand_ids') != null ? json_decode(getSetting('about_popular_brand_ids')) : [];

@@ -2,12 +2,12 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('My Wishlist') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('Ma liste d\'envies') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('My Wishlist') }}</li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Ma liste d\'envies') }}</li>
             </ol>
         </nav>
     </div>
@@ -26,7 +26,7 @@
                     <thead>
                         <th>{{ localize('Image') }}</th>
                         <th>{{ localize('Nom du produit') }}</th>
-                        <th>{{ localize('U. Price') }}</th>
+                        <th>{{ localize('Prix unitaire') }}</th>
                         <th>{{ localize('Action') }}</th>
                     </thead>
                     <tbody class="text-center">
@@ -61,7 +61,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="py-4">{{ localize('No data found') }}</td>
+                                <td colspan="4" class="py-4">{{ localize('Aucune donnée trouvée') }}</td>
                             </tr>
                         @endforelse
                         <!--wishlist listing-->

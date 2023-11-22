@@ -19,9 +19,11 @@ use App\Models\ProductVariationCombination;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 class ProductsController extends Controller
 {
+    
     # construct
     public function __construct()
     {
@@ -34,32 +36,85 @@ class ProductsController extends Controller
     # product list
     public function index(Request $request)
     {
+        $virtualProducts = collect(); // Initialize a collection to hold virtual products
+
+        //get produits
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+        $response = Http::get($apiUrl . 'Produit');
+       // dd($response);
+        $produitsApi = $response->json();
+
+        
         $searchKey = null;
         $brand_id = null;
         $is_published = null;
 
-        $products = Product::shop()->latest();
-        
-        if ($request->search != null) {
-            $products = $products->where('name', 'like', '%' . $request->search . '%');
-            $searchKey = $request->search;
-        }
+       $products = Product::latest();
+       
 
-        if ($request->brand_id != null) {
-            $products = $products->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }
+         // Loop through each product from the API
+    foreach ($produitsApi as $produitApi) {
+        $name = $produitApi['Libellé'];
+        $barcode = $produitApi['codeabarre'];
+        $apiPrice = $produitApi['PrixPublic'];
+        $apiStock = $produitApi['StockActual'];
 
-        if ($request->is_published != null) {
-            $products = $products->where('is_published', $request->is_published);
-            $is_published    = $request->is_published;
-        }
+  // Find products with matching barcode
+  $matchingProducts = Product::where('slug', $barcode)->get();
+  if ($matchingProducts->isNotEmpty()) {
+    foreach ($matchingProducts as $matchingProduct) {
+        if ($matchingProduct->stock_qty !== $apiStock) {
+        $matchingProduct->stock_qty = $apiStock;
+        $matchingProduct->save();
+    }
+    }
+} else {
+// Update prices for matching products
 
-        $brands = Brand::latest()->get();
-        $products = $products->paginate(paginationNumber());
-        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published'));
+$newProduct = new Product();
+$newProduct->name = $name;
+$newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
+// Set other properties of the product
+$newProduct->min_price = $apiPrice;
+$newProduct->max_price = $apiPrice;
+
+$newProduct->stock_qty = $apiStock;
+// Set other properties accordingly based on your product model
+
+$newProduct->save();
+}
+
     }
 
+    foreach ($produitsApi as $produitApi) {
+        $barcode = $produitApi['codeabarre'];
+        $apiPrice = $produitApi['PrixPublic'];
+        $matchingProduct = Product::where('slug', $barcode)->first();
+    
+        if ($matchingProduct !== null) {
+            if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+
+            $matchingProduct->min_price = $apiPrice; 
+            $matchingProduct->max_price = $apiPrice;
+        }
+        }
+       // Add the matching product to the virtual products list
+       $virtualProducts->push($matchingProduct);
+        }
+    
+        $products=$virtualProducts;
+//dd($products);
+$currentPage = $request->input('page', 1); 
+$perPage = 10;
+$products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
+   
+     
+        $brands = Brand::latest()->get();
+      //  $products = $products->paginate(paginationNumber());
+        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published'));
+    }
+    
     # return view of create form
     public function create()
     {
@@ -286,7 +341,7 @@ class ProductsController extends Controller
         $location = Location::where('is_default', 1)->first();
         $request->session()->put('stock_location_id',  $location->id);
 
-        $lang_key = $request->lang_key;
+       $lang_key = $request->lang_key;
        /* $language = Language::where('is_active', 1)->where('code', $lang_key)->first();
         if (!$language) {
             flash(localize('Language you are trying to translate is not available or not active'))->error();
@@ -302,7 +357,7 @@ class ProductsController extends Controller
         $variations = Variation::isActive()->whereNotIn('id', [1, 2])->get();
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
-        return view('backend.pages.products.products.edit', compact('product', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags'));
+        return view('backend.pages.products.products.edit', compact('product', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key'));
     }
 
     # update product
@@ -316,11 +371,9 @@ class ProductsController extends Controller
         $product                    = Product::where('id', $request->id)->first();
         $oldProduct                 = clone $product;
 
-        if ($product->shop_id != auth()->user()->shop_id) {
-            abort(403);
-        }
+       
 
-        if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
+        
             $product->name              = $request->name;
             $product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
             $product->description       = $request->description;
@@ -401,107 +454,10 @@ class ProductsController extends Controller
 
             $location = Location::where('is_default', 1)->first();
 
-            if ($request->has('is_variant') && $request->has('variations')) {
-
-                $new_requested_variations = collect($request->variations);
-                $new_requested_variations_key = $new_requested_variations->pluck('variation_key')->toArray();
-                $old_variations_keys = $product->variations->pluck('variation_key')->toArray();
-                $old_matched_variations = $new_requested_variations->whereIn('variation_key', $old_variations_keys);
-                $new_variations = $new_requested_variations->whereNotIn('variation_key', $old_variations_keys);
-
-                # delete old variations that isn't requested
-                $product->variations->whereNotIn('variation_key', $new_requested_variations_key)->each(function ($variation) use ($location) {
-                    foreach ($variation->combinations as $comb) {
-                        $comb->delete();
-                    }
-                    $variation->product_variation_stock_without_location()->where('location_id', $location->id)->delete();
-                    $variation->delete();
-                });
-
-                # update old matched variations
-                foreach ($old_matched_variations as $variation) {
-                    $p_variation              = ProductVariation::where('product_id', $product->id)->where('variation_key', $variation['variation_key'])->first();
-                    $p_variation->price       = priceToUsd($variation['price']);
-                    $p_variation->sku         = $variation['sku'];
-                    $p_variation->code         = $variation['code'];
-                    $p_variation->save();
-
-                    # update stock of this variation
-                    $productVariationStock = $p_variation->product_variation_stock_without_location()->where('location_id', $location->id)->first();
-                    if (is_null($productVariationStock)) {
-                        $productVariationStock = new ProductVariationStock;
-                        $productVariationStock->product_variation_id    = $p_variation->id;
-                    }
-                    $productVariationStock->stock_qty = $variation['stock'];
-                    $productVariationStock->location_id = $location->id;
-                    $productVariationStock->save();
-                }
-
-                # store new requested variations
-                foreach ($new_variations as $variation) {
-                    $product_variation                      = new ProductVariation;
-                    $product_variation->product_id          = $product->id;
-                    $product_variation->variation_key       = $variation['variation_key'];
-                    $product_variation->price               = priceToUsd($variation['price']);
-                    $product_variation->sku                 = $variation['sku'];
-                    $product_variation->code                 = $variation['code'];
-                    $product_variation->save();
-
-                    $product_variation_stock                              = new ProductVariationStock;
-                    $product_variation_stock->product_variation_id        = $product_variation->id;
-                    $product_variation_stock->stock_qty                   = $variation['stock'];
-                    $product_variation_stock->save();
-
-                    foreach (array_filter(explode("/", $variation['variation_key'])) as $combination) {
-                        $product_variation_combination                         = new ProductVariationCombination;
-                        $product_variation_combination->product_id             = $product->id;
-                        $product_variation_combination->product_variation_id   = $product_variation->id;
-                        $product_variation_combination->variation_id           = explode(":", $combination)[0];
-                        $product_variation_combination->variation_value_id     = explode(":", $combination)[1];
-                        $product_variation_combination->save();
-                    }
-                }
-            } else {
-                # check if old product is variant then delete all old variation & combinations
-                if ($oldProduct->is_variant) {
-                    foreach ($product->variations as $variation) {
-                        foreach ($variation->combinations as $comb) {
-                            $comb->delete();
-                        }
-                        $variation->delete();
-                    }
-                }
-
-                $variation                       = $product->variations->first();
-                $variation->product_id           = $product->id;
-                $variation->variation_key        = null;
-                $variation->sku                  = $request->sku;
-                $variation->code                  = $request->code;
-                $variation->price                = priceToUsd($request->price);
-                $variation->save();
-
-
-                if ($variation->product_variation_stock) {
-                    $productVariationStock = $variation->product_variation_stock_without_location()->where('location_id', $location->id)->first();
-
-                    if (is_null($productVariationStock)) {
-                        $productVariationStock = new ProductVariationStock;
-                    }
-
-                    $productVariationStock->product_variation_id    = $variation->id;
-                    $productVariationStock->stock_qty               = $request->stock;
-                    $productVariationStock->location_id = $location->id;
-                    $productVariationStock->save();
-                } else {
-                    $product_variation_stock                          = new ProductVariationStock;
-                    $product_variation_stock->product_variation_id    = $variation->id;
-                    $product_variation_stock->stock_qty               = $request->stock;
-                    $product_variation_stock->save();
-                }
-            }
-        }
+            
+        
         # Product Localization
-        $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => $request->lang_key, 'product_id' => $product->id]);
+       $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => $request->lang_key, 'product_id' => $product->id]);
         $ProductLocalization->name = $request->name;
         $ProductLocalization->description = $request->description;
         $ProductLocalization->short_description = $request->short_description;

@@ -104,7 +104,6 @@
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
                                     <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
-                                 
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
@@ -142,11 +141,11 @@
                                             <div class="tt-tb-price fs-sm fw-bold">
                                                 <span class="text-accent">
                                                     @if ($product->max_price != $product->min_price)
-                                                        {{ formatPrice($product->min_price) }}
+                                                        {{ $product->min_price }}
                                                         -
-                                                        {{ formatPrice($product->max_price) }}
+                                                        {{ $product->max_price }}
                                                     @else
-                                                        {{ formatPrice($product->min_price) }}
+                                                        {{ $product->min_price }}
                                                     @endif
                                                 </span>
                                             </div>
@@ -171,7 +170,7 @@
                                                 <div class="dropdown-menu dropdown-menu-end shadow">
                                                     @can('edit_products')
                                                         <a class="dropdown-item"
-                                                            href="{{ route('admin.products.edit', ['id' => $product->id]) }}">
+                                                            href="{{ route('admin.products.edit', ['id' => $product->id, 'lang_key' => env('DEFAULT_LANGUAGE')]) }}">
                                                             <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan

@@ -24,18 +24,18 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Hey there!') }}
-                            <br>{{ localize('Register as a Customer.') }}
+                        <h2 class="mb-4 h3">{{ localize('"Salut !') }}
+                            <br>{{ localize('S\'inscrire en tant que client') }}
                         </h2>
 
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Full name') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Nom complet') }}<sup
                                             class="text-danger">*</sup>
                                     </label>
                                     <input type="text" id="name" name="name"
-                                        placeholder="{{ localize('Enter your name') }}" class="theme-input"
+                                        placeholder="{{ localize('Entrez votre nom') }}" class="theme-input"
                                         value="{{ old('name') }}" required>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                     <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}<sup
                                             class="text-danger">*</sup></label>
                                     <input type="email" id="email" name="email"
-                                        placeholder="{{ localize('Enter your email') }}" class="theme-input"
+                                        placeholder="{{ localize('Entrez votre email') }}" class="theme-input"
                                         value="{{ old('email') }}" required>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                         @else
                                             {{ localize('Téléphone') }}
                                         @endif
-                                        <small>({{ localize('Enter phone number with country code') }})</small>
+                                        <small>({{ localize('Entrez le numéro de téléphone avec le code pays') }})</small>
                                     </label>
                                     <input type="text" id="phone" name="phone" placeholder="+xxxxxxxxxx"
                                         class="theme-input" value="{{ old('phone') }}"
@@ -67,10 +67,10 @@
 
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
-                                        <input type="password" name="password" placeholder="{{ localize('Password') }}"
+                                        <input type="password" name="password" placeholder="{{ localize('Mot de passe') }}"
                                             class="theme-input" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
@@ -79,11 +79,11 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirm Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirmer le mot de passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
                                         <input type="password" name="password_confirmation"
-                                            placeholder="{{ localize('Confirm Password') }}" class="theme-input" required>
+                                            placeholder="{{ localize('Confirmer le mot de passe') }}" class="theme-input" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                     </div>
@@ -93,12 +93,12 @@
                         <div class="row g-4 mt-3">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary w-100 sign-in-btn"
-                                    onclick="handleSubmit()">{{ localize('Sign Up') }}</button>
+                                    onclick="handleSubmit()">{{ localize('S\'inscrire') }}</button>
                             </div>
 
                         </div>
-                        <p class="mb-0 fs-xs mt-4">{{ localize('Already have an Account?') }} <a
-                                href="{{ route('login') }}">{{ localize('Sign In') }}</a></p>
+                        <p class="mb-0 fs-xs mt-4">{{ localize('Vous avez déjà un compte ?') }} <a
+                                href="{{ route('login') }}">{{ localize('Se connecter') }}</a></p>
                     </form>
                 </div>
             </div>

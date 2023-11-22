@@ -9,21 +9,21 @@
     @can('shipping_cities')
         <a href="{{ route('admin.cities.index') }}"
             class="btn btn-outline-primary {{ areActiveRoutes(['admin.cities.index']) }}">
-            <i data-feather="pocket" class="me-1"></i>{{ localize('Cities') }}
+            <i data-feather="pocket" class="me-1"></i>{{ localize('Villes') }}
         </a>
     @endcan
 
     @can('shipping_states')
         <a href="{{ route('admin.states.index') }}"
             class="btn btn-outline-primary {{ areActiveRoutes(['admin.states.index']) }}">
-            <i data-feather="pie-chart" class="me-1"></i>{{ localize('States') }}
+            <i data-feather="pie-chart" class="me-1"></i>{{ localize('États') }}
         </a>
     @endcan
 
     @can('shipping_countries')
         <a href="{{ route('admin.countries.index') }}"
             class="btn btn-outline-primary {{ areActiveRoutes(['admin.countries.index']) }}">
-            <i data-feather="globe" class="me-1"></i>{{ localize('Countries') }}
+            <i data-feather="globe" class="me-1"></i>{{ localize('Pays') }}
         </a>
     @endcan
 </div>

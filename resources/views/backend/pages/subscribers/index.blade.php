@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Subscribed users') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Utilisateurs abonnés') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Subscribers') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Abonnés') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <tr>
                                     <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                     <th>{{ localize('Email') }}</th>
-                                    <th>{{ localize('Suibscribed At') }}</th>
+                                    <th>{{ localize('Date d\'abonnement') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>
                                 </tr>

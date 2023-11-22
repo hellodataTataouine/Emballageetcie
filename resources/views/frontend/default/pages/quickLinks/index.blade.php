@@ -10,7 +10,7 @@
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
-                        href="{{ route('home') }}">{{ localize('Home') }}</a></li>
+                        href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                 <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Liens Rapides') }}</li>
             </ol>
         </nav>

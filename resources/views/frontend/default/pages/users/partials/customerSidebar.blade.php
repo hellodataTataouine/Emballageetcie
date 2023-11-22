@@ -151,11 +151,7 @@
                             fill="#5D6374" />
                     </svg>
                 </span>
-<<<<<<< HEAD
                 {{ localize('Mettre à jourd Profile') }}
-=======
-                {{ localize('Modifier Profil') }}
->>>>>>> 896ea115bc135163b1977ee3f1b1f40fdc6b7f9b
             </a>
         </li>
 

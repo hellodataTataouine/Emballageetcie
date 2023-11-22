@@ -56,7 +56,7 @@
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchLogistic"
                                                 data-minimum-results-for-search="Infinity">
-                                                <option value="">{{ localize('Sélectionner un Logistic') }}</option>
+                                                <option value="">{{ localize('Sélectionner un Logistique') }}</option>
                                                 @foreach (\App\Models\Logistic::where('is_published', 1)->get() as $logistic)
                                                     <option value="{{ $logistic->id }}"
                                                         @if ($searchLogistic == $logistic->id) selected @endif>
@@ -82,7 +82,7 @@
                                     <th class="text-center" width="7%">{{ localize('S/L') }}</th>
                                     <th width="10%">{{ localize('Nom') }}</th>
                                     <th width="15%">{{ localize('Logistique') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Cities') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Villes') }}</th>
                                     <th data-breakpoints="xs sm" width="10%">{{ localize('Temps d\'expédition') }}</th>
                                     <th data-breakpoints="xs sm" width="10%">{{ localize('Charge Temps d\'expédition') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}

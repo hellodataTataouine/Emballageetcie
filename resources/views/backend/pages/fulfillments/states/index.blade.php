@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Shipping States') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('États de livraison') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -14,7 +14,7 @@
                             <div class="row justify-content-between align-items-center g-3">
                                 <div class="col-auto flex-grow-1">
                                     <div class="tt-page-title">
-                                        <h2 class="h5 mb-0">{{ localize('Shipping States') }}</h2>
+                                        <h2 class="h5 mb-0">{{ localize('États de livraison') }}</h2>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -24,7 +24,7 @@
                                 <div class="col-auto">
                                     @can('add_shipping_states')
                                         <a href="{{ route('admin.states.create') }}" class="btn btn-primary"><i
-                                                data-feather="plus"></i>{{ localize('Ajouter State') }}</a>
+                                                data-feather="plus"></i>{{ localize('Ajouter États') }}</a>
                                     @endcan
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchCountry">
-                                                <option value="">{{ localize('Sélectionner a country') }}</option>
+                                                <option value="">{{ localize('Sélectionner une Pays') }}</option>
                                                 @foreach (\App\Models\Country::where('is_active', 1)->get() as $country)
                                                     <option value="{{ $country->id }}"
                                                         @if ($searchCountry == $country->id) selected @endif>
@@ -81,7 +81,7 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
                                     <th>{{ localize('Nom') }}</th>
-                                    <th>{{ localize('Country') }}</th>
+                                    <th>{{ localize('Pays') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>

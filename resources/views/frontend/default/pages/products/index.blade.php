@@ -82,7 +82,7 @@
                                                 selected
                                                 @endif
                                             @endisset>
-                                                {{ localize('"Les plus récents') }}</option>
+                                                {{ localize('Les plus récents') }}</option>
                                             <option value="best_selling"
                                                 @isset($sort_by)
                                             @if ($sort_by == 'best_selling')
