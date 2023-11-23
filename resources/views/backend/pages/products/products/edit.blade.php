@@ -44,7 +44,7 @@
                                     <label for="name" class="form-label">{{ localize('Nom du produit') }}</label>
                                     <input class="form-control" type="text" id="name"
                                         placeholder="{{ localize('Taper le Nom du produit ') }}" name="name"
-                                        value="{{ $product->collectLocalization('name') }}" required>
+                                        value="{{ $product->collectLocalization('name') }}" required  readonly>
                                     <span class="fs-sm text-muted">
                                         {{ localize('Le nom du produit est requis et il est recommandé qu\'il soit unique.') }}
                                     </span>
@@ -55,7 +55,7 @@
                                         <label for="slug" class="form-label">{{ localize('Slug du produit') }}</label>
                                         <input class="form-control" type="text" id="slug"
                                             placeholder="{{ localize('Taper le Slug du produit') }}" name="slug"
-                                            value="{{ $product->slug }}" required>
+                                            value="{{ $product->slug }}" required readonly>
                                     </div>
                                 
                                 <div class="mb-4">

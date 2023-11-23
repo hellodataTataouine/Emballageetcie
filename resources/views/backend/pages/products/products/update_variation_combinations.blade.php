@@ -6,7 +6,7 @@
                     <label for="" class="control-label">{{ localize('Variation') }}</label>
                 </th>
                 <th data-breakpoints="xs sm">
-                    <label for="" class="control-label">{{ localize('Price') }}</label>
+                    <label for="" class="control-label">{{ localize('Prix') }}</label>
                 </th>
                 <th data-breakpoints="xs sm">
                     <label for="" class="control-label">{{ localize('Stock') }} <small
