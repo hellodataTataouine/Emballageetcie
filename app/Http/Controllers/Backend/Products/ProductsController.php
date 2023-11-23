@@ -36,8 +36,8 @@ class ProductsController extends Controller
     # product list
     public function index(Request $request)
     {
-        $virtualProducts = collect(); // Initialize a collection to hold virtual products
-
+       $virtualProducts = collect(); // Initialize a collection to hold virtual products
+//dd($virtualProducts);
         //get produits
         $apiUrl = env('API_CATEGORIES_URL');
         
@@ -57,7 +57,7 @@ class ProductsController extends Controller
     foreach ($produitsApi as $produitApi) {
         $name = $produitApi['Libellé'];
         $barcode = $produitApi['codeabarre'];
-        $apiPrice = $produitApi['PrixPublic'];
+        $apiPrice = $produitApi['PrixVTTC'];
         $apiStock = $produitApi['StockActual'];
 
   // Find products with matching barcode
@@ -95,6 +95,10 @@ $product_variation_stock->product_variation_id    = $variation->id;
 $product_variation_stock->location_id             = $location->id;
 $product_variation_stock->stock_qty               = $apiStock;
 $product_variation_stock->save();
+$ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+$ProductLocalization->name = $name;
+//$ProductLocalization->description = $request->description;
+$ProductLocalization->save();
 
 
 }
@@ -103,8 +107,8 @@ $product_variation_stock->save();
 
     foreach ($produitsApi as $produitApi) {
         $barcode = $produitApi['codeabarre'];
-        $apiPrice = $produitApi['PrixPublic'];
-        $matchingProduct = Product::where('slug', $barcode)->first();
+        $apiPrice = $produitApi['PrixVTTC'];
+        $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
     
         if ($matchingProduct !== null) {
             if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
@@ -113,6 +117,7 @@ $product_variation_stock->save();
             $matchingProduct->max_price = $apiPrice;
         }
         }
+        
        // Add the matching product to the virtual products list
        $virtualProducts->push($matchingProduct);
         }
@@ -126,7 +131,34 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
      
         $brands = Brand::latest()->get();
       //  $products = $products->paginate(paginationNumber());
-        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published'));
+        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published')); 
+
+     /*  $searchKey = null;
+        $brand_id = null;
+        $is_published = null;
+
+        $products = Product::shop()->latest();
+        if ($request->search != null) {
+            $products = $products->where('name', 'like', '%' . $request->search . '%');
+            $searchKey = $request->search;
+        }
+
+        if ($request->brand_id != null) {
+            $products = $products->where('brand_id', $request->brand_id);
+            $brand_id    = $request->brand_id;
+        }
+
+        if ($request->is_published != null) {
+            $products = $products->where('is_published', $request->is_published);
+            $is_published    = $request->is_published;
+        }
+
+        $brands = Brand::latest()->get();
+        $products = $products->paginate(paginationNumber());
+        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published'));  */
+
+
+
     }
     
     # return view of create form
@@ -141,7 +173,7 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
         $variations = Variation::isActive()->whereNotIn('id', [1, 2])->get();
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
-        return view('backend.pages.products.products.create', compact('categories', 'brands', 'units', 'variations', 'taxes', 'tags'));
+        return view('backend.pages.products.products.create', compact('categories', 'brands', 'units', 'variations', 'taxes', 'tags'));  
     }
 
     # get variation values to add new product
@@ -361,7 +393,9 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
             flash(localize('Language you are trying to translate is not available or not active'))->error();
             return redirect()->route('admin.products.index');
         }*/
+        //dd($id);
         $product = Product::findOrFail($id);
+        //dd($product);
         $categories = Category::where('parent_id', 0)
             ->orderBy('sorting_order_level', 'desc')
             ->with('childrenCategories')
@@ -382,14 +416,17 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
             return redirect()->back();
         }
 
-        $product                    = Product::where('id', $request->id)->first();
-        $oldProduct                 = clone $product;
+     //   $product                    = Product::where('id', $request->id)->first();
+
+         $product = Product::findOrFail($request->id);
+//dd($request->id);
+        $oldProduct= clone $product;
 
        
 
-        
-            $product->name              = $request->name;
-            $product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
+        if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
+           // $product->name              = $request->name;
+            //$product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
             $product->description       = $request->description;
             $product->sell_target       = $request->sell_target;
             $product->brand_id          = $request->brand_id;
@@ -402,11 +439,11 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             # min-max price
             if ($request->has('is_variant') && $request->has('variations')) {
-                $product->min_price =  min(array_column($request->variations, 'price'));
-                $product->max_price =  max(array_column($request->variations, 'price'));
+                $product->min_price =  priceToUsd(min(array_column($request->variations, 'price')));
+                $product->max_price =  priceToUsd(max(array_column($request->variations, 'price')));
             } else {
-                $product->min_price =  $request->price;
-                $product->max_price =  $request->price;
+                $product->min_price =  priceToUsd($request->price);
+                $product->max_price =  priceToUsd($request->price);
             }
 
             # discount
@@ -468,10 +505,107 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             $location = Location::where('is_default', 1)->first();
 
-            
-        
+            if ($request->has('is_variant') && $request->has('variations')) {
+
+                $new_requested_variations = collect($request->variations);
+                $new_requested_variations_key = $new_requested_variations->pluck('variation_key')->toArray();
+                $old_variations_keys = $product->variations->pluck('variation_key')->toArray();
+                $old_matched_variations = $new_requested_variations->whereIn('variation_key', $old_variations_keys);
+                $new_variations = $new_requested_variations->whereNotIn('variation_key', $old_variations_keys);
+
+                # delete old variations that isn't requested
+                $product->variations->whereNotIn('variation_key', $new_requested_variations_key)->each(function ($variation) use ($location) {
+                    foreach ($variation->combinations as $comb) {
+                        $comb->delete();
+                    }
+                    $variation->product_variation_stock_without_location()->where('location_id', $location->id)->delete();
+                    $variation->delete();
+                });
+
+                # update old matched variations
+                foreach ($old_matched_variations as $variation) {
+                    $p_variation              = ProductVariation::where('product_id', $product->id)->where('variation_key', $variation['variation_key'])->first();
+                    $p_variation->price       = priceToUsd($variation['price']);
+                    $p_variation->sku         = $variation['sku'];
+                    $p_variation->code         = $variation['code'];
+                    $p_variation->save();
+
+                    # update stock of this variation
+                    $productVariationStock = $p_variation->product_variation_stock_without_location()->where('location_id', $location->id)->first();
+                    if (is_null($productVariationStock)) {
+                        $productVariationStock = new ProductVariationStock;
+                        $productVariationStock->product_variation_id    = $p_variation->id;
+                    }
+                    $productVariationStock->stock_qty = $variation['stock'];
+                    $productVariationStock->location_id = $location->id;
+                    $productVariationStock->save();
+                }
+
+                # store new requested variations
+                foreach ($new_variations as $variation) {
+                    $product_variation                      = new ProductVariation;
+                    $product_variation->product_id          = $product->id;
+                    $product_variation->variation_key       = $variation['variation_key'];
+                    $product_variation->price               = priceToUsd($variation['price']);
+                    $product_variation->sku                 = $variation['sku'];
+                    $product_variation->code                 = $variation['code'];
+                    $product_variation->save();
+
+                    $product_variation_stock                              = new ProductVariationStock;
+                    $product_variation_stock->product_variation_id        = $product_variation->id;
+                    $product_variation_stock->stock_qty                   = $variation['stock'];
+                    $product_variation_stock->save();
+
+                    foreach (array_filter(explode("/", $variation['variation_key'])) as $combination) {
+                        $product_variation_combination                         = new ProductVariationCombination;
+                        $product_variation_combination->product_id             = $product->id;
+                        $product_variation_combination->product_variation_id   = $product_variation->id;
+                        $product_variation_combination->variation_id           = explode(":", $combination)[0];
+                        $product_variation_combination->variation_value_id     = explode(":", $combination)[1];
+                        $product_variation_combination->save();
+                    }
+                }
+            } else {
+                # check if old product is variant then delete all old variation & combinations
+                if ($oldProduct->is_variant) {
+                    foreach ($product->variations as $variation) {
+                        foreach ($variation->combinations as $comb) {
+                            $comb->delete();
+                        }
+                        $variation->delete();
+                    }
+                }
+
+                $variation                       = $product->variations->first();
+                $variation->product_id           = $product->id;
+                $variation->variation_key        = null;
+                $variation->sku                  = $request->sku;
+                $variation->code                  = $request->code;
+                $variation->price                = priceToUsd($request->price);
+                $variation->save();
+
+
+                if ($variation->product_variation_stock) {
+                    $productVariationStock = $variation->product_variation_stock_without_location()->where('location_id', $location->id)->first();
+
+                    if (is_null($productVariationStock)) {
+                        $productVariationStock = new ProductVariationStock;
+                    }
+
+                    $productVariationStock->product_variation_id    = $variation->id;
+                    $productVariationStock->stock_qty               = $request->stock;
+                    $productVariationStock->location_id = $location->id;
+                    $productVariationStock->save();
+                } else {
+                    $product_variation_stock                          = new ProductVariationStock;
+                    $product_variation_stock->product_variation_id    = $variation->id;
+                    $product_variation_stock->stock_qty               = $request->stock;
+                    $product_variation_stock->save();
+                }
+            }
+        }
         # Product Localization
-       $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => $request->lang_key, 'product_id' => $product->id]);
+        $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => $request->lang_key, 'product_id' => $product->id]);
         $ProductLocalization->name = $request->name;
         $ProductLocalization->description = $request->description;
         $ProductLocalization->short_description = $request->short_description;

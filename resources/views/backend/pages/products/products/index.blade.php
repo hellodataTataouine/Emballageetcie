@@ -111,7 +111,7 @@
                                 @foreach ($products as $key => $product)
                                     <tr>
                                         <td class="text-center">
-                                            {{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }}</td>
+                                            {{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }} {{ $product->id }}</td>
                                         <td>
                                             <a href="{{ route('products.show', $product->slug) }}"
                                                 class="d-flex align-items-center" target="_blank">
