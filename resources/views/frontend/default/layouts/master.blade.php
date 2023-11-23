@@ -94,7 +94,7 @@
 
     <!--preloader start-->
     <div id="preloader">
-        <img src="{{ staticAsset('frontend/default/assets/img/preloader.gif') }}" alt="preloader" class="img-fluid">
+        <img src="{{ staticAsset('frontend/default/assets/img/embalage et cie.png') }}" alt="preloader" class="img-fluid">
     </div>
     <!--preloader end-->
 

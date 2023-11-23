@@ -108,7 +108,7 @@ class DashboardController extends Controller
 
         if ($request->has('password') && $request->password != '') {
             if ($request->password != $request->password_confirmation) {
-                flash(localize('Password confirmation does not match'))->error();
+                flash(localize('La confirmation du mot de passe ne correspond pas'))->error();
                 return back();
             }
             $user->password = Hash::make($request->password);
@@ -116,7 +116,7 @@ class DashboardController extends Controller
 
         $user->save();
 
-        flash(localize('Profile has been updated'))->success();
+        flash(localize('Le profil a été mis à jour'))->success();
         return back();
     }
 

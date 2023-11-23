@@ -21,6 +21,16 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new EmailVerificationNotification());
     }
 
+     # fillable attributes
+     protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'password',
+        'codetiers',
+        'postal_code',
+    ];
+
     # guarded
     protected $guarded = [
         ''

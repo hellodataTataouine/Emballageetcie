@@ -2,10 +2,25 @@
     <strong>{{ $address->address }}</strong>
 </address>
 
-<strong> {{ localize('Ville') }}: </strong>{{ $address->city->name }}
+<strong>{{ localize('Ville') }}: </strong>
+@if ($address->city)
+    {{ $address->city->name }}
+@else
+    
+@endif
 <br>
 
-<strong>{{ localize('État') }}: </strong>{{ $address->state->name }}
-
+<strong>{{ localize('Région') }}: </strong>
+@if ($address->state)
+    {{ $address->state->name }}
+@else
+    
+@endif
 <br>
-<strong>{{ localize('Pays') }}: </strong> {{ $address->country->name }}
+
+<strong>{{ localize('Pays') }}: </strong>
+@if ($address->country)
+    {{ $address->country->name }}
+@else
+    
+@endif

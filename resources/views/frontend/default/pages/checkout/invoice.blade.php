@@ -195,7 +195,6 @@
 
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
-                                    <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
                                     <span>{{ formatPrice($orderGroup->sub_total_amount) }}</span>
                                 </td>
 

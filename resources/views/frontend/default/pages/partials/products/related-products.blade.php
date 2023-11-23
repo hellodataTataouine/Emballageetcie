@@ -3,7 +3,7 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-sm-8">
                 <div class="section-title text-center text-sm-start">
-                    <h2 class="mb-0">{{ localize('You may be interested') }}</h2>
+                    <h2 class="mb-0">{{ localize('Vous pourriez être intéressé') }}</h2>
                 </div>
             </div>
             <div class="col-sm-4">

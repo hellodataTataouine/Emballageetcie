@@ -25,15 +25,17 @@
                         <h2 class="mb-4 h3">{{ localize('"Salut !') }}
                             <br>{{ localize('S\'inscrire en tant que client') }}
                         </h2>
-
+                      
                         <div id="verification-section">
                             <div class="row g-3">
+
                                 <!-- Display Numero Client Field and Verify Button -->
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 mb-3">
                                     <button type="button" class="btn btn-primary w-100"
-                                        onclick="showNumeroClientPopup()">{{ localize('Vérifier') }}</button>
+                                        onclick="showNumeroClientPopup()">{{ localize('Client existant') }}</button>
                                 </div>
                             </div>
+
 
                             <!-- Modal for Numéro de client -->
                             <div class="modal fade" id="numeroClientModal" tabindex="-1"
@@ -61,6 +63,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Nouveau client section -->
+                        <div id="nouveau-client-section">
+                            <div class="row g-3">
+                                <!-- Display Nouveau Client Button -->
+                                <div class="col-sm-12 mb-3">
+                                    <button type="button" class="btn btn-primary w-100" onclick="showRegistrationForm()">{{ localize('Nouveau client') }}</button>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <!-- Display the rest of the form after verification -->
                         <div id="rest-of-form" style="display: none;">
@@ -127,6 +140,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <!-- Add these hidden fields within your form -->
+                                <input type="hidden" id="codetiers" name="codetiers">
+                                <input type="hidden" id="postal_code" name="postal_code">
+                                <input type="hidden" id="address" name="address">
+
+
                         
                             <div class="row g-4 mt-3">
                                 <div class="col-sm-12">
@@ -154,7 +175,12 @@ $(document).ready(function () {
 function showNumeroClientPopup() {
     $('#numeroClientModal').modal('show');
 }
-
+function showRegistrationForm() {
+    $('#verification-section').hide();
+    $('#nouveau-client-section').hide(); 
+    $('#rest-of-form').show();
+    $('#login-link').show();
+}
 
 
 
@@ -170,11 +196,18 @@ function onNumeroClientConfirmed() {
                 fillFormWithClientData(response.data);
             } else {
                 console.error(response.error);
-                displayMessage('Le client n\'existe pas ou une erreur s\'est produite lors de la vérification.');
+                if (!codeTiers || response.data.length === 0) {
+                    // Display a message that the user is not a client yet and needs to create an account
+                    displayMessage('Vous n\'êtes pas encore enregistré en tant que client. Veuillez créer un compte.');
+                } else {
+                    // Display a message for other errors during verification
+                    displayMessage('Le client n\'existe pas ou une erreur s\'est produite lors de la vérification.');
+                }
             }
         },
         error: function(xhr, status, error) {
             console.error('Error verifying client:', status, error);
+            // Display a generic error message for AJAX errors
             displayMessage('Erreur lors de la vérification du client.');
         }
     });
@@ -183,6 +216,7 @@ function onNumeroClientConfirmed() {
 function displayMessage(message) {
     alert(message);
 }
+
 
 function fillFormWithClientData(clientData) {
     try {
@@ -193,12 +227,18 @@ function fillFormWithClientData(clientData) {
             const fullName = firstClient.Société;
             const email = firstClient.EMail;
             const phone = extractPhoneNumber(firstClient);
+            const codetiers = firstClient.CODETIERS;
+            const postalCode = firstClient.CodePostal;
+            const address = firstClient.Adresse;
 
-            console.log('Extracted values:', { fullName, email, phone });
+            console.log('Extracted values:', { fullName, email, phone, codetiers, postalCode, address });
 
             setFieldValueAndReadonly('#name', fullName);
             setFieldValueAndReadonly('#email', email);
             setFieldValueAndReadonly('#phone', phone);
+            setFieldValueAndReadonly('#codetiers', codetiers);
+            setFieldValueAndReadonly('#postal_code', postalCode);
+            setFieldValueAndReadonly('#address', address); 
 
             $('#numeroClientModal').modal('hide');
             $('#verification-section').hide();
@@ -208,6 +248,7 @@ function fillFormWithClientData(clientData) {
             console.error('No data for the given codeTiers.');
             resetForm();
             $('#numeroClientModal').modal('hide');
+            $('#nouveau-client-section').hide();
             $('#verification-section').hide();
             $('#rest-of-form').show();
             $('#login-link').show();
@@ -216,11 +257,13 @@ function fillFormWithClientData(clientData) {
         console.error('Error in fillFormWithClientData:', error);
         resetForm();
         $('#numeroClientModal').modal('hide');
+        $('#nouveau-client-section').hide();
         $('#verification-section').hide();
         $('#rest-of-form').show();
         $('#login-link').show();
     }
 }
+
 
 function extractPhoneNumber(client) {
     const phoneFields = ["Portable", "T\u00e9l\u00e9phone", "Mobile"];
@@ -255,6 +298,7 @@ function setFieldValueAndReadonly(selector, value) {
 
 function continueWithRegistrationForm() {
     $('#numeroClientModal').modal('hide');
+    $('#nouveau-client-section').hide();
     $('#verification-section').hide();
     $('#rest-of-form').show();
     $('#login-link').show();

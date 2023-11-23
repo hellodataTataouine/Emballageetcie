@@ -56,14 +56,14 @@ active @endif">
                                     active @endif">
                                     {{ localize('En cours') }} </li>
                                 <li class="fs-xs tt-step @if ($order->delivery_status == orderDeliveredStatus()) tt-step-done @endif">
-                                    {{ localize('Delivered') }}</li>
+                                    {{ localize('Livré') }}</li>
                             </ol>
                             <div class="table-responsive-md mt-5">
                                 <table class="table table-bordered fs-xs">
                                     <thead>
                                         <tr>
                                             <th scope="col">{{ localize('Date') }}</th>
-                                            <th scope="col">{{ localize('Status Info') }}</th>
+                                            <th scope="col">{{ localize('Information sur le statut') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -78,7 +78,7 @@ active @endif">
 
                                         <tr>
                                             <td> {{ date('d M, Y', strtotime($order->created_at)) }} </td>
-                                            <td>{{ localize('Order has been placed') }}</td>
+                                            <td>{{ localize('La commande a été passée') }}</td>
                                         </tr>
 
                                     </tbody>

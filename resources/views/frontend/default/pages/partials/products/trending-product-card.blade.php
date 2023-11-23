@@ -94,7 +94,7 @@
 
                 @if (!$isVariantProduct && $stock < 1)
                     <a href="javascript:void(0);" class="btn btn-secondary d-block btn-md rounded-1 w-100">
-                        {{ localize('Out of Stock') }}</a>
+                        {{ localize('épuisé') }}</a>
                 @else
                     <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
                         class="btn btn-secondary d-block btn-md rounded-1 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>

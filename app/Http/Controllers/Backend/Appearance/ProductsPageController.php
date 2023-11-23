@@ -141,7 +141,7 @@ class ProductsPageController extends Controller
         $widget->save();
 
         cacheClear();
-        flash(localize('Widget deleted successfully'))->success();
+        flash(localize('Widget supprimé avec succès'))->success();
         return redirect()->route('admin.appearance.products.details');
     }
 }

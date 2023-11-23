@@ -97,7 +97,7 @@ class OrderController extends Controller
             foreach ($carts as $cart) {
                 $productVariationStock = $cart->product_variation->product_variation_stock ? $cart->product_variation->product_variation_stock->stock_qty : 0;
                 if ($cart->qty > $productVariationStock) {
-                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('is out of stock');
+                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('épuisé');
 
                     return $this->order_failed(localize($message));
                 }
@@ -142,7 +142,7 @@ class OrderController extends Controller
 
                 if ($balance < $orderGroup->grand_total_amount) {
 
-                    return $this->failed(localize("Your wallet balance is low"));
+                    return $this->failed(localize("Le solde de votre portefeuille est faible"));
                 }
             }
             $orderGroup->save();
@@ -256,7 +256,7 @@ class OrderController extends Controller
             return $this->order_complete($orderGroup->order_code);
         }
 
-        return $this->order_failed(localize('Your cart is empty'));
+        return $this->order_failed(localize('Votre panier est vide'));
     }
 
     # order successful
@@ -319,7 +319,7 @@ class OrderController extends Controller
         $orderGroup->save();
 
         clearOrderSession();
-        flash(localize('Your order has been placed successfully'))->success();
+        flash(localize('Votre commande a été passée avec succès'))->success();
         return redirect()->route('checkout.success', $orderGroup->order_code);
     }
 
