@@ -6,7 +6,7 @@
         buyNow: '{{ localize('Acheter maintenant') }}',
         addToCart: '{{ localize('Ajouter au panier') }}',
         outOfStock: '{{ localize('Épuisé') }}',
-        addingToCart: '{{ localize('Ajout en cours...') }}',
+        addingToCart: '{{ localize('Ajout en cours....') }}',
         optionsAlert: '{{ localize('Veuillez choisir toutes les options disponibles') }}',
         applyCoupon: '{{ localize('Appliquer le coupon') }}',
         pleaseWait: '{{ localize('Veuillez patienter') }}',
