@@ -17,9 +17,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="w-100 label-input-field">
-                    <label>{{ localize('État') }}</label>
+                    <label>{{ localize('Région') }}</label>
                     <select class="select2Address" required name="state_id">
-                        <option value="">{{ localize('Sélectionner l\'État') }}</option>
+                        <option value="">{{ localize('Sélectionner Région') }}</option>
                         @foreach ($states as $state)
                             <option value="{{ $state->id }}" @if ($address->state_id == $state->id) selected @endif>
                                 {{ $state->name }}</option>
@@ -61,7 +61,6 @@
 
         </div>
         <div class="mt-6 d-flex">
-            <button type="submit" class="btn btn-secondary btn-md me-3">{{ localize('Mettre à jour') }}</button>
             <button type="submit" class="btn btn-secondary btn-md me-3">{{ localize('Mettre à jour') }}</button>
         </div>
     </form>

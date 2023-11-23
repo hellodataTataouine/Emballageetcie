@@ -56,7 +56,7 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="searchState">
-                                                <option value="">{{ localize('Sélectionner un État') }}</option>
+                                                <option value="">{{ localize('Sélectionner une Région') }}</option>
                                                 @foreach (\App\Models\State::where('is_active', 1)->get() as $state)
                                                     <option value="{{ $state->id }}"
                                                         @if ($searchState == $state->id) selected @endif>
@@ -81,7 +81,7 @@
                                 <tr>
                                     <th class="text-center">{{ localize('S/L') }}</th>
                                     <th>{{ localize('Nom') }}</th>
-                                    <th>{{ localize('État') }}</th>
+                                    <th>{{ localize('Région') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Active') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>

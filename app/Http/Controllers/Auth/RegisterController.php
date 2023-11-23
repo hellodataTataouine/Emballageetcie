@@ -7,6 +7,7 @@ use App\Http\Services\SmsServices;
 use App\Models\Cart;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\UserAddress;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -55,69 +56,112 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
+    
 
 
 
         /**
-     
-    * @param  Request  $request
-    * @return \Illuminate\Http\JsonResponse
-    */
-    public function verifyClient(Request $request, $CODETIERS)
-    {
-        $apiEndpoint = "http://51.83.131.79/hdcomercialeco/Client/CodeTiers/{$CODETIERS}";
+ * @param Request $request
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function verifyClient(Request $request, $CODETIERS)
+{
+    $apiEndpoint = "http://51.83.131.79/hdcomercialeco/Client/CodeTiers/{$CODETIERS}";
 
-        try {
-            $response = Http::get($apiEndpoint);
+    try {
+        $response = Http::get($apiEndpoint);
 
-            if ($response->successful()) {
-                $ClientData = $response->json();
-                return response()->json(['exists' => true, 'data' => $ClientData]);
-                
-            } else {
-                return response()->json(['exists' => false, 'error' => $response->status()]);
+        if ($response->successful()) {
+            $clientData = $response->json();
+            $data = [
+                'exists' => true,
+                'data' => $clientData,
+            ];
+
+            // Check if CodeTiers is present in the API response
+            if (isset($clientData['CODETIERS'])) {
+                $data['codetiers'] = $clientData['CODETIERS'];
             }
-        } catch (\Exception $e) {
-            return response()->json(['exists' => false, 'error' => $e->getMessage()]);
-        }
-    }
 
-
-    # make new registration here
-    protected function create(array $data)
-    {
-        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => validatePhone($data['phone']),
-                'password' => Hash::make($data['password']),
-            ]);
-            // set guest_user_id to user_id from carts 
-            if (isset($_COOKIE['guest_user_id'])) {
-                $carts  = Cart::where('guest_user_id', (int)$_COOKIE['guest_user_id'])->get();
-                $userId = $user->id;
-                if ($carts) {
-                    foreach ($carts as $cart) {
-                        $existInUserCart = Cart::where('user_id', $userId)->where('product_variation_id', $cart->product_variation_id)->first();
-                        if (!is_null($existInUserCart)) {
-                            $existInUserCart->qty += $cart->qty;
-                            $existInUserCart->save();
-                            $cart->delete();
-                        } else {
-                            $cart->user_id = $userId;
-                            $cart->guest_user_id = null;
-                            $cart->save();
-                        }
-                    }
-                }
+            // Check if CodePostal is present in the API response
+            if (isset($clientData['CodePostal'])) {
+                $data['postal_code'] = $clientData['CodePostal'];
             }
-    
-            return $user;
-        }
-        return null;
-    }
 
+            return response()->json($data);
+        } else {
+            return response()->json(['exists' => false, 'error' => $response->status()]);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['exists' => false, 'error' => $e->getMessage()]);
+    }
+}
+
+
+   # make new registration here
+   protected function create(array $data)
+   {
+       if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+           $user = User::create([
+               'name' => $data['name'],
+               'email' => $data['email'],
+               'phone' => validatePhone($data['phone']),
+               'password' => Hash::make($data['password']),
+               'codetiers' => $data['codetiers'],
+               'postal_code' => $data['postal_code'],
+           ]);
+   
+           // set guest_user_id to user_id from carts 
+           if (isset($_COOKIE['guest_user_id'])) {
+               $carts = Cart::where('guest_user_id', (int)$_COOKIE['guest_user_id'])->get();
+               $userId = $user->id;
+               if ($carts) {
+                   foreach ($carts as $cart) {
+                       $existInUserCart = Cart::where('user_id', $userId)->where('product_variation_id', $cart->product_variation_id)->first();
+                       if (!is_null($existInUserCart)) {
+                           $existInUserCart->qty += $cart->qty;
+                           $existInUserCart->save();
+                           $cart->delete();
+                       } else {
+                           $cart->user_id = $userId;
+                           $cart->guest_user_id = null;
+                           $cart->save();
+                       }
+                   }
+               }
+           }
+   
+           // Check if postal_code exists in the API response
+           if (isset($data['postal_code'])) {
+               $user->postal_code = $data['postal_code'];
+               $user->save();
+           }
+   
+           // Check if address exists in the API response
+           if (isset($data['address'])) {
+               // Store address in user_addresses table
+               $this->storeUserAddress($user, $data['address']);
+           }
+   
+           return $user;
+       }
+   
+       return null;
+   }
+   
+
+   // New method to store address in user_addresses table
+   protected function storeUserAddress(User $user, $address)
+   {
+       $addressModel = new UserAddress;
+       $addressModel->user_id = $user->id;
+       $addressModel->country_id = 0; 
+       $addressModel->state_id = 0;   
+       $addressModel->city_id = 0;    
+       $addressModel->is_default = 1;
+       $addressModel->address = $address;
+       $addressModel->save();
+   }
     # register new customer here
     public function register(Request $request)
     {

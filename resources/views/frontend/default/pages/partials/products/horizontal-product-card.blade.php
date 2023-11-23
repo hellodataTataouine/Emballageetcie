@@ -20,12 +20,16 @@
     <div class="card-content mt-4 mt-sm-0 w-100">
         <a href="{{ route('products.show', $product->slug) }}"
             class="fw-bold text-heading title fs-sm tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}</a>
-        <div class="pricing mt-2">
-            @include('frontend.default.pages.partials.products.pricing', [
-                'product' => $product,
-                'onlyPrice' => true,
-            ])
-        </div>
+            
+        <!-- Check if the user is logged in and is a customer -->
+        @if (Auth::check() && Auth::user()->user_type == 'customer')
+            <div class="pricing mt-2">
+                @include('frontend.default.pages.partials.products.pricing', [
+                    'product' => $product,
+                    'onlyPrice' => true,
+                ])
+            </div>
+        @endif
 
         @php
             $isVariantProduct = 0;

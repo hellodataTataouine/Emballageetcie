@@ -408,6 +408,8 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
         return view('backend.pages.products.products.edit', compact('product', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key'));
     }
 
+    
+
     # update product
     public function update(Request $request)
     {
@@ -611,7 +613,7 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
         $ProductLocalization->short_description = $request->short_description;
         $ProductLocalization->save();
 
-        flash(localize('Product has been updated successfully'))->success();
+        flash(localize('Le produit a été mis à jour avec succès'))->success();
         return back();
     }
 

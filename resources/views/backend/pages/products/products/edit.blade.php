@@ -248,7 +248,7 @@
                                                     <input type="number" min="0" step="0.0001" id="price"
                                                         name="price" placeholder="{{ localize('Prix du Produit') }}"
                                                         class="form-control" value="{{ $price }}"
-                                                        {{ !$product->has_variation ? 'required' : '' }}>
+                                                        {{ !$product->has_variation ? 'required' : '' }} readonly >
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">

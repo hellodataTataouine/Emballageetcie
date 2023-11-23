@@ -16,7 +16,7 @@
     @can('shipping_states')
         <a href="{{ route('admin.states.index') }}"
             class="btn btn-outline-primary {{ areActiveRoutes(['admin.states.index']) }}">
-            <i data-feather="pie-chart" class="me-1"></i>{{ localize('États') }}
+            <i data-feather="pie-chart" class="me-1"></i>{{ localize('Régions') }}
         </a>
     @endcan
 
