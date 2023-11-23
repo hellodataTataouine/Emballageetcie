@@ -21,7 +21,7 @@
                         <div class="tt-pos-products-wrap">
                             <div class="row justify-content-between align-items-center g-3 mb-3">
                                 <div class="col-auto flex-grow-1">
-                                    <h2 class="h5 mb-0">{{ localize('All Listed Products') }}</h2>
+                                    <h2 class="h5 mb-0">{{ localize('Tous les produits répertoriés.') }}</h2>
                                 </div>
                                 <div class="col-auto">
                                     <div class="tt-search-box">
@@ -41,7 +41,7 @@
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
                                         data-bs-target="#addItemCode">
-                                        <i data-feather="plus"></i> {{ localize('Ajouter Item by Code') }}
+                                        <i data-feather="plus"></i> {{ localize('Ajouter un article par code.') }}
                                     </button>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                 <button type="button" class="mt-3 btn btn-primary d-block mx-auto pos-load-more d-none"
                                     onclick="getNextPosProducts()">
                                     <span> <i data-feather="refresh-cw" class="me-2"
-                                            width="18"></i>{{ localize('Load More') }}</span>
+                                            width="18"></i>{{ localize('Charger davantage') }}</span>
                                 </button>
 
                             </div>
@@ -72,7 +72,7 @@
                         <form action="" class="d-flex flex-column h-100 pos-cart-list-form">
                             @csrf
                             <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h5 class="mb-0">{{ localize('Billing Section') }}</h5>
+                                <h5 class="mb-0">{{ localize('Section de facturation') }}</h5>
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="me-2 mb-1 mb-md-0">
                                         <select class="form-select py-1" name="delivery_status">
@@ -85,10 +85,10 @@
 
                                     <button type="button" class="btn btn-soft-primary py-1 px-2 me-2 mb-1 mb-md-0"
                                         onclick="showCustomerModal()"><i data-feather="user-plus"
-                                            class="me-1"></i>{{ localize('Customer') }}</button>
+                                            class="me-1"></i>{{ localize('Client') }}</button>
                                     <a href="{{ route('admin.pos.index') }}" target="_blank"
                                         class="btn btn-soft-accent py-1 px-2 mb-1 mb-md-0"><i data-feather="plus-circle"
-                                            class="me-1"></i>{{ localize('New Order') }}</a>
+                                            class="me-1"></i>{{ localize('Nouvelle commande') }}</a>
                                 </div>
                             </div>
 
@@ -107,7 +107,7 @@
                                             <input type="hidden" class="selected_customer_address"
                                                 name="selected_customer_address" value="">
 
-                                            <h6 class="mb-0 fs-md selected_customer_name">Customer</h6>
+                                            <h6 class="mb-0 fs-md selected_customer_name">Client</h6>
                                             <span class="text-muted fs-sm selected_customer_phone">+xxxxxxxxxx</span>
 
                                         </div>
@@ -122,9 +122,9 @@
                                 <table class="table tt-footable align-middle" data-use-parent-width="true">
                                     <thead class="sticky-top bg-secondary-subtle">
                                         <tr>
-                                            <th>{{ localize('Item') }}</th>
+                                            <th>{{ localize('Article') }}</th>
                                             <th data-breakpoints="xs sm" class="text-center">{{ localize('QTE') }}</th>
-                                            <th data-breakpoints="xs sm md">{{ localize('Price') }}</th>
+                                            <th data-breakpoints="xs sm md">{{ localize('Prix') }}</th>
                                             <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -361,7 +361,7 @@
             if (isValidForAddingToCart()) {
                 addToPosCart(product_variation_id);
             } else {
-                notifyMe('warning', '{{ localize('Please select all the options') }}');
+                notifyMe('warning', '{{ localize('Veuillez sélectionner toutes les options') }}');
             }
         }
 

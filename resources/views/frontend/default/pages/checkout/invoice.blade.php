@@ -25,7 +25,6 @@
                             <table class="invoice-table-sm">
                                 <tr>
                                     <td><strong>{{ localize('Code de commande') }}</strong></td>
-                                    <td><strong>{{ localize('Code de commande') }}</strong></td>
                                     <td>{{ getSetting('order_code_prefix') }}{{ $orderGroup->order_code }}</td>
                                 </tr>
 
@@ -74,7 +73,6 @@
                                 <div class="shipping-address d-flex justify-content-md-end">
                                     <div class="border-end pe-2">
                                         <h6 class="mb-2">{{ localize('Adresse de livraison') }}</h6>
-                                        <h6 class="mb-2">{{ localize('Adresse de livraison') }}</h6>
                                         @php
                                             $shippingAddress = $orderGroup->shippingAddress;
                                         @endphp
@@ -84,7 +82,6 @@
                                             {{ optional(optional($shippingAddress)->country)->name }}</p>
                                     </div>
                                     <div class="ms-4">
-                                        <h6 class="mb-2">{{ localize('Adresse de facturation') }}</h6>
                                         <h6 class="mb-2">{{ localize('Adresse de facturation') }}</h6>
                                         @php
                                             $billingAddress = $orderGroup->billingAddress;

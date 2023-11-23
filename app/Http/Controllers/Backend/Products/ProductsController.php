@@ -503,9 +503,15 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
         return 0;
     }
 
-    # delete product
-    public function delete($id)
-    {
-        #
-    }
+   # delete product
+public function delete($id)
+{
+    $product = Product::findOrFail($id);
+
+    $product->delete();
+
+    flash(__('Le produit a été supprimé avec succès'))->success();
+    return redirect()->route('admin.products.index');
+}
+
 }

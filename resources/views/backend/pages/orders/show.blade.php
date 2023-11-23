@@ -105,7 +105,7 @@
                                             $deliveryInfo = json_decode($order->scheduled_delivery_info);
                                         @endphp
 
-                                        <p class="mb-0">{{ localize('Saisir de livraison') }}:
+                                        <p class="mb-0">{{ localize('Type de livraison') }}:
                                             <span
                                                 class="badge bg-primary">{{ Str::title(Str::replace('_', ' ', $order->shipping_delivery_type)) }}</span>
 

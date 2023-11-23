@@ -54,6 +54,8 @@ use App\Http\Controllers\Backend\Pos\PosController;
 use App\Http\Controllers\Backend\Roles\RolesController;
 use App\Http\Controllers\Backend\Reports\ReportsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\CatalogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +86,21 @@ Route::group(['prefix' => 'backend'], function () {
 Route::group(
     ['prefix' => 'admin', 'middleware' => ['auth', 'admin']],
     function () {
+         # Catalog routes
+         Route::group(['prefix' => 'catalogues'], function () {
+            Route::get('/', [CatalogController::class, 'index'])->name('admin.catalogues.index');
+            Route::get('/create', [CatalogController::class, 'create'])->name('admin.catalogues.create');
+            Route::post('/store', [CatalogController::class, 'store'])->name('admin.catalogues.store');
+            Route::get('/edit/{id}', [CatalogController::class, 'edit'])->name('admin.catalogues.edit');
+            Route::post('/update', [CatalogController::class, 'update'])->name('admin.catalogues.update');
+            Route::get('/delete/{id}', [CatalogController::class, 'delete'])->name('admin.catalogues.delete');
+            Route::get('admin/catalogues/{id}/show', [CatalogController::class, 'show'])->name('admin.catalogues.show');
+            Route::get('admin/catalogues/{id}/display-pdf', [CatalogController::class, 'displayPdf'])->name('admin.catalogues.displayPdf');
+
+            Route::post('/toggle-publish-status/{id}', [CatalogController::class, 'togglePublishStatus'])
+            ->name('admin.catalogues.togglePublishStatus');        
+        });
+
         # dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/profile', [DashboardController::class, 'profile'])->name('admin.profile');

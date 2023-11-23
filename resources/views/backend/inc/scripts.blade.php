@@ -19,7 +19,7 @@
 
     var TT = TT || {};
     TT.localize = {
-        no_data_found: '{{ localize('No data found') }}',
+        no_data_found: '{{ localize('Aucune donnée trouvée') }}',
         selected_file: '{{ localize('Selected File') }}',
         selected_files: '{{ localize('Selected Files') }}',
         file_added: '{{ localize('File added') }}',

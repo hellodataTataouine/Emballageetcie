@@ -175,6 +175,7 @@
                                                         </a>
                                                     @endcan
 
+
                                                     <a class="dropdown-item"
                                                         href="{{ route('products.show', $product->slug) }}"
                                                         target="_blank">
@@ -182,6 +183,12 @@
                                                             class="me-2"></i>{{ localize('Voir Détailles') }}
                                                             
                                                     </a>
+                                                     <!-- Add the delete button -->
+                    @can('delete_products')
+                        <a class="dropdown-item" href="#" onclick="confirmDelete({{ $product->id }})">
+                            <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
+                        </a>
+                    @endcan
                                                 </div>
                                             </div>
                                         </td>

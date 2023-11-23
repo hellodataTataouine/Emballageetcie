@@ -15,20 +15,20 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Verify Your Email Address') }}
+                        <h2 class="mb-4 h3">{{ localize('Veuillez vérifier votre adresse e-mail') }}
                         </h2>
 
                         @if (session('resent'))
                             <div class="alert alert-success" role="alert">
-                                {{ localize('A fresh verification link has been sent to your email address.') }}
+                                {{ localize('Un nouveau lien de vérification a été envoyé à votre adresse e-mail.') }}
                             </div>
                         @endif
                         <div class="mb-2">
-                            {{ localize('Before proceeding, please check your email for a verification link.') }}</div>
+                            {{ localize('Avant de continuer, veuillez vérifier votre e-mail pour trouver le lien de vérification') }}</div>
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ localize('Click here to request another') }}
+                                    {{ localize('Cliquez ici pour en demander un autre.') }}
                                 </button>
                             </div>
                         </div>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+
 
 class RegisterController extends Controller
 {
@@ -54,6 +56,33 @@ class RegisterController extends Controller
         ]);
     }
 
+
+
+        /**
+     
+    * @param  Request  $request
+    * @return \Illuminate\Http\JsonResponse
+    */
+    public function verifyClient(Request $request, $CODETIERS)
+    {
+        $apiEndpoint = "http://51.83.131.79/hdcomercialeco/Client/CodeTiers/{$CODETIERS}";
+
+        try {
+            $response = Http::get($apiEndpoint);
+
+            if ($response->successful()) {
+                $ClientData = $response->json();
+                return response()->json(['exists' => true, 'data' => $ClientData]);
+                
+            } else {
+                return response()->json(['exists' => false, 'error' => $response->status()]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['exists' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
+
     # make new registration here
     protected function create(array $data)
     {
@@ -66,7 +95,7 @@ class RegisterController extends Controller
             ]);
             // set guest_user_id to user_id from carts 
             if (isset($_COOKIE['guest_user_id'])) {
-                $carts  = Cart::where('guest_user_id', (int) $_COOKIE['guest_user_id'])->get();
+                $carts  = Cart::where('guest_user_id', (int)$_COOKIE['guest_user_id'])->get();
                 $userId = $user->id;
                 if ($carts) {
                     foreach ($carts as $cart) {
@@ -83,6 +112,7 @@ class RegisterController extends Controller
                     }
                 }
             }
+    
             return $user;
         }
         return null;

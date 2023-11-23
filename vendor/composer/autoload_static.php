@@ -394,8 +394,8 @@ class ComposerStaticInit6b5499d5aac6468831273ca62664c03f
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -711,6 +711,7 @@ class ComposerStaticInit6b5499d5aac6468831273ca62664c03f
         'App\\Http\\Controllers\\Backend\\BlogSystem\\BlogCategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BlogSystem/BlogCategoriesController.php',
         'App\\Http\\Controllers\\Backend\\BlogSystem\\BlogsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BlogSystem/BlogsController.php',
         'App\\Http\\Controllers\\Backend\\BlogSystem\\TagsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/BlogSystem/TagsController.php',
+        'App\\Http\\Controllers\\Backend\\CatalogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/CatalogController.php',
         'App\\Http\\Controllers\\Backend\\Contacts\\ContactUsMessagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Contacts/ContactUsMessagesController.php',
         'App\\Http\\Controllers\\Backend\\CurrenciesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/CurrenciesController.php',
         'App\\Http\\Controllers\\Backend\\CustomersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/CustomersController.php',
@@ -755,6 +756,7 @@ class ComposerStaticInit6b5499d5aac6468831273ca62664c03f
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Frontend\\AddressController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/AddressController.php',
         'App\\Http\\Controllers\\Frontend\\CartsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CartsController.php',
+        'App\\Http\\Controllers\\Frontend\\CatalogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CatalogController.php',
         'App\\Http\\Controllers\\Frontend\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CheckoutController.php',
         'App\\Http\\Controllers\\Frontend\\ContactUsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/ContactUsController.php',
         'App\\Http\\Controllers\\Frontend\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CustomerController.php',
@@ -827,6 +829,7 @@ class ComposerStaticInit6b5499d5aac6468831273ca62664c03f
         'App\\Models\\Campaign' => __DIR__ . '/../..' . '/app/Models/Campaign.php',
         'App\\Models\\CampaignProduct' => __DIR__ . '/../..' . '/app/Models/CampaignProduct.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
+        'App\\Models\\Catalog' => __DIR__ . '/../..' . '/app/Models/Catalog.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\CategoryBrand' => __DIR__ . '/../..' . '/app/Models/CategoryBrand.php',
         'App\\Models\\CategoryLocalization' => __DIR__ . '/../..' . '/app/Models/CategoryLocalization.php',

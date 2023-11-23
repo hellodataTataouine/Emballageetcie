@@ -179,5 +179,5 @@ CHANGELOG
 
  * added support for more than one fallback locale
  * added support for extracting translation messages from templates (Twig and PHP)
- * added dumpers for translation catalogs
+ * added dumpers for translation catalogues
  * added support for QT, gettext, and ResourceBundles

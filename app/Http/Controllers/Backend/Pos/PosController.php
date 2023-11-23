@@ -321,7 +321,7 @@ class PosController extends Controller
                             $tempCart->qty = $request->quantities[$key] + 1;
                             array_push($carts, $tempCart);
                         } else {
-                            $message  = localize('No more stock left of this product');
+                            $message  = localize('Ce produit n\'est plus en stock.');
                         }
                     } else {
                         $tempCart = new Cart;
@@ -347,7 +347,7 @@ class PosController extends Controller
         if (is_null($productVariation)) {
             return [
                 'success' => false,
-                'message' => localize('Product does not exist by this code')
+                'message' => localize('Le produit n\'existe pas avec ce code.')
             ];
         }
 
@@ -498,7 +498,7 @@ class PosController extends Controller
         } else {
             return [
                 'success' => false,
-                'message' => localize('Ajouter products to list to make order')
+                'message' => localize('Ajoutez des produits à la liste pour passer une commande.')
             ];
         }
     }

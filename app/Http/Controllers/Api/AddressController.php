@@ -40,7 +40,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        return $this->success(localize('Ajouterress has been inserted successfully'));
+        return $this->success(localize('L\'adresse a été insérée avec succès.'));
     }
 
     # edit address
@@ -70,7 +70,7 @@ class AddressController extends Controller
         $address->is_default    = $request->is_default;
         $address->address       = $request->address;
         $address->save();
-        return $this->success(localize('Ajouterress has been updated successfully'));
+        return $this->success(localize('L\'adresse a été mise à jour avec succès.'));
     }
 
     # delete address
@@ -79,7 +79,7 @@ class AddressController extends Controller
         $user = auth()->user();
         UserAddress::where('user_id', $user->id)->where('id', $id)->delete();
 
-        return $this->success(localize('Ajouterress has been deleted successfully'));
+        return $this->success(localize('L\'adresse a été supprimée avec succès.'));
     }
 
 

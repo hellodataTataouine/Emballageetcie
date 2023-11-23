@@ -11,7 +11,7 @@
         {{-- uploader --}}
         <div class="col-12 col-lg-6 order-first order-md-last mb-2 mb-md-0 ps-md-3">
             @can('add_media')
-                <h5>{{ localize('Ajouter files here') }}</h5>
+                <h5>{{ localize('Veuillez ajouter les fichiers ici.') }}</h5>
                 <div class="uppy-drag-drop-area"></div>
             @endcan
         </div>
@@ -25,7 +25,7 @@
                 <div class="row justify-content-between align-items-center g-3">
 
                     <div class="col-auto flex-grow-1">
-                        <h5 class="mb-0">{{ localize('Previously uploaded files') }}</h5>
+                        <h5 class="mb-0">{{ localize('Fichiers précédemment téléchargés.') }}</h5>
                     </div>
                     <div class="col-auto">
 
@@ -34,7 +34,7 @@
                                 <span class="position-absolute top-50 start-0 translate-middle-y ms-2"> <i
                                         data-feather="search"></i></span>
                                 <input class="form-control rounded-start w-100" type="text" id="search"
-                                    name="media-search" placeholder="{{ localize('Recherche by name') }}">
+                                    name="media-search" placeholder="{{ localize('Recherche par nom') }}">
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
 
     <div class="mt-3 load-more-media d-none">
         <button class="btn btn-primary" onclick="getNextMediaFiles()">
-            <span> <i data-feather="refresh-cw" class="me-2" width="18"></i>{{ localize('Load More') }}</span>
+            <span> <i data-feather="refresh-cw" class="me-2" width="18"></i>{{ localize('Charger davantage') }}</span>
         </button>
     </div>
 

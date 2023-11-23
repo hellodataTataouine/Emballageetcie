@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Campaign;
 use App\Models\Page;
+use App\Models\Catalog; 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -96,6 +97,16 @@ class HomeController extends Controller
     {
         return getView('pages.campaigns.index');
     }
+     # all catalogues
+     public function allcatalogues()
+     {
+         $catalogues = Catalog::all();
+         return view('frontend.default.pages.catalogues.index', ['catalogues' => $catalogues]);
+     }
+     
+     
+     
+ 
 
     # campaign details
     public function showCampaign($slug)
