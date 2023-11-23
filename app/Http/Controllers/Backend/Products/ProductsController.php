@@ -71,7 +71,7 @@ class ProductsController extends Controller
     }
 } else {
 // Update prices for matching products
-
+$location = Location::where('is_default', 1)->first();
 $newProduct = new Product();
 $newProduct->name = $name;
 $newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
@@ -83,6 +83,20 @@ $newProduct->stock_qty = $apiStock;
 // Set other properties accordingly based on your product model
 
 $newProduct->save();
+
+$variation              = new ProductVariation;
+$variation->product_id  = $newProduct->id;
+//$variation->sku         = $request->sku;
+//$variation->code         = $request->code;
+$variation->price       = $apiPrice;
+$variation->save();
+$product_variation_stock                          = new ProductVariationStock;
+$product_variation_stock->product_variation_id    = $variation->id;
+$product_variation_stock->location_id             = $location->id;
+$product_variation_stock->stock_qty               = $apiStock;
+$product_variation_stock->save();
+
+
 }
 
     }
@@ -388,11 +402,11 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             # min-max price
             if ($request->has('is_variant') && $request->has('variations')) {
-                $product->min_price =  priceToUsd(min(array_column($request->variations, 'price')));
-                $product->max_price =  priceToUsd(max(array_column($request->variations, 'price')));
+                $product->min_price =  min(array_column($request->variations, 'price'));
+                $product->max_price =  max(array_column($request->variations, 'price'));
             } else {
-                $product->min_price =  priceToUsd($request->price);
-                $product->max_price =  priceToUsd($request->price);
+                $product->min_price =  $request->price;
+                $product->max_price =  $request->price;
             }
 
             # discount
