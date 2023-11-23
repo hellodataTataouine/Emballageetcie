@@ -10,7 +10,6 @@
         </span>
     @endif
 
-
     <div class="thumbnail position-relative text-center p-4 flex-shrink-0">
         <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
             class="img-fluid">
@@ -52,15 +51,12 @@
             ])
         </h6>
 
-
-        {{-- @isset($showSold) --}}
         <div class="card-progressbar mt-3 mb-2 rounded-pill">
             <span class="card-progress bg-primary" data-progress="{{ sellCountPercentage($product) }}%"
                 style="width: {{ sellCountPercentage($product) }}%;"></span>
         </div>
         <p class="mb-0 fw-semibold">{{ localize('Total Vendu ') }}: <span
                 class="fw-bold text-secondary">{{ $product->total_sale_count }}/{{ $product->sell_target }}</span></p>
-        {{-- @endisset --}}
 
         @php
             $isVariantProduct = 0;
@@ -72,25 +68,30 @@
             }
         @endphp
 
-        @if ($isVariantProduct)
-            <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
-                onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
+        @auth
+            @if ($isVariantProduct)
+                <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
+                    onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
+            @else
+                <form action="" class="direct-add-to-cart-form">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
+                    <input type="hidden" value="1" name="quantity">
+
+                    @if (!$isVariantProduct && $stock < 1)
+                        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
+                            {{ localize('épuisé') }}</a>
+                    @else
+                        <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
+                            class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
+                    @endif
+                </form>
+            @endif
         @else
-            <form action="" class="direct-add-to-cart-form">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
-                <input type="hidden" value="1" name="quantity">
-
-                @if (!$isVariantProduct && $stock < 1)
-                    <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
-                        {{ localize('épuisé') }}</a>
-                @else
-                    <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
-                        class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
-                @endif
-            </form>
-        @endif
-
+            <span class="btn btn-outline-secondary btn-sm border-secondary mt-4 disabled">
+                {{ localize('Ajouter au panier') }}
+            </span>
+        @endauth
 
     </div>
 </div>
