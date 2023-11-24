@@ -9,6 +9,9 @@ use Auth;
 class Product extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'fiche_technique',
+    ];
 
     protected $guarded = [];
 

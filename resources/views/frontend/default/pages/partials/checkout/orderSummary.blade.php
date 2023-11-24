@@ -9,10 +9,10 @@
             <td class="text-end">{{ formatPrice(getSubTotal($carts, false, '', false)) }}</td>
         </tr>
 
-        <tr>
+        <!-- <tr>
             <td>(+) {{ localize('Taxe') }}:</td>
             <td class="text-end">{{ formatPrice(getTotalTax($carts)) }}</td>
-        </tr>
+        </tr> -->
 
         @if (isset($shippingAmount))
             <tr>
@@ -69,10 +69,10 @@
 
     <span class="sidebar-spacer d-block my-4 opacity-50"></span>
 
-    <div class="label-input-field mt-6">
+    <!-- <div class="label-input-field mt-6">
         <label>{{ 'Ajouter un pourboire pour le livreur ?' }}</label>
         <input type="number" name="tips" value="0" min="0" step="0.001">
-    </div>
+    </div> -->
 
     <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">{{ localize('Passer la Commande') }}</button>
 </div>

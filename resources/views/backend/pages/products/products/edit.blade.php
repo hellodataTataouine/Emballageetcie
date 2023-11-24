@@ -69,6 +69,35 @@
                                     <textarea id="description" class="editor" name="description">{{ $product->description }}</textarea>
                                 </div>
 
+                           <!-- Add File Upload for Fiche Technique -->
+                           
+                                <div class="mb-4">
+                                    <label for="fiche_technique" class="form-label">{{ localize('Fiche Technique') }}</label>
+                                    <div class="tt-image-drop rounded">
+                                        <span class="fw-semibold">{{ localize('Choisir Fiche Technique') }}</span>
+                                        <!-- choose media -->
+                                        <div class="tt-product-thumb show-selected-files mt-3">
+                                            <div class="avatar avatar-xl cursor-pointer choose-media"
+                                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
+                                                onclick="showMediaManager(this)" data-selection="single">
+                                                <input type="hidden" name="fiche_technique" value="{{ $product->fiche_technique }}">
+                                                <div class="no-avatar rounded-circle">
+                                                    <span><i data-feather="plus"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- choose media -->
+                                    </div>
+                                    
+                                </div>
+                                <!-- End File Upload for Fiche Technique -->
+
+
+
+
+
+
+
                             </div>
                         </div>
                         <!--basic information end-->

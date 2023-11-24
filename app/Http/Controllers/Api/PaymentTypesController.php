@@ -26,7 +26,7 @@ class PaymentTypesController extends Controller
         if (getSetting('enable_cod') == 1 && $payFor=="order") {
             $tmp=[];
             $tmp['key']="cod";
-            $tmp['name']=localize('Cash on delivery');
+            $tmp['name']=localize('Paiement à la livraison');
             $tmp['image']=staticAsset('frontend/pg/cod.svg');
             $paymentTypes[]=$tmp;
 

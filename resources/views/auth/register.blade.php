@@ -50,8 +50,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>{{ localize('Veuillez saisir votre numéro de client.') }}</p>
-                                            <input type="text" id="client_number_modal" class="form-control"
-                                                placeholder="{{ localize('Entrez votre numéro de client') }}" required>
+                                            <input type="text" id="client_number_modal" name="client_number_modal" class="form-control"
+                                                placeholder="{{ localize('Entrez votre numéro de client') }}">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
