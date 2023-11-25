@@ -18,8 +18,8 @@
                             </div>
                             <div class="tt-action">
                                 @can('add_products')
-                                    <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Ajouter Produit') }}</a>
+                                    <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-primary"><i
+                                            data-feather="plus"></i> {{ localize('Synchroniser les Produits') }}</a>
                                             
                                 @endcan
                             </div>
@@ -108,10 +108,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($products->isEmpty())
+    <p>No products found.</p>
+@else
                                 @foreach ($products as $key => $product)
                                     <tr>
                                         <td class="text-center">
-                                            {{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }} {{ $product->id }}</td>
+                                            {{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }} </td>
                                         <td>
                                             <a href="{{ route('products.show', $product->slug) }}"
                                                 class="d-flex align-items-center" target="_blank">
@@ -194,6 +197,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                         <!--pagination start-->

@@ -54,7 +54,7 @@ class ProductsController extends Controller
        
 
          // Loop through each product from the API
-    foreach ($produitsApi as $produitApi) {
+ /*   foreach ($produitsApi as $produitApi) {
         $name = $produitApi['Libellé'];
         $barcode = $produitApi['codeabarre'];
         $apiPrice = $produitApi['PrixVTTC'];
@@ -104,7 +104,7 @@ $ProductLocalization->save();
 
 }
 
-    }
+    }*/
 
     foreach ($produitsApi as $produitApi) {
         $barcode = $produitApi['codeabarre'];
@@ -117,10 +117,11 @@ $ProductLocalization->save();
             $matchingProduct->min_price = $apiPrice; 
             $matchingProduct->max_price = $apiPrice;
         }
+        $virtualProducts->push($matchingProduct);
         }
         
        // Add the matching product to the virtual products list
-       $virtualProducts->push($matchingProduct);
+       
         }
     
         $products=$virtualProducts;
@@ -134,30 +135,7 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
       //  $products = $products->paginate(paginationNumber());
         return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published')); 
 
-     /*  $searchKey = null;
-        $brand_id = null;
-        $is_published = null;
-
-        $products = Product::shop()->latest();
-        if ($request->search != null) {
-            $products = $products->where('name', 'like', '%' . $request->search . '%');
-            $searchKey = $request->search;
-        }
-
-        if ($request->brand_id != null) {
-            $products = $products->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }
-
-        if ($request->is_published != null) {
-            $products = $products->where('is_published', $request->is_published);
-            $is_published    = $request->is_published;
-        }
-
-        $brands = Brand::latest()->get();
-        $products = $products->paginate(paginationNumber());
-        return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published'));  */
-
+    
 
 
     }
@@ -650,5 +628,113 @@ public function delete($id)
     flash(__('Le produit a été supprimé avec succès'))->success();
     return redirect()->route('admin.products.index');
 }
+
+
+public function SynchronizeProducts(Request $request)
+{
+    $virtualProducts = collect(); // Initialize a collection to hold virtual products
+    //dd($virtualProducts);
+            //get produits
+            $apiUrl = env('API_CATEGORIES_URL');
+            
+            $response = Http::get($apiUrl . 'Produit');
+           // dd($response);
+            $produitsApi = $response->json();
+    
+            
+            $searchKey = null;
+            $brand_id = null;
+            $is_published = null;
+    
+           $products = Product::latest();
+           
+    
+             // Loop through each product from the API
+        foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+    
+      // Find products with matching barcode
+      $matchingProducts = Product::where('slug', $barcode)->get();
+      if (!($matchingProducts->isNotEmpty())) {
+       /* foreach ($matchingProducts as $matchingProduct) {
+            if ($matchingProduct->stock_qty !== $apiStock) {
+            $matchingProduct->stock_qty = $apiStock;
+            $matchingProduct->save();
+        }
+        }*/
+    
+    // Update prices for matching products
+    $location = Location::where('is_default', 1)->first();
+    $newProduct = new Product();
+    $newProduct->name = $name;
+    $newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
+    // Set other properties of the product
+    $newProduct->min_price = $apiPrice;
+    $newProduct->max_price = $apiPrice;
+    
+    $newProduct->stock_qty = $apiStock;
+    //$newProduct->has_variation = 0;
+    // Set other properties accordingly based on your product model
+    
+    $newProduct->save();
+    
+    $variation              = new ProductVariation;
+    $variation->product_id  = $newProduct->id;
+    //$variation->sku         = $request->sku;
+    //$variation->code         = $request->code;
+    $variation->price       = $apiPrice;
+    $variation->save();
+    $product_variation_stock                          = new ProductVariationStock;
+    $product_variation_stock->product_variation_id    = $variation->id;
+    $product_variation_stock->location_id             = $location->id;
+    $product_variation_stock->stock_qty               = $apiStock;
+    $product_variation_stock->save();
+    $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+    $ProductLocalization->name = $name;
+    //$ProductLocalization->description = $request->description;
+    $ProductLocalization->save();
+    
+    
+    }
+    
+        }
+    
+        foreach ($produitsApi as $produitApi) {
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
+        
+            if ($matchingProduct !== null) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+    
+                $matchingProduct->min_price = $apiPrice; 
+                $matchingProduct->max_price = $apiPrice;
+            }
+            if ($matchingProduct->stock_qty !== $apiStock) {
+                $matchingProduct->stock_qty = $apiStock;
+            }
+            }
+            
+           // Add the matching product to the virtual products list
+           $virtualProducts->push($matchingProduct);
+            }
+        
+            $products=$virtualProducts;
+    //dd($products);
+    $currentPage = $request->input('page', 1); 
+    $perPage = 10;
+    $products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
+       
+         
+            $brands = Brand::latest()->get();
+          //  $products = $products->paginate(paginationNumber());
+            return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published')); 
+    
+}
+
 
 }
