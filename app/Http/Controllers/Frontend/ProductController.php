@@ -88,22 +88,24 @@ class ProductController extends Controller
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
-            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
+            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
         
-            if ($matchingProduct !== null   && $matchingProduct->is_published == 1 ) {
+            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
                 if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-    
-                $matchingProduct->min_price = $apiPrice; 
-                $matchingProduct->max_price = $apiPrice;
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                   
+                }
+            }
+            if ($matchingProduct->is_published == 1) {
+
                 $virtualProducts->push($matchingProduct);
+
+
             }
-            }
-            
-           // Add the matching product to the virtual products list
-         
-            }
+        }
         
-            $products=$virtualProducts;
+        $products = $virtualProducts;
 
 
 
