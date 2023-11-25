@@ -269,6 +269,14 @@
                                             $code = !$product->has_variation ? $first_variation->code : null;
                                         @endphp
 
+                                       <!-- @php
+                                        $first_variation = $product->variations->first();
+                                        $price = !$product->has_variation || !$first_variation ? 0 : $first_variation->price;
+                                        $stock_qty = !$product->has_variation || !$first_variation ? 0 : ($first_variation->product_variation_stock ? $first_variation->product_variation_stock->stock_qty : 0);
+                                        $sku = !$product->has_variation || !$first_variation ? null : $first_variation->sku;
+                                        $code = !$product->has_variation || !$first_variation ? null : $first_variation->code;
+                                    @endphp -->   
+ 
                                         <div class="row g-3">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">

@@ -40,6 +40,24 @@ class PaymentsController extends Controller
         # else - other payments [update versions]
     }
 
+
+   # payment failed
+public function payment_failed()
+{
+    if (session('payment_type') == 'order_payment') {
+        $orderGroup = OrderGroup::where('order_code', session('order_code'))->first();
+
+        // Display error message
+        flash(localize('Paiement échoué. Veuillez réessayer ou choisir une méthode de paiement différente.'))->error();
+
+        return redirect()->route('checkout.index');
+    }
+}
+
+
+
+
+/*
     # payment failed
     public function payment_failed()
     {
@@ -63,4 +81,8 @@ class PaymentsController extends Controller
             }
         }
     }
+    
+*/
+
+
 }

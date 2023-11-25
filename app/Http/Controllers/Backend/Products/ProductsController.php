@@ -84,6 +84,7 @@ $newProduct->min_price = $apiPrice;
 $newProduct->max_price = $apiPrice;
 
 $newProduct->stock_qty = $apiStock;
+
 // Set other properties accordingly based on your product model
 
 $newProduct->save();
