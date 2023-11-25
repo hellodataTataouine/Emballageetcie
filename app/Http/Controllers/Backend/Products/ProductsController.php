@@ -109,6 +109,7 @@ $ProductLocalization->save();
     foreach ($produitsApi as $produitApi) {
         $barcode = $produitApi['codeabarre'];
         $apiPrice = $produitApi['PrixVTTC'];
+        $apiStock = $produitApi['StockActual'];
         $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
     
         if ($matchingProduct !== null) {
@@ -116,6 +117,9 @@ $ProductLocalization->save();
 
             $matchingProduct->min_price = $apiPrice; 
             $matchingProduct->max_price = $apiPrice;
+        }
+        if ($matchingProduct->stock_qty !== $apiStock) {
+            $matchingProduct->stock_qty = $apiStock;
         }
         $virtualProducts->push($matchingProduct);
         }
