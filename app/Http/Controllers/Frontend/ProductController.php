@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Location;
 use App\Models\ProductVariationStock;
 use App\Models\ProductLocalization;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -32,7 +33,7 @@ class ProductController extends Controller
         $response = Http::get($apiUrl . 'Produit');
         $produitsApi = $response->json();
 
-        foreach ($produitsApi as $produitApi) {
+      /*  foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
@@ -58,7 +59,7 @@ class ProductController extends Controller
     $newProduct->max_price = $apiPrice;
     
     $newProduct->stock_qty = $apiStock;
-    $newProduct->has_variation = 0;
+   // $newProduct->has_variation = 0;
     // Set other properties accordingly based on your product model
     
     $newProduct->save();
@@ -82,7 +83,7 @@ class ProductController extends Controller
     
     }
     
-        }
+        }*/
     
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
@@ -94,11 +95,12 @@ class ProductController extends Controller
     
                 $matchingProduct->min_price = $apiPrice; 
                 $matchingProduct->max_price = $apiPrice;
+                $virtualProducts->push($matchingProduct);
             }
             }
             
            // Add the matching product to the virtual products list
-           $virtualProducts->push($matchingProduct);
+         
             }
         
             $products=$virtualProducts;
@@ -120,9 +122,13 @@ class ProductController extends Controller
 
         # sort by
         if ($sort_by == 'new') {
-            $products = $products->latest();
+            $products = $products->sortByDesc('created_at'); // Or any timestamp field
+
+            
         } else {
-            $products = $products->orderBy('total_sale_count', 'DESC');
+            $products = $products->sortByDesc('total_sale_count'); // Or any other criteria
+
+            
         }
 
         # by price
@@ -149,8 +155,11 @@ class ProductController extends Controller
             $products = $products->whereIn('id', $product_tag_product_ids);
         }
         # conditional
-
-        $products = $products->paginate(paginationNumber($per_page));
+        $currentPage = $request->input('page', 1); 
+        $perPage = 10;
+        $products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
+          
+        //$products = $products->paginate(paginationNumber($per_page));
 
         $tags = Tag::all();
         return getView('pages.products.index', [
