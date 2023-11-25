@@ -10,20 +10,104 @@ use App\Models\ProductTag;
 use App\Models\ProductVariation;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Models\Location;
+use App\Models\ProductVariationStock;
+use App\Models\ProductLocalization;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
     # product listing
     public function index(Request $request)
     {
+        $virtualProducts = collect(); 
         $searchKey = null;
         $per_page = 9;
         $sort_by = $request->sort_by ? $request->sort_by : "new";
         $maxRange = Product::max('max_price');
         $min_value = 0;
         $max_value = formatPrice($maxRange, false, false, false, false);
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+        $response = Http::get($apiUrl . 'Produit');
+        $produitsApi = $response->json();
 
-        $products = Product::isPublished();
+      /*  foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+    
+      // Find products with matching barcode
+      $matchingProducts = Product::where('slug', $barcode)->get();
+      if ($matchingProducts->isNotEmpty()) {
+        foreach ($matchingProducts as $matchingProduct) {
+            if ($matchingProduct->stock_qty !== $apiStock) {
+            $matchingProduct->stock_qty = $apiStock;
+            $matchingProduct->save();
+        }
+        }
+    } else {
+    // Update prices for matching products
+    $location = Location::where('is_default', 1)->first();
+    $newProduct = new Product();
+    $newProduct->name = $name;
+    $newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
+    // Set other properties of the product
+    $newProduct->min_price = $apiPrice;
+    $newProduct->max_price = $apiPrice;
+    
+    $newProduct->stock_qty = $apiStock;
+   // $newProduct->has_variation = 0;
+    // Set other properties accordingly based on your product model
+    
+    $newProduct->save();
+    
+    $variation              = new ProductVariation;
+    $variation->product_id  = $newProduct->id;
+    //$variation->sku         = $request->sku;
+    //$variation->code         = $request->code;
+    $variation->price       = $apiPrice;
+    $variation->save();
+    $product_variation_stock                          = new ProductVariationStock;
+    $product_variation_stock->product_variation_id    = $variation->id;
+    $product_variation_stock->location_id             = $location->id;
+    $product_variation_stock->stock_qty               = $apiStock;
+    $product_variation_stock->save();
+    $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+    $ProductLocalization->name = $name;
+    //$ProductLocalization->description = $request->description;
+    $ProductLocalization->save();
+    
+    
+    }
+    
+        }*/
+    
+        foreach ($produitsApi as $produitApi) {
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
+        
+            if ($matchingProduct !== null   && $matchingProduct->is_published == 1 ) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+    
+                $matchingProduct->min_price = $apiPrice; 
+                $matchingProduct->max_price = $apiPrice;
+                $virtualProducts->push($matchingProduct);
+            }
+            }
+            
+           // Add the matching product to the virtual products list
+         
+            }
+        
+            $products=$virtualProducts;
+
+
+
+       // $products = Product::isPublished();
 
         # conditional - search by
         if ($request->search != null) {
@@ -38,9 +122,13 @@ class ProductController extends Controller
 
         # sort by
         if ($sort_by == 'new') {
-            $products = $products->latest();
+            $products = $products->sortByDesc('created_at'); // Or any timestamp field
+
+            
         } else {
-            $products = $products->orderBy('total_sale_count', 'DESC');
+            $products = $products->sortByDesc('total_sale_count'); // Or any other criteria
+
+            
         }
 
         # by price
@@ -67,8 +155,11 @@ class ProductController extends Controller
             $products = $products->whereIn('id', $product_tag_product_ids);
         }
         # conditional
-
-        $products = $products->paginate(paginationNumber($per_page));
+        $currentPage = $request->input('page', 1); 
+        $perPage = 10;
+        $products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
+          
+        //$products = $products->paginate(paginationNumber($per_page));
 
         $tags = Tag::all();
         return getView('pages.products.index', [
@@ -86,7 +177,7 @@ class ProductController extends Controller
     # product show
     public function show($slug)
     {
-        $product                        = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->first();
 
         if (auth()->check() && auth()->user()->user_type == "admin") {
             // do nothing

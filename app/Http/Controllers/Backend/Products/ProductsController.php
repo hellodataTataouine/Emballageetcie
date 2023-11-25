@@ -84,7 +84,7 @@ $newProduct->min_price = $apiPrice;
 $newProduct->max_price = $apiPrice;
 
 $newProduct->stock_qty = $apiStock;
-
+//$newProduct->has_variation = 0;
 // Set other properties accordingly based on your product model
 
 $newProduct->save();
@@ -659,5 +659,6 @@ public function delete($id)
     flash(__('Le produit a été supprimé avec succès'))->success();
     return redirect()->route('admin.products.index');
 }
+
 
 }
