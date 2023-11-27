@@ -220,8 +220,8 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             foreach ($chosen_variations as $key => $option) {
 
-                $option_name = 'option_' . $option . '_choices'; # $option = variation_id
-                $value_ids = array();
+                $option_name = 'option_' . $option . '_choices'; # $option = variation_id 
+                $value_ids = array(); 
 
                 if ($request->has($option_name)) {
 
