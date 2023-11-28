@@ -445,8 +445,8 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
                 $product->min_price =  priceToUsd(min(array_column($request->variations, 'price')));
                 $product->max_price =  priceToUsd(max(array_column($request->variations, 'price')));
             } else {
-                $product->min_price =  priceToUsd($request->price);
-                $product->max_price =  priceToUsd($request->price);
+               // $product->min_price =  priceToUsd($request->price);
+              //  $product->max_price =  priceToUsd($request->price);
             }
 
             # discount
