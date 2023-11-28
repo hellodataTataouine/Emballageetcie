@@ -18,8 +18,7 @@
                             </div>
                             <div class="tt-action">
                                 @can('add_products')
-                                    <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-primary"><i
-                                            data-feather="plus"></i> {{ localize('Synchroniser les Produits') }}</a>
+                                    <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-primary"><i class="fas fa-sync-alt"></i> {{ localize('Synchroniser les Produits') }}</a>
                                             
                                 @endcan
                             </div>
