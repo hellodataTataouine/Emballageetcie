@@ -1,7 +1,7 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Customer Dashboard') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Tableau de bord client') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')

@@ -2,19 +2,20 @@
     <ul class="nav nav-tabs border-bottom justify-content-center gap-5 pt-info-tab-nav">
         <li><a href="#description" class="active" data-bs-toggle="tab">{{ localize('Description') }}</a></li>
         <li><a href="#info" data-bs-toggle="tab">{{ localize('Informations complémentaires') }}</a></li>
-
+        <li><a href="#ficheTechnique" data-bs-toggle="tab">{{ localize('Fiche technique') }}</a></li>
     </ul>
+
+    
     <div class="tab-content">
         <div class="tab-pane fade show active px-4 py-5" id="description">
             @if ($product->description)
                 {!! $product->collectLocalization('description') !!}
             @else
-                <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}
-                </div>
+                <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}</div>
             @endif
         </div>
+
         <div class="tab-pane fade px-4 py-5" id="info">
-            <h6 class="mb-2">{{ localize('Informations complémentaires') }}:</h6>
             <table class="w-100 product-info-table">
                 @forelse (generateVariationOptions($product->variation_combinations) as $variation)
                     <tr>
@@ -37,5 +38,22 @@
             </div>
 
         </div>
+        
+        <div class="tab-pane fade px-4 py-5" id="ficheTechnique">
+    <div class="thumbnail position-relative text-center p-4">
+        @if ($product->fiche_technique)
+            <h5 class="mb-3">{{ localize('Fiche Technique') }}</h5>
+            <a href="{{ asset('storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-primary">
+    <i class="fas fa-file-pdf"></i> {{ localize('Consulter') }}
+</a>
+
+        @else
+            <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}</div>
+        @endif
+    </div>
+</div>
+
+
+        
     </div>
     </div>

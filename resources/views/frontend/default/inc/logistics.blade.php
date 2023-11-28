@@ -24,7 +24,7 @@
     <div class="col-12 mt-5">
         <div class="tt-address-content">
             <div class="alert alert-danger text-center">
-                {{ localize('Nous n\'expédions pas actuellement vers votre ville.') }}
+                {{ localize('Nous n\'expédions pas actuellement vers votre ville. Contactez-nous pour plus d\'informations.') }}
             </div>
         </div>
     </div>

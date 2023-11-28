@@ -34,23 +34,27 @@
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
 
-                                <!-- Banner Image -->
-                                <div class="mb-3">
-                                    <label for="banner" class="form-label">{{ localize('Ajouter une image de bannière') }}</label>
-                                    <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir une image de bannière') }}</span>
-                                        <div class="tt-product-thumb show-selected-files mt-3">
-                                            <div class="avatar avatar-xl cursor-pointer choose-media"
-                                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
-                                                onclick="showMediaManager(this)" data-selection="single">
-                                                <input type="hidden" name="banner">
-                                                <div class="no-avatar rounded-circle">
-                                                    <span><i data-feather="plus"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Other form fields... -->
+
+                                <div class="mb-4">
+    <label class="form-label">{{ localize('Banner') }}</label>
+    <div class="tt-image-drop rounded">
+        <span class="fw-semibold">{{ localize('Choisir Catalogue Banner') }}</span>
+        <!-- choose media -->
+        <div class="tt-product-thumb show-selected-files mt-3">
+            <div class="avatar avatar-xl cursor-pointer choose-media"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
+                onclick="showMediaManager(this)" data-selection="single">
+                <input type="file" name="banner" accept="image/*">
+                <div class="no-avatar rounded-circle">
+                    <span><i data-feather="plus"></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- choose media -->
+    </div>
+</div>
+
 
                                 <div class="mb-3">
                                     <label for="pdf_file" class="form-label">{{ localize('Importer un catalogue PDF') }}</label>
@@ -59,6 +63,8 @@
                             </div>
                         </div>
                         <!--basic information end-->
+
+                        <!-- Other sections of the form... -->
 
                         <!-- submit button -->
                         <div class="row">
@@ -92,14 +98,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            "use strict"
-
-            // Handle the change event for banner selection if needed
-        });
-    </script>
 @endsection
