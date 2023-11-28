@@ -166,6 +166,7 @@ Route::group(
         Route::group(['prefix' => 'products'], function () {
             # products 
             Route::get('/', [ProductsController::class, 'index'])->name('admin.products.index');
+            Route::get('/synchronize-product', [ProductsController::class, 'SynchronizeProducts'])->name('admin.products.Synchronize');
             Route::get('/add-product', [ProductsController::class, 'create'])->name('admin.products.create');
             Route::post('/product', [ProductsController::class, 'store'])->name('admin.products.store');
             Route::get('/update-product/{id}', [ProductsController::class, 'edit'])->name('admin.products.edit');

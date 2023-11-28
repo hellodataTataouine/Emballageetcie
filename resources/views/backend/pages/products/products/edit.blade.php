@@ -29,7 +29,8 @@
 
                 <!--left sidebar-->
                 <div class="col-xl-9 order-2 order-md-2 order-lg-2 order-xl-1">
-                    <form action="{{ route('admin.products.update') }}" method="POST" class="pb-650" id="product-form">
+                <form action="{{ route('admin.products.update') }}" method="POST" class="pb-650" id="product-form" enctype="multipart/form-data">
+
                         @csrf
 
                         <input type="hidden" name="id" value="{{ $product->id }}">
@@ -69,29 +70,31 @@
                                     <textarea id="description" class="editor" name="description">{{ $product->description }}</textarea>
                                 </div>
 
-                           <!-- Add File Upload for Fiche Technique -->
-                           
-                                <div class="mb-4">
-                                    <label for="fiche_technique" class="form-label">{{ localize('Fiche Technique') }}</label>
-                                    <div class="tt-image-drop rounded">
-                                        <span class="fw-semibold">{{ localize('Choisir Fiche Technique') }}</span>
-                                        <!-- choose media -->
-                                        <div class="tt-product-thumb show-selected-files mt-3">
-                                            <div class="avatar avatar-xl cursor-pointer choose-media"
-                                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
-                                                onclick="showMediaManager(this)" data-selection="single">
-                                                <input type="hidden" name="fiche_technique" value="{{ $product->fiche_technique }}">
-                                                <div class="no-avatar rounded-circle">
-                                                    <span><i data-feather="plus"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- choose media -->
-                                    </div>
-                                    
-                                </div>
-                                <!-- End File Upload for Fiche Technique -->
+                                
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
+                                    <div class="mb-4">
+                                        <label class="form-label">{{ localize('(PDF)') }}</label>
+                                        <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
+                                            <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
 
+                                            <!-- Input for PDF file -->
+                                            <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+
+                                            <!-- Display the uploaded file name -->
+                                            <div id="uploadedFileName" class="mt-2 text-muted"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function displayFileName(input) {
+                                        const uploadedFileName = document.getElementById('uploadedFileName');
+                                        uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
+                                    }
+                                </script>
+
+                                
 
 
 
