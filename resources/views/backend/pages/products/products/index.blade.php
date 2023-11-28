@@ -17,11 +17,16 @@
                                 
                             </div>
                             <div class="tt-action">
+                                <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-success">
+                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Produits') }}</a>
+
+                            </div>
+                            <!-- <div class="tt-action">
                                 @can('add_products')
                                     <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-primary"><i class="fas fa-sync-alt"></i> {{ localize('Synchroniser les Produits') }}</a>
                                             
                                 @endcan
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

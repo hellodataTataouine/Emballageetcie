@@ -99,7 +99,7 @@
       <div class="tt-single-pos-payment">
           <input type="radio" class="tt-custom-radio" name="payment" id="cod" value="cod">
           <label for="cod"
-              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('COD') }}</label>
+              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('ESPECE') }}</label>
       </div>
   </div>
   <!-- payment -->

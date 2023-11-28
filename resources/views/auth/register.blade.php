@@ -50,8 +50,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>{{ localize('Veuillez saisir votre numéro de client.') }}</p>
-                                            <input type="text" id="client_number_modal" class="form-control"
-                                                placeholder="{{ localize('Entrez votre numéro de client') }}" required>
+                                            <input type="text" id="client_number_modal" name="client_number_modal" class="form-control"
+                                                placeholder="{{ localize('Entrez votre numéro de client') }}">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
@@ -192,22 +192,20 @@ function onNumeroClientConfirmed() {
         type: 'GET',
         success: function(response) {
             if (response.exists) {
-                console.log('User exists:', response.data);
+                // console.log('User exists:', response.data);
                 fillFormWithClientData(response.data);
             } else {
                 console.error(response.error);
                 if (!codeTiers || response.data.length === 0) {
-                    // Display a message that the user is not a client yet and needs to create an account
+                   
                     displayMessage('Vous n\'êtes pas encore enregistré en tant que client. Veuillez créer un compte.');
                 } else {
-                    // Display a message for other errors during verification
                     displayMessage('Le client n\'existe pas ou une erreur s\'est produite lors de la vérification.');
                 }
             }
         },
         error: function(xhr, status, error) {
             console.error('Error verifying client:', status, error);
-            // Display a generic error message for AJAX errors
             displayMessage('Erreur lors de la vérification du client.');
         }
     });
@@ -220,7 +218,7 @@ function displayMessage(message) {
 
 function fillFormWithClientData(clientData) {
     try {
-        console.log('Received clientData:', clientData);
+        // console.log('Received clientData:', clientData);
 
         if (clientData.length > 0) {
             const firstClient = clientData[0];
@@ -231,7 +229,7 @@ function fillFormWithClientData(clientData) {
             const postalCode = firstClient.CodePostal;
             const address = firstClient.Adresse;
 
-            console.log('Extracted values:', { fullName, email, phone, codetiers, postalCode, address });
+           // console.log('Extracted values:', { fullName, email, phone, codetiers, postalCode, address });
 
             setFieldValueAndReadonly('#name', fullName);
             setFieldValueAndReadonly('#email', email);

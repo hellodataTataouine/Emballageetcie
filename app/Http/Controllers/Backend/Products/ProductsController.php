@@ -21,6 +21,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
+
+
+
 class ProductsController extends Controller
 {
     
@@ -198,8 +202,8 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             foreach ($chosen_variations as $key => $option) {
 
-                $option_name = 'option_' . $option . '_choices'; # $option = variation_id
-                $value_ids = array();
+                $option_name = 'option_' . $option . '_choices'; # $option = variation_id 
+                $value_ids = array(); 
 
                 if ($request->has($option_name)) {
 
@@ -407,7 +411,6 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 //dd($request->id);
         $oldProduct= clone $product;
 
-       
 
         if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
            // $product->name              = $request->name;
@@ -420,7 +423,22 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
+            $product->fiche_technique   = $request->fiche_technique;
+            if ($request->hasFile('fiche_technique')) {
+                $file = $request->file('fiche_technique');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('fiche_technique', $filename, 'public');
+                $product->fiche_technique = $path;
+                $product->save(); 
+            }
+            
+            //dd($product->fiche_technique); 
+         
+
+
             $product->size_guide        = $request->size_guide;
+
+           
 
             # min-max price
             if ($request->has('is_variant') && $request->has('variations')) {
@@ -589,6 +607,7 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
                 }
             }
         }
+       
         # Product Localization
         $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => $request->lang_key, 'product_id' => $product->id]);
         $ProductLocalization->name = $request->name;

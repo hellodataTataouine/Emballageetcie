@@ -29,7 +29,8 @@
 
                 <!--left sidebar-->
                 <div class="col-xl-9 order-2 order-md-2 order-lg-2 order-xl-1">
-                    <form action="{{ route('admin.products.update') }}" method="POST" class="pb-650" id="product-form">
+                <form action="{{ route('admin.products.update') }}" method="POST" class="pb-650" id="product-form" enctype="multipart/form-data">
+
                         @csrf
 
                         <input type="hidden" name="id" value="{{ $product->id }}">
@@ -68,6 +69,37 @@
                                     <label for="description" class="form-label">{{ localize('Description') }}</label>
                                     <textarea id="description" class="editor" name="description">{{ $product->description }}</textarea>
                                 </div>
+
+                                
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
+                                    <div class="mb-4">
+                                        <label class="form-label">{{ localize('(PDF)') }}</label>
+                                        <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
+                                            <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
+
+                                            <!-- Input for PDF file -->
+                                            <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+
+                                            <!-- Display the uploaded file name -->
+                                            <div id="uploadedFileName" class="mt-2 text-muted"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function displayFileName(input) {
+                                        const uploadedFileName = document.getElementById('uploadedFileName');
+                                        uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
+                                    }
+                                </script>
+
+                                
+
+
+
+
+
 
                             </div>
                         </div>
@@ -240,6 +272,14 @@
                                             $code = !$product->has_variation ? $first_variation->code : null;
                                         @endphp
 
+                                       <!-- @php
+                                        $first_variation = $product->variations->first();
+                                        $price = !$product->has_variation || !$first_variation ? 0 : $first_variation->price;
+                                        $stock_qty = !$product->has_variation || !$first_variation ? 0 : ($first_variation->product_variation_stock ? $first_variation->product_variation_stock->stock_qty : 0);
+                                        $sku = !$product->has_variation || !$first_variation ? null : $first_variation->sku;
+                                        $code = !$product->has_variation || !$first_variation ? null : $first_variation->code;
+                                    @endphp -->   
+ 
                                         <div class="row g-3">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
