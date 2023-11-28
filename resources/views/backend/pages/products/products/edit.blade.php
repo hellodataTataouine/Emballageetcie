@@ -241,7 +241,7 @@
                                         @endphp
 
                                         <div class="row g-3">
-                                            <div class="col-lg-3">
+                                            <!-- <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="price"
                                                         class="form-label">{{ localize('Prix') }}</label>
@@ -251,7 +251,7 @@
                                                         {{ !$product->has_variation ? 'required' : '' }} readonly >
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                           <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="stock" class="form-label">{{ localize('Stock') }}
                                                         <small
@@ -263,7 +263,7 @@
                                                         {{ !$product->has_variation ? 'required' : '' }}>
 
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="sku"
