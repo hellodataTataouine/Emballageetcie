@@ -185,7 +185,26 @@ class ProductController extends Controller
     # product show
     public function show($slug)
     {
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+        $response = Http::get($apiUrl . 'Produit');
+        $produitsApi = $response->json();
+
         $product = Product::where('slug', $slug)->first();
+        
+        
+        foreach ($produitsApi as $produitApi) {
+            
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+            if($produitApi['codeabarre'] == $slug ){
+
+                
+                $product->min_price = $apiPrice; 
+                $product->max_price = $apiPrice;
+                $product->stock_qty = $apiStock;
+            }
+        }
 
         if (auth()->check() && auth()->user()->user_type == "admin") {
             // do nothing
