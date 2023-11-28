@@ -177,7 +177,9 @@ class ProductController extends Controller
             'min_value'     => $min_value,
             'max_value'     => $max_value,
             'tags'          => $tags,
-        ]);
+        ]);   
+
+     
     }
 
     # product show

@@ -284,8 +284,7 @@ Route::group(
         Route::group(['prefix' => 'rewards'], function () {
             # rewards 
             Route::get('/', [RewardsController::class, 'configurations'])->name('admin.rewards.configurations');
-            Route::get('/set-points', [RewardsController::class, 'setPoints'])->name('admin.rewards.setPoints');
-            Route::post('/store-points', [RewardsController::class, 'storePoints'])->name('admin.rewards.storePoints');
+            Route::get('/set-points', [RewardsController::class, 'setPoints'])->name('admin.rewards.setPoints');   Route::post('/store-points', [RewardsController::class, 'storePoints'])->name('admin.rewards.storePoints');
             Route::post('/store-each-product-points', [RewardsController::class, 'storeEachProductPoints'])->name('admin.rewards.storeEachProductPoints');
 
             # wallet
