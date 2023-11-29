@@ -67,7 +67,7 @@
                         <span class="flex-grow-1">
                             @if (!$isVariantProduct && $stock < 1)
                                 <a href="javascript:void(0);" class="fs-xs fw-bold d-inline-block explore-btn">
-                                    {{ localize('Sur Demande') }}
+                                    {{ localize('Sur Commande') }}
                                     <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                                 </a>
                             @else

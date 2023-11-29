@@ -566,9 +566,9 @@
         <li class="side-nav-item nav-item {{ areActiveRoutes(['admin.queries.index'], 'tt-menu-item-active') }}">
             <a href="{{ route('admin.queries.index') }}"
                 class="side-nav-link {{ areActiveRoutes(['admin.queries.index']) }}">
-                <span class="tt-nav-link-icon"><i data-feather="hash"></i></span>
+                <span class="tt-nav-link-icon"><i data-feather="mail"></i></span>
                 <span class="tt-nav-link-text">
-                    <span>{{ localize('Requêtes') }}</span>
+                    <span>{{ localize('Messages') }}</span>
                     
 
                     @php

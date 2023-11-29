@@ -51,6 +51,7 @@
                                                         {{ localize('Les 7 derniers jours') }}
                                                     @endif
                                                 </a>
+
                                                 <div class="dropdown-menu dropdown-menu-end shadow">
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.dashboard') }}">{{ localize('Les 7 derniers jours') }}</a>
@@ -59,6 +60,7 @@
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.dashboard') }}?&timeline=90">{{ localize('Les 3 derniers mois') }}</a>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <h4 class="fw-bold">{{ formatPrice($totalSalesData->totalEarning) }}</h4>

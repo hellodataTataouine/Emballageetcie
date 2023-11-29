@@ -57,7 +57,7 @@
                                             <option value="paid" @if ($order->payment_status == 'paid') selected @endif>
                                                 {{ localize('Payé') }}</option>
                                             <option value="unpaid" @if ($order->payment_status == 'unpaid') selected @endif>
-                                                {{ localize('Non payé') }}
+                                                {{ localize('Impayé') }}
                                             </option>
                                         </select>
                                     </div>
@@ -67,7 +67,7 @@
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
                                             <option value="" disabled>{{ localize('Statut de livraison') }}</option>
-                                            <option value="order_placed" @if ($order->delivery_status == orderPlacedStatus()) selected @endif>
+                                            <option value="Commande_passée" @if ($order->delivery_status == orderPlacedStatus()) selected @endif>
                                                 {{ localize('Commande passée') }}</option>
                                             <option value="pending" @if ($order->delivery_status == orderPendingStatus()) selected @endif>
                                                 {{ localize('En attente') }} 

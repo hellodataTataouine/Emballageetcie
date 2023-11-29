@@ -210,9 +210,11 @@
                                 @else
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
-                                    <!-- <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a> -->
-                                    </li>
-                                    <li><a href="{{ route('home.catalogues.index') }}">{{ localize('Catalogues') }}</a></li>
+                                    <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>
+                                    <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
+                                    <!-- <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a> </li> -->
+                                    
+                                    <!-- <li><a href="{{ route('home.catalogues.index') }}">{{ localize('Catalogues') }}</a></li>  -->
                                     <!--<li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a> </li> -->
                                 @endif
 
@@ -230,12 +232,12 @@
                                             @endphp
 
                                             <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
-                                            <li><a
+                                            <!-- <li><a
                                                     href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a>
-                                            </li>
-                                            <li><a
+                                            </li> -->
+                                            <!-- <li><a
                                                     href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a>
-                                            </li>
+                                            </li> -->
 
                                             @foreach ($pages as $navbarPage)
                                                 <li>

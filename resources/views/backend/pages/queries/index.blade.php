@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    {{ localize('Requêtes') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Messages') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -12,7 +12,7 @@
                     <div class="card tt-page-header">
                         <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                             <div class="tt-page-title">
-                                <h2 class="h5 mb-lg-0">{{ localize('Requêtes') }}</h2>
+                                <h2 class="h5 mb-lg-0">{{ localize('Messages') }}</h2>
                             </div>
                             <div class="tt-action">
                                 <button type="button" class="tt-remove btn btn-soft-danger d-flex align-items-center"
@@ -38,7 +38,7 @@
                                     <th>{{ localize('Nom') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Email') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Téléphone') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Issue') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Problème') }}</th>
                                     <th data-breakpoints="xs sm md lg xl">{{ localize('Message') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}
                                     </th>

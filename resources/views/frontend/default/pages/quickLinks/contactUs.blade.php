@@ -112,21 +112,21 @@
                                     <div class="checkbox-fields d-flex align-items-center gap-3 flex-wrap my-2">
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="delivery_problem" checked>
+                                                <input type="radio" name="support_for" value="Problème_de_livraison" checked>
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Problème de livraison') }}</label>
                                         </div>
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="customer_service">
+                                                <input type="radio" name="support_for" value="Service_client">
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Service client') }}</label>
                                         </div>
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="other_service">
+                                                <input type="radio" name="support_for" value="Autres_services">
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Autres services') }}</label>
