@@ -5,7 +5,7 @@
     TT.localize = {
         buyNow: '{{ localize('Acheter maintenant') }}',
         addToCart: '{{ localize('Ajouter au panier') }}',
-        outOfStock: '{{ localize('Épuisé') }}',
+        outOfStock: '{{ localize('Sur Demande') }}',
         addingToCart: '{{ localize('Ajout en cours....') }}',
         optionsAlert: '{{ localize('Veuillez choisir toutes les options disponibles') }}',
         applyCoupon: '{{ localize('Appliquer le coupon') }}',

@@ -113,7 +113,7 @@
                             </thead>
                             <tbody>
                                 @if($products->isEmpty())
-    <p>No products found.</p>
+    <p>Aucun produits.</p>
 @else
                                 @foreach ($products as $key => $product)
                                     <tr>

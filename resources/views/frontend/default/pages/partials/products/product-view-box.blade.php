@@ -64,7 +64,7 @@
                                 </span>
                                 <span class="add-to-cart-text">
                                     @if (!$isVariantProduct && $stock < 1)
-                                        {{ localize('épuisé') }}
+                                        {{ localize('Sur Demande') }}
                                     @else
                                         {{ localize('Ajouter au panier') }}
                                     @endif

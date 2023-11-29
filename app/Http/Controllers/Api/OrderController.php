@@ -97,7 +97,7 @@ class OrderController extends Controller
             foreach ($carts as $cart) {
                 $productVariationStock = $cart->product_variation->product_variation_stock ? $cart->product_variation->product_variation_stock->stock_qty : 0;
                 if ($cart->qty > $productVariationStock) {
-                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('épuisé');
+                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Sur Demande');
 
                     return $this->order_failed(localize($message));
                 }

@@ -13,7 +13,7 @@
                         <div class="card tt-page-header">
                             <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                                 <div class="tt-page-title">
-                                    <h2 class="h5 mb-lg-0">{{ localize('Tableau de bord administrateur') }}</h2>
+                                    <h2 class="h5 mb-lg-0">{{ localize('Tableau de Bord Administrateur') }}</h2>
                                 </div>
                                 <div class="tt-action">
 
@@ -22,11 +22,11 @@
                                                 data-feather="shopping-cart" class="me-2"></i>{{ localize('Gérer les ventes') }}</a>
                                     @endcan
 
-                                    @can('add_products')
+                                    <!-- @can('add_products')
                                         <a href="{{ route('admin.products.create') }}" class="btn btn-primary ms-2"><i
                                                 data-feather="plus" class="me-2"></i>
                                             {{ localize('Ajouter Produit') }}</a>
-                                    @endcan
+                                    @endcan -->
                                 </div>
                             </div>
                         </div>

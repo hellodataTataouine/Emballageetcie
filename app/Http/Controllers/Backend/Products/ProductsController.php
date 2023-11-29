@@ -465,7 +465,7 @@ $products = new LengthAwarePaginator($products, count($products), $perPage, $cur
             }
 
             # stock qty based on all variations / no variation 
-            $product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
+            //$product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
 
             $product->is_published         = $request->is_published;
             $product->has_variation        = ($request->has('is_variant') && $request->has('variations')) ? 1 : 0;
