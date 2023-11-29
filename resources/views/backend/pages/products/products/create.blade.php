@@ -423,8 +423,8 @@
                                             <label for="discount_type"
                                                 class="form-label">{{ localize('Percent or Fixed') }}</label>
                                             <select class="select2 form-control" id="discount_type" name="discount_type">
-                                                <option value="percent">{{ localize('Percent %') }}</option>
-                                                <option value="flat">{{ localize('Fixed') }}</option>
+                                                <option value="percent">{{ localize('Pourcentage %') }}</option>
+                                                <option value="flat">{{ localize('Fixe') }}</option>
                                             </select>
                                         </div>
                                     </div>
