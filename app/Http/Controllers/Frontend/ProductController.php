@@ -232,6 +232,29 @@ class ProductController extends Controller
     public function showInfo(Request $request)
     {
         $product = Product::find($request->id);
+
+
+
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+        $response = Http::get($apiUrl . 'Produit');
+        $produitsApi = $response->json();
+
+        
+        
+        
+        foreach ($produitsApi as $produitApi) {
+            
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+            if($produitApi['codeabarre'] == $product->slug ){
+
+                
+                $product->min_price = $apiPrice; 
+                $product->max_price = $apiPrice;
+                $product->stock_qty = $apiStock;
+            }
+        }
         return getView('pages.partials.products.product-view-box', ['product' => $product]);
     }
 
