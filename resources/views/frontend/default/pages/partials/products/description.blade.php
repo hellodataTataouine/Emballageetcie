@@ -42,11 +42,8 @@
         <div class="tab-pane fade px-4 py-5" id="ficheTechnique">
     <div class="thumbnail position-relative text-center p-4">
         @if ($product->fiche_technique)
-            <h5 class="mb-3">{{ localize('Fiche Technique') }}</h5>
             <a href="{{ asset('storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-primary">
-    <i class="fas fa-file-pdf"></i> {{ localize('Consulter') }}
-</a>
-
+    <i class="fas fa-file-pdf"></i> {{ localize('Consulter') }}</a>
         @else
             <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}</div>
         @endif

@@ -101,7 +101,7 @@ class OrdersController extends Controller
         OrderUpdate::create([
             'order_id' => $order->id,
             'user_id' => auth()->user()->id,
-            'note' => 'Payment status updated to ' . ucwords(str_replace('_', ' ', $request->status)) . '.',
+            'note' => 'Mise à jour du statut de paiement à ' . ucwords(str_replace('_', ' ', $request->status)) . '.',
         ]);
 
         // todo::['mail notification']
@@ -127,7 +127,7 @@ class OrdersController extends Controller
         OrderUpdate::create([
             'order_id' => $order->id,
             'user_id' => auth()->user()->id,
-            'note' => 'Delivery status updated to ' . ucwords(str_replace('_', ' ', $request->status)) . '.',
+            'note' => 'Mise à jour du statut de livraison à ' . ucwords(str_replace('_', ' ', $request->status)) . '.',
         ]);
 
         // todo::['mail notification'] 

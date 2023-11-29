@@ -63,7 +63,7 @@
                                                 {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Non payé') }}</option>
+                                                {{ localize('Impayé') }}</option>
                                         </select>
                                     </div>
 
@@ -107,7 +107,7 @@
                                                 {{ localize('Commandes en ligne') }}
                                             </option>
                                             <option value="1" @if (isset($posOrder) && $posOrder == 1) selected @endif>
-                                                {{ localize('POS Commandes ') }}
+                                                {{ localize('POS Commandes') }}
                                             </option>
                                         </select>
                                     </div>
@@ -227,7 +227,7 @@
                                             @can('manage_orders')
                                                 <a href="{{ route('admin.orders.show', $order->id) }}"
                                                     class="btn btn-sm p-0 tt-view-details" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="View Details">
+                                                    data-bs-placement="top" title="Voir les détails">
                                                     <i data-feather="eye"></i>
                                                 </a>
                                             @endcan

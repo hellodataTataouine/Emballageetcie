@@ -351,7 +351,7 @@
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.orders.show', $order->id) }}"
                                                         class="btn btn-sm p-0 tt-view-details" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="View Details">
+                                                        data-bs-placement="top" title="Voir les détails">
                                                         <i data-feather="eye"></i>
                                                     </a>
                                                 </td>
