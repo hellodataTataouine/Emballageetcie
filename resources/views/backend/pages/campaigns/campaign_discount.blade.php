@@ -21,8 +21,8 @@
         </td>
         <td class="align-middle">
             <select class="form-control select2" name="discount_type_{{ $id }}" data-toggle="select2">
-                <option value="percent">{{ localize('Percent %') }}</option>
-                <option value="flat">{{ localize('Fixed') }}</option>
+                <option value="percent">{{ localize('Pourcentage %') }}</option>
+                <option value="flat">{{ localize('Fixe') }}</option>
             </select>
         </td>
     </tr>

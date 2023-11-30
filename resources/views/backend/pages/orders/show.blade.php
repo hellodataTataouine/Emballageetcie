@@ -54,10 +54,10 @@
                                             <option value="" disabled>
                                                 {{ localize('Statut de paiement') }}
                                             </option>
-                                            <option value="paid" @if ($order->payment_status == 'paid') selected @endif>
+                                            <option value="payée" @if ($order->payment_status == 'payée') selected @endif>
                                                 {{ localize('Payé') }}</option>
-                                            <option value="unpaid" @if ($order->payment_status == 'unpaid') selected @endif>
-                                                {{ localize('Non payé') }}
+                                            <option value="impayée" @if ($order->payment_status == 'impayée') selected @endif>
+                                                {{ localize('Impayé') }}
                                             </option>
                                         </select>
                                     </div>
@@ -67,15 +67,15 @@
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
                                             <option value="" disabled>{{ localize('Statut de livraison') }}</option>
-                                            <option value="order_placed" @if ($order->delivery_status == orderPlacedStatus()) selected @endif>
+                                            <option value="Commande_passée" @if ($order->delivery_status == orderPlacedStatus()) selected @endif>
                                                 {{ localize('Commande passée') }}</option>
-                                            <option value="pending" @if ($order->delivery_status == orderPendingStatus()) selected @endif>
+                                            <option value="En_attente" @if ($order->delivery_status == orderPendingStatus()) selected @endif>
                                                 {{ localize('En attente') }} 
-                                            <option value="processing" @if ($order->delivery_status == orderProcessingStatus()) selected @endif>
+                                            <option value="En_cours" @if ($order->delivery_status == orderProcessingStatus()) selected @endif>
                                                 {{ localize('En cours') }} 
-                                            <option value="delivered" @if ($order->delivery_status == orderDeliveredStatus()) selected @endif>
+                                            <option value="Livré" @if ($order->delivery_status == orderDeliveredStatus()) selected @endif>
                                                 {{ localize('Livré ') }} 
-                                            <option value="cancelled" @if ($order->delivery_status == orderCancelledStatus()) selected @endif>
+                                            <option value="Annulé" @if ($order->delivery_status == orderCancelledStatus()) selected @endif>
                                                 {{ localize('Annulé') }} 
                                             </option>
                                         </select>

@@ -91,7 +91,7 @@ class FlattenException
         if (class_exists(Response::class) && isset(Response::$statusTexts[$statusCode])) {
             $statusText = Response::$statusTexts[$statusCode];
         } else {
-            $statusText = 'Whoops, looks like Quelque chose s est mal passé.';
+            $statusText = 'Whoops, looks like something went wrong.';
         }
 
         $e->setStatusText($statusText);
