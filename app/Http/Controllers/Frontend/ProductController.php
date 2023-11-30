@@ -109,7 +109,7 @@ class ProductController extends Controller
             }
         }
         
-        $products = $virtualProducts;
+       // $products = $virtualProducts;
 
 
 
@@ -117,7 +117,7 @@ class ProductController extends Controller
 
         # conditional - search by
         if ($request->search != null) {
-            $products = $products->where('name', 'like', '%' . $request->search . '%');
+            $virtualProducts = $virtualProducts->where('name', 'like', '%' . $request->search . '%');
             $searchKey = $request->search;
         }
 
@@ -128,11 +128,11 @@ class ProductController extends Controller
 
         # sort by
         if ($sort_by == 'new') {
-            $products = $products->sortByDesc('created_at'); // Or any timestamp field
+            $virtualProducts = $virtualProducts->sortByDesc('created_at'); // Or any timestamp field
 
             
         } else {
-            $products = $products->sortByDesc('total_sale_count'); // Or any other criteria
+            $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); // Or any other criteria
 
             
         }
@@ -146,25 +146,29 @@ class ProductController extends Controller
         }
 
         if ($request->min_price || $request->max_price) {
-            $products = $products->where('min_price', '>=', priceToUsd($min_value))->where('min_price', '<=', priceToUsd($max_value));
+            $virtualProducts = $virtualProducts->where('min_price', '>=', priceToUsd($min_value))->where('min_price', '<=', priceToUsd($max_value));
         }
 
         # by category
         if ($request->category_id && $request->category_id != null) {
             $product_category_product_ids = ProductCategory::where('category_id', $request->category_id)->pluck('product_id');
-            $products = $products->whereIn('id', $product_category_product_ids);
+            $virtualProducts = $virtualProducts->whereIn('id', $product_category_product_ids);
         }
 
         # by tag
         if ($request->tag_id && $request->tag_id != null) {
             $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
-            $products = $products->whereIn('id', $product_tag_product_ids);
+            $virtualProducts = $virtualProducts->whereIn('id', $product_tag_product_ids);
         }
         # conditional
         $currentPage = $request->input('page', 1); 
-        $perPage = 10;
-        $products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
-          
+        $perPage = 9;
+        $slicedProducts = $virtualProducts->slice(($currentPage - 1) * $perPage, $perPage)->values();
+      
+       
+        $products = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $currentPage);
+        $products->withPath('/products'); // Set the desired path for pagination
+
         //$products = $products->paginate(paginationNumber($per_page));
 
         $tags = Tag::all();
