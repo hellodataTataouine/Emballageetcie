@@ -55,7 +55,7 @@ class ProductsController extends Controller
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiStock = $produitApi['StockActual'];
-    
+            
             // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
                 $productId = $existingProducts[$barcode];
@@ -71,15 +71,24 @@ class ProductsController extends Controller
                     if ($matchingProduct->stock_qty !== $apiStock) {
                         $matchingProduct->stock_qty = $apiStock;
                     }
+                   
                     $virtualProducts->push($matchingProduct);
+                    
                 }
             }
         }
     
 
         if ($request->search != null) {
-            $virtualProducts = $virtualProducts->where('name', 'like', '%' . $request->search . '%');
-            $searchKey = $request->search;
+            $searchTerm = $request->search;
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
+                // Change 'name' to the correct attribute name if it's different in your Product model
+                return stripos($product->name, $searchTerm) !== false;
+            });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
         }
 
         if ($request->brand_id != null) {
@@ -98,7 +107,7 @@ class ProductsController extends Controller
        // Paginate the combined products
 $page = $request->input('page', 1);
 $perPage = 20;
-$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, $perPage)->values();
+$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
 $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
 $paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
 

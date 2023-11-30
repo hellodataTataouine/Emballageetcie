@@ -116,11 +116,22 @@ class ProductController extends Controller
        // $products = Product::isPublished();
 
         # conditional - search by
+
+
         if ($request->search != null) {
-            $virtualProducts = $virtualProducts->where('name', 'like', '%' . $request->search . '%');
-            $searchKey = $request->search;
+            $searchTerm = $request->search;
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
+                // Change 'name' to the correct attribute name if it's different in your Product model
+                return stripos($product->name, $searchTerm) !== false;
+            });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
         }
 
+        
+        
         # pagination
         if ($request->per_page != null) {
             $per_page = $request->per_page;
@@ -163,10 +174,10 @@ class ProductController extends Controller
         # conditional
         $currentPage = $request->input('page', 1); 
         $perPage = 9;
-        $slicedProducts = $virtualProducts->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
       
        
-        $products = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $currentPage);
+        $products = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), paginationNumber($per_page), $currentPage);
         $products->withPath('/products'); // Set the desired path for pagination
 
         //$products = $products->paginate(paginationNumber($per_page));
