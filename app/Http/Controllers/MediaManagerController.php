@@ -84,7 +84,7 @@ class MediaManagerController extends Controller
             $mediaFile->delete();
         }
 
-        flash(localize('File has been deleted successfully'))->success();
+        flash(localize('Le fichier a été supprimé avec succès'))->success();
         return back();
     }
 }

@@ -32,14 +32,14 @@ class SmsServices
     # phone verification
     public function phoneVerificationSms($to, $code)
     {
-        $sms = 'Your verification code for ' . env('APP_NAME') . ' is ' . $code . '.';
+        $sms = 'Votre code de vérification pour ' . env('APP_NAME') . ' est ' . $code . '.';
         $this->sendSMS($to, $sms);
     }
 
     # forgot password
     public function forgotPasswordSms($to, $code)
     {
-        $sms = 'Your password reset code for ' . env('APP_NAME') . ' is ' . $code . '.';
+        $sms = 'Votre code de réinitialisation de mot de passe pour ' . env('APP_NAME') . ' est ' . $code . '.';
         $this->sendSMS($to, $sms);
     }
 }
