@@ -53,7 +53,8 @@ Route::get('/verify-client/{CODETIERS}', [RegisterController::class, 'verifyClie
 Route::controller(VerificationController::class)->group(function () {
     Route::get('/verify-phone', 'verifyPhone')->name('verification.phone');
     Route::get('/email/resend', 'resend')->name('verification.resend');
-    Route::get('/verification-confirmation/{code}', 'verification_confirmation')->name('email.verification.confirmation');
+    Route::get('/verification-confirmation/{code}', [VerificationController::class, 'verification_confirmation'])->name('email.verification.confirmation');
+    //Route::get('/verification-confirmation/{code}', 'verification_confirmation')->name('email.verification.confirmation');
     Route::post('/verification-confirmation', 'phone_verification_confirmation')->name('phone.verification.confirmation');
 });
 

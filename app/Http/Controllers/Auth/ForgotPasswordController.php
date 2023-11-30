@@ -47,7 +47,7 @@ class ForgotPasswordController extends Controller
         $phone = validatePhone($request->phone);
         $user = User::where('phone', $phone)->first();
         if (is_null($user)) {
-            flash(localize('User not found with this phone number'))->error();
+            flash(localize('L\'utilisateur n\'a pas été trouvé avec ce numéro de téléphone.'))->error();
             return back()->withInput();
         }
 
@@ -69,7 +69,7 @@ class ForgotPasswordController extends Controller
     {
         $user = User::where('verification_code', $request->verification_code)->first();
         if (is_null($user)) {
-            flash(localize('User not found with this phone number'))->error();
+            flash(localize('Utilisateur non trouvé avec ce numéro de téléphone'))->error();
             return back()->withInput();
         }
 
@@ -81,7 +81,7 @@ class ForgotPasswordController extends Controller
 
         $user->password = Hash::make($request->password);
         $user->save();
-        flash(localize('Password updated successfully, please login to continue'))->success();
+        flash(localize('Mot de passe mis à jour avec succès, veuillez vous connecter pour continuer'))->success();
         return redirect()->route('login');
     }
 }

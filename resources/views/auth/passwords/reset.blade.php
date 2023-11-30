@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title')
-    {{ localize('Reset Password') }}
+    {{ localize('Réinitialiser le mot de passe') }}
 @endsection
 
 
@@ -22,7 +22,7 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Reset Password') }}
+                        <h2 class="mb-4 h3">{{ localize('Réinitialiser le mot de passe') }}
                         </h2>
 
                         @if (session('status'))
@@ -36,7 +36,7 @@
                                 <div class="input-field">
                                     <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}</label>
                                     <input type="email" id="email" name="email"
-                                        placeholder="{{ localize('Enter your email') }}"
+                                        placeholder="{{ localize('Entez votre email') }}"
                                         class="theme-input @error('email') is-invalid @enderror"
                                         value="{{ $email ?? old('email') }}" required>
                                     @error('email')
@@ -49,10 +49,10 @@
 
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de Passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
-                                        <input type="password" name="password" placeholder="{{ localize('Password') }}"
+                                        <input type="password" name="password" placeholder="{{ localize('Mot de Passe') }}"
                                             class="theme-input @error('password') is-invalid @enderror" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
@@ -66,11 +66,11 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirm Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirmer le mot de passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
                                         <input type="password" name="password_confirmation"
-                                            placeholder="{{ localize('Confirm Password') }}" class="theme-input" required>
+                                            placeholder="{{ localize('Confirmer le mot de passe') }}" class="theme-input" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                     </div>
@@ -79,7 +79,7 @@
 
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary mt-4">
-                                    {{ localize('Reset Password') }}
+                                    {{ localize('Réinitialiser le mot de passe') }}
                                 </button>
                             </div>
                         </div>
