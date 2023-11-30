@@ -12,7 +12,20 @@
         <div class="row g-4">
             @php
                 $custom_section_products = getSetting('custom_section_products') != null ? json_decode(getSetting('custom_section_products')) : [];
-                $left_products = \App\Models\Product::whereIn('id', $custom_section_products)->get();
+                //$left_products = \App\Models\Product::whereIn('id', $custom_section_products)->get();
+                foreach($products as $product)
+                {
+                    foreach($custom_section_products as $custom_section_product)
+                    {
+if($product->id == $custom_section_product)
+{
+
+    $left_products->push($product);
+
+}
+
+                }
+                }
             @endphp
 
             @foreach ($left_products as $product)

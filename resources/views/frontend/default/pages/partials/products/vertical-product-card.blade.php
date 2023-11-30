@@ -90,7 +90,7 @@
                     <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
                     <input type="hidden" value="1" name="quantity">
 
-                    @if (!$isVariantProduct && $stock < 1)
+                    @if (!$isVariantProduct && $product->stock_qty < 1)
                         <a href="javascript:void(0);"
                             class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100">{{ localize('Sur Commande') }}</a>
                     @else

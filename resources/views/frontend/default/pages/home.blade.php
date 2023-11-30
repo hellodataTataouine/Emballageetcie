@@ -39,7 +39,7 @@
 
 
     <!--products listing start-->
-    @include('frontend.default.pages.partials.home.products')
+   @include('frontend.default.pages.partials.home.products') 
     <!--products listing end-->
 
     @if (getSetting('enable_custom_product_section') == 1)

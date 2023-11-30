@@ -8,7 +8,8 @@ use App\Models\Campaign;
 use App\Models\Page;
 use App\Models\Catalog; 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
+use App\Models\Product;
 class HomeController extends Controller
 {
     # set theme
@@ -21,6 +22,9 @@ class HomeController extends Controller
     # homepage
     public function index()
     {
+        $TrendingProducts = collect();
+        $left_products = collect();
+        $virtualProducts = collect();
         $blogs = Blog::isActive()->latest()->take(3)->get();
 
         $sliders = [];
@@ -37,9 +41,39 @@ class HomeController extends Controller
         if (getSetting('client_feedback') != null) {
             $client_feedback = json_decode(getSetting('client_feedback'));
         }
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+        $response = Http::get($apiUrl . 'Produit');
+        $produitsApi = $response->json();
+
+        foreach ($produitsApi as $produitApi) {
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
+        
+            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                   
+                }
+                if ($matchingProduct->stock_qty !== $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
+            }
+            if ($matchingProduct->is_published == 1) {
+
+                $virtualProducts->push($matchingProduct);
 
 
-        return getView('pages.home', ['blogs' => $blogs, 'sliders' => $sliders, 'banner_section_one_banners' => $banner_section_one_banners, 'client_feedback' => $client_feedback]);
+            }
+        }
+
+
+        $sortedProducts = $virtualProducts->sortByDesc('created_at');
+
+        return getView('pages.home', ['blogs' => $blogs, 'sliders' => $sliders, 'banner_section_one_banners' => $banner_section_one_banners, 'client_feedback' => $client_feedback, 'products' => $sortedProducts, 'trendingProducts' => $TrendingProducts, 'left_products' => $left_products]);
     }
 
     # all brands

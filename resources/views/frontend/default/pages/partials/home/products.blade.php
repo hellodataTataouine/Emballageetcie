@@ -12,7 +12,7 @@
                                         class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
                             </div>
 
-                            @foreach (\App\Models\Product::isPublished()->latest()->take(3)->get() as $product)
+                            @foreach ($products->take(3) as $product)
                                 <div class="mb-3">
 
                                     @include(

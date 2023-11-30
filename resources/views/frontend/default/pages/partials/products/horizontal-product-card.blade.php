@@ -65,7 +65,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-10">
                         <span class="flex-grow-1">
-                            @if (!$isVariantProduct && $stock < 1)
+                            @if (!$isVariantProduct && $product->stock_qty < 1)
                                 <a href="javascript:void(0);" class="fs-xs fw-bold d-inline-block explore-btn">
                                     {{ localize('Sur Commande') }}
                                     <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
