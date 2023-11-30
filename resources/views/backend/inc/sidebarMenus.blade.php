@@ -178,6 +178,9 @@
 
                     @if ($newMsgCount > 0)
                         <small class="badge bg-danger">{{ localize('Nouveau') }}</small>
+                         
+
+
                         
                     @endif
                 </span>

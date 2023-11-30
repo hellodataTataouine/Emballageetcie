@@ -34,7 +34,7 @@
                             <img src="{{ staticAsset('frontend/default/assets/img/shapes/texture-overlay.png') }}"
                                 alt="texture" class="position-absolute w-100 h-100 start-0 top-0 z--1">
                             <h3 class="text-white mb-3">{{ localize('Coordonnées de Contact') }}</h3>
-                            <p class="fs-sm text-white"><strong>{{ localize('Adresse du bureau') }}:
+                            <p class="fs-sm text-white"><strong>{{ localize('Adresse') }}:
                                 </strong>{{ getSetting('topbar_location') }}
                             </p>
                             <span class="spacer my-5"></span>
@@ -45,7 +45,7 @@
                                         <i class="fa-brands fa-whatsapp"></i>
                                     </span>
                                     <div class="info">
-                                        <span class="fw-medium text-white fs-xs">{{ localize('Appel d\'urgence') }}</span>
+                                        <span class="fw-medium text-white fs-xs">{{ localize('Numéro de téléphone') }}</span>
                                         <h5 class="mb-0 mt-1 text-white">{{ getSetting('navbar_contact_number') }}</h5>
                                     </div>
                                 </li>

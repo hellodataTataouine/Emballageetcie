@@ -73,8 +73,14 @@
                         @foreach ($pages as $page)
                             <li><a
                                     href="{{ route('home.pages.show', $page->slug) }}">{{ $page->collectLocalization('title') }}</a>
+                                    
                             </li>
+                            
                         @endforeach
+                        <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>
+                        <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
+                        <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
+
                     </ul>
                 </div>
             </div>
