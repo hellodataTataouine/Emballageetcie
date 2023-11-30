@@ -30,10 +30,24 @@
 
             @php
                 $trending_products = getSetting('top_trending_products') != null ? json_decode(getSetting('top_trending_products')) : [];
-                $products = \App\Models\Product::whereIn('id', $trending_products)->get();
+                foreach($products as $product)
+                {
+                    foreach($trending_products as $trending_product)
+                    {
+if($product->id == $trending_product)
+{
+
+    $trendingProducts->push($product);
+
+}
+
+                }
+                }
+                
+               
             @endphp
 
-            @foreach ($products as $product)
+            @foreach ($trendingProducts as $product)
                 <div
                     class="col-xxl-3 col-lg-4 col-md-6 col-sm-10 filter_item
                     @php

@@ -36,7 +36,10 @@
                         if ($product->variations()->count() > 1) {
                             $isVariantProduct = 1;
                         } else {
+                            //$stock = $product->variations[0]->product_variation_stock ? $product->variations[0]->product_variation_stock->stock_qty : 0;
                             $stock = $product->variations[0]->product_variation_stock ? $product->variations[0]->product_variation_stock->stock_qty : 0;
+
+                       
                         }
                     @endphp
 
@@ -63,7 +66,7 @@
                                     <i class="fa-solid fa-bag-shopping"></i>
                                 </span>
                                 <span class="add-to-cart-text">
-                                    @if (!$isVariantProduct && $stock < 1)
+                                    @if (!$isVariantProduct && $product->stock_qty < 1)
                                         {{ localize('Sur Commande') }}
                                     @else
                                         {{ localize('Ajouter au panier') }}
