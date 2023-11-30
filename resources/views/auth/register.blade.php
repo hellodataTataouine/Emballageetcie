@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title')
-    {{ localize('Sign Up') }}
+    {{ localize('S\'inscrire') }}
 @endsection
 
 @section('contents')
