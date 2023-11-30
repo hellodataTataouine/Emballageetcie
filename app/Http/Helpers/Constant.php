@@ -980,7 +980,7 @@ if (!function_exists('getScheduledDeliveryType')) {
     // delivery type Status
     function getScheduledDeliveryType()
     {
-        return "scheduled";
+        return "planifié"; 
     }
 }
 
@@ -988,14 +988,14 @@ if (!function_exists('paidPaymentStatus')) {
     // paid Payment Status
     function paidPaymentStatus()
     {
-        return "paid";
+        return "payée";
     }
 }
 if (!function_exists('unpaidPaymentStatus')) {
     // unpaid Payment Status
     function unpaidPaymentStatus()
     {
-        return "unpaid";
+        return "impayée";
     }
 }
 
@@ -1003,21 +1003,21 @@ if (!function_exists('orderPlacedStatus')) {
     // orderPlacedStatus
     function orderPlacedStatus()
     {
-        return "order_placed";
+        return "Commande_passée";
     }
 }
 if (!function_exists('orderPendingStatus')) {
     // orderPendingStatus
     function orderPendingStatus()
     {
-        return "pending";
+        return "En_attente";
     }
 }
 if (!function_exists('orderProcessingStatus')) {
     // orderProcessingStatus
     function orderProcessingStatus()
     {
-        return "processing";
+        return "En_cours";
     }
 }
 
@@ -1026,7 +1026,7 @@ if (!function_exists('orderPickedUpStatus')) {
     // orderIsPickedUpStatus
     function orderPickedUpStatus()
     {
-        return "picked_up";
+        return "collecté";
     }
 }
 
@@ -1035,7 +1035,7 @@ if (!function_exists('orderOutForDeliveryStatus')) {
     // orderProcessingStatus
     function orderOutForDeliveryStatus()
     {
-        return "out_for_delivery";
+        return "en_cours_de_livraison";
     }
 }
 
@@ -1043,7 +1043,7 @@ if (!function_exists('orderDeliveredStatus')) {
     // order Delivered Status
     function orderDeliveredStatus()
     {
-        return "delivered";
+        return "Livré";
     }
 }
 
@@ -1051,7 +1051,7 @@ if (!function_exists('orderCancelledStatus')) {
     // order cancelled Status
     function orderCancelledStatus()
     {
-        return "cancelled";
+        return "Annulé";
     }
 }
 

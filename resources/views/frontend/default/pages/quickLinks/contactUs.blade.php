@@ -34,7 +34,7 @@
                             <img src="{{ staticAsset('frontend/default/assets/img/shapes/texture-overlay.png') }}"
                                 alt="texture" class="position-absolute w-100 h-100 start-0 top-0 z--1">
                             <h3 class="text-white mb-3">{{ localize('Coordonnées de Contact') }}</h3>
-                            <p class="fs-sm text-white"><strong>{{ localize('Adresse du bureau') }}:
+                            <p class="fs-sm text-white"><strong>{{ localize('Adresse') }}:
                                 </strong>{{ getSetting('topbar_location') }}
                             </p>
                             <span class="spacer my-5"></span>
@@ -45,7 +45,7 @@
                                         <i class="fa-brands fa-whatsapp"></i>
                                     </span>
                                     <div class="info">
-                                        <span class="fw-medium text-white fs-xs">{{ localize('Appel d\'urgence') }}</span>
+                                        <span class="fw-medium text-white fs-xs">{{ localize('Numéro de téléphone') }}</span>
                                         <h5 class="mb-0 mt-1 text-white">{{ getSetting('navbar_contact_number') }}</h5>
                                     </div>
                                 </li>
@@ -112,21 +112,21 @@
                                     <div class="checkbox-fields d-flex align-items-center gap-3 flex-wrap my-2">
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="delivery_problem" checked>
+                                                <input type="radio" name="support_for" value="Problème_de_livraison" checked>
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Problème de livraison') }}</label>
                                         </div>
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="customer_service">
+                                                <input type="radio" name="support_for" value="Service_client">
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Service client') }}</label>
                                         </div>
                                         <div class="single-field d-inline-flex align-items-center gap-2">
                                             <div class="theme-checkbox">
-                                                <input type="radio" name="support_for" value="other_service">
+                                                <input type="radio" name="support_for" value="Autres_services">
                                                 <span class="checkbox-field"><i class="fas fa-check"></i></span>
                                             </div>
                                             <label class="text-dark fw-semibold">{{ localize('Autres services') }}</label>

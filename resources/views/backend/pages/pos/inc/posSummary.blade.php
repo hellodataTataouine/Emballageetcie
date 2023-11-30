@@ -44,16 +44,16 @@
 
   <div class="tt-pos-calculation mb-3">
       <div class="tt-pos-cal">
-          <p class="mb-0">{{ localize('Subtotal') }}</p>
+          <p class="mb-0">{{ localize('Sous-total') }}</p>
           <strong>{{ formatPrice(getSubTotal($carts, false, '', false)) }}</strong>
       </div>
       <div class="tt-pos-cal">
-          <p class="mb-0">{{ localize('Taxe') }}</p>
+          <p class="mb-0">{{ localize('Tax') }}</p>
           <strong>{{ formatPrice(getTotalTax($carts)) }}</strong>
       </div>
 
       <div class="tt-pos-cal">
-          <p class="mb-0">{{ localize('Shipping Charge') }}</p>
+          <p class="mb-0">{{ localize('Frais d\'expédition') }}</p>
           <input class="form-control col-6" type="number" placeholder="{{ localize('Saisir discount amount') }}"
               id="total_shipping_cost" value="{{ $shippingInputValue }}" step="0.001" min="0"
               name="total_shipping_cost">
@@ -62,7 +62,7 @@
       <div class="tt-pos-cal">
           <div class="row g-3">
               <div class="col-12">
-                  <label for="discount_value" class="form-label">{{ localize('Ajouteritional Discount') }}</label>
+                  <label for="discount_value" class="form-label">{{ localize('Remise supplémentaire') }}</label>
                   <div class="input-group row g-0">
                       <input class="form-control col-6 rounded-end-0" type="number"
                           placeholder="{{ localize('Saisir discount amount') }}" id="additional_discount_value"
@@ -73,9 +73,9 @@
                           id="additional_discount_type" name="additional_discount_type"
                           onchange="calculatePosSummary()">
                           <option value="flat" @if ($discountType == 'flat') selected @endif>
-                              {{ localize('Fixed') }}</option>
+                              {{ localize('Fixe') }}</option>
                           <option value="percent" @if ($discountType == 'percent') selected @endif>
-                              {{ localize('Percent %') }}</option>
+                              {{ localize('Pourcentage %') }}</option>
                       </select>
                   </div>
               </div>
@@ -89,17 +89,17 @@
       <div class="tt-single-pos-payment">
           <input type="radio" class="tt-custom-radio" name="payment" id="cashPayment" value="cash" checked />
           <label for="cashPayment"
-              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('Cash') }}</label>
+              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('Espece') }}</label>
       </div>
       <div class="tt-single-pos-payment">
           <input type="radio" class="tt-custom-radio" name="payment" id="cardPayment" value="card">
           <label for="cardPayment" class="tt-payment btn btn-sm btn-secondary fw-semibold d-block"
-              data-bs-toggle="modal" data-bs-target="#cardModal">{{ localize('Card') }}</label>
+              data-bs-toggle="modal" data-bs-target="#cardModal">{{ localize('Carte Bancaire') }}</label>
       </div>
       <div class="tt-single-pos-payment">
           <input type="radio" class="tt-custom-radio" name="payment" id="cod" value="cod">
           <label for="cod"
-              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('ESPECE') }}</label>
+              class="tt-payment btn btn-sm btn-secondary fw-semibold d-block">{{ localize('Paiement à la livraison') }}</label>
       </div>
   </div>
   <!-- payment -->
@@ -110,6 +110,6 @@
 
   <button type="submit"
       class="btn btn-primary btn-lg d-flex justify-content-between btn-block w-100 fw-semibold complete-order-btn">
-      <span>{{ localize('Complete Order') }}</span>
+      <span>{{ localize('Finaliser la commande') }}</span>
       <strong>{{ formatPrice($total) }}</strong>
   </button>

@@ -50,10 +50,10 @@
                                 name="discount_type_{{ $id }}">
                                 <option value="percent" <?php if ($product->discount_type == 'percent') {
                                     echo 'selected';
-                                } ?>>{{ localize('Percent %') }}</option>
+                                } ?>>{{ localize('Pourcentage %') }}</option>
                                 <option value="flat" <?php if ($product->discount_type == 'flat') {
                                     echo 'selected';
-                                } ?>>{{ localize('Fixed') }}</option>
+                                } ?>>{{ localize('Fixe') }}</option>
                             </select>
                         </td>
                     </tr>

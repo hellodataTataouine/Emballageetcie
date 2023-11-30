@@ -1,13 +1,6 @@
 CHANGELOG
 =========
 
-5.4.21
-------
-
- * [BC BREAK] The following data providers for `ProviderFactoryTestCase` are now static:
-   `supportsProvider()`, `createProvider()`, `unsupportedSchemeProvider()`and `incompleteDsnProvider()`
- * [BC BREAK] `ProviderTestCase::toStringProvider()` is now static
-
 5.4
 ---
 
@@ -179,5 +172,5 @@ CHANGELOG
 
  * added support for more than one fallback locale
  * added support for extracting translation messages from templates (Twig and PHP)
- * added dumpers for translation catalogues
+ * added dumpers for translation catalogs
  * added support for QT, gettext, and ResourceBundles

@@ -93,6 +93,7 @@
     @php
     $catalogActiveRoutes = ['admin.catalogues.create', 'admin.catalogues.index', 'admin.catalogues.edit'];
 @endphp
+<!--
 @canany(['add_catalog', 'list_catalogues'])
     <li class="side-nav-item nav-item {{ areActiveRoutes($catalogActiveRoutes, 'tt-menu-item-active') }}">
         <a data-bs-toggle="collapse" href="#manageCatalog"
@@ -119,11 +120,11 @@
             </ul>
         </div>
     </li>
-@endcan
+@endcan -->
 
 
 
-    <!-- pos -->
+    <!-- pos 
     @canany(['pos'])
         <li class="side-nav-item nav-item">
             <a href="{{ route('admin.pos.index') }}" class="side-nav-link">
@@ -132,7 +133,7 @@
                 
             </a>
         </li>
-    @endcan
+    @endcan -->
 
     <!-- orders -->
     @can('orders')
@@ -157,8 +158,38 @@
             </a>
         </li>
     @endcan
+     <!-- Support -->
+     <li class="side-nav-title side-nav-item nav-item mt-3">
+        <span class="tt-nav-title-text">{{ localize('Support') }}</span>
+    </li>
 
-    <!-- stock -->
+    @can('contact_us_messages')
+        <li class="side-nav-item nav-item {{ areActiveRoutes(['admin.queries.index'], 'tt-menu-item-active') }}">
+            <a href="{{ route('admin.queries.index') }}"
+                class="side-nav-link {{ areActiveRoutes(['admin.queries.index']) }}">
+                <span class="tt-nav-link-icon"><i data-feather="mail"></i></span>
+                <span class="tt-nav-link-text">
+                    <span>{{ localize('Messages') }}</span>
+                    
+
+                    @php
+                        $newMsgCount = \App\Models\ContactUsMessage::where('is_seen', 0)->count();
+                    @endphp
+
+                    @if ($newMsgCount > 0)
+                        <small class="badge bg-danger">{{ localize('Nouveau') }}</small>
+                         
+
+
+                        
+                    @endif
+                </span>
+            </a>
+        </li>
+    @endcan
+
+
+    <!-- stock 
     @php
         $stockActiveRoutes = ['admin.stocks.create', 'admin.locations.index', 'admin.locations.create', 'admin.locations.edit'];
     @endphp
@@ -191,10 +222,10 @@
                 </ul>
             </div>
         </li>
-    @endcan
+    @endcan -->
 
 
-    <!-- Refunds -->
+    <!-- Refunds 
     @php
         $refundsActiveRoutes = ['admin.refund.configurations', 'admin.refund.requests', 'admin.refund.refunded', 'admin.refund.rejected'];
     @endphp
@@ -243,10 +274,10 @@
                 </ul>
             </div>
         </li>
-    @endcan
+    @endcan -->
 
 
-    <!-- Rewards & Wallet -->
+    <!-- Rewards & Wallet 
     @php
         $rewardsActiveRoutes = ['admin.rewards.configurations', 'admin.rewards.setPoints', 'admin.wallet.configurations'];
     @endphp
@@ -286,7 +317,7 @@
                 </ul>
             </div>
         </li>
-    @endcan
+    @endcan -->
 
     <!-- Users -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
@@ -392,11 +423,11 @@
         </li>
     @endcan
 
-    <!-- Promotions -->
+    <!-- Promotions 
     <li class="side-nav-title side-nav-item nav-item mt-3">
         <span class="tt-nav-title-text">{{ localize('Promotions') }}</span>
-    </li>
-    <!-- newsletter -->
+    </li> -->
+    <!-- newsletter 
     @php
         $newsletterActiveRoutes = ['admin.newsletters.index', 'admin.subscribers.index'];
     @endphp
@@ -429,9 +460,9 @@
                 </ul>
             </div>
         </li>
-    @endcan 
+    @endcan -->
 
-    <!-- Coupons -->
+    <!-- Coupons 
     @can('coupons')
         <li
             class="side-nav-item nav-item {{ areActiveRoutes(['admin.coupons.index', 'admin.coupons.create', 'admin.coupons.edit'], 'tt-menu-item-active') }}">
@@ -454,7 +485,7 @@
             </a>
         </li>
         
-    @endcan 
+    @endcan  -->
 
     <!-- Fulfillment -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
@@ -557,33 +588,7 @@
     @endcan
 
 
-    <!-- Support -->
-    <li class="side-nav-title side-nav-item nav-item mt-3">
-        <span class="tt-nav-title-text">{{ localize('Support') }}</span>
-    </li>
-
-    @can('contact_us_messages')
-        <li class="side-nav-item nav-item {{ areActiveRoutes(['admin.queries.index'], 'tt-menu-item-active') }}">
-            <a href="{{ route('admin.queries.index') }}"
-                class="side-nav-link {{ areActiveRoutes(['admin.queries.index']) }}">
-                <span class="tt-nav-link-icon"><i data-feather="hash"></i></span>
-                <span class="tt-nav-link-text">
-                    <span>{{ localize('Requêtes') }}</span>
-                    
-
-                    @php
-                        $newMsgCount = \App\Models\ContactUsMessage::where('is_seen', 0)->count();
-                    @endphp
-
-                    @if ($newMsgCount > 0)
-                        <small class="badge bg-danger">{{ localize('Nouveau') }}</small>
-                        
-                    @endif
-                </span>
-            </a>
-        </li>
-    @endcan
-
+   
     <!-- Settings -->
     <li class="side-nav-title side-nav-item nav-item mt-3">
         <span class="tt-nav-title-text">{{ localize('PARAMÈTRES') }}</span>
@@ -787,12 +792,12 @@
                         </li>
                     @endcan
 
-                    @can('social_login_settings')
+                    <!-- @can('social_login_settings')
                         <li class="{{ areActiveRoutes(['admin.settings.socialLogin'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.settings.socialLogin') }}"
                                 class="{{ areActiveRoutes(['admin.settings.socialLogin']) }}">{{ localize('Connexion via les réseaux sociaux') }}</a>
                         </li>
-                    @endcan
+                    @endcan -->
 
                   <!-- @can('language_settings')
                         <li
@@ -805,7 +810,7 @@
                         </li>
                     @endcan -->
 
-                    @can('currency_settings')
+                     <!-- @can('currency_settings')
                         <li
                             class="{{ areActiveRoutes(
                                 ['admin.currencies.index', 'admin.currencies.edit', 'admin.currencies.localizations'],
@@ -814,7 +819,7 @@
                             <a href="{{ route('admin.currencies.index') }}"
                                 class="{{ areActiveRoutes(['admin.currencies.index', 'admin.currencies.edit', 'admin.currencies.localizations']) }}">{{ localize('Paramètres de devise multiples') }}</a>
                         </li>
-                    @endcan
+                    @endcan -->
                 </ul>
             </div>
         </li>

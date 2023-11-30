@@ -13,7 +13,7 @@
                         <div class="card tt-page-header">
                             <div class="card-body d-lg-flex align-items-center justify-content-lg-between">
                                 <div class="tt-page-title">
-                                    <h2 class="h5 mb-lg-0">{{ localize('Tableau de bord administrateur') }}</h2>
+                                    <h2 class="h5 mb-lg-0">{{ localize('Tableau de Bord Administrateur') }}</h2>
                                 </div>
                                 <div class="tt-action">
 
@@ -22,11 +22,11 @@
                                                 data-feather="shopping-cart" class="me-2"></i>{{ localize('Gérer les ventes') }}</a>
                                     @endcan
 
-                                    @can('add_products')
+                                    <!-- @can('add_products')
                                         <a href="{{ route('admin.products.create') }}" class="btn btn-primary ms-2"><i
                                                 data-feather="plus" class="me-2"></i>
                                             {{ localize('Ajouter Produit') }}</a>
-                                    @endcan
+                                    @endcan -->
                                 </div>
                             </div>
                         </div>
@@ -51,6 +51,7 @@
                                                         {{ localize('Les 7 derniers jours') }}
                                                     @endif
                                                 </a>
+
                                                 <div class="dropdown-menu dropdown-menu-end shadow">
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.dashboard') }}">{{ localize('Les 7 derniers jours') }}</a>
@@ -59,6 +60,7 @@
                                                     <a class="dropdown-item"
                                                         href="{{ route('admin.dashboard') }}?&timeline=90">{{ localize('Les 3 derniers mois') }}</a>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <h4 class="fw-bold">{{ formatPrice($totalSalesData->totalEarning) }}</h4>
@@ -349,7 +351,7 @@
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.orders.show', $order->id) }}"
                                                         class="btn btn-sm p-0 tt-view-details" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="View Details">
+                                                        data-bs-placement="top" title="Voir les détails">
                                                         <i data-feather="eye"></i>
                                                     </a>
                                                 </td>

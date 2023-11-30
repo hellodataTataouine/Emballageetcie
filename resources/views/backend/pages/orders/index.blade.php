@@ -63,7 +63,7 @@
                                                 {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Non payé') }}</option>
+                                                {{ localize('Impayé') }}</option>
                                         </select>
                                     </div>
 
@@ -71,15 +71,15 @@
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
                                             <option value="">{{ localize('Statut de livraison') }}</option>
-                                            <option value="order_placed" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
+                                            <option value="Commande_passée" @if (isset($deliveryStatus) && $deliveryStatus == orderPlacedStatus()) selected @endif>
                                                 {{ localize('Commande passée') }}</option>
-                                            <option value="pending" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
+                                            <option value="En_attente" @if (isset($deliveryStatus) && $deliveryStatus == orderPendingStatus()) selected @endif>
                                                 {{ localize('En attente') }} 
-                                            <option value="processing" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
+                                            <option value="En_cours" @if (isset($deliveryStatus) && $deliveryStatus == orderProcessingStatus()) selected @endif>
                                                 {{ localize('En cours') }} 
-                                            <option value="delivered" @if (isset($deliveryStatus) && $deliveryStatus == orderDeliveredStatus()) selected @endif>
+                                            <option value="Livré" @if (isset($deliveryStatus) && $deliveryStatus == orderDeliveredStatus()) selected @endif>
                                                 {{ localize('Livré ') }} 
-                                            <option value="cancelled" @if (isset($deliveryStatus) && $deliveryStatus == orderCancelledStatus()) selected @endif>
+                                            <option value="Annulé" @if (isset($deliveryStatus) && $deliveryStatus == orderCancelledStatus()) selected @endif>
                                                 {{ localize('Annulé') }} 
                                             </option>
                                         </select>
@@ -107,7 +107,7 @@
                                                 {{ localize('Commandes en ligne') }}
                                             </option>
                                             <option value="1" @if (isset($posOrder) && $posOrder == 1) selected @endif>
-                                                {{ localize('POS Commandes ') }}
+                                                {{ localize('POS Commandes') }}
                                             </option>
                                         </select>
                                     </div>
@@ -227,7 +227,7 @@
                                             @can('manage_orders')
                                                 <a href="{{ route('admin.orders.show', $order->id) }}"
                                                     class="btn btn-sm p-0 tt-view-details" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="View Details">
+                                                    data-bs-placement="top" title="Voir les détails">
                                                     <i data-feather="eye"></i>
                                                 </a>
                                             @endcan
