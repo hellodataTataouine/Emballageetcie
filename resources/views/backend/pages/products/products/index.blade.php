@@ -18,7 +18,7 @@
                             </div>
                             <div class="tt-action">
                                 <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-success">
-                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Produits') }}</a>
+                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les Produits') }}</a>
 
                             </div>
                             <!-- <div class="tt-action">
@@ -112,13 +112,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($products->isEmpty())
-    <p>No products found.</p>
+                                @if($paginatedProducts->isEmpty())
+    <p>Aucun Produit Trouvé.</p>
 @else
-                                @foreach ($products as $key => $product)
+                                @foreach ($paginatedProducts as $key => $product)
                                     <tr>
                                         <td class="text-center">
-                                            {{ $key + 1 + ($products->currentPage() - 1) * $products->perPage() }} </td>
+                                            {{ $key + 1 + ($paginatedProducts->currentPage() - 1) * $paginatedProducts->perPage() }} </td>
                                         <td>
                                             <a href="{{ route('products.show', $product->slug) }}"
                                                 class="d-flex align-items-center" target="_blank">
@@ -207,13 +207,13 @@
                         <!--pagination start-->
                         <div class="d-flex align-items-center justify-content-between px-4 pb-4">
                             <span>{{ localize('Affichage') }}  {{ localize('de') }}
-                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }}
-                                {{ $products->total() }} {{ localize('résultats') }} </span>
+                                {{ $paginatedProducts->firstItem() }}-{{ $paginatedProducts->lastItem() }} {{ localize('sur') }}
+                                {{ $paginatedProducts->total() }} {{ localize('résultats') }} </span>
                             <span>{{ localize('Affichage') }}  {{ localize('de') }}
-                                {{ $products->firstItem() }}-{{ $products->lastItem() }} {{ localize('sur') }}
-                                {{ $products->total() }} {{ localize('résultats') }} </span>
+                                {{ $paginatedProducts->firstItem() }}-{{ $paginatedProducts->lastItem() }} {{ localize('sur') }}
+                                {{ $paginatedProducts->total() }} {{ localize('résultats') }} </span>
                             <nav>
-                                {{ $products->appends(request()->input())->links() }}
+                                {{ $paginatedProducts->appends(request()->input())->links() }}
                             </nav>
                         </div>
                         <!--pagination end-->
