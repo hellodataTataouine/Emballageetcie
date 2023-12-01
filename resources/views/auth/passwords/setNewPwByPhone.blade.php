@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title')
-    {{ localize('Reset Password') }}
+    {{ localize('Réinitialiser le mot de passe') }}
 @endsection
 
 
@@ -20,7 +20,7 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Reset Password') }}
+                        <h2 class="mb-4 h3">{{ localize('Réinitialiser le mot de passe') }}
                         </h2>
 
                         @if (session('status'))
@@ -32,19 +32,19 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <div class="input-field">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Verification Code') }}</label>
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Code de vérification') }}</label>
                                     <input type="text" id="verification_code" name="verification_code"
-                                        placeholder="{{ localize('Enter your verification code') }}"
+                                        placeholder="{{ localize('Entez votre Code de vérification') }}"
                                         class="theme-input"required>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Mot de Passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
-                                        <input type="password" name="password" placeholder="{{ localize('Password') }}"
+                                        <input type="password" name="password" placeholder="{{ localize('Mot de Passe') }}"
                                             class="theme-input @error('password') is-invalid @enderror" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
@@ -59,11 +59,11 @@
 
                             <div class="col-sm-12">
                                 <div class="input-field check-password">
-                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirm Password') }}<sup
+                                    <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Confirmer le mot de passe') }}<sup
                                             class="text-danger">*</sup></label>
                                     <div class="check-password">
                                         <input type="password" name="password_confirmation"
-                                            placeholder="{{ localize('Confirm Password') }}" class="theme-input" required>
+                                            placeholder="{{ localize('Confirmer le mot de passe') }}" class="theme-input" required>
                                         <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
                                         <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                     </div>
@@ -72,7 +72,7 @@
 
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary mt-4">
-                                    {{ localize('Mettre à jour Password') }}
+                                    {{ localize('Mettre à jour le mot de passe') }}
                                 </button>
                             </div>
                         </div>

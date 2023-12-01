@@ -66,7 +66,7 @@ class VerificationController extends Controller
     }
 
     # set as verified
-    public function verification_confirmation($code)
+   /* public function verification_confirmation($code)
     {
         $user = User::where('verification_code', $code)->first();
         if ($user != null) {
@@ -80,7 +80,36 @@ class VerificationController extends Controller
         }
 
         return redirect()->route('customers.dashboard');
+    }*/
+
+    public function verification_confirmation($code)
+    {
+        //\Log::info("Verification Code: " . $code);
+    
+        $user = User::where('verification_code', $code)->first();
+        
+        if ($user != null) {
+           // \Log::info("User found: " . $user->id . " - " . $user->email); // Add this line
+    
+            $user->email_or_otp_verified = 1;
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+            auth()->login($user, true);
+            flash(localize('Votre compte a été vérifié avec succès.'))->success();
+            //\Log::info("User verified successfully");
+        } else {
+            //\Log::info("User not found for verification code: " . $code); // Add this line
+    
+            flash(localize('Désolé, nous n\'avons pas pu vous vérifier. Veuillez réessayer.'))->error();
+            //\Log::info("User verification failed");
+        }
+    
+       // \Log::info("Verification Process Completed");
+    
+        return redirect()->route('customers.dashboard'); // Change to your intended route
     }
+    
+
 
     # show phone verification form
     public function verifyPhone()
@@ -97,7 +126,7 @@ class VerificationController extends Controller
     public function sendOtp($phone, $otp)
     {
         (new SmsServices)->phoneVerificationSms($phone, $otp);
-        flash(localize('A verification code has been sent to your phone.'))->info();
+        flash(localize('Un code de vérification a été envoyé sur votre téléphone.'))->info();
     }
 
     # set as verified

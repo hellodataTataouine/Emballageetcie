@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title')
-    {{ localize('Reset Password') }}
+    {{ localize('Réinitialiser le mot de passe') }}
 @endsection
 
 @section('contents')
@@ -20,7 +20,7 @@
                                 <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="logo">
                             </a>
                         </div>
-                        <h2 class="mb-4 h3">{{ localize('Reset Password') }}
+                        <h2 class="mb-4 h3">{{ localize('Réinitialiser le mot de passe') }}
                         </h2>
 
                         @if (session('status'))
@@ -39,14 +39,14 @@
                                     <span class="reset-email @if (old('reset_with') == 'phone') d-none @endif">
                                         <label class="fw-bold text-dark fs-sm mb-1">{{ localize('Email') }}</label>
                                         <input type="email" id="email" name="email"
-                                            placeholder="{{ localize('Enter your email') }}"
+                                            placeholder="{{ localize('Entez votre email') }}"
                                             class="theme-input mb-1 @error('email') is-invalid @enderror"
                                             value="{{ old('email') }}" required>
 
                                         <small class="">
                                             <a href="javascript:void(0);" class="fs-sm reset-with-phone-btn"
                                                 onclick="handleResetWithPhone()">
-                                                {{ localize('Reset with phone?') }}</a>
+                                                {{ localize('Réinitialiser avec le téléphone ?') }}</a>
                                         </small>
                                     </span>
 
@@ -64,7 +64,7 @@
                                         <small class="">
                                             <a href="javascript:void(0);" class="fs-sm reset-with-email-btn"
                                                 onclick="handleResetWithEmail()">
-                                                {{ localize('Reset with email?') }}</a>
+                                                {{ localize('Réinitialiser avec l\'e-mail ?') }}</a>
                                         </small>
                                     </span>
                                 </div>
@@ -72,7 +72,7 @@
 
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-primary mt-4">
-                                    {{ localize('Reset Password') }}
+                                    {{ localize('Réinitialiser le mot de passe') }}
                                 </button>
                             </div>
                         </div>

@@ -88,7 +88,7 @@
                                                                 style="font-family:'Ubuntu', Arial,sans-serif; font-size:20px; line-height:26px; text-align:center; color:#2e57ae; padding-bottom:30px;">
                                                                 <a href="{{ $array['link'] }}"
                                                                     style="background: #007bff;padding: 0.9rem 2rem;font-size: 0.875rem;color:#fff;border-radius: .2rem;"
-                                                                    target="_blank">{{ localize('Click Here') }}</a>
+                                                                    target="_blank">{{ localize('Clicker Ici') }}</a>
                                                             </td>
                                                         </tr>
                                                     @endif

@@ -65,7 +65,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <!--login settings-->
 
                         <!--recaptcha settings-->
@@ -126,7 +126,7 @@
                                 <ul class="list-unstyled">
                                     <li>
                                         <a href="#section-1" class="active">{{ localize('Connexion et inscription') }}</a>
-                                    </li>
+                                    </li> 
                                     <li>
                                         <a href="#section-2" class="">{{ localize('Google Recaptcha') }}</a>
                                     </li>
