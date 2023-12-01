@@ -25,7 +25,7 @@ class OrderTrackingController extends Controller
             if (!is_null($order)) {
                 $view = getView('pages.users.orderTrack', ['order' => $order, 'searchCode' => $searchCode]);
             } else {
-                flash(localize('No order found by this code'))->error();
+                flash(localize('Aucune commande trouvée avec ce code.'))->error();
                 $view = getView('pages.users.orderTrack', ['searchCode' => $searchCode]);
             }
         } else {

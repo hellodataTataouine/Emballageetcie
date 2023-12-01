@@ -12,7 +12,7 @@ class RefundsController extends Controller
     public function refunds()
     {
         if (getSetting('enable_refund_system') == 0) {
-            flash(localize('The page you are looking for is not available'))->info();
+            flash(localize('La page que vous recherchez n\'est pas disponible'))->info();
             return redirect()->route('customers.dashboard');
         }
         $refunds = auth()->user()->refunds()->latest()->paginate(paginationNumber());
@@ -35,7 +35,7 @@ class RefundsController extends Controller
         $refund->refund_reason  = $request->refund_reason;
         $refund->save();
 
-        flash(localize('Refund request has been submitted'))->success();
+        flash(localize('La demande de remboursement a été soumise'))->success();
         return back();
     }
 }

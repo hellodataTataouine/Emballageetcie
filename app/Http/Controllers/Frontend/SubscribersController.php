@@ -17,7 +17,7 @@ class SubscribersController extends Controller
         ]);
         $data['score'] = 'required|numeric|min:0.9';  
         $request->validate($data,[
-            'score.min' => localize('Google recaptcha validation error, seems like you are not a human.')
+            'score.min' => localize('Erreur de validation Google reCAPTCHA, il semble que vous ne soyez pas un humain.')
         ]);
 
         $subscriber = SubscribedUser::where('email', $request->email)->first();
@@ -25,10 +25,10 @@ class SubscribersController extends Controller
             $subscriber = new SubscribedUser;
             $subscriber->email = $request->email;
             $subscriber->save();
-            flash(localize('You have subscribed successfully'))->success();
+            flash(localize('Vous vous êtes abonné avec succès'))->success();
         }
         else{
-            flash(localize('You are  already a subscriber'))->error();
+            flash(localize('Vous êtes déjà abonné'))->error();
         }
         return back();
     }

@@ -79,7 +79,7 @@ class CustomerController extends Controller
             $user->name = $request->name;
             $user->phone = validatePhone($request->phone);
             $user->save();
-            flash(localize('Profile updated successfully'))->success();
+            flash(localize('Profil mis à jour avec succès'))->success();
             return back();
         }
         else {
@@ -91,7 +91,7 @@ class CustomerController extends Controller
             );
             $user->password = Hash::make($request->password);
             $user->save();
-            flash(localize('Password updated successfully'))->success();
+            flash(localize('Mot de passe mis à jour avec succès'))->success();
             return back();
         }
     }
