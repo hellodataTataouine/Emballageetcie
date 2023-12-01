@@ -69,29 +69,28 @@
         @endphp
 
         @auth
-            @if ($isVariantProduct)
-                <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
-                    onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
-            @else
-                <form action="" class="direct-add-to-cart-form">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
-                    <input type="hidden" value="1" name="quantity">
+    @if ($isVariantProduct)
+        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
+            onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
+    @else
+        <form action="" class="direct-add-to-cart-form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
+            <input type="hidden" value="1" name="quantity">
 
-                    @if (!$isVariantProduct && $stock < 1)
-                        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
-                            {{ localize('Sur Commande') }}</a>
-                    @else
-                        <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
-                            class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
-                    @endif
-                </form>
+            @if (!$isVariantProduct && $stock < 1)
+                <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
+                    {{ localize('Sur Commande') }}</a>
+            @else
+                <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
+                    class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
             @endif
-        @else
-            <span class="btn btn-outline-secondary btn-sm border-secondary mt-4 disabled">
-                {{ localize('Ajouter au panier') }}
-            </span>
-        @endauth
+        </form>
+    @endif
+@else
+    <!-- Omit the button entirely when the user is not authenticated -->
+@endauth
+
 
     </div>
 </div>
