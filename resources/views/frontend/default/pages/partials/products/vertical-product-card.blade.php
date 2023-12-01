@@ -79,7 +79,6 @@
                 $stock = $product->variations[0]->product_variation_stock ? $product->variations[0]->product_variation_stock->stock_qty : 0;
             }
         @endphp
-
         @auth
     @if ($isVariantProduct)
         <a href="javascript:void(0);" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4"
@@ -95,15 +94,14 @@
                     class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100">{{ localize('Sur Commande') }}</a>
             @else
                 <a href="javascript:void(0);"
-                    onclick="directAddToCartFormSubmit(this)" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
+                    onclick="directAddToCartFormSubmit(this)" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter auuuuuuuuuuuuu panier') }}</a>
             @endif
         </form>
     @endif
 @else
-    <span class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 disabled">
-        {{ localize('Ajouter au panier') }}
-    </span>
+    <!-- Omit the button entirely when the user is not authenticated -->
 @endauth
+
 
 
     </div>
