@@ -83,7 +83,7 @@ class HeroController extends Controller
             $sliderImage->save();
         }
         cacheClear();
-        flash(localize('Slider image added successfully'))->success();
+        flash(localize('Image du Slider ajoutée avec succès'))->success();
         return back();
     }
 
@@ -118,7 +118,7 @@ class HeroController extends Controller
         $sliderImage->value = json_encode($tempSliders);
         $sliderImage->save();
         cacheClear();
-        flash(localize('Slider updated successfully'))->success();
+        flash(localize('Slider mis à jour avec succès'))->success();
         return redirect()->route('admin.appearance.homepage.hero');
     }
 

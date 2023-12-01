@@ -1,8 +1,8 @@
 <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Package.png') }}" alt="Package"
         class="position-absolute leaf-shape z--1 rounded-circle d-none d-lg-inline">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 2.png') }}" alt="Lunchbox 2"
-        class="position-absolute mango z--1" data-parallax='{"y": -120}'>
+    <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 2.png') }}" alt="Lunchbox 2"
+        class="position-absolute mango z--1" data-parallax='{"y": -120}'> -->
 
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-sm.png') }}" alt="circle"
         class="position-absolute hero-circle circle-sm z--1 d-none d-md-inline">
