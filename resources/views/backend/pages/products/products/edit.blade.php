@@ -250,15 +250,9 @@
                             <div class="card mb-4" id="section-5">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <h5 class="mb-4">{{ localize('Prix, Sku & Stock') }}
+                                        <h5 class="mb-4">{{ localize('Sku & Code') }}
                                         </h5>
-                                        <div class="form-check form-switch">
-                                            <label class="form-check-label fw-medium text-primary"
-                                                for="is_variant">{{ localize('A des variations?') }}</label>
-                                            <input type="checkbox" class="form-check-input" id="is_variant"
-                                                onchange="isVariantProduct(this)" name="is_variant"
-                                                @if ($product->has_variation) checked @endif>
-                                        </div>
+                                        
                                     </div>
 
                                     <!-- without variation start-->
@@ -789,7 +783,7 @@
                                             <a href="#section-4">{{ localize('Marque & Unité du produit') }}</a>
                                         </li>
                                         <li>
-                                            <a href="#section-5">{{ localize('Prix, SKU, Stock & Variations') }}</a>
+                                            <a href="#section-5">{{ localize('SKU, Code ') }}</a>
                                         </li>
                                         <li>
                                             <a href="#section-6">{{ localize('Remise sur le produit') }}</a>

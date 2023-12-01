@@ -702,38 +702,80 @@ public function SynchronizeProducts(Request $request)
     
         }
     
+        // Retrieve all existing products and organize them by slug
+        $existingProducts = Product::pluck('id', 'slug')->toArray();
+    
+        // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiStock = $produitApi['StockActual'];
-            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();;
-        
-            if ($matchingProduct !== null) {
-                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-    
-                $matchingProduct->min_price = $apiPrice; 
-                $matchingProduct->max_price = $apiPrice;
-            }
-            if ($matchingProduct->stock_qty !== $apiStock) {
-                $matchingProduct->stock_qty = $apiStock;
-            }
-            }
             
-           // Add the matching product to the virtual products list
-           $virtualProducts->push($matchingProduct);
-            }
-        
-            $products=$virtualProducts;
-    //dd($products);
-    $currentPage = $request->input('page', 1); 
-    $perPage = 10;
-    $products = new LengthAwarePaginator($products, count($products), $perPage, $currentPage);
-       
-         
-            $brands = Brand::latest()->get();
-          //  $products = $products->paginate(paginationNumber());
-            return view('backend.pages.products.products.index', compact('products', 'brands', 'searchKey', 'brand_id', 'is_published')); 
+            // Check if the API product exists in the existing products
+            if (isset($existingProducts[$barcode])) {
+                $productId = $existingProducts[$barcode];
     
+                // Retrieve the existing product
+                $matchingProduct = Product::with('categories')->find($productId);
+    
+                if ($matchingProduct !== null) {
+                    if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+                        $matchingProduct->min_price = $apiPrice;
+                        $matchingProduct->max_price = $apiPrice;
+                    }
+                    if ($matchingProduct->stock_qty !== $apiStock) {
+                        $matchingProduct->stock_qty = $apiStock;
+                    }
+                   
+                    $virtualProducts->push($matchingProduct);
+                    
+                }
+            }
+        }
+    
+
+        if ($request->search != null) {
+            $searchTerm = $request->search;
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
+                // Change 'name' to the correct attribute name if it's different in your Product model
+                return stripos($product->name, $searchTerm) !== false;
+            });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
+        }
+
+        if ($request->brand_id != null) {
+            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
+            $brand_id    = $request->brand_id;
+        }
+
+        if ($request->is_published != null) {
+            $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
+            $is_published    = $request->is_published;
+        }
+
+
+
+
+       // Paginate the combined products
+$page = $request->input('page', 1);
+$perPage = 20;
+$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+$paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+$paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
+
+
+
+   $brands = Brand::latest()->get();
+    
+        $searchKey = null;
+        $brand_id = null;
+        $is_published = null;
+    
+        return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
+       
 }
 
 
