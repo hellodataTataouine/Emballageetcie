@@ -60,24 +60,23 @@
                         </div>
 
                         @auth
-                            <button type="submit" class="btn btn-secondary btn-md add-to-cart-btn"
-                                @if (!$isVariantProduct && $stock < 1) disabled @endif>
-                                <span class="me-2">
-                                    <i class="fa-solid fa-bag-shopping"></i>
-                                </span>
-                                <span class="add-to-cart-text">
-                                    @if (!$isVariantProduct && $product->stock_qty < 1)
-                                        {{ localize('Sur Commande') }}
-                                    @else
-                                        {{ localize('Ajouter au panier') }}
-                                    @endif
-                                </span>
-                            </button>
-                        @else
-                            <span class="btn btn-secondary btn-md add-to-cart-btn disabled">
-                                {{ localize('Ajouter au panier') }}
-                            </span>
-                        @endauth
+    <button type="submit" class="btn btn-secondary btn-md add-to-cart-btn"
+        @if (!$isVariantProduct && $stock < 1) disabled @endif>
+        <span class="me-2">
+            <i class="fa-solid fa-bag-shopping"></i>
+        </span>
+        <span class="add-to-cart-text">
+            @if (!$isVariantProduct && $product->stock_qty < 1)
+                {{ localize('Sur Commande') }}
+            @else
+                {{ localize('Ajouter au panier') }}
+            @endif
+        </span>
+    </button>
+@else
+    <!-- Omit the button entirely when the user is not authenticated -->
+@endauth
+
 
                         <button type="button" class="btn btn-primary btn-md"
                             onclick="addToWishlist({{ $product->id }})">

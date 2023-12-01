@@ -81,29 +81,30 @@
         @endphp
 
         @auth
-            @if ($isVariantProduct)
-                <a href="javascript:void(0);" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4"
-                    onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
-            @else
-                <form action="" class="direct-add-to-cart-form">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
-                    <input type="hidden" value="1" name="quantity">
+    @if ($isVariantProduct)
+        <a href="javascript:void(0);" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4"
+            onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
+    @else
+        <form action="" class="direct-add-to-cart-form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
+            <input type="hidden" value="1" name="quantity">
 
-                    @if (!$isVariantProduct && $product->stock_qty < 1)
-                        <a href="javascript:void(0);"
-                            class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100">{{ localize('Sur Commande') }}</a>
-                    @else
-                        <a href="javascript:void(0);"
-                            onclick="directAddToCartFormSubmit(this)"class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
-                    @endif
-                </form>
+            @if (!$isVariantProduct && $product->stock_qty < 1)
+                <a href="javascript:void(0);"
+                    class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100">{{ localize('Sur Commande') }}</a>
+            @else
+                <a href="javascript:void(0);"
+                    onclick="directAddToCartFormSubmit(this)" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
             @endif
-        @else
-            <span class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 disabled">
-                {{ localize('Ajouter au panier') }}
-            </span>
-        @endauth
+        </form>
+    @endif
+@else
+    <span class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 disabled">
+        {{ localize('Ajouter au panier') }}
+    </span>
+@endauth
+
 
     </div>
 </div>

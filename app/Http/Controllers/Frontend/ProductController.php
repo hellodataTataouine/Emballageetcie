@@ -33,7 +33,33 @@ class ProductController extends Controller
         $response = Http::get($apiUrl . 'Produit');
         $produitsApi = $response->json();
 
-      /*  foreach ($produitsApi as $produitApi) {
+      
+    
+        foreach ($produitsApi as $produitApi) {
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiStock = $produitApi['StockActual'];
+            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
+        
+            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                   
+                }
+                if ($matchingProduct->stock_qty !== $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
+            }
+            if ($matchingProduct->is_published == 1) {
+
+                $virtualProducts->push($matchingProduct);
+
+
+            }
+        }
+
+        /*  foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
@@ -84,30 +110,6 @@ class ProductController extends Controller
     }
     
         }*/
-    
-        foreach ($produitsApi as $produitApi) {
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiStock = $produitApi['StockActual'];
-            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
-        
-            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
-                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-                    $matchingProduct->min_price = $apiPrice; 
-                    $matchingProduct->max_price = $apiPrice;
-                   
-                }
-                if ($matchingProduct->stock_qty !== $apiStock) {
-                    $matchingProduct->stock_qty = $apiStock;
-                }
-            }
-            if ($matchingProduct->is_published == 1) {
-
-                $virtualProducts->push($matchingProduct);
-
-
-            }
-        }
         
        // $products = $virtualProducts;
 
