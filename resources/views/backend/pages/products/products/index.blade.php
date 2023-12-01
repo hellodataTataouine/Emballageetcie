@@ -191,10 +191,10 @@
                                                             
                                                     </a>
                                                      <!-- Add the delete button -->
-                    @can('delete_products')
-                        <a class="dropdown-item" href="#" onclick="confirmDelete({{ $product->id }})">
+                   @can('delete_products')
+                       <!--  <a class="dropdown-item" href="#" onclick="confirmDelete({{ $product->id }})">
                             <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
-                        </a>
+                        </a> -->
                     @endcan
                                                 </div>
                                             </div>
