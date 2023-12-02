@@ -23,6 +23,8 @@ use Config;
 use Session;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
 
 
 class CheckoutController extends Controller
@@ -260,26 +262,88 @@ class CheckoutController extends Controller
         $orderGroup->payment_method = $request->payment_method;
         $orderGroup->save();
 
-        // Send data to API endpoint
-        $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
+
+
+        /* $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
         $sCodeTiers = auth()->user()->CODETIERS; 
         $rTotalHT = $orderGroup->sub_total_amount; 
         $RtotalTTC = $orderGroup->grand_total_amount;
-
-        $apiResponse = Http::post("$apiEndpoint$sCodeTiers/$rTotalHT/$RtotalTTC", [
-            "IDDocument" => $orderGroup->id, 
-            "NuméroInterneDocument" => $orderGroup->order_code,
-            "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name,
-        ]);
-
         
-        if ($apiResponse->successful()) {
-            
+        // Update the query to use eager loading
+        $carts = Cart::with('product_variation.product')
+            ->where('user_id', $userId)
+            ->where('location_id', session('stock_location_id'))
+            ->get();
+        
+        $mainOrderApiData = [
+            "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
+        ];
+        
+        $mainOrderApiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $mainOrderApiData);
+        
+        if ($mainOrderApiResponse->successful()) {
+            $mainOrderResponseData = $mainOrderApiResponse->json();
+            $idDocument = $mainOrderResponseData['IDDocument'];
+        
+            foreach ($carts as $cart) {
+                $barcode = substr($cart->product_variation->product->slug, 0, strpos($cart->product_variation->product->slug, '-'));
+
+                
+        
+                $apiLineData = [
+                    "m_nIDDocument"      => $idDocument,
+                    "m_sRéférence"        => $cart->product_variation->product->sku,
+                    "m_sLibProd"          => $cart->product_variation->product->name,
+                    "m_rQuantité"         => $cart->qty,
+                    "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
+                    "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
+                    "m_moTotaleTTC"       => $cart->total_price,
+                    "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
+                    "m_moTotaletva"       => $cart->total_tax,
+                    "m_nIDProduit"        => $cart->product_variation->product->id,
+                    "m_dhDateheuresaisie" => now(),
+                ];
+                dd('api: ' , $apiLineData); 
+        
+                $apiLineResponse = Http::post("http://51.83.131.79/hdcomercialeco/LigneDocument/$idDocument/$barcode", $apiLineData);
+        
+                if ($apiLineResponse->successful()) {
+                    dd('API request for ligne Document successful', $apiLineResponse->json());
+                } else {
+                    dd('API request for ligne Document failed', $apiLineResponse->status(), $apiLineResponse->body());
+                }
+            }
         } else {
-            
-        }
+            dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
+        } */
         
-        // end Api
+        
+
+
+$apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
+$sCodeTiers = auth()->user()->CODETIERS; 
+$rTotalHT = $orderGroup->sub_total_amount; 
+$RtotalTTC = $orderGroup->grand_total_amount;
+
+// Prepare data for API request
+$apiData = [
+    "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
+];
+
+
+$apiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $apiData);
+
+// Check API response
+if ($apiResponse->successful()) {
+    // Handle success
+    dd('API request successful', $apiResponse->json());
+} else {
+    // Handle failure
+    dd('API request failed', $apiResponse->status(), $apiResponse->body());
+}
+
+        
+        // end Api 
 
             if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
