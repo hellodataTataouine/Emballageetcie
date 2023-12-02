@@ -64,7 +64,7 @@ class ProductsController extends Controller
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
                 
-                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
                     $matchingProduct->Prix_HT = $apiPriceHT;
@@ -707,7 +707,7 @@ public function SynchronizeProducts(Request $request)
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
                 
-                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
                     $matchingProduct->Prix_HT = $apiPriceHT;
