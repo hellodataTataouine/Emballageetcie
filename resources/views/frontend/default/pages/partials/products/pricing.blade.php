@@ -1,7 +1,14 @@
 @auth
     @if (productBasePrice($product) == discountedProductBasePrice($product))
         @if (productBasePrice($product) == productMaxPrice($product))
+        <div>
+            <span class="fw-bold h4 text-muted">Prix HT:</span>
+            <span class="fw-bold h4 text-danger">{{ formatPrice($product->Prix_HT) }}</span>
+        </div>
+        <div>
+            <span class="fw-bold h4 text-muted">Prix TTC:</span>
             <span class="fw-bold h4 text-danger">{{ formatPrice(productBasePrice($product)) }}</span>
+        </div>
         @else
             <span class="fw-bold h4 text-danger">{{ formatPrice(productBasePrice($product)) }}</span>
             -
@@ -22,10 +29,15 @@
 
         @if (!isset($onlyPrice) || $onlyPrice == false)
             @if (productBasePrice($product) == productMaxPrice($product))
-                <span
-                    class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice(productBasePrice($product)) }}</span>
-                    <span
-                    class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice($product->Prix_HT) }}</span>
+               
+            <div>
+                <span class="fw-bold h4 text-muted">Prix HT:</span>
+                <span class="fw-bold h4 text-danger">{{ formatPrice($product->Prix_HT) }}</span>
+            </div>
+            <div>
+                <span class="fw-bold h4 text-muted">Prix TTC:</span>
+                <span class="fw-bold h4 text-danger">{{ formatPrice(productBasePrice($product)) }}</span>
+            </div>
             @else
                 <span
                     class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice(productBasePrice($product)) }}</span>

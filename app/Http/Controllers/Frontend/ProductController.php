@@ -46,6 +46,53 @@ $existingProducts = Product::whereIn('slug', $barcodes)
     ->get()
     ->keyBy('slug');
 
+
+    foreach ($produitsApi as $produitApi) {
+        $name = $produitApi['Libellé'];
+        $barcode = $produitApi['codeabarre'];
+        $apiPrice = $produitApi['PrixVTTC'];
+        $apiPriceHT = $produitApi['PrixVenteHT'];
+        $apiStock = $produitApi['StockActual'];
+
+  // Find products with matching barcode
+  if (!(isset($existingProducts[$barcode]))) {
+ 
+// Update prices for matching products
+$location = Location::where('is_default', 1)->first();
+$newProduct = new Product();
+$newProduct->name = $name;
+$newProduct->slug = $barcode; 
+$newProduct->min_price = $apiPrice;
+$newProduct->max_price = $apiPrice;
+$newProduct->Prix_HT = $apiPrice;
+$newProduct->stock_qty = $apiStock;
+$newProduct->has_variation = 0;
+// Set other properties accordingly based on your product model
+
+$newProduct->save();
+
+$variation              = new ProductVariation;
+$variation->product_id  = $newProduct->id;
+// $variation->sku         = $request->sku;
+// $variation->code         = $request->code;
+$variation->price       = $apiPrice;
+$variation->save();
+$product_variation_stock = new ProductVariationStock;
+$product_variation_stock->product_variation_id    = $variation->id;
+$product_variation_stock->location_id             = $location->id;
+$product_variation_stock->stock_qty               = $apiStock;
+$product_variation_stock->save();
+$ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+$ProductLocalization->name = $name;
+//$ProductLocalization->description = $request->description;
+$ProductLocalization->save();
+
+
+}
+
+    }
+
+
 foreach ($produitsApi as $produitApi) {
     $barcode = $produitApi['codeabarre'];
     $apiPrice = $produitApi['PrixVTTC'];
