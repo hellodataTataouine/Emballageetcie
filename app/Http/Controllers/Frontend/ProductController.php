@@ -22,17 +22,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $virtualProducts = collect(); 
-        $searchKey = null;
-        $per_page = 9;
-        $sort_by = $request->sort_by ? $request->sort_by : "new";
-        $maxRange = Product::max('max_price');
-        $min_value = 0;
-        $max_value = formatPrice($maxRange, false, false, false, false);
-        $apiUrl = env('API_CATEGORIES_URL');
-        
-        $response = Http::get($apiUrl . 'Produit');
-        $produitsApi = $response->json();
+$searchKey = null;
+$per_page = 9;
+$sort_by = $request->sort_by ? $request->sort_by : "new";
+$maxRange = Product::max('max_price');
+$min_value = 0;
+$max_value = formatPrice($maxRange, false, false, false, false);
+$apiUrl = env('API_CATEGORIES_URL');
 
+<<<<<<< HEAD
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
@@ -59,6 +57,44 @@ class ProductController extends Controller
         }
     
       /*  foreach ($produitsApi as $produitApi) {
+=======
+$response = Http::get($apiUrl . 'Produit');
+$produitsApi = $response->json();
+
+$barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+$existingProducts = Product::whereIn('slug', $barcodes)
+    ->where('is_published', 1)
+    ->with('categories')
+    ->get()
+    ->keyBy('slug');
+
+foreach ($produitsApi as $produitApi) {
+    $barcode = $produitApi['codeabarre'];
+    $apiPrice = $produitApi['PrixVTTC'];
+    $apiStock = $produitApi['StockActual'];
+    
+    if (isset($existingProducts[$barcode])) {
+        $matchingProduct = $existingProducts[$barcode];
+        
+        if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+            $matchingProduct->min_price = $apiPrice; 
+            $matchingProduct->max_price = $apiPrice;
+        }
+        
+        if ($matchingProduct->stock_qty != $apiStock) {
+            $matchingProduct->stock_qty = $apiStock;
+        }
+        
+        $virtualProducts->push($matchingProduct);
+    } else {
+        // Create a new product or do additional handling for new products
+    }
+}
+
+
+
+        /*  foreach ($produitsApi as $produitApi) {
+>>>>>>> 1764f60878187e63e1bdd18ef1626bb805f32c3c
             $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
