@@ -22,6 +22,9 @@ use Notification;
 use Config;
 use Session;
 
+use Illuminate\Support\Facades\Http;
+
+
 class CheckoutController extends Controller
 {
     # checkout
@@ -252,6 +255,31 @@ class CheckoutController extends Controller
 
             $orderGroup->payment_method = $request->payment_method;
             $orderGroup->save();
+
+            
+        $orderGroup->payment_method = $request->payment_method;
+        $orderGroup->save();
+
+        // Send data to API endpoint
+        $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
+        $sCodeTiers = auth()->user()->CODETIERS; 
+        $rTotalHT = $orderGroup->sub_total_amount; 
+        $RtotalTTC = $orderGroup->grand_total_amount;
+
+        $apiResponse = Http::post("$apiEndpoint$sCodeTiers/$rTotalHT/$RtotalTTC", [
+            "IDDocument" => $orderGroup->id, 
+            "NuméroInterneDocument" => $orderGroup->order_code,
+            "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name,
+        ]);
+
+        
+        if ($apiResponse->successful()) {
+            
+        } else {
+            
+        }
+        
+        // end Api
 
             if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
