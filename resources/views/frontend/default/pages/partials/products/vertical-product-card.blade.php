@@ -94,7 +94,7 @@
                     class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100">{{ localize('Sur Commande') }}</a>
             @else
                 <a href="javascript:void(0);"
-                    onclick="directAddToCartFormSubmit(this)" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter auuuuuuuuuuuuu panier') }}</a>
+                    onclick="directAddToCartFormSubmit(this)" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
             @endif
         </form>
     @endif
