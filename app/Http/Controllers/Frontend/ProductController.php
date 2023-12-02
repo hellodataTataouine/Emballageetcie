@@ -30,7 +30,7 @@ $min_value = 0;
 $max_value = formatPrice($maxRange, false, false, false, false);
 $apiUrl = env('API_CATEGORIES_URL');
 
-$response = Http::get($apiUrl . 'Produit/CodeTier/');
+$response = Http::get($apiUrl . 'ListeDePrixWeb/');
 $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
@@ -211,7 +211,7 @@ foreach ($produitsApi as $produitApi) {
     {
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'Produit');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -261,7 +261,7 @@ foreach ($produitsApi as $produitApi) {
 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'Produit');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
 
         

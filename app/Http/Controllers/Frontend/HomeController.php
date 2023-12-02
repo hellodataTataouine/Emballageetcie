@@ -43,7 +43,7 @@ class HomeController extends Controller
         }
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'Produit/CodeTier/');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
 
         foreach ($produitsApi as $produitApi) {
