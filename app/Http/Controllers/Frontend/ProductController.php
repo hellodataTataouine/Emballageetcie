@@ -18,7 +18,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
-    # product listing
+   
     public function index(Request $request)
     {
         $virtualProducts = collect(); 
@@ -30,7 +30,7 @@ $min_value = 0;
 $max_value = formatPrice($maxRange, false, false, false, false);
 $apiUrl = env('API_CATEGORIES_URL');
 
-$response = Http::get($apiUrl . 'Produit');
+$response = Http::get($apiUrl . 'Produit/CodeTier/');
 $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
@@ -204,6 +204,7 @@ foreach ($produitsApi as $produitApi) {
 
      
     }
+
 
     # product show
     public function show($slug)
