@@ -44,7 +44,7 @@ class ProductsController extends Controller
     
         // Fetch all products from the API
         $apiUrl = env('API_CATEGORIES_URL');
-        $response = Http::get($apiUrl . 'Produit');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
     
         // Retrieve all existing products and organize them by slug
@@ -634,21 +634,15 @@ public function delete($id)
 public function SynchronizeProducts(Request $request)
 {
     $virtualProducts = collect(); // Initialize a collection to hold virtual products
-    //dd($virtualProducts);
-            //get produits
-            $apiUrl = env('API_CATEGORIES_URL');
-            
-            $response = Http::get($apiUrl . 'Produit');
-           // dd($response);
-            $produitsApi = $response->json();
     
-            
-            $searchKey = null;
-            $brand_id = null;
-            $is_published = null;
-    
-           $products = Product::latest();
-           
+    // Fetch all products from the API
+    $apiUrl = env('API_CATEGORIES_URL');
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+    $produitsApi = $response->json();
+
+    // Retrieve all existing products and organize them by slug
+    $existingProducts = Product::pluck('id', 'slug')->toArray();
+
     
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
@@ -658,15 +652,8 @@ public function SynchronizeProducts(Request $request)
             $apiStock = $produitApi['StockActual'];
     
       // Find products with matching barcode
-      $matchingProducts = Product::where('slug', $barcode)->get();
-      if (!($matchingProducts->isNotEmpty())) {
-       /* foreach ($matchingProducts as $matchingProduct) {
-            if ($matchingProduct->stock_qty !== $apiStock) {
-            $matchingProduct->stock_qty = $apiStock;
-            $matchingProduct->save();
-        }
-        }*/
-    
+      if (!(isset($existingProducts[$barcode]))) {
+     
     // Update prices for matching products
     $location = Location::where('is_default', 1)->first();
     $newProduct = new Product();
@@ -703,9 +690,6 @@ public function SynchronizeProducts(Request $request)
         }
     
         // Retrieve all existing products and organize them by slug
-        $existingProducts = Product::pluck('id', 'slug')->toArray();
-    
-        // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
