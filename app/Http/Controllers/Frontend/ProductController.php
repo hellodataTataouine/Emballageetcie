@@ -15,10 +15,10 @@ use App\Models\Location;
 use App\Models\ProductVariationStock;
 use App\Models\ProductLocalization;
 use Illuminate\Pagination\LengthAwarePaginator;
-
+use Auth;
 class ProductController extends Controller
 {
-    # product listing
+   
     public function index(Request $request)
     {
         $virtualProducts = collect(); 
@@ -29,8 +29,14 @@ $maxRange = Product::max('max_price');
 $min_value = 0;
 $max_value = formatPrice($maxRange, false, false, false, false);
 $apiUrl = env('API_CATEGORIES_URL');
+if (Auth::check() && Auth::user()->user_type == 'customer')
+{
+$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+}else{
+   
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-$response = Http::get($apiUrl . 'Produit');
+}
 $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
@@ -205,12 +211,13 @@ foreach ($produitsApi as $produitApi) {
      
     }
 
+
     # product show
     public function show($slug)
     {
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'Produit');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -260,7 +267,7 @@ foreach ($produitsApi as $produitApi) {
 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'Produit');
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         $produitsApi = $response->json();
 
         
