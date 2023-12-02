@@ -49,6 +49,7 @@ $existingProducts = Product::whereIn('slug', $barcodes)
 foreach ($produitsApi as $produitApi) {
     $barcode = $produitApi['codeabarre'];
     $apiPrice = $produitApi['PrixVTTC'];
+    $apiPriceHT = $produitApi['PrixVenteHT'];
     $apiStock = $produitApi['StockActual'];
     
     if (isset($existingProducts[$barcode])) {
@@ -57,6 +58,7 @@ foreach ($produitsApi as $produitApi) {
         if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
             $matchingProduct->min_price = $apiPrice; 
             $matchingProduct->max_price = $apiPrice;
+            $matchingProduct->Prix_HT = $apiPriceHT;
         }
         
         if ($matchingProduct->stock_qty != $apiStock) {
@@ -217,7 +219,14 @@ foreach ($produitsApi as $produitApi) {
     {
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer')
+{
+$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+}else{
+   
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+
+}
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -267,7 +276,14 @@ foreach ($produitsApi as $produitApi) {
 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer')
+{
+$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+}else{
+   
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+
+}
         $produitsApi = $response->json();
 
         

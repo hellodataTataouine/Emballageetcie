@@ -48,33 +48,35 @@ class ProductsController extends Controller
         $produitsApi = $response->json();
     
         // Retrieve all existing products and organize them by slug
-        $existingProducts = Product::pluck('id', 'slug')->toArray();
-    
-        // Loop through each product from the API
+        $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+        $existingProducts = Product::whereIn('slug', $barcodes)
+            ->where('is_published', 1)
+            ->with('categories')
+            ->get()
+            ->keyBy('slug');
+        
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
             
-            // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
-                $productId = $existingProducts[$barcode];
-    
-                // Retrieve the existing product
-                $matchingProduct = Product::with('categories')->find($productId);
-    
-                if ($matchingProduct !== null) {
-                    if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-                        $matchingProduct->min_price = $apiPrice;
-                        $matchingProduct->max_price = $apiPrice;
-                    }
-                    if ($matchingProduct->stock_qty !== $apiStock) {
-                        $matchingProduct->stock_qty = $apiStock;
-                    }
-                   
-                    $virtualProducts->push($matchingProduct);
-                    
+                $matchingProduct = $existingProducts[$barcode];
+                
+                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                    $matchingProduct->Prix_HT = $apiPriceHT;
                 }
+                
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
+                
+                $virtualProducts->push($matchingProduct);
+            } else {
+                // Create a new product or do additional handling for new products
             }
         }
     
@@ -641,7 +643,11 @@ public function SynchronizeProducts(Request $request)
     $produitsApi = $response->json();
 
     // Retrieve all existing products and organize them by slug
-    $existingProducts = Product::pluck('id', 'slug')->toArray();
+    $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+    $existingProducts = Product::whereIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
 
     
              // Loop through each product from the API
@@ -649,6 +655,7 @@ public function SynchronizeProducts(Request $request)
             $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
     
       // Find products with matching barcode
@@ -661,7 +668,7 @@ public function SynchronizeProducts(Request $request)
     $newProduct->slug = $barcode; 
     $newProduct->min_price = $apiPrice;
     $newProduct->max_price = $apiPrice;
-    
+    $newProduct->Prix_HT = $apiPrice;
     $newProduct->stock_qty = $apiStock;
     $newProduct->has_variation = 0;
     // Set other properties accordingly based on your product model
@@ -693,27 +700,26 @@ public function SynchronizeProducts(Request $request)
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
             
             // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
-                $productId = $existingProducts[$barcode];
-    
-                // Retrieve the existing product
-                $matchingProduct = Product::with('categories')->find($productId);
-    
-                if ($matchingProduct !== null) {
-                    if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-                        $matchingProduct->min_price = $apiPrice;
-                        $matchingProduct->max_price = $apiPrice;
-                    }
-                    if ($matchingProduct->stock_qty !== $apiStock) {
-                        $matchingProduct->stock_qty = $apiStock;
-                    }
-                   
-                    $virtualProducts->push($matchingProduct);
-                    
+                $matchingProduct = $existingProducts[$barcode];
+                
+                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                    $matchingProduct->Prix_HT = $apiPriceHT;
                 }
+                
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
+                
+                $virtualProducts->push($matchingProduct);
+            } else {
+                // Create a new product or do additional handling for new products
             }
         }
     
