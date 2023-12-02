@@ -30,34 +30,6 @@ $min_value = 0;
 $max_value = formatPrice($maxRange, false, false, false, false);
 $apiUrl = env('API_CATEGORIES_URL');
 
-<<<<<<< HEAD
-        foreach ($produitsApi as $produitApi) {
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiStock = $produitApi['StockActual'];
-            
-            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
-        
-            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
-                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
-                    $matchingProduct->min_price = $apiPrice; 
-                    $matchingProduct->max_price = $apiPrice;
-                   
-                }
-                if ($matchingProduct->stock_qty !== $apiStock) {
-                    $matchingProduct->stock_qty = $apiStock;
-                }
-            }
-            if ($matchingProduct->is_published == 1) {
-
-                $virtualProducts->push($matchingProduct);
-
-
-            }
-        }
-    
-      /*  foreach ($produitsApi as $produitApi) {
-=======
 $response = Http::get($apiUrl . 'Produit');
 $produitsApi = $response->json();
 
@@ -94,7 +66,6 @@ foreach ($produitsApi as $produitApi) {
 
 
         /*  foreach ($produitsApi as $produitApi) {
->>>>>>> 1764f60878187e63e1bdd18ef1626bb805f32c3c
             $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
