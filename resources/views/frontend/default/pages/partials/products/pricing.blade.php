@@ -2,7 +2,7 @@
     @if (productBasePrice($product) == discountedProductBasePrice($product))
         @if (productBasePrice($product) == productMaxPrice($product))
         <div>
-            <span class="fw-bold h4 text-muted">Prix HT:</span>
+            <span class="fw-bold h4 text-muted">Prix HT :</span>
             <span class="fw-bold h4 text-danger">{{ formatPrice($product->Prix_HT) }}</span>
         </div>
         <div>

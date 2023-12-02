@@ -53,6 +53,8 @@ $existingProducts = Product::whereIn('slug', $barcodes)
         $apiPrice = $produitApi['PrixVTTC'];
         $apiPriceHT = $produitApi['PrixVenteHT'];
         $apiStock = $produitApi['StockActual'];
+        $apiunité = $produitApi['unité_lot'];
+        $apiQTEUNITE = $produitApi['QTEUNITE'];
 
   // Find products with matching barcode
   if (!(isset($existingProducts[$barcode]))) {
