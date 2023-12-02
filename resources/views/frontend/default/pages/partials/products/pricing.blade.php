@@ -24,6 +24,8 @@
             @if (productBasePrice($product) == productMaxPrice($product))
                 <span
                     class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice(productBasePrice($product)) }}</span>
+                    <span
+                    class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice($product->Prix_HT) }}</span>
             @else
                 <span
                     class="fw-bold h4 deleted text-muted {{ isset($br) ? '' : 'ms-1' }}">{{ formatPrice(productBasePrice($product)) }}</span>
