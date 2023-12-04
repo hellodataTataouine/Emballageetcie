@@ -180,7 +180,7 @@ class CheckoutController extends Controller
             $total_points = 0;
 
 
-            $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/';
+            $apiEndpoint = env('API_CATEGORIES_URL');
             $sCodeTiers = auth()->user()->CODETIERS;
             $rTotalHT = $orderGroup->sub_total_amount;
             $RtotalTTC = $orderGroup->grand_total_amount;
@@ -234,20 +234,20 @@ class CheckoutController extends Controller
                     }
             
                     $apiLineData = [
-                        "m_nIDDocument"      => $idDocument,
-                        "m_sRéférence"        => $cart->product_variation->product->sku,
-                        "m_sLibProd"          => $cart->product_variation->product->name,
-                        "m_rQuantité"         => $cart->qty,
-                        "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
-                        "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
-                        "m_moTotaleTTC"       => $orderItem->total_price, 
-                        "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
-                        "m_moTotaletva"       => $cart->total_tax,
-                        "m_nIDProduit"        => $cart->product_variation->product->id,
-                        "m_dhDateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                        "IDDocument"      => $idDocument,
+                        "Référence"        => "",
+                        "LibProd"          => $cart->product_variation->product->name,
+                        "Quantité"         => $cart->qty,
+                        "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
+                        "TauxTVA"          => $cart->product_variation->product->tax_percentage,
+                        "TotaleTTC"       => $orderItem->total_price, 
+                        "TotaleHT"        => $cart->unit_price * $cart->qty,
+                        "totaletva"       => $cart->total_tax,
+                        "IDProduit"        => $cart->product_variation->product->id,
+                        "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
                     ];
 
-                    dd( $apiLineData);
+                  //  dd( $apiLineData);
 
 
             
@@ -289,6 +289,41 @@ class CheckoutController extends Controller
             
                     $cart->delete();
                 }
+                $apiLineData1 = [
+                    "IDDocument"      => $idDocument,
+                    "Référence"        => "",
+                    "LibProd"          => "Transport Marchandise "  . $logisticZone->logistic->name . "\nRC" . $order->scheduled_delivery_info ,
+                    "Quantité"         => 1,
+                    "PrixVente"       => $orderGroup->total_shipping_cost,
+                    
+                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                ];
+
+              
+
+
+        
+                // LigneDocument API request
+                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData1);
+
+                $apiLineData2 = [
+                    "IDDocument"      => $idDocument,
+                    "Référence"        => "",
+                    "LibProd" => "Moy Paiement  " . $request->payment_method . "\nRC" ,
+
+                    "Quantité"         => 1,
+                    
+                    
+                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                ];
+
+              //  dd( $apiLineData);
+
+
+        
+                // LigneDocument API request
+                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
+
             } else {
                 dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
