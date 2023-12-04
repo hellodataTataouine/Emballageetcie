@@ -8,13 +8,14 @@
                 
                 
                 <div class="mb-3">
-                    <div class="d-flex justify-content-between">
-                        <span class="fw-bold text-muted">Unité:</span>
-                        <span class="fw-bold text-danger">{{ $product->Unit }}</span>
-                    </div>
+                    
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Qté Unité:</span>
                         <span class="fw-bold text-danger">{{ $product->Qty_Unit }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Unité:</span>
+                        <span class="fw-bold text-danger">{{ $product->Unit }}</span>
                     </div>
                 </div>
 
