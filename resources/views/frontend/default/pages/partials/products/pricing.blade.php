@@ -5,16 +5,7 @@
             
                
                 
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between">
-                        <span class="fw-bold text-muted">Prix HT:</span>
-                        <span class="fw-bold text-danger">{{ formatPrice($product->Prix_HT) }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="fw-bold text-muted">Prix TTC:</span>
-                        <span class="fw-bold text-danger">{{ formatPrice(productBasePrice($product)) }}</span>
-                    </div>
-                </div>
+                
                 
                 <div class="mb-3">
                     <div class="d-flex justify-content-between">
@@ -24,6 +15,17 @@
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Qté Unité:</span>
                         <span class="fw-bold text-danger">{{ $product->Qty_Unit }}</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Prix HT:</span>
+                        <span class="fw-bold text-danger">{{ formatPrice($product->Prix_HT) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Prix TTC:</span>
+                        <span class="fw-bold text-danger">{{ formatPrice(productBasePrice($product)) }}</span>
                     </div>
                 </div>
                 
