@@ -60,7 +60,8 @@ class ProductsController extends Controller
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
-            
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
                 
@@ -72,6 +73,12 @@ class ProductsController extends Controller
                 
                 if ($matchingProduct->stock_qty != $apiStock) {
                     $matchingProduct->stock_qty = $apiStock;
+                }
+                if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+                    $matchingProduct->Qty_Unit = $apiQTEUNITE;
+                }
+                if ($matchingProduct->Unit != $apiunité) {
+                    $matchingProduct->Unit = $apiQTEUNITE;
                 }
                 
                 $virtualProducts->push($matchingProduct);
@@ -657,6 +664,8 @@ public function SynchronizeProducts(Request $request)
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+        $apiQTEUNITE = $produitApi['QTEUNITE'];
     
       // Find products with matching barcode
       if (!(isset($existingProducts[$barcode]))) {
@@ -671,6 +680,8 @@ public function SynchronizeProducts(Request $request)
     $newProduct->Prix_HT = $apiPrice;
     $newProduct->stock_qty = $apiStock;
     $newProduct->has_variation = 0;
+    $newProduct->Qty_Unit = $apiQTEUNITE;
+$newProduct->Unit = $apiunité;
     // Set other properties accordingly based on your product model
     
     $newProduct->save();
@@ -715,6 +726,12 @@ public function SynchronizeProducts(Request $request)
                 
                 if ($matchingProduct->stock_qty != $apiStock) {
                     $matchingProduct->stock_qty = $apiStock;
+                }
+                if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+                    $matchingProduct->Qty_Unit = $apiQTEUNITE;
+                }
+                if ($matchingProduct->Unit != $apiunité) {
+                    $matchingProduct->Unit = $apiQTEUNITE;
                 }
                 
                 $virtualProducts->push($matchingProduct);

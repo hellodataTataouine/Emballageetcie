@@ -69,6 +69,8 @@ $newProduct->max_price = $apiPrice;
 $newProduct->Prix_HT = $apiPrice;
 $newProduct->stock_qty = $apiStock;
 $newProduct->has_variation = 0;
+$newProduct->Qty_Unit = $apiQTEUNITE;
+$newProduct->Unit = $apiunité;
 // Set other properties accordingly based on your product model
 
 $newProduct->save();
@@ -100,7 +102,8 @@ foreach ($produitsApi as $produitApi) {
     $apiPrice = $produitApi['PrixVTTC'];
     $apiPriceHT = $produitApi['PrixVenteHT'];
     $apiStock = $produitApi['StockActual'];
-    
+    $apiunité = $produitApi['unité_lot'];
+    $apiQTEUNITE = $produitApi['QTEUNITE'];
     if (isset($existingProducts[$barcode])) {
         $matchingProduct = $existingProducts[$barcode];
         
@@ -112,6 +115,12 @@ foreach ($produitsApi as $produitApi) {
         
         if ($matchingProduct->stock_qty != $apiStock) {
             $matchingProduct->stock_qty = $apiStock;
+        }
+        if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+            $matchingProduct->Qty_Unit = $apiQTEUNITE;
+        }
+        if ($matchingProduct->Unit != $apiunité) {
+            $matchingProduct->Unit = $apiunité;
         }
         
         $virtualProducts->push($matchingProduct);
