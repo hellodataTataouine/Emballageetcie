@@ -10,6 +10,7 @@ use App\Models\Catalog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Product;
+use Auth;
 class HomeController extends Controller
 {
     # set theme
@@ -43,7 +44,14 @@ class HomeController extends Controller
         }
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer')
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+        }else{
+           
+            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        
+        }
         $produitsApi = $response->json();
 
         foreach ($produitsApi as $produitApi) {

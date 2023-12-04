@@ -207,7 +207,7 @@
 
                             <!--product brand and unit start-->
                             <div class="row" id="section-4">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <h5 class="mb-4">{{ localize('Marque du produit') }}</h5>
@@ -225,7 +225,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                             <!--   <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <h5 class="mb-4">{{ localize('Unité du produit') }}</h5>
@@ -242,7 +242,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                             <!--product brand and unit end-->
 
@@ -305,7 +305,7 @@
                                                     <input type="text" id="sku"
                                                         placeholder="{{ localize(' sku du produit') }}" name="sku"
                                                         class="form-control" value="{{ $sku }}"
-                                                        {{ !$product->has_variation ? 'required' : '' }}>
+                                                        >
                                                 </div>
                                             </div>
 
@@ -316,7 +316,7 @@
                                                     <input type="text" id="code"
                                                         placeholder="{{ localize(' Code du Produit') }}" name="code"
                                                         value="{{ $code }}" class="form-control"
-                                                        {{ !$product->has_variation ? 'required' : '' }}>
+                                                        >
                                                 </div>
                                             </div>
                                         </div>
@@ -780,7 +780,7 @@
                                             <a href="#section-tags">{{ localize('Tags du produit') }}</a>
                                         </li>
                                         <li>
-                                            <a href="#section-4">{{ localize('Marque & Unité du produit') }}</a>
+                                            <a href="#section-4">{{ localize('Marque du produit') }}</a>
                                         </li>
                                         <li>
                                             <a href="#section-5">{{ localize('SKU, Code ') }}</a>

@@ -41,26 +41,86 @@ $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
 $existingProducts = Product::whereIn('slug', $barcodes)
-    ->where('is_published', 1)
+   
     ->with('categories')
     ->get()
     ->keyBy('slug');
 
+
+    foreach ($produitsApi as $produitApi) {
+        $name = $produitApi['Libellé'];
+        $barcode = $produitApi['codeabarre'];
+        $apiPrice = $produitApi['PrixVTTC'];
+        $apiPriceHT = $produitApi['PrixVenteHT'];
+        $apiStock = $produitApi['StockActual'];
+        $apiunité = $produitApi['unité_lot'];
+        $apiQTEUNITE = $produitApi['QTEUNITE'];
+
+  // Find products with matching barcode
+  if (!(isset($existingProducts[$barcode]))) {
+ 
+// Update prices for matching products
+$location = Location::where('is_default', 1)->first();
+$newProduct = new Product();
+$newProduct->name = $name;
+$newProduct->slug = $barcode; 
+$newProduct->min_price = $apiPrice;
+$newProduct->max_price = $apiPrice;
+$newProduct->Prix_HT = $apiPrice;
+$newProduct->stock_qty = $apiStock;
+$newProduct->has_variation = 0;
+$newProduct->Qty_Unit = $apiQTEUNITE;
+$newProduct->Unit = $apiunité;
+// Set other properties accordingly based on your product model
+
+$newProduct->save();
+
+$variation              = new ProductVariation;
+$variation->product_id  = $newProduct->id;
+// $variation->sku         = $request->sku;
+// $variation->code         = $request->code;
+$variation->price       = $apiPrice;
+$variation->save();
+$product_variation_stock = new ProductVariationStock;
+$product_variation_stock->product_variation_id    = $variation->id;
+$product_variation_stock->location_id             = $location->id;
+$product_variation_stock->stock_qty               = $apiStock;
+$product_variation_stock->save();
+$ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+$ProductLocalization->name = $name;
+//$ProductLocalization->description = $request->description;
+$ProductLocalization->save();
+
+
+}
+
+    }
+
+
 foreach ($produitsApi as $produitApi) {
     $barcode = $produitApi['codeabarre'];
     $apiPrice = $produitApi['PrixVTTC'];
+    $apiPriceHT = $produitApi['PrixVenteHT'];
     $apiStock = $produitApi['StockActual'];
-    
+    $apiunité = $produitApi['unité_lot'];
+    $apiQTEUNITE = $produitApi['QTEUNITE'];
     if (isset($existingProducts[$barcode])) {
         $matchingProduct = $existingProducts[$barcode];
         
-        if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice) {
+        if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
             $matchingProduct->min_price = $apiPrice; 
             $matchingProduct->max_price = $apiPrice;
+            $matchingProduct->Prix_HT = $apiPriceHT;
         }
         
         if ($matchingProduct->stock_qty != $apiStock) {
             $matchingProduct->stock_qty = $apiStock;
+        }
+        if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+            $matchingProduct->Qty_Unit = $apiQTEUNITE;
+        }
+        if ($matchingProduct->Unit != $apiunité) {
+            $matchingProduct->Unit = $apiunité;
         }
         
         $virtualProducts->push($matchingProduct);
@@ -217,7 +277,14 @@ foreach ($produitsApi as $produitApi) {
     {
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer')
+{
+$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+}else{
+   
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+
+}
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -226,13 +293,20 @@ foreach ($produitsApi as $produitApi) {
         foreach ($produitsApi as $produitApi) {
             
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
             if($produitApi['codeabarre'] == $slug ){
 
                 
                 $product->min_price = $apiPrice; 
                 $product->max_price = $apiPrice;
+                $product->Prix_HT = $apiPriceHT;
                 $product->stock_qty = $apiStock;
+                $product->Unit = $apiunité;
+                $product->Qty_Unit = $apiQTEUNITE;
+                
             }
         }
 
@@ -267,7 +341,14 @@ foreach ($produitsApi as $produitApi) {
 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer')
+{
+$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+}else{
+   
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+
+}
         $produitsApi = $response->json();
 
         
@@ -276,13 +357,19 @@ foreach ($produitsApi as $produitApi) {
         foreach ($produitsApi as $produitApi) {
             
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
             if($produitApi['codeabarre'] == $product->slug ){
 
                 
                 $product->min_price = $apiPrice; 
                 $product->max_price = $apiPrice;
+                $product->Prix_HT = $apiPriceHT;
                 $product->stock_qty = $apiStock;
+                $product->Unit = $apiunité;
+                $product->Qty_Unit = $apiQTEUNITE;
             }
         }
         return getView('pages.partials.products.product-view-box', ['product' => $product]);
