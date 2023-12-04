@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Backend\Payments\PaymentsController;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product; // Add this line
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\CouponUsage;
@@ -21,6 +22,11 @@ use Illuminate\Http\Request;
 use Notification;
 use Config;
 use Session;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
+
 
 class CheckoutController extends Controller
 {
@@ -172,48 +178,122 @@ class CheckoutController extends Controller
 
             # order items
             $total_points = 0;
-            foreach ($carts as $cart) {
-                $orderItem                       = new OrderItem;
-                $orderItem->order_id             = $order->id;
-                $orderItem->product_variation_id = $cart->product_variation_id;
-                $orderItem->qty                  = $cart->qty;
-                $orderItem->location_id     = session('stock_location_id');
-                $orderItem->unit_price           = variationDiscountedPrice($cart->product_variation->product, $cart->product_variation);
-                $orderItem->total_tax            = variationTaxAmount($cart->product_variation->product, $cart->product_variation);
-                $orderItem->total_price          = $orderItem->unit_price * $orderItem->qty;
-                $orderItem->save();
-
-                $product = $cart->product_variation->product;
-                $product->total_sale_count += $orderItem->qty;
-
-                # reward points
-                if (getSetting('enable_reward_points') == 1) {
-                    $orderItem->reward_points = $product->reward_points * $orderItem->qty;
-                    $total_points += $orderItem->reward_points;
-                }
-
-                // minus stock qty
-                try {
-                    $productVariationStock = $cart->product_variation->product_variation_stock;
-                    $productVariationStock->stock_qty -= $orderItem->qty;
-                    $productVariationStock->save();
-                } catch (\Throwable $th) {
-                    //throw $th;
-                }
-                $product->stock_qty -= $orderItem->qty;
-                $product->save();
 
 
+            $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/';
+            $sCodeTiers = auth()->user()->CODETIERS;
+            $rTotalHT = $orderGroup->sub_total_amount;
+            $RtotalTTC = $orderGroup->grand_total_amount;
+            
+            $userId = auth()->user()->id; // Ensure $userId is correctly set
+            $stockLocationId = session('stock_location_id'); // Ensure stock_location_id is correctly set
+            
+            $cartsQuery = Cart::with('product_variation.product')
+                ->where('user_id', $userId)
+                ->where('location_id', $stockLocationId);
+            
+            $carts = $cartsQuery->get();
+            
+            
+            $mainOrderApiData = [
+                "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
+            ];
+            
+            // Document API request
+            $mainOrderApiResponse = Http::post("$apiEndpoint/Document/$sCodeTiers/$rTotalHT/$RtotalTTC", $mainOrderApiData);
+            
+            if ($mainOrderApiResponse->successful()) {
+                $mainOrderResponseData = $mainOrderApiResponse->json();
+                $idDocument = $mainOrderResponseData['IDDocument'];
+            
+            
+                foreach ($carts as $cart) {
 
-                # category sales count
-                if ($product->categories()->count() > 0) {
-                    foreach ($product->categories as $category) {
-                        $category->total_sale_count += $orderItem->qty;
-                        $category->save();
+                    $orderItem = new OrderItem;
+                    $orderItem->order_id = $order->id;
+                    $orderItem->product_variation_id = $cart->product_variation_id;
+                    $orderItem->qty = $cart->qty;
+                    $orderItem->location_id = session('stock_location_id');
+                    $orderItem->unit_price = variationDiscountedPrice($cart->product_variation->product, $cart->product_variation);
+                    $orderItem->total_tax = variationTaxAmount($cart->product_variation->product, $cart->product_variation);
+                    $orderItem->total_price = $orderItem->unit_price * $orderItem->qty;
+                    $orderItem->save();
+            
+                    $product = $cart->product_variation->product;
+                    $product->total_sale_count += $orderItem->qty;
+            
+                    $productId = $product->id;
+
+                    $product = Product::find($productId);
+
+                    if ($product) {
+                        $slug = $product->slug;
+                        $barcode = strpos($slug, '-') !== false ? substr($slug, 0, strpos($slug, '-')) : $slug;
+                    } else {
+                    
                     }
+            
+                    $apiLineData = [
+                        "m_nIDDocument"      => $idDocument,
+                        "m_sRéférence"        => $cart->product_variation->product->sku,
+                        "m_sLibProd"          => $cart->product_variation->product->name,
+                        "m_rQuantité"         => $cart->qty,
+                        "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
+                        "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
+                        "m_moTotaleTTC"       => $orderItem->total_price, 
+                        "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
+                        "m_moTotaletva"       => $cart->total_tax,
+                        "m_nIDProduit"        => $cart->product_variation->product->id,
+                        "m_dhDateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                    ];
+
+                    dd( $apiLineData);
+
+
+            
+                    // LigneDocument API request
+                    $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
+            
+                    if ($apiLineResponse->successful()) {
+                       
+                    } else {
+                        
+                    }
+            
+                    
+            
+                    # reward points
+                    if (getSetting('enable_reward_points') == 1) {
+                        $orderItem->reward_points = $product->reward_points * $orderItem->qty;
+                        $total_points += $orderItem->reward_points;
+                    }
+            
+                    // minus stock qty
+                    try {
+                        $productVariationStock = $cart->product_variation->product_variation_stock;
+                        $productVariationStock->stock_qty -= $orderItem->qty;
+                        $productVariationStock->save();
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
+                    $product->stock_qty -= $orderItem->qty;
+                    $product->save();
+            
+                    # category sales count
+                    if ($product->categories()->count() > 0) {
+                        foreach ($product->categories as $category) {
+                            $category->total_sale_count += $orderItem->qty;
+                            $category->save();
+                        }
+                    }
+            
+                    $cart->delete();
                 }
-                $cart->delete();
+            } else {
+                dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
+            
+            
 
             # reward points
             if (getSetting('enable_reward_points') == 1) {
@@ -253,6 +333,109 @@ class CheckoutController extends Controller
             $orderGroup->payment_method = $request->payment_method;
             $orderGroup->save();
 
+            
+        $orderGroup->payment_method = $request->payment_method;
+        $orderGroup->save();
+
+
+
+       /* $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
+        $sCodeTiers = auth()->user()->CODETIERS; 
+        $rTotalHT = $orderGroup->sub_total_amount; 
+        $RtotalTTC = $orderGroup->grand_total_amount;
+        
+        $userId = auth()->user()->id; // Ensure $userId is correctly set
+        $stockLocationId = session('stock_location_id'); // Ensure stock_location_id is correctly set
+        
+        $cartsQuery = Cart::with('product_variation.product')
+            ->where('user_id', $userId)
+            ->where('location_id', $stockLocationId);
+        
+        $carts = $cartsQuery->get();
+        
+        dd('User ID:', $userId, 'Stock Location ID:', $stockLocationId, 'Carts Query:', $cartsQuery->toSql(), 'Carts Result:', $carts->toArray());        
+        
+    
+        $mainOrderApiData = [
+            "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
+        ];
+        
+        // Document API request
+        $mainOrderApiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $mainOrderApiData);
+        
+        if ($mainOrderApiResponse->successful()) {
+            $mainOrderResponseData = $mainOrderApiResponse->json();
+            $idDocument = $mainOrderResponseData['IDDocument'];
+        
+            dd('Carts:', $carts);
+
+        
+            foreach ($carts as $cart) {
+                dd('Inside the loop', $cart->product_variation->product->slug);
+
+                $barcode = substr($cart->product_variation->product->slug, 0, strpos($cart->product_variation->product->slug, '-'));
+
+                dd('Barcode:', $barcode);
+
+        
+                $apiLineData = [
+                    "m_nIDDocument"      => $idDocument,
+                    "m_sRéférence"        => $cart->product_variation->product->sku,
+                    "m_sLibProd"          => $cart->product_variation->product->name,
+                    "m_rQuantité"         => $cart->qty,
+                    "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
+                    "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
+                    "m_moTotaleTTC"       => $cart->total_price,
+                    "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
+                    "m_moTotaletva"       => $cart->total_tax,
+                    "m_nIDProduit"        => $cart->product_variation->product->id,
+                    "m_dhDateheuresaisie" => now(),
+                ];
+        
+                dd('API Line Data:', $apiLineData); 
+        
+                // LigneDocument API request
+                $apiLineResponse = Http::post("{$apiEndpoint}LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
+        
+                if ($apiLineResponse->successful()) {
+                    dd('API request for Ligne Document successful', $apiLineResponse->json());
+                } else {
+                    dd('API request for Ligne Document failed', $apiLineResponse->status(), $apiLineResponse->body());
+                }
+            }
+        } else {
+            dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
+        } */ 
+        
+
+        
+
+
+/* $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
+$sCodeTiers = auth()->user()->CODETIERS; 
+$rTotalHT = $orderGroup->sub_total_amount; 
+$RtotalTTC = $orderGroup->grand_total_amount;
+
+// Prepare data for API request
+$apiData = [
+    "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
+];
+
+
+$apiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $apiData);
+
+// Check API response
+if ($apiResponse->successful()) {
+    // Handle success
+    dd('API request successful', $apiResponse->json());
+} else {
+    // Handle failure
+    dd('API request failed', $apiResponse->status(), $apiResponse->body());
+} */
+
+        
+        // end Api 
+
             if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
                 $request->session()->put('order_code', $orderGroup->order_code);
@@ -263,7 +446,7 @@ class CheckoutController extends Controller
                 return $payment->initPayment();
             } else if ($request->payment_method == "wallet") {
                 $orderGroup->payment_status = paidPaymentStatus();
-                $orderGroup->order->update(['payment_status' => paidPaymentStatus()]); # for multi-vendor loop through each orders & update
+                $orderGroup->order->update(['payment_status' => paidPaymentStatus()]); 
                 $orderGroup->save();
 
                 $user->user_balance -= $orderGroup->grand_total_amount;
