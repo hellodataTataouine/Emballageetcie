@@ -18,7 +18,7 @@ class ContactUsController extends Controller
         $data['score'] = 'required|numeric|min:0.9';
         
         $request->validate($data,[
-            'score.min' => localize('Erreur de validation Google reCAPTCHA, il semble que vous ne soyez pas un humain.')
+            'score.min' => localize('Google recaptcha validation error, seems like you are not a human.')
         ]);
 
         $msg = new ContactUsMessage;
