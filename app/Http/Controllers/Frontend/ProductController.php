@@ -293,13 +293,20 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         foreach ($produitsApi as $produitApi) {
             
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
             if($produitApi['codeabarre'] == $slug ){
 
                 
                 $product->min_price = $apiPrice; 
                 $product->max_price = $apiPrice;
+                $product->Prix_HT = $apiPriceHT;
                 $product->stock_qty = $apiStock;
+                $product->Unit = $apiunité;
+                $product->Qty_Unit = $apiQTEUNITE;
+                
             }
         }
 
@@ -350,13 +357,19 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         foreach ($produitsApi as $produitApi) {
             
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
             if($produitApi['codeabarre'] == $product->slug ){
 
                 
                 $product->min_price = $apiPrice; 
                 $product->max_price = $apiPrice;
+                $product->Prix_HT = $apiPriceHT;
                 $product->stock_qty = $apiStock;
+                $product->Unit = $apiunité;
+                $product->Qty_Unit = $apiQTEUNITE;
             }
         }
         return getView('pages.partials.products.product-view-box', ['product' => $product]);
