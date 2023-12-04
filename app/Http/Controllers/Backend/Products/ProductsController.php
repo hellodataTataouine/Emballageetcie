@@ -50,7 +50,7 @@ class ProductsController extends Controller
         // Retrieve all existing products and organize them by slug
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
         $existingProducts = Product::whereIn('slug', $barcodes)
-            ->where('is_published', 1)
+            
             ->with('categories')
             ->get()
             ->keyBy('slug');

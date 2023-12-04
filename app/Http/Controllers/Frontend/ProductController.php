@@ -41,7 +41,7 @@ $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
 $existingProducts = Product::whereIn('slug', $barcodes)
-    ->where('is_published', 1)
+   
     ->with('categories')
     ->get()
     ->keyBy('slug');
