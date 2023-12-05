@@ -47,7 +47,7 @@ class PaypalController extends Controller
                 "reference_id" => rand(000000, 999999),
                 "amount" => [
                     "value" => number_format($amount, 2, '.', ''),
-                    "currency_code" => "EUR"
+                    "currency_code" => "USD"
                 ]
             ]],
             "application_context" => [

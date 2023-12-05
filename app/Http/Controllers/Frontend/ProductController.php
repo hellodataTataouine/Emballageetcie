@@ -45,7 +45,15 @@ $existingProducts = Product::whereIn('slug', $barcodes)
     ->with('categories')
     ->get()
     ->keyBy('slug');
-
+    foreach ($existingProducts as $existingProduct) {
+        // Check if the existing product is not found in the API list
+        if (!in_array($existingProduct->slug, $barcodes)) {
+           
+            $existingProduct->is_published = 0;
+            
+            $existingProduct->save();
+        }
+    }
 
     foreach ($produitsApi as $produitApi) {
         $name = $produitApi['Libellé'];

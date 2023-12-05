@@ -57,17 +57,27 @@ class HomeController extends Controller
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
             $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
+    
             $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
         
             if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
-                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice || $matchingProduct->Prix_HT !== $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
-                   
+                    $matchingProduct->Prix_HT = $apiPriceHT;
                 }
                 if ($matchingProduct->stock_qty !== $apiStock) {
                     $matchingProduct->stock_qty = $apiStock;
+                }
+                if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+                    $matchingProduct->Qty_Unit = $apiQTEUNITE;
+                }
+                if ($matchingProduct->Unit != $apiunité) {
+                    $matchingProduct->Unit = $apiunité;
                 }
             }
             if ($matchingProduct->is_published == 1) {

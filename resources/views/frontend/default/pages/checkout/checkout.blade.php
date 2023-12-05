@@ -131,7 +131,7 @@
                                     <div class="col-12">
                                         <div class="tt-address-content">
                                             <input type="radio" class="tt-custom-radio" name="shipping_delivery_type"
-                                                id="scheduled-shipping" value="scheduled">
+                                                id="scheduled-shipping" value="planifié">
 
                                             <label for="scheduled-shipping"
                                                 class="tt-address-info bg-white rounded p-4 position-relative">
@@ -152,16 +152,16 @@
                                                             }
                                                         @endphp
 
-                                                        <select class="form-select py-1 me-3" name="scheduled_date">
-                                                            @for ($i = 1; $i <= $dateCount; $i++)
-                                                                @php
-                                                                    $addDay = strtotime($date . '+' . $i . ' days');
-                                                                @endphp
-                                                                <option
-                                                                    value="{{ strtotime($date . '+' . $i . ' days') }}">
-                                                                    {{ date('d F', $addDay) }}</option>
-                                                            @endfor
-                                                        </select>
+<select class="form-select py-1 me-3" name="scheduled_date">
+    @for ($i = 1; $i <= $dateCount; $i++)
+        @php
+            $addDay = date('Y-m-d', strtotime($date . '+' . $i . ' days'));
+        @endphp
+        <option value="{{ $addDay }}">
+            {{ date('d F', strtotime($addDay)) }}
+        </option>
+    @endfor
+</select>
 
                                                         @php
                                                             $timeSlots = \App\Models\ScheduledDeliveryTimeList::orderBy('sorting_order', 'ASC')->get();

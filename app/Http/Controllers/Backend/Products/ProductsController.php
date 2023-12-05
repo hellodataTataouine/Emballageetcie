@@ -50,11 +50,18 @@ class ProductsController extends Controller
         // Retrieve all existing products and organize them by slug
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
         $existingProducts = Product::whereIn('slug', $barcodes)
-            
             ->with('categories')
             ->get()
             ->keyBy('slug');
-        
+            foreach ($existingProducts as $existingProduct) {
+                // Check if the existing product is not found in the API list
+                if (!in_array($existingProduct->slug, $barcodes)) {
+                   
+                    $existingProduct->is_published = 0;
+                    
+                    $existingProduct->save();
+                }
+            }
         foreach ($produitsApi as $produitApi) {
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
@@ -655,7 +662,15 @@ public function SynchronizeProducts(Request $request)
         ->with('categories')
         ->get()
         ->keyBy('slug');
-
+        foreach ($existingProducts as $existingProduct) {
+            // Check if the existing product is not found in the API list
+            if (!in_array($existingProduct->slug, $barcodes)) {
+               
+                $existingProduct->is_published = 0;
+                
+                $existingProduct->save();
+            }
+        }
     
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
@@ -682,6 +697,7 @@ public function SynchronizeProducts(Request $request)
     $newProduct->has_variation = 0;
     $newProduct->Qty_Unit = $apiQTEUNITE;
 $newProduct->Unit = $apiunité;
+$newProduct->max_purchase_qty = 10;
     // Set other properties accordingly based on your product model
     
     $newProduct->save();
