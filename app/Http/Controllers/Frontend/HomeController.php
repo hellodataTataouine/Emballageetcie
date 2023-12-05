@@ -65,7 +65,7 @@ class HomeController extends Controller
             $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
         
             if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
-                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice) {
+                if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice || $matchingProduct->Prix_HT !== $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
                     $matchingProduct->Prix_HT = $apiPriceHT;

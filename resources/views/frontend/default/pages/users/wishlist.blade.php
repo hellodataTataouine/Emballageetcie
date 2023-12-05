@@ -34,19 +34,19 @@
                         @forelse ($wishlist as $item)
                             <tr>
                                 <td class="h-100px">
-                                    <img src="{{ uploadedAsset($item->product->thumbnail_image) }}"
-                                        alt="{{ $item->product->collectLocalization('name') }}" class="img-fluid"
+                                    <img src="{{ uploadedAsset($item->thumbnail_image) }}"
+                                        alt="{{ $item->collectLocalization('name') }}" class="img-fluid"
                                         width="100">
                                 </td>
                                 <td class="product-title">
-                                    <h6 class="mb-0">{{ $item->product->collectLocalization('name') }}
+                                    <h6 class="mb-0">{{ $item->collectLocalization('name') }}
                                     </h6>
                                 </td>
                                 <td>
                                     <span class="text-dark fw-bold me-2 d-lg-none">{{ localize('Prix unitaire') }}:</span>
                                     <span class="text-dark fw-bold">
                                         @include('frontend.default.pages.partials.products.pricing', [
-                                            'product' => $item->product,
+                                            'product' => $item,
                                             'br' => true,
                                         ])
                                     </span>
@@ -54,7 +54,7 @@
 
                                 <td>
                                     <a href="javascript:void(0);" class="btn btn-secondary btn-sm ms-5 rounded-1"
-                                        onclick="showProductDetailsModal({{ $item->product->id }})">{{ localize('Ajouter au panier') }}</a>
+                                        onclick="showProductDetailsModal({{ $item->id }})">{{ localize('Ajouter au panier') }}</a>
                                     <a href="{{ route('customers.wishlist.delete', $item->id) }}" class="close-btn ms-3"><i
                                             class="fas fa-close"></i></a>
                                 </td>
