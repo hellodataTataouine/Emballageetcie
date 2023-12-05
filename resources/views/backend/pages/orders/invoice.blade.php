@@ -2,7 +2,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ localize('Facture') }}</title>
+    <title>{{ localize('Bon de Commande') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="UTF-8">
     <style type="text/css">
@@ -62,7 +62,7 @@
             <td colspan="4"
                 style="border-right: 1px solid #e4e4e4; width: 300px; color: #323232; line-height: 1.5; vertical-align: top;">
                 <p style="font-size: 15px; color: #5b5b5b; font-weight: bold; line-height: 1; vertical-align: top; ">
-                    {{ localize('Facture') }}</p>
+                    {{ localize('Bon de Commande') }}</p>
                 <br>
                 <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
                     {{ localize('Invoice No') }} : {{ getSetting('order_code_prefix') }}

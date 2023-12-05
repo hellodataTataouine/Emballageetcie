@@ -123,6 +123,11 @@ Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned
     Route::get('/customer-address', [CustomerController::class, 'address'])->name('customers.address');
     Route::get('/customer-profile', [CustomerController::class, 'profile'])->name('customers.profile');
     Route::post('/customer-profile', [CustomerController::class, 'updateProfile'])->name('customers.updateProfile');
+     
+    # Extrait de Compte
+    Route::get('/extrait-de-compte', [CustomerController::class, 'extraitDeCompte'])->name('customers.extraitDeCompte');
+    Route::get('/extrait-detail', [CustomerController::class, 'extraitDetail'])->name('customers.extraitDetail');
+
 
     # wishlist
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('customers.wishlist');

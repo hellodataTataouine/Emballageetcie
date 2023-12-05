@@ -28,7 +28,7 @@
                             <!--order status-->
                             <div class="row justify-content-between align-items-center g-3">
                                 <div class="col-auto flex-grow-1">
-                                    <h5 class="mb-0">{{ localize('Facture') }}
+                                    <h5 class="mb-0">{{ localize('Bon de Commande') }}
                                         <span
                                             class="text-accent">{{ getSetting('order_code_prefix') }}{{ $order->orderGroup->order_code }}
                                         </span>
@@ -85,7 +85,7 @@
                                     <a href="{{ route('admin.orders.downloadInvoice', $order->id) }}"
                                         class="btn btn-primary">
                                         <i data-feather="download" width="18"></i>
-                                        {{ localize('Télécharger la facture') }}
+                                        {{ localize('Télécharger le Bon de Commande') }}
                                     </a>
                                 </div>
                             </div>
