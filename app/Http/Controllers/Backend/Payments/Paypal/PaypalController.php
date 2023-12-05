@@ -23,7 +23,7 @@ class PaypalController extends Controller
         $clientId = env('PAYPAL_CLIENT_ID');
         $clientSecret = env('PAYPAL_CLIENT_SECRET');
 
-        if (getSetting('paypal_sandbox') == 1) {
+        if (getSetting('paypal_sandbox') == 0) {
             $environment = new SandboxEnvironment($clientId, $clientSecret);
         } else {
             $environment = new ProductionEnvironment($clientId, $clientSecret);
@@ -47,7 +47,7 @@ class PaypalController extends Controller
                 "reference_id" => rand(000000, 999999),
                 "amount" => [
                     "value" => number_format($amount, 2, '.', ''),
-                    "currency_code" => "EUR"
+                    "currency_code" => "USD"
                 ]
             ]],
             "application_context" => [
@@ -74,7 +74,7 @@ class PaypalController extends Controller
         $clientId = env('PAYPAL_CLIENT_ID');
         $clientSecret = env('PAYPAL_CLIENT_SECRET');
 
-        if (getSetting('paypal_sandbox') == 1) {
+        if (getSetting('paypal_sandbox') == 0) {
             $environment = new SandboxEnvironment($clientId, $clientSecret);
         } else {
             $environment = new ProductionEnvironment($clientId, $clientSecret);

@@ -180,7 +180,7 @@ class CheckoutController extends Controller
             $total_points = 0;
 
 
-            $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/';
+            $apiEndpoint = env('API_CATEGORIES_URL');
             $sCodeTiers = auth()->user()->CODETIERS;
             $rTotalHT = $orderGroup->sub_total_amount;
             $RtotalTTC = $orderGroup->grand_total_amount;
@@ -234,20 +234,20 @@ class CheckoutController extends Controller
                     }
             
                     $apiLineData = [
-                        "m_nIDDocument"      => $idDocument,
-                        "m_sRéférence"        => $cart->product_variation->product->sku,
-                        "m_sLibProd"          => $cart->product_variation->product->name,
-                        "m_rQuantité"         => $cart->qty,
-                        "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
-                        "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
-                        "m_moTotaleTTC"       => $orderItem->total_price, 
-                        "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
-                        "m_moTotaletva"       => $cart->total_tax,
-                        "m_nIDProduit"        => $cart->product_variation->product->id,
-                        "m_dhDateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                        "IDDocument"      => $idDocument,
+                        "Référence"        => "",
+                        "LibProd"          => $cart->product_variation->product->name,
+                        "Quantité"         => $cart->qty,
+                        "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
+                        "TauxTVA"          => $cart->product_variation->product->tax_percentage,
+                        "TotaleTTC"       => $orderItem->total_price, 
+                        "TotaleHT"        => $cart->unit_price * $cart->qty,
+                        "totaletva"       => $cart->total_tax,
+                        "IDProduit"        => $cart->product_variation->product->id,
+                        "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
                     ];
 
-                    dd( $apiLineData);
+                  //  dd( $apiLineData);
 
 
             
@@ -289,6 +289,41 @@ class CheckoutController extends Controller
             
                     $cart->delete();
                 }
+                $apiLineData1 = [
+                    "IDDocument"      => $idDocument,
+                    "Référence"        => "",
+                    "LibProd"          => "Transport Marchandise "  . $logisticZone->logistic->name . "\n" . $order->scheduled_delivery_info ,
+                    "Quantité"         => 1,
+                    "PrixVente"       => $orderGroup->total_shipping_cost,
+                    
+                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                ];
+
+              
+
+
+        
+                // LigneDocument API request
+                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData1);
+
+                $apiLineData2 = [
+                    "IDDocument"      => $idDocument,
+                    "Référence"        => "",
+                    "LibProd" => "Moy Paiement  " . $request->payment_method . "\n" . "NonPayé" ,
+
+                    "Quantité"         => 1,
+                    
+                    
+                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
+                ];
+
+              //  dd( $apiLineData);
+
+
+        
+                // LigneDocument API request
+                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
+
             } else {
                 dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
@@ -339,107 +374,13 @@ class CheckoutController extends Controller
 
 
 
-       /* $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
-        $sCodeTiers = auth()->user()->CODETIERS; 
-        $rTotalHT = $orderGroup->sub_total_amount; 
-        $RtotalTTC = $orderGroup->grand_total_amount;
-        
-        $userId = auth()->user()->id; // Ensure $userId is correctly set
-        $stockLocationId = session('stock_location_id'); // Ensure stock_location_id is correctly set
-        
-        $cartsQuery = Cart::with('product_variation.product')
-            ->where('user_id', $userId)
-            ->where('location_id', $stockLocationId);
-        
-        $carts = $cartsQuery->get();
-        
-        dd('User ID:', $userId, 'Stock Location ID:', $stockLocationId, 'Carts Query:', $cartsQuery->toSql(), 'Carts Result:', $carts->toArray());        
-        
     
-        $mainOrderApiData = [
-            "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
-        ];
-        
-        // Document API request
-        $mainOrderApiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $mainOrderApiData);
-        
-        if ($mainOrderApiResponse->successful()) {
-            $mainOrderResponseData = $mainOrderApiResponse->json();
-            $idDocument = $mainOrderResponseData['IDDocument'];
-        
-            dd('Carts:', $carts);
-
-        
-            foreach ($carts as $cart) {
-                dd('Inside the loop', $cart->product_variation->product->slug);
-
-                $barcode = substr($cart->product_variation->product->slug, 0, strpos($cart->product_variation->product->slug, '-'));
-
-                dd('Barcode:', $barcode);
-
-        
-                $apiLineData = [
-                    "m_nIDDocument"      => $idDocument,
-                    "m_sRéférence"        => $cart->product_variation->product->sku,
-                    "m_sLibProd"          => $cart->product_variation->product->name,
-                    "m_rQuantité"         => $cart->qty,
-                    "m_moPrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_variation),
-                    "m_rTauxTVA"          => $cart->product_variation->product->tax_percentage,
-                    "m_moTotaleTTC"       => $cart->total_price,
-                    "m_moTotaleHT"        => $cart->unit_price * $cart->qty,
-                    "m_moTotaletva"       => $cart->total_tax,
-                    "m_nIDProduit"        => $cart->product_variation->product->id,
-                    "m_dhDateheuresaisie" => now(),
-                ];
-        
-                dd('API Line Data:', $apiLineData); 
-        
-                // LigneDocument API request
-                $apiLineResponse = Http::post("{$apiEndpoint}LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
-        
-                if ($apiLineResponse->successful()) {
-                    dd('API request for Ligne Document successful', $apiLineResponse->json());
-                } else {
-                    dd('API request for Ligne Document failed', $apiLineResponse->status(), $apiLineResponse->body());
-                }
-            }
-        } else {
-            dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
-        } */ 
-        
-
-        
-
-
-/* $apiEndpoint = 'http://51.83.131.79/hdcomercialeco/Document/';
-$sCodeTiers = auth()->user()->CODETIERS; 
-$rTotalHT = $orderGroup->sub_total_amount; 
-$RtotalTTC = $orderGroup->grand_total_amount;
-
-// Prepare data for API request
-$apiData = [
-    "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
-];
-
-
-$apiResponse = Http::post("$apiEndpoint/$sCodeTiers/$rTotalHT/$RtotalTTC", $apiData);
-
-// Check API response
-if ($apiResponse->successful()) {
-    // Handle success
-    dd('API request successful', $apiResponse->json());
-} else {
-    // Handle failure
-    dd('API request failed', $apiResponse->status(), $apiResponse->body());
-} */
-
-        
-        // end Api 
-
             if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
                 $request->session()->put('order_code', $orderGroup->order_code);
                 $request->session()->put('payment_method', $request->payment_method);
+                $request->session()->put('Document_id', $idDocument);
+                
 
                 # init payment
                 $payment = new PaymentsController;
@@ -490,16 +431,31 @@ if ($apiResponse->successful()) {
     # update payment status
     public function updatePayments($payment_details)
     {
+        $apiEndpoint = env('API_CATEGORIES_URL');
         $orderGroup = OrderGroup::where('order_code', session('order_code'))->first();
         $payment_method = session('payment_method');
-
+      $document_id  = session('Document_id');
         $orderGroup->payment_status = paidPaymentStatus();
         $orderGroup->order->update(['payment_status' => paidPaymentStatus()]); # for multi-vendor loop through each orders & update
 
         $orderGroup->payment_method = $payment_method;
         $orderGroup->payment_details = $payment_details;
         $orderGroup->save();
-
+        $apiLineData3 = [
+            "IDDocument"      => $document_id,
+            "Référence"        => "",
+            "LibProd" => "Moy Paiement  " . $payment_method . "\n" . "Payé",
+            "Quantité"         => 1,
+            "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
+        ];
+        
+        $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$document_id}/{}", $apiLineData3);
+        
+        if ($apiLineResponse->successful()) {
+            // Successfully updated the status to "payé"
+        } else {
+            // Handle the case where the API call fails
+        }
         clearOrderSession();
         flash(localize('Votre commande a été passée avec succès.'))->success();
         return redirect()->route('checkout.success', $orderGroup->order_code);
