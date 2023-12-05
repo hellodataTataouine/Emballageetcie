@@ -44,11 +44,11 @@
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('customers.trackOrder') }}?code={{ $order->orderGroup->order_code }}"
+                                                <!-- <a href="{{ route('customers.trackOrder') }}?code={{ $order->orderGroup->order_code }}"
                                                     class="view-invoice fs-xs me-2" target="_blank" data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     data-bs-title="{{ localize('Suivre Ma Commande') }}"><i
-                                                        class="fas fa-truck text-dark"></i></a>
+                                                        class="fas fa-truck text-dark"></i></a> -->
 
                                                 <a href="{{ route('checkout.invoice', $order->orderGroup->order_code) }}"
                                                     class="view-invoice fs-xs" target="_blank" data-bs-toggle="tooltip"
