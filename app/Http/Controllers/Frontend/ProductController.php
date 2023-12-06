@@ -274,6 +274,7 @@ foreach ($produitsApi as $produitApi) {
             'min_value'     => $min_value,
             'max_value'     => $max_value,
             'tags'          => $tags,
+            
         ]);   
 
      

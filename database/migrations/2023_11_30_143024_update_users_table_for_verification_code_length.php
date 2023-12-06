@@ -26,7 +26,7 @@ class UpdateUsersTableForVerificationCodeLength extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('verification_code', 191)->change(); // Change 191 to the original length
+            $table->string('verification_code', 191)->change(); 
         });
     }
 }
