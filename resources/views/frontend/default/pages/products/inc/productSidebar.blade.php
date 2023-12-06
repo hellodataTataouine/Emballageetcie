@@ -54,9 +54,23 @@
                                         @else
                                             <i class="toggle-icon" style="visibility: hidden;">▼</i>
                                         @endif
-                                        {{ $childCategory->collectLocalization('name') }}
+                                        <span class="category-name">{{ $childCategory->collectLocalization('name') }}</span>
                                         <span class="fw-bold fs-xs total-count">{{ $childCategory->productsCount }}</span>
                                     </a>
+                                    @if($childCategory->childrenCategories->isNotEmpty())
+                                        <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
+                                            @foreach($childCategory->childrenCategories as $grandchildCategory)
+                                                <li>
+                                                    <a href="{{ route('products.index') }}?&category_id={{ $grandchildCategory->id }}"
+                                                       class="d-flex justify-content-between align-items-center">
+                                                        <span class="category-name">{{ $grandchildCategory->collectLocalization('name') }}</span>
+                                                        <span class="fw-bold fs-xs total-count">{{ $grandchildCategory->productsCount }}</span>
+                                                    </a>
+                                                    <!-- Add another level if needed -->
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
@@ -94,7 +108,26 @@
             }
         });
 
-        $('.toggle-wrapper .category-name:not(.toggle-category)').off('click').on('click', function () {
+        $('.toggle-wrapper .category-name').off('click').on('click', function (e) {
+            e.stopPropagation(); 
+
+            var categoryId = $(this).data('category-id');
+
+            var $grandchildCategories = $('.grandchild-categories[data-category-id="' + categoryId + '"]');
+            $grandchildCategories.slideToggle();
+
+            $(this).find('.toggle-icon').text(function (_, text) {
+                return text === '▼' ? '▲' : '▼';
+            });
+
+            if ($grandchildCategories.is(':visible')) {
+                console.log('Dropdown opened for category with ID: ' + categoryId);
+            } else {
+                console.log('Dropdown closed for category with ID: ' + categoryId);
+            }
+        });
+
+        $('.toggle-wrapper .category-name.toggle-category').off('click').on('click', function () {
             var categoryId = $(this).data('category-id');
 
             window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
@@ -102,6 +135,7 @@
     });
 </script>
 <!--Filter by Categories-->
+
 
 
     <!--Filter by Price-->
