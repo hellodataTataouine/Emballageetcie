@@ -324,6 +324,7 @@ class CheckoutController extends Controller
                 // LigneDocument API request
                 $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
 
+
             } else {
                 dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
@@ -374,7 +375,7 @@ class CheckoutController extends Controller
 
 
 
-    
+
             if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
                 $request->session()->put('order_code', $orderGroup->order_code);
