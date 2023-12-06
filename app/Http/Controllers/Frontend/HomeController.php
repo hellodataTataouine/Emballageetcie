@@ -80,7 +80,7 @@ class HomeController extends Controller
                     $matchingProduct->Unit = $apiunité;
                 }
             }
-            if ($matchingProduct->is_published == 1) {
+            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
 
                 $virtualProducts->push($matchingProduct);
 
