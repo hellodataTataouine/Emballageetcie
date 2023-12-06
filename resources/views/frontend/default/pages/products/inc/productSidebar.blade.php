@@ -26,7 +26,6 @@
         <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
     </div>
     <ul class="widget-nav mt-4">
-
         @php
             $product_listing_categories = getSetting('product_listing_categories') != null ? json_decode(getSetting('product_listing_categories')) : [];
             $categories = \App\Models\Category::whereIn('id', $product_listing_categories)->get();
@@ -37,51 +36,50 @@
                 $productsCount = \App\Models\ProductCategory::where('category_id', $category->id)->count();
             @endphp
             <li class="category-item" data-category-id="{{ $category->id }}">
-                @if($category->childrenCategories->isNotEmpty())
-                    <div class="toggle-wrapper">
-                        <a href="javascript:void(0);" class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $category->id }}">
+                <div class="toggle-wrapper">
+                    <a href="javascript:void(0);" class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $category->id }}">
+                        @if($category->childrenCategories->isNotEmpty())
                             <i class="toggle-icon">▼</i>
-                            <span class="category-name">{{ $category->collectLocalization('name') }}</span>
-                            <span class="fw-bold fs-xs total-count">{{ $productsCount }}</span>
-                        </a>
-                        <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
-                            @foreach($category->childrenCategories as $childCategory)
-                                <li>
-                                    <a href="{{ route('products.index') }}?&category_id={{ $childCategory->id }}"
-                                       class="d-flex justify-content-between align-items-center">
-                                        @if($childCategory->childrenCategories->isNotEmpty())
-                                            <i class="toggle-icon">▼</i>
-                                        @else
-                                            <i class="toggle-icon" style="visibility: hidden;">▼</i>
-                                        @endif
-                                        <span class="category-name">{{ $childCategory->collectLocalization('name') }}</span>
-                                        <span class="fw-bold fs-xs total-count">{{ $childCategory->productsCount }}</span>
-                                    </a>
-                                    @if($childCategory->childrenCategories->isNotEmpty())
-                                        <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
-                                            @foreach($childCategory->childrenCategories as $grandchildCategory)
-                                                <li>
-                                                    <a href="{{ route('products.index') }}?&category_id={{ $grandchildCategory->id }}"
-                                                       class="d-flex justify-content-between align-items-center">
-                                                        <span class="category-name">{{ $grandchildCategory->collectLocalization('name') }}</span>
-                                                        <span class="fw-bold fs-xs total-count">{{ $grandchildCategory->productsCount }}</span>
-                                                    </a>
-                                                    <!-- Add another level if needed -->
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @else
-                    <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
-                        class="d-flex justify-content-between align-items-center">
-                        <span class="category-name toggle-category" data-category-id="{{ $category->id }}">{{ $category->collectLocalization('name') }}</span>
+                        @else
+                            <i class="toggle-icon" style="visibility: hidden;">▼</i>
+                        @endif
+                        <span class="category-name">{{ $category->collectLocalization('name') }}</span>
                         <span class="fw-bold fs-xs total-count">{{ $productsCount }}</span>
                     </a>
-                @endif
+                    <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
+                        @foreach($category->childrenCategories as $childCategory)
+                            <li>
+                                <a href="javascript:void(0);"
+                                    class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $childCategory->id }}">
+                                    @if($childCategory->childrenCategories->isNotEmpty())
+                                        <i class="toggle-icon">▼</i>
+                                    @else
+                                        <i class="toggle-icon" style="visibility: hidden;">▼</i>
+                                    @endif
+                                    <span class="category-name">{{ $childCategory->collectLocalization('name') }}</span>
+                                    <span class="fw-bold fs-xs total-count">{{ $childCategory->productsCount }}</span>
+                                </a>
+                                <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
+                                    @foreach($childCategory->childrenCategories as $grandchildCategory)
+                                        <li>
+                                            <a href="javascript:void(0);"
+                                                class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $grandchildCategory->id }}">
+                                                @if($grandchildCategory->childrenCategories->isNotEmpty())
+                                                    <i class="toggle-icon">▼</i>
+                                                @else
+                                                    <i class="toggle-icon" style="visibility: hidden;">▼</i>
+                                                @endif
+                                                <span class="category-name">{{ $grandchildCategory->collectLocalization('name') }}</span>
+                                                <span class="fw-bold fs-xs total-count">{{ $grandchildCategory->productsCount }}</span>
+                                            </a>
+                                            <!-- Add another level if needed -->
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </li>
         @endforeach
     </ul>
@@ -108,7 +106,9 @@
             }
         });
 
-        $('.toggle-wrapper .category-name').off('click').on('click', function (e) {
+        $('.toggle-wrapper .grandchild-categories').hide();
+
+        $('.toggle-wrapper .child-categories .toggle-category').off('click').on('click', function (e) {
             e.stopPropagation(); 
 
             var categoryId = $(this).data('category-id');
@@ -130,11 +130,14 @@
         $('.toggle-wrapper .category-name.toggle-category').off('click').on('click', function () {
             var categoryId = $(this).data('category-id');
 
-            window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
+            // Remove the following line to enable navigation
+             window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
         });
     });
 </script>
 <!--Filter by Categories-->
+
+
 
 
 
