@@ -105,7 +105,7 @@ $ProductLocalization->save();
     }
 
     $existingProducts = Product::whereIn('slug', $barcodes)
-   ->were('is_published', 1)
+   ->where('is_published', 1)
     ->with('categories')
     ->get()
     ->keyBy('slug');
