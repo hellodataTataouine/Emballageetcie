@@ -81,8 +81,7 @@ class HomeController extends Controller
                 }
                 $virtualProducts->push($matchingProduct);
             }
-            
-            
+
         }
 
 

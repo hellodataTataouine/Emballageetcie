@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Backend\Payments\PaymentsController;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
-use App\Models\Product; // Add this line
+use App\Models\Product; 
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\CouponUsage;

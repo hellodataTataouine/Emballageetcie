@@ -14,6 +14,13 @@
                             <h3>{{ localize('Détail de la Transaction') }}</h3>
                             <!-- You can add more details here if needed -->
                         </div>
+                        <div class="col-lg-5 col-md-8">
+                            <div class="text-lg-end">
+                                <a href="{{ route('home') }}"><img src="{{ uploadedAsset(getSetting('navbar_logo')) }}"
+                                        alt="logo" class="img-fluid"></a>
+                                <h6 class="mb-0 text-gray mt-4">{{ getSetting('site_address') }}</h6>
+                            </div>
+                        </div>
                         <table class="invoice-table-sm">
                             <!-- Add transaction-specific details here -->
                         </table>
