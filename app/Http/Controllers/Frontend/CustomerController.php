@@ -11,6 +11,22 @@ use Str;
 
 class CustomerController extends Controller
 {
+
+    
+    
+    # customer extraitDeCompte
+    public function extraitDeCompte()
+    {
+
+        return getView('pages.users.extraitDeCompte');
+    } 
+
+    public function extraitDetail()
+    {
+        return getView('pages.users.extraitDetail'); 
+    }
+
+
     # customer dashbaord
     public function index()
     {

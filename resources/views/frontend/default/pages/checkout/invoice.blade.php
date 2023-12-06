@@ -1,7 +1,7 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Facture') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('Bon de Commande') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('contents')
@@ -17,7 +17,7 @@
                     <div class="row g-5 justify-content-between">
                         <div class="col-lg-6">
                             <div class="invoice-title d-flex align-items-center">
-                                <h3>{{ localize('Facture') }}</h3>
+                                <h3>{{ localize('Bon de Commande') }}</h3>
                                 <span class="badge rounded-pill bg-primary-light text-primary fw-medium ms-3">
                                     {{ ucwords(str_replace('_', ' ', $order->delivery_status)) }}
                                 </span>
@@ -200,10 +200,10 @@
                                     <span>{{ formatPrice($orderGroup->sub_total_amount) }}</span>
                                 </td>
 
-                                <td>
+                                <!-- <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Pourboire') }}</strong>
                                     <span>{{ formatPrice($orderGroup->total_tips_amount) }}</span>
-                                </td>
+                                </td> -->
 
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Coût d\'expédition') }}</strong>

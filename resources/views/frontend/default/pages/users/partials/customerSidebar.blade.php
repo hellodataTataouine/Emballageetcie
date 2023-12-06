@@ -47,7 +47,7 @@
             </a>
         </li>
 
-        @if (getSetting('enable_reward_points') == 1)
+        <!-- @if (getSetting('enable_reward_points') == 1)
             <li>
                 <a href="{{ route('customers.rewardPoints') }}"
                     class="{{ areActiveRoutes(['customers.rewardPoints'], 'active') }}">
@@ -64,7 +64,7 @@
                     {{ localize('Points de récompense') }}
                 </a>
             </li>
-        @endif
+        @endif -->
 
         <!-- <li>
             <a href="{{ route('customers.walletHistory') }}"
@@ -84,7 +84,7 @@
         </li> -->
 
 
-        @if (getSetting('enable_refund_system') == 1)
+        <!-- @if (getSetting('enable_refund_system') == 1)
             <li>
                 <a href="{{ route('customers.refunds') }}"
                     class="{{ areActiveRoutes(['customers.refunds'], 'active') }}">
@@ -100,8 +100,8 @@
                     {{ localize('Historique des remboursements') }}
                 </a>
             </li>
-        @endif
-        <li>
+        @endif -->
+        <!-- <li>
             <a href="{{ route('customers.trackOrder') }}"
                 class="{{ areActiveRoutes(['customers.trackOrder'], 'active') }}">
                 <span class="me-2">
@@ -119,7 +119,9 @@
                 </span>
                 {{ localize('Suivre Commandes') }}
             </a>
-        </li>
+        </li> -->
+
+       
 
         <li>
             <a href="{{ route('customers.address') }}"
@@ -154,6 +156,19 @@
                 {{ localize('Mettre à jourd Profile') }}
             </a>
         </li>
+        <li>
+    <a href="{{ route('customers.extraitDeCompte') }}" class="{{ areActiveRoutes(['customers.extraitDeCompte'], 'active') }}">
+        <span class="me-2">
+            <!-- Replace the content inside the span with your desired icon or text -->
+            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+  <path d="M6 1h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6zM3 5a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3zm0 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3zm0 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3z"/>
+</svg>
+
+
+        </span>
+        {{ localize('Extrait de Compte') }}
+    </a>
+</li>
 
         <li>
             <a href="{{ route('logout') }}">

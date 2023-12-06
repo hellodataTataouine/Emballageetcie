@@ -72,10 +72,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="invoice_thanksgiving"
-                                        class="form-label">{{ localize('Message de remerciement pour la facture') }}</label>
+                                        class="form-label">{{ localize('Message de remerciement pour le Bon de Commande') }}</label>
                                     <input type="hidden" name="types[]" value="invoice_thanksgiving">
                                     <textarea rows="4" id="invoice_thanksgiving" name="invoice_thanksgiving" class="form-control"
-                                        placeholder="{{ localize('Saisissez votre message de remerciement pour la facture') }}">{{ getSetting('invoice_thanksgiving') }}</textarea>
+                                        placeholder="{{ localize('Saisissez votre message de remerciement pour le Bon de Commande') }}">{{ getSetting('invoice_thanksgiving') }}</textarea>
                                 </div>
                             </div>
                         </div>
