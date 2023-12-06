@@ -92,9 +92,9 @@ class CheckoutController extends Controller
                 
                 $product = $cart->product_variation->product;
 
-                if($product->max_purchase_qty >= $cart->qty && $cart->qty >= $product->min_purchase_qty){
+                /*if($product->max_purchase_qty >= $cart->qty && $cart->qty >= $product->min_purchase_qty){
                     $productVariationStock = $cart->product_variation->product_variation_stock ? $cart->product_variation->product_variation_stock->stock_qty : 0;
-                    if ($cart->qty > $productVariationStock) {
+                   /* if ($cart->qty > $productVariationStock) {
                         $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Est en rupture de stoc');
                         flash($message)->error();
                         return back();
@@ -104,8 +104,10 @@ class CheckoutController extends Controller
 
                     flash($message)->error();
                     return back();
-                } 
+                } */
             }
+            
+
 
             # create new order group
             $orderGroup                                     = new OrderGroup;
