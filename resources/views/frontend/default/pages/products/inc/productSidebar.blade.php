@@ -18,7 +18,6 @@
     </div>
     <!--Filter by search-->
 
-    
 <!--Filter by Categories-->
 <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top mobile-menu-wrapper scrollbar h-400px">
     <div class="widget-title d-flex">
@@ -37,48 +36,36 @@
             @endphp
             <li class="category-item" data-category-id="{{ $category->id }}">
                 <div class="toggle-wrapper">
-                    <a href="javascript:void(0);" class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $category->id }}">
+                    <a href="javascript:void(0);" class="d-flex align-items-center toggle-category" data-category-id="{{ $category->id }}">
                         @if($category->childrenCategories->isNotEmpty())
-                            <i class="toggle-icon">▼</i>
+                            <i class="toggle-icon ms-1">▼</i>
                         @else
                             <i class="toggle-icon" style="visibility: hidden;">▼</i>
                         @endif
-                        <span class="category-name">{{ $category->collectLocalization('name') }}</span>
-                        <span class="fw-bold fs-xs total-count">{{ $productsCount }}</span>
+                        <span class="category-name ms-2">{{ $category->collectLocalization('name') }}</span>
+                        <span class="fw-bold fs-xs total-count ms-auto">{{ $productsCount }}</span>
                     </a>
-                    <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
-                        @foreach($category->childrenCategories as $childCategory)
-                            <li>
-                                <a href="javascript:void(0);"
-                                    class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $childCategory->id }}">
-                                    @if($childCategory->childrenCategories->isNotEmpty())
-                                        <i class="toggle-icon">▼</i>
-                                    @else
-                                        <i class="toggle-icon" style="visibility: hidden;">▼</i>
-                                    @endif
-                                    <span class="category-name">{{ $childCategory->collectLocalization('name') }}</span>
-                                    <span class="fw-bold fs-xs total-count">{{ $childCategory->productsCount }}</span>
-                                </a>
-                                <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
-                                    @foreach($childCategory->childrenCategories as $grandchildCategory)
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                                class="d-flex justify-content-between align-items-center toggle-category" data-category-id="{{ $grandchildCategory->id }}">
-                                                @if($grandchildCategory->childrenCategories->isNotEmpty())
-                                                    <i class="toggle-icon">▼</i>
-                                                @else
-                                                    <i class="toggle-icon" style="visibility: hidden;">▼</i>
-                                                @endif
-                                                <span class="category-name">{{ $grandchildCategory->collectLocalization('name') }}</span>
-                                                <span class="fw-bold fs-xs total-count">{{ $grandchildCategory->productsCount }}</span>
-                                            </a>
-                                            <!-- Add another level if needed -->
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @if($category->childrenCategories->isNotEmpty())
+                        <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
+                            @foreach($category->childrenCategories as $childCategory)
+                                <li class="category-item" data-category-id="{{ $childCategory->id }}">
+                                    <div class="toggle-wrapper">
+                                        <a href="{{ route('products.index') }}?&category_id={{ $childCategory->id }}"
+                                            class="d-flex align-items-center toggle-category" data-category-id="{{ $childCategory->id }}">
+                                            @if($childCategory->childrenCategories->isNotEmpty())
+                                                <i class="toggle-icon ms-1">▼</i>
+                                            @else
+                                                <i class="toggle-icon" style="visibility: hidden;">▼</i>
+                                            @endif
+                                            <span class="category-name ms-2">{{ $childCategory->collectLocalization('name') }}</span>
+                                            <span class="fw-bold fs-xs total-count ms-auto">{{ $childCategory->productsCount }}</span>
+                                        </a>
+                                        <!-- You can add another level if needed -->
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </li>
         @endforeach
@@ -100,42 +87,25 @@
             });
 
             if ($childCategories.is(':visible')) {
-                console.log('Dropdown opened for category with ID: ' + categoryId);
+               
             } else {
-                console.log('Dropdown closed for category with ID: ' + categoryId);
             }
         });
 
-        $('.toggle-wrapper .grandchild-categories').hide();
-
-        $('.toggle-wrapper .child-categories .toggle-category').off('click').on('click', function (e) {
-            e.stopPropagation(); 
-
-            var categoryId = $(this).data('category-id');
-
-            var $grandchildCategories = $('.grandchild-categories[data-category-id="' + categoryId + '"]');
-            $grandchildCategories.slideToggle();
-
-            $(this).find('.toggle-icon').text(function (_, text) {
-                return text === '▼' ? '▲' : '▼';
-            });
-
-            if ($grandchildCategories.is(':visible')) {
-                console.log('Dropdown opened for category with ID: ' + categoryId);
-            } else {
-                console.log('Dropdown closed for category with ID: ' + categoryId);
-            }
-        });
-
-        $('.toggle-wrapper .category-name.toggle-category').off('click').on('click', function () {
-            var categoryId = $(this).data('category-id');
-
-            // Remove the following line to enable navigation
-             window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
+        $('.toggle-wrapper .toggle-category .category-name').off('click').on('click', function () {
+            var categoryId = $(this).closest('.category-item').data('category-id');
+            
+            // Update URL with selected category ID
+            window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
         });
     });
 </script>
 <!--Filter by Categories-->
+
+
+
+
+
 
 
 
