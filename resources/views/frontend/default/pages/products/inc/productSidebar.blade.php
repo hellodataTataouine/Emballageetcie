@@ -27,7 +27,6 @@
 
 <!--Filter by Categories-->
 <div class="sidebar-widget category-widget bg-white py-1 px-4 border-top mobile-menu-wrapper scrollbar h-400px">
-   
     <ul class="widget-nav mt-4">
         @php
             $product_listing_categories = getSetting('product_listing_categories') != null ? json_decode(getSetting('product_listing_categories')) : [];
@@ -42,61 +41,16 @@
                 <div class="toggle-wrapper">
                     <a href="javascript:void(0);" class="d-flex align-items-center toggle-category" data-category-id="{{ $category->id }}">
                         @if($category->childrenCategories->isNotEmpty())
-                            <i class="toggle-icon ms-1">▼</i>
+                            <i class="toggle-icon ms-1">▲</i>
                         @else
-                            <i class="toggle-icon" style="visibility: hidden;">▼</i>
+                            <i class="toggle-icon" style="visibility: hidden;">▲</i>
                         @endif
-                        <b><span class="category-name ms-2 bold">{{ $category->collectLocalization('name') }}</span></b> <!-- Add 'bold' class here -->
+                        <b><span class="category-name ms-2 bold">{{ $category->collectLocalization('name') }}</span></b>
                         <span class="fw-bold fs-xs total-count ms-auto">{{ $productsCount }}</span>
                     </a>
                     @if($category->childrenCategories->isNotEmpty())
-                        <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: block;"> 
-                            @foreach($category->childrenCategories as $childCategory)
-                                @php
-                                    $childProductsCount = \App\Models\ProductCategory::where('category_id', $childCategory->id)->count();
-                                @endphp
-                                <li class="category-item" data-category-id="{{ $childCategory->id }}">
-                                    <div class="toggle-wrapper">
-                                        <a href="{{ route('products.index') }}?&category_id={{ $childCategory->id }}"
-                                            class="d-flex align-items-center toggle-category" data-category-id="{{ $childCategory->id }}">
-                                            @if($childCategory->childrenCategories->isNotEmpty())
-                                                <i class="toggle-icon ms-1">▼</i>
-                                            @else
-                                                <i class="toggle-icon" style="visibility: hidden;">▼</i>
-                                            @endif
-                                            <span class="category-name ms-2">{{ $childCategory->collectLocalization('name') }}</span>
-                                            <span class="fw-bold fs-xs total-count ms-auto">{{ $childProductsCount }}</span>
-                                        </a>
-                                        <!-- Add another level for grandchild categories -->
-                                        @if($childCategory->childrenCategories->isNotEmpty())
-                                            <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
-                                                @foreach($childCategory->childrenCategories as $grandchildCategory)
-                                                    @php
-                                                        $grandchildProductsCount = \App\Models\ProductCategory::where('category_id', $grandchildCategory->id)->count();
-                                                    @endphp
-                                                    <li class="category-item" data-category-id="{{ $grandchildCategory->id }}">
-                                                        <div class="toggle-wrapper">
-                                                            <a href="{{ route('products.index') }}?&category_id={{ $grandchildCategory->id }}"
-                                                                class="d-flex align-items-center toggle-category" data-category-id="{{ $grandchildCategory->id }}">
-                                                                <!-- Customize the content for grandchild categories -->
-                                                                @if($grandchildCategory->childrenCategories->isNotEmpty())
-                                                                    <i class="toggle-icon ms-1">▼</i>
-                                                                @else
-                                                                    <i class="toggle-icon" style="visibility: hidden;">▼</i>
-                                                                @endif
-                                                                <span class="category-name ms-2">{{ $grandchildCategory->collectLocalization('name') }}</span>
-                                                                <span class="fw-bold fs-xs total-count ms-auto">{{ $grandchildProductsCount }}</span>
-                                                            </a>
-                                                            <!-- Add another level for great-grandchild categories if needed -->
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                    @include('frontend.default.pages.products.inc.child_categories', ['children' => $category->childrenCategories, 'padding' => 15])
+
                     @endif
                 </div>
             </li>
@@ -132,31 +86,24 @@
                 }
             }
         });
-
-        $('.toggle-wrapper .child-categories .toggle-category').off('click').on('click', function (e) {
-            e.stopPropagation();
-
-            var categoryId = $(this).data('category-id');
-            var $grandchildCategories = $('.grandchild-categories[data-category-id="' + categoryId + '"]');
-
-            $grandchildCategories.slideToggle();
-
-            $(this).find('.toggle-icon').text(function (_, text) {
-                return text === '▼' ? '▲' : '▼';
-            });
-
-            if ($grandchildCategories.is(':visible')) {
-                console.log('Dropdown opened for grandchild category with ID: ' + categoryId);
-            } else {
-                console.log('Dropdown closed for grandchild category with ID: ' + categoryId);
-            }
-        });
     });
+
+    function toggleCategories(categoryId) {
+        var $childCategories = $('.child-categories[data-category-id="' + categoryId + '"]');
+        $childCategories.slideToggle();
+
+        $('.toggle-category[data-category-id="' + categoryId + '"] .toggle-icon').text(function (_, text) {
+            return text === '▼' ? '▲' : '▼';
+        });
+
+        if ($childCategories.is(':visible')) {
+            console.log('Dropdown opened for category with ID: ' + categoryId);
+        } else {
+            console.log('Dropdown closed for category with ID: ' + categoryId);
+        }
+    }
 </script>
 
-
-
-<!--Filter by Categories-->
 
 
 
