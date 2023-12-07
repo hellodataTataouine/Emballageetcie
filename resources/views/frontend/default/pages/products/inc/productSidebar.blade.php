@@ -33,7 +33,7 @@
             $categories = \App\Models\Category::whereIn('id', $product_listing_categories)->get();
         @endphp
 
-        @foreach ($categories as $category)
+        @foreach ($categories as $key => $category)
             @php
                 $productsCount = \App\Models\ProductCategory::where('category_id', $category->id)->count();
             @endphp
@@ -41,7 +41,7 @@
                 <div class="toggle-wrapper">
                     <a href="javascript:void(0);" class="d-flex align-items-center toggle-category" data-category-id="{{ $category->id }}">
                         @if($category->childrenCategories->isNotEmpty())
-                            <i class="toggle-icon ms-1">▲</i>
+                            <i class="toggle-icon ms-1 {{ $key === 0 ? '' : 'hidden' }}">▲</i>
                         @else
                             <i class="toggle-icon" style="visibility: hidden;">▲</i>
                         @endif
@@ -49,8 +49,7 @@
                         <span class="fw-bold fs-xs total-count ms-auto">{{ $productsCount }}</span>
                     </a>
                     @if($category->childrenCategories->isNotEmpty())
-                    @include('frontend.default.pages.products.inc.child_categories', ['children' => $category->childrenCategories, 'padding' => 15])
-
+                        @include('frontend.default.pages.products.inc.child_categories', ['children' => $category->childrenCategories, 'padding' => 15])
                     @endif
                 </div>
             </li>
@@ -60,6 +59,10 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
+        // Toggle the first level categories by default
+        $('.toggle-wrapper .toggle-category .toggle-icon').text('▲');
+        $('.child-categories').slideDown();
+
         $('.toggle-wrapper .toggle-category').off('click').on('click', function (e) {
             e.stopPropagation();
 
@@ -103,7 +106,6 @@
         }
     }
 </script>
-
 
 
 
