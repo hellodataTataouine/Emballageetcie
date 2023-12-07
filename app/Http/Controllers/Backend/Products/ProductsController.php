@@ -122,7 +122,7 @@ class ProductsController extends Controller
 
        // Paginate the combined products
 $page = $request->input('page', 1);
-$perPage = 20;
+$perPage = 15;
 $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
 $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
 $paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
