@@ -48,6 +48,9 @@
                     @if($category->childrenCategories->isNotEmpty())
                         <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
                             @foreach($category->childrenCategories as $childCategory)
+                                @php
+                                    $childProductsCount = \App\Models\ProductCategory::where('category_id', $childCategory->id)->count();
+                                @endphp
                                 <li class="category-item" data-category-id="{{ $childCategory->id }}">
                                     <div class="toggle-wrapper">
                                         <a href="{{ route('products.index') }}?&category_id={{ $childCategory->id }}"
@@ -58,12 +61,15 @@
                                                 <i class="toggle-icon" style="visibility: hidden;">▼</i>
                                             @endif
                                             <span class="category-name ms-2">{{ $childCategory->collectLocalization('name') }}</span>
-                                            <span class="fw-bold fs-xs total-count ms-auto">{{ $childCategory->productsCount }}</span>
+                                            <span class="fw-bold fs-xs total-count ms-auto">{{ $childProductsCount }}</span>
                                         </a>
                                         <!-- Add another level for grandchild categories -->
                                         @if($childCategory->childrenCategories->isNotEmpty())
                                             <ul class="grandchild-categories" data-category-id="{{ $childCategory->id }}" style="display: none;">
                                                 @foreach($childCategory->childrenCategories as $grandchildCategory)
+                                                    @php
+                                                        $grandchildProductsCount = \App\Models\ProductCategory::where('category_id', $grandchildCategory->id)->count();
+                                                    @endphp
                                                     <li class="category-item" data-category-id="{{ $grandchildCategory->id }}">
                                                         <div class="toggle-wrapper">
                                                             <a href="{{ route('products.index') }}?&category_id={{ $grandchildCategory->id }}"
@@ -75,7 +81,7 @@
                                                                     <i class="toggle-icon" style="visibility: hidden;">▼</i>
                                                                 @endif
                                                                 <span class="category-name ms-2">{{ $grandchildCategory->collectLocalization('name') }}</span>
-                                                                <span class="fw-bold fs-xs total-count ms-auto">{{ $grandchildCategory->productsCount }}</span>
+                                                                <span class="fw-bold fs-xs total-count ms-auto">{{ $grandchildProductsCount }}</span>
                                                             </a>
                                                             <!-- Add another level for great-grandchild categories if needed -->
                                                         </div>
@@ -96,7 +102,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Click event for toggling categories
         $('.toggle-wrapper .toggle-category').off('click').on('click', function (e) {
             e.stopPropagation();
 
@@ -104,7 +109,6 @@
             var $childCategories = $('.child-categories[data-category-id="' + categoryId + '"]');
 
             if ($(e.target).hasClass('toggle-icon')) {
-                // Toggle child categories when clicking the arrow
                 $childCategories.slideToggle();
 
                 $(this).find('.toggle-icon').text(function (_, text) {
@@ -117,9 +121,7 @@
                     console.log('Dropdown closed for category with ID: ' + categoryId);
                 }
             } else if ($(e.target).hasClass('category-name')) {
-                // Navigate only when clicking the top-level category name
                 if ($(this).hasClass('child-categories') || $(this).hasClass('grandchild-categories')) {
-                    // Prevent navigation when clicking the child or grandchild category wrapper
                     e.preventDefault();
                 } else {
                     window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
@@ -127,14 +129,12 @@
             }
         });
 
-        // Click event for toggling grandchild categories
         $('.toggle-wrapper .child-categories .toggle-category').off('click').on('click', function (e) {
             e.stopPropagation();
 
             var categoryId = $(this).data('category-id');
             var $grandchildCategories = $('.grandchild-categories[data-category-id="' + categoryId + '"]');
 
-            // Toggle grandchild categories when clicking the arrow
             $grandchildCategories.slideToggle();
 
             $(this).find('.toggle-icon').text(function (_, text) {
@@ -149,6 +149,7 @@
         });
     });
 </script>
+
 
 
 <!--Filter by Categories-->
