@@ -63,7 +63,7 @@ $existingProducts = Product::whereIn('slug', $barcodes)
         $apiStock = $produitApi['StockActual'];
         $apiunité = $produitApi['unité_lot'];
         $apiQTEUNITE = $produitApi['QTEUNITE'];
-        
+
   // Find products with matching barcode
   if (!(isset($existingProducts[$barcode]))) {
  
@@ -104,11 +104,6 @@ $ProductLocalization->save();
 
     }
 
-    $existingProducts = Product::whereIn('slug', $barcodes)
-   ->where('is_published', 1)
-    ->with('categories')
-    ->get()
-    ->keyBy('slug');
 
 foreach ($produitsApi as $produitApi) {
     $barcode = $produitApi['codeabarre'];
@@ -279,7 +274,6 @@ foreach ($produitsApi as $produitApi) {
             'min_value'     => $min_value,
             'max_value'     => $max_value,
             'tags'          => $tags,
-            
         ]);   
 
      
