@@ -18,12 +18,16 @@
     </div>
     <!--Filter by search-->
 
-<!--Filter by Categories-->
-<div class="sidebar-widget category-widget bg-white py-5 px-4 border-top mobile-menu-wrapper scrollbar h-400px">
+    <div class="sidebar-widget category-widget bg-white py-3 px-4 border-top mobile-menu-wrapper scrollbar h-50px">
     <div class="widget-title d-flex">
         <h6 class="mb-0 flex-shrink-0">{{ localize('Catégories') }}</h6>
         <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
     </div>
+    </div>
+
+<!--Filter by Categories-->
+<div class="sidebar-widget category-widget bg-white py-1 px-4 border-top mobile-menu-wrapper scrollbar h-400px">
+   
     <ul class="widget-nav mt-4">
         @php
             $product_listing_categories = getSetting('product_listing_categories') != null ? json_decode(getSetting('product_listing_categories')) : [];
@@ -42,11 +46,11 @@
                         @else
                             <i class="toggle-icon" style="visibility: hidden;">▼</i>
                         @endif
-                        <span class="category-name ms-2">{{ $category->collectLocalization('name') }}</span>
+                        <b><span class="category-name ms-2 bold">{{ $category->collectLocalization('name') }}</span></b> <!-- Add 'bold' class here -->
                         <span class="fw-bold fs-xs total-count ms-auto">{{ $productsCount }}</span>
                     </a>
                     @if($category->childrenCategories->isNotEmpty())
-                        <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none;">
+                        <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: block;"> 
                             @foreach($category->childrenCategories as $childCategory)
                                 @php
                                     $childProductsCount = \App\Models\ProductCategory::where('category_id', $childCategory->id)->count();
