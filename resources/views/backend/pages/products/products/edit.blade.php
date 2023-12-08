@@ -94,12 +94,6 @@
                                     }
                                 </script>
 
-                                
-
-
-
-
-
 
                             </div>
                         </div>
@@ -153,6 +147,101 @@
                             </div>
                             <!--product image and gallery end-->
 
+                            <!-- Total Volume, Dimensions, and Color -->
+                            <div class="card mb-4" id="section-11">
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Informations additionnelles du produit') }}</h5>
+
+                                    <div class="row g-3">
+                                        <!-- Total Volume -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Volume total du produit') }}</label>
+                                                <input class="form-control" type="text" name="total_volume" value="{{ $product->total_volume }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Dimensions -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Dimensions du produit') }}</label>
+                                                <input class="form-control" type="text" name="dimensions" value="{{ $product->dimensions }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Color -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Couleur du produit') }}</label>
+                                                <input class="form-control" type="text" name="color" value="{{ $product->color }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Total Volume, Dimensions, and Color -->
+
+                             <div class="card mb-4" id="section-11">
+                                <div class="card-body mb-4"> <!-- Add margin-bottom here -->
+                                    <h5 class="mb-4">{{ localize('Produit parent') }}</h5>
+                                    <div class="tt-select-brand">
+                                    <select class="select2 form-control" id="is_parent" name="is_parent" onchange="toggleChildSection()">
+                                    <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
+                                        {{ localize('Définir comme produit parent') }}
+                                    </option>
+                                    <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
+                                        {{ localize('Ne pas définir comme produit parent') }}
+                                    </option>
+                            </select>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- Product Children start -->
+                            <div class="card mb-4" id="section-5">
+                                    <div class="card-body "> <!-- Set the width to col-lg-6 to match the other section -->
+                                        <h5 class="mb-4">{{ localize('Produits Fils') }}</h5>
+                                        <div class="mb-4">
+                                            <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]">
+                                                @foreach ($products as $childProduct)
+                                                    <option value="{{ $childProduct->id }}"
+                                                        {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
+                                                        {{ $childProduct->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product Children end -->
+
+                            <script>
+                                function toggleChildSection() {
+                                    var isParentValue = document.getElementById('is_parent').value;
+                                    var childSection = document.getElementById('section-5');
+
+                                    if (isParentValue === '1') {
+                                        childSection.style.display = 'block';
+                                    } else {
+                                        childSection.style.display = 'none';
+                                    }
+                                }
+
+                                // Call the function on page load to set the initial visibility
+                                toggleChildSection();
+                            </script>
+
+
+                            <!--product Parent -->
+
+
+
+
                             <!--product category start-->
                             <div class="card mb-4" id="section-3">
                                 <div class="card-body">
@@ -183,6 +272,7 @@
                                 </div>
                             </div>
                             <!--product category end-->
+
 
                             <!--product tag start-->
                             <div class="card mb-4" id="section-tags">
@@ -246,17 +336,17 @@
                             </div>
                             <!--product brand and unit end-->
 
-                            <!--product price sku and stock start-->
-                            <div class="card mb-4" id="section-5">
+                            <!-- product price sku and stock start-->
+                            <!-- <div class="card mb-4" id="section-5">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="mb-4">{{ localize('Sku & Code') }}
                                         </h5>
                                         
-                                    </div>
+                                    </div> -->
 
                                     <!-- without variation start-->
-                                    <div class="noVariation"
+                                    <!-- <div class="noVariation"
                                         @if ($product->has_variation) style="display:none;" @endif>
                                         @php
                                             $first_variation = $product->variations->first();
@@ -264,7 +354,7 @@
                                             $stock_qty = !$product->has_variation ? ($first_variation->product_variation_stock ? $first_variation->product_variation_stock->stock_qty : 0) : 1;
                                             $sku = !$product->has_variation ? $first_variation->sku : null;
                                             $code = !$product->has_variation ? $first_variation->code : null;
-                                        @endphp
+                                        @endphp -->
 
                                        <!-- @php
                                         $first_variation = $product->variations->first();
@@ -274,7 +364,7 @@
                                         $code = !$product->has_variation || !$first_variation ? null : $first_variation->code;
                                     @endphp -->   
  
-                                        <div class="row g-3">
+                                        <!-- <div class="row g-3"> -->
                                             <!-- <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="price"
@@ -298,7 +388,7 @@
 
                                                 </div>
                                             </div>-->
-                                            <div class="col-lg-3">
+                                            <!--<div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="sku"
                                                         class="form-label">{{ localize('SKU') }}</label>
@@ -318,14 +408,14 @@
                                                         value="{{ $code }}" class="form-control"
                                                         >
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </div> -->
+                                        <!-- </div>
+                                    </div> -->
                                     <!-- without variation start end-->
 
 
                                     <!--for variation row start-->
-                                    <div class="hasVariation"
+                                    <!-- <div class="hasVariation"
                                         @if (!$product->has_variation) style="display:none;" @endif>
                                         @php
                                             $sizes = \App\Models\VariationValue::where('variation_id', 1)->get();
@@ -346,9 +436,9 @@
                                                 ->toArray();
                                         @endphp
 
-                                        <div class="row g-3">
+                                        <div class="row g-3"> -->
                                             <!-- size -->
-                                            @if (count($sizes) > 0)
+                                            <!-- @if (count($sizes) > 0)
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="product-thumb"
@@ -366,11 +456,11 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            @endif -->
                                             <!-- size end -->
 
                                             <!-- colors -->
-                                            @if (count($colors) > 0)
+                                            <!-- @if (count($colors) > 0)
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="product-thumb"
@@ -388,9 +478,9 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            @endif -->
                                             <!-- colors end -->
-                                        </div>
+                                        <!-- </div>
 
                                         @foreach (generateVariationOptions(
             $product->variation_combinations()->whereNotIn('variation_id', [1, 2])->get(),
@@ -472,16 +562,16 @@
                                                         ]
                                                     )
                                                 @endif
-                                            </div>
+                                            </div> -->
 
                                             <!-- size guide -->
-                                            <div class="mt-4">
+                                            <!-- <div class="mt-4">
                                                 <label class="form-label">{{ localize('Guide des tailles du produit') }}</label>
                                                 <div class="tt-image-drop rounded">
                                                     <span
-                                                        class="fw-semibold">{{ localize('Choisissez une image pour le guide des tailles') }}</span>
+                                                        class="fw-semibold">{{ localize('Choisissez une image pour le guide des tailles') }}</span> -->
                                                     <!-- choose media -->
-                                                    <div class="tt-product-thumb show-selected-files mt-3">
+                                                    <!-- <div class="tt-product-thumb show-selected-files mt-3">
                                                         <div class="avatar avatar-xl cursor-pointer choose-media"
                                                             data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
                                                             onclick="showMediaManager(this)" data-selection="single">
@@ -491,17 +581,17 @@
                                                                 <span><i data-feather="plus"></i></span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- choose media -->
-                                                </div>
-                                            </div>
+                                                <!-- </div>
+                                            </div> -->
                                             <!-- size guide end -->
-                                        </div>
+                                        <!-- </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!--for variation row end-->
-                            </div>
-                            <!--product price sku and stock end-->
+                            <!-- </div> -->
+                            <!--product price sku and stock end -->
 
                             <!--product discount start-->
                             <div class="card mb-4" id="section-6">
@@ -774,17 +864,22 @@
                                             <a href="#section-2">{{ localize('Images du produit') }}</a>
                                         </li>
                                         <li>
+                                            <a href="#section-11">{{ localize('Informations additionnelles') }}</a>
+                                        </li>
+                                        <li>
                                             <a href="#section-3">{{ localize('Catégorie') }}</a>
                                         </li>
+                                        
                                         <li>
                                             <a href="#section-tags">{{ localize('Tags du produit') }}</a>
                                         </li>
                                         <li>
                                             <a href="#section-4">{{ localize('Marque du produit') }}</a>
                                         </li>
-                                        <li>
+                                       
+                                        <!-- <li>
                                             <a href="#section-5">{{ localize('SKU, Code ') }}</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <a href="#section-6">{{ localize('Remise sur le produit') }}</a>
                                         </li>

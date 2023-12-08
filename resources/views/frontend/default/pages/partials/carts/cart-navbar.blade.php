@@ -24,12 +24,15 @@
 
             <div class="products_meta mt-1 d-flex align-items-center">
                 <div>
-                    <span
-                        class="price text-primary fw-semibold">{{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_variation)) }}</span>
+                    <!-- Display only Prix HT -->
+                    <span class="price text-primary fw-semibold">
+                        {{ formatPrice($cart->product_variation->product->Prix_HT) }}
+                    </span>
                     <span class="count fs-semibold">x {{ $cart->qty }}</span>
                 </div>
-                <button class="remove_cart_btn ms-2" onclick="handleCartItem('delete', {{ $cart->id }})"><i
-                        class="fa-solid fa-trash-can"></i></button>
+                <button class="remove_cart_btn ms-2" onclick="handleCartItem('delete', {{ $cart->id }})">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
             </div>
         </div>
     </li>
