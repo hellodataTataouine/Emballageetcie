@@ -180,21 +180,20 @@
                                 </div>
                             </div>
 
-                             <!-- Total Volume, Dimensions, and Color -->
+                             <!-- Total Volume, Dimensions, and Color end -->
 
                              <div class="card mb-4" id="section-11">
                                 <div class="card-body mb-4"> <!-- Add margin-bottom here -->
                                     <h5 class="mb-4">{{ localize('Produit parent') }}</h5>
                                     <div class="tt-select-brand">
-                                    <select class="select2 form-control" id="is_parent" name="is_parent" onchange="toggleChildSection()">
-                                    <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
-                                        {{ localize('Définir comme produit parent') }}
-                                    </option>
-                                    <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
-                                        {{ localize('Ne pas définir comme produit parent') }}
-                                    </option>
-                            </select>
-
+                                    <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
+                                        <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
+                                            {{ localize('Définir comme produit parent') }}
+                                        </option>
+                                        <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
+                                            {{ localize('Ne pas définir comme produit parent') }}
+                                        </option>
+                                    </select>
                                     </div>
                                 </div>
 
@@ -220,21 +219,29 @@
                                 </div>
                                 <!-- Product Children end -->
 
-                            <script>
-                                function toggleChildSection() {
-                                    var isParentValue = document.getElementById('is_parent').value;
-                                    var childSection = document.getElementById('section-5');
+                                <script>
+                                    function handleIsParentChange() {
+                                        var isParentValue = document.getElementById('is_parent').value;
+                                        var childSection = document.getElementById('section-5');
 
-                                    if (isParentValue === '1') {
-                                        childSection.style.display = 'block';
-                                    } else {
-                                        childSection.style.display = 'none';
+                                        if (isParentValue === '1') {
+                                            childSection.style.display = 'block';
+                                        } else {
+                                            childSection.style.display = 'none';
+                                            updateChildProductsParentId(null); // Set parent_id to null when is_parent is 0
+                                        }
                                     }
-                                }
 
-                                // Call the function on page load to set the initial visibility
-                                toggleChildSection();
-                            </script>
+                                    function updateChildProductsParentId(parentId) {
+                                        var childProductIds = document.getElementsByName('child_product_ids[]');
+                                        childProductIds.forEach(function(childProduct) {
+                                            childProduct.value = parentId;
+                                        });
+                                    }
+
+                                    handleIsParentChange();
+                                </script>
+
 
 
                             <!--product Parent -->

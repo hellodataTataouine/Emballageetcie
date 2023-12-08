@@ -407,11 +407,6 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 //dd($request->id);
         $oldProduct= clone $product;
 
-        if ($request->has('is_parent') && $request->is_parent == 0) {
-            // If is_parent is set to 0, remove the parent_id from its children
-            $product->children()->update(['parent_id' => null]);
-        }
-
 
         if ($request->has('child_product_ids')) {
         $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($request->child_product_ids);
@@ -501,6 +496,11 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->meta_img = $request->meta_image;
 
             $product->save();
+
+            if ($request->is_parent == 0) {
+                // Set the parent_id of associated child products to null
+                $product->children()->update(['parent_id' => null]);
+            }
 
             if ($request->has('child_product_ids')) {
                 foreach ($request->child_product_ids as $childProductId) {
