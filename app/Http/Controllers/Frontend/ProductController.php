@@ -23,7 +23,7 @@ class ProductController extends Controller
     {
         $virtualProducts = collect(); 
 $searchKey = null;
-$per_page = 9;
+$per_page = 12;
 $sort_by = $request->sort_by ? $request->sort_by : "new";
 $maxRange = Product::max('max_price');
 $min_value = 0;
@@ -255,7 +255,7 @@ foreach ($produitsApi as $produitApi) {
         }
         # conditional
         $currentPage = $request->input('page', 1); 
-        $perPage = 9;
+        $perPage = 12;
         $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
       
        

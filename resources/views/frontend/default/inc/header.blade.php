@@ -210,8 +210,12 @@
                                 @else
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
+                                    @if(auth()->check())
+                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mes Produits') }}</a></li>
+                                    @endif
+
                                     <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>
-                                    <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
+                                    <!-- <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li> -->
                                     <!-- <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a> </li> -->
                                     
                                     <!-- <li><a href="{{ route('home.catalogues.index') }}">{{ localize('Catalogues') }}</a></li>  -->

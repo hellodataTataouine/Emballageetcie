@@ -128,6 +128,9 @@ Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned
     Route::get('/extrait-de-compte', [CustomerController::class, 'extraitDeCompte'])->name('customers.extraitDeCompte');
     Route::get('/extrait-detail', [CustomerController::class, 'extraitDetail'])->name('customers.extraitDetail');
 
+    Route::get('/mes-produits', [CustomerController::class, 'mesProduits'])->name('customers.mesProduits');
+
+
 
     # wishlist
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('customers.wishlist');

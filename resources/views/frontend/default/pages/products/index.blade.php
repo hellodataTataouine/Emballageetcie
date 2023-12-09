@@ -22,10 +22,10 @@
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
 
-    <form class="filter-form" action="{{ Request::fullUrl() }}" method="GET">
+    <form class="filter-form " action="{{ Request::fullUrl() }}" method="GET"  style="padding-left: 100px;">
         <!--shop grid section start-->
         <section class="gshop-gshop-grid ptb-120">
-            <div class="container">
+            <div class="col-xl-11">
                 <div class="row g-4">
 
                     <div class="col-xl-3">
@@ -67,7 +67,7 @@
                                             @isset($per_page)
                                         value="{{ $per_page }}"
                                         @else
-                                        value="9" 
+                                        value="12"
                                         @endisset
                                             name="per_page" class="product-listing-pagination">
                                     </div>
@@ -134,45 +134,54 @@
                             </div>
                             <!--filter-->
 
-                            <!--products-->
+                           <!--products-->
                             <div class="row g-4">
                                 @if (count($products) > 0)
                                     @if (request()->has('view') && request()->view == 'list')
                                         @foreach ($products as $product)
-                                            <div class="col-xl-12">
-                                                @include(
-                                                    'frontend.default.pages.partials.products.product-card-list',
-                                                    [
-                                                        'product' => $product,
-                                                    ]
-                                                )
-                                            </div>
+                                            @if ($product->parent_id === null) <!-- Add this condition to hide products with parent_id not null -->
+                                                <div class="col-xl-12">
+                                                    @include(
+                                                        'frontend.default.pages.partials.products.product-card-list',
+                                                        [
+                                                            'product' => $product,
+                                                        ]
+                                                    )
+                                                </div>
+                                            @endif
                                         @endforeach
                                     @else
-                                        @foreach ($products as $product)
-                                            <div class="col-lg-4 col-md-6 col-sm-10">
-                                                @include(
-                                                    'frontend.default.pages.partials.products.vertical-product-card',
-                                                    [
-                                                        'product' => $product,
-                                                        'bgClass' => 'bg-white',
-                                                    ]
-                                                )
-                                            </div>
-                                        @endforeach
+                                        <div class="row">
+                                            @foreach ($products as $index => $product)
+                                                @if ($product->parent_id === null) <!-- Add this condition to hide products with parent_id not null -->
+                                                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                                        @include(
+                                                            'frontend.default.pages.partials.products.vertical-product-card',
+                                                            [
+                                                                'product' => $product,
+                                                                'bgClass' => 'bg-white',
+                                                            ]
+                                                        )
+                                                    </div>
+
+                                                    @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
+                                                        <div class="w-100"></div>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </div>
                                     @endif
                                 @else
                                     <div class="col-6 mx-auto">
-                                        <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}"
-                                            alt="" srcset="" class="img-fluid">
+                                        <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" srcset="" class="img-fluid">
                                     </div>
                                 @endif
-
                             </div>
                             <ul class="d-flex align-items-center gap-3 mt-7">
                                 {{ $products->appends(request()->input())->links() }}
                             </ul>
                             <!--products-->
+
                         </div>
                     </div>
                     <!--rightbar-->
@@ -200,3 +209,6 @@
         });
     </script>
 @endsection
+
+
+

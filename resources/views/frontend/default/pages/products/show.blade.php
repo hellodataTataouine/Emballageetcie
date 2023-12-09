@@ -84,6 +84,137 @@
                             compact('product'))
                         <!-- product-view-box -->
 
+<!-- Réferences -->
+@if ($product->children->isNotEmpty())
+    <div class="mt-4">
+        <h2 class="mb-4">{{ localize('Réferences') }}</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>{{ localize('Image') }}</th>
+                        <th>{{ localize('Réference') }}</th>
+                        <th>{{ localize('Nom') }}</th>
+                        <th>{{ localize('Volume') }}</th>
+                        <th>{{ localize('Dimension') }}</th>
+                        <th>{{ localize('Couleur') }}</th>
+                        <th>{{ localize('Quantité') }}</th>
+                        <th>{{ localize('Disponibilité') }}</th>
+                        <th>{{ localize('Prix HT') }}</th>
+                        <th>{{ localize('Fiche Technique') }}</th> 
+                        <th>{{ localize('Action') }}</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Parent Product Row -->
+                    <tr>
+                        <td class="align-middle">
+                            @if($product->thumbnail_image)
+                                <a href="{{ route('products.show', $product->slug) }}">
+                                    <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 40px; max-height: 40px;">
+                                </a>
+                            @else
+                                {{ $product->slug }}
+                            @endif
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ route('products.show', $product->slug) }}">{{ $product->slug }}</a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
+                        </td>
+                        <td class="align-middle">{{ $product->total_volume }}</td>
+                        <td class="align-middle">{{ $product->dimensions }}</td>
+                        <td class="align-middle">{{ $product->color }}</td>
+                        <td class="align-middle">{{ $product->Qty_Unit }}</td>
+                        <td class="align-middle">
+                            @if($product->stock_qty > 0)
+                                <span class="text-success h1">&bull;</span>
+                            @else
+                                <span class="text-danger h1">&bull;</span>
+                            @endif
+                        </td>
+                        <td class="align-middle">{{ formatPrice($product->min_price) }}</td>
+                        <td class="align-middle">
+                            <!-- Fiche Technique  -->
+                            <a href="{{ asset('storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-info btn-sm disabled " >
+                                <i class="fas fa-file-pdf fa-sm"></i> <!-- PDF Icon -->
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <button type="button" class="btn btn-primary btn-sm me-2" onclick="showProductDetailsModal({{ $product->id }})">
+                                    <i class="fas fa-shopping-cart fa-sm"></i>
+                                </button> 
+                                <button type="button" class="btn btn-success btn-sm" onclick="addToWishlist({{ $product->id }})">
+                                    <i class="fas fa-heart fa-sm"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Child Products Rows -->
+                    @foreach ($product->children as $childProduct)
+                        <tr>
+                            <td class="align-middle">
+                                @if($childProduct->thumbnail_image)
+                                    <a href="{{ route('products.show', $childProduct->slug) }}">
+                                        <img src="{{ uploadedAsset($childProduct->thumbnail_image) }}" alt="{{ $childProduct->name }}" class="img-fluid" style="max-width: 40px; max-height: 40px;">
+                                    </a>
+                                @else
+                                    {{ $childProduct->slug }}
+                                @endif
+                            </td>
+                            <td class="align-middle">
+                                <a href="{{ route('products.show', $childProduct->slug) }}">{{ $childProduct->slug }}</a>
+                            </td>
+                            <td class="align-middle">
+                                <a href="{{ route('products.show', $childProduct->slug) }}">{{ $childProduct->name }}</a>
+                            </td>
+                            <td class="align-middle">{{ $childProduct->total_volume }}</td>
+                            <td class="align-middle">{{ $childProduct->dimensions }}</td>
+                            <td class="align-middle">{{ $childProduct->color }}</td>
+                            <td class="align-middle">{{ $childProduct->Qty_Unit }}</td>
+                            <td class="align-middle">
+                                @if($childProduct->stock_qty > 0)
+                                    <span class="text-success h1">&bull;</span>
+                                @else
+                                    <span class="text-danger h1">&bull;</span>
+                                @endif
+                            </td>
+                            <td class="align-middle">{{ formatPrice($childProduct->min_price) }}</td>
+                            <td class="align-middle">
+                                <!-- Fiche Technique  -->
+                                <a href="{{ asset('storage/' . $childProduct->fiche_technique) }}" target="_blank" class="btn btn-info btn-sm disabled">
+                                    <i class="fas fa-file-pdf fa-sm"></i> <!-- PDF Icon -->
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="showProductDetailsModal({{ $childProduct->id }})">
+                                        <i class="fas fa-shopping-cart fa-sm"></i>
+                                    </button> 
+                                    <button type="button" class="btn btn-success btn-sm" onclick="addToWishlist({{ $childProduct->id }})">
+                                        <i class="fas fa-heart fa-sm"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@else
+    <!-- No child products available -->
+@endif
+<!-- Réferences -->
+
+
+
+
+
+
                         <!-- description -->
                         @include(
                             'frontend.default.pages.partials.products.description',
@@ -119,6 +250,22 @@
                     </div> -->
                 </div>
             </div>
+            <script>
+    // Script to handle quantity increase and decrease
+    function handleQuantity(action, productId) {
+        const quantityInput = document.getElementById(`quantityInput_${productId}`);
+        let currentQuantity = parseInt(quantityInput.value);
+
+        if (action === 'increase') {
+            currentQuantity++;
+        } else if (action === 'decrease' && currentQuantity > 1) {
+            currentQuantity--;
+        }
+
+        quantityInput.value = currentQuantity;
+    }
+
+</script>
     </section>
     <!--product details end-->
 
@@ -128,3 +275,5 @@
     ])
     <!--related products slider end-->
 @endsection
+
+

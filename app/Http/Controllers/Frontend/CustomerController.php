@@ -33,6 +33,31 @@ class CustomerController extends Controller
         return getView('pages.users.dashboard');
     }
 
+    # customer's mes produits (all products from order history)
+public function mesProduits()
+{
+    $user = auth()->user();
+
+    $orders = $user->orders()
+        ->with(['orderGroup', 'orderItems.product']) // Eager load order items and related products
+        ->latest()
+        ->paginate(paginationNumber());
+
+    $mesProduits = [];
+    foreach ($orders as $order) {
+        foreach ($order->orderItems as $orderItem) {
+            if (!in_array($orderItem->product, $mesProduits)) {
+                $mesProduits[] = $orderItem->product;
+            }
+        }
+    }
+
+    return getView('pages.users.mesProduits', [
+        'mesProduits' => $mesProduits,
+    ]);
+}
+
+
     # customer's order history
     public function orderHistory()
     {

@@ -64,7 +64,7 @@
             if ($product->variations()->count() > 1) {
                 $isVariantProduct = 1;
             } else {
-                $stock = $product->stock_qty : 0;
+                $stock = $product->stock_qty ?: 0;
             }
         @endphp
 

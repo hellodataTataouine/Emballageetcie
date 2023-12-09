@@ -1,7 +1,7 @@
 <div class="product-info-tab bg-white rounded-2 overflow-hidden pt-6 mt-4">
     <ul class="nav nav-tabs border-bottom justify-content-center gap-5 pt-info-tab-nav">
         <li><a href="#description" class="active" data-bs-toggle="tab">{{ localize('Description') }}</a></li>
-        <li><a href="#childProducts"  data-bs-toggle="tab">{{ localize('Réferences') }}</a></li>
+        <!-- <li><a href="#childProducts"  data-bs-toggle="tab">{{ localize('Réferences') }}</a></li> -->
 
         <li><a href="#info" data-bs-toggle="tab">{{ localize('Informations complémentaires') }}</a></li>
         <li><a href="#ficheTechnique" data-bs-toggle="tab">{{ localize('Fiche technique') }}</a></li>
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <!-- Réferences Tab Content -->
+        <!-- Réferences Tab Content
         <div class="tab-pane fade px-4 py-5" id="childProducts" style="margin-top: 0;">
             @if ($product->children->isNotEmpty())
                 <div class="table-responsive mt-4">
@@ -103,10 +103,10 @@
                                         @endif
                                     </td>
                                     <td class="align-middle">{{ formatPrice($childProduct->min_price) }}</td>
-                                    <td class="align-middle">
-                                        <!-- Fiche Technique  -->
+                                    <td class="align-middle">  
+                                         Fiche Technique  
                                         <a href="" class="btn btn-info btn-sm">
-                                            <i class="fas fa-file-pdf fa-sm"></i> <!-- PDF Icon -->
+                                            <i class="fas fa-file-pdf fa-sm"></i> 
                                         </a>
                                     </td>
                                     <td class="align-middle">
@@ -128,13 +128,13 @@
             @else
                 <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}</div>
             @endif
-        </div>
+        </div> -->
 
         
     </div>
 </div>
 
-<script>
+<!-- <script>
     // Script to handle quantity increase and decrease
     function handleQuantity(action, productId) {
         const quantityInput = document.getElementById(`quantityInput_${productId}`);
@@ -149,4 +149,4 @@
         quantityInput.value = currentQuantity;
     }
 
-</script>
+</script>  -->
