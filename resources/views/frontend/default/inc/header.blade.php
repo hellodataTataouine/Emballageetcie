@@ -235,7 +235,9 @@
                                                 }
                                             @endphp
 
-                                            <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
+                                            <!--<li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li> -->
+                                            <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
+
                                             <!-- <li><a
                                                     href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a>
                                             </li> -->

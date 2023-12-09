@@ -67,7 +67,7 @@
                             </span>
                             <span class="add-to-cart-text">
                                 @if (!$isVariantProduct && $product->stock_qty < 1)
-                                    {{ localize('Sur Commande') }}
+                                    {{ localize('Rupture de stock') }}
                                 @else
                                     {{ localize('Ajouter au panier') }}
                                 @endif
