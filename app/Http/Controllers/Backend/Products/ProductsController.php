@@ -372,6 +372,12 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         }*/
         //dd($id);
         $product = Product::findOrFail($id);
+        $products = Product::all();
+
+        $currentIsParent = $product->is_parent;
+        $currentChildren = $product->children;
+
+        
         //dd($product);
         $categories = Category::where('parent_id', 0)
             ->orderBy('sorting_order_level', 'desc')
@@ -382,7 +388,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         $variations = Variation::isActive()->whereNotIn('id', [1, 2])->get();
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
-        return view('backend.pages.products.products.edit', compact('product', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key'));
+        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren'));
     }
 
     
@@ -402,6 +408,23 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         $oldProduct= clone $product;
 
 
+        if ($request->has('child_product_ids')) {
+        $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($request->child_product_ids);
+        Product::whereIn('id', $removedChildIds)->update(['parent_id' => null]);
+
+        foreach ($request->child_product_ids as $childProductId) {
+            $childProduct = Product::findOrFail($childProductId);
+
+            $childProduct->parent_id = $request->id;
+
+
+            $childProduct->save();
+        }
+    } else {
+        $product->children()->update(['parent_id' => null]);
+    }
+
+
         if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
            // $product->name              = $request->name;
             //$product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
@@ -410,6 +433,12 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->brand_id          = $request->brand_id;
             $product->unit_id           = $request->unit_id;
             $product->short_description = $request->short_description;
+            $product->parent_id = $request->parent_id;
+            $product->is_parent = $request->is_parent;
+            $product->total_volume = $request->total_volume;
+            $product->dimensions = $request->dimensions;
+            $product->color = $request->color;
+
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
@@ -421,14 +450,10 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
                 $product->fiche_technique = $path;
                 $product->save(); 
             }
-            
+                        
             //dd($product->fiche_technique); 
          
-
-
             $product->size_guide        = $request->size_guide;
-
-           
 
             # min-max price
             if ($request->has('is_variant') && $request->has('variations')) {
@@ -466,13 +491,24 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->min_purchase_qty     = $request->min_purchase_qty;
             $product->max_purchase_qty     = $request->max_purchase_qty;
 
-
             $product->meta_title = $request->meta_title;
             $product->meta_description = $request->meta_description;
             $product->meta_img = $request->meta_image;
 
-
             $product->save();
+
+            if ($request->is_parent == 0) {
+                // Set the parent_id of associated child products to null
+                $product->children()->update(['parent_id' => null]);
+            }
+
+            if ($request->has('child_product_ids')) {
+                foreach ($request->child_product_ids as $childProductId) {
+                    $childProduct = Product::findOrFail($childProductId);
+                    $childProduct->parent_id = $request->id; // Set the parent ID
+                    $childProduct->save();
+                }
+            }
 
             # tags
             $product->tags()->sync($request->tag_ids);
