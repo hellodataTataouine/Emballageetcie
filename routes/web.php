@@ -74,7 +74,9 @@ Route::get('/categories', [HomeController::class, 'allCategories'])->name('home.
 
 # products
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{slug}', [ProductController::class, 'show'])
+    ->where('slug', '.*') // Allow any character, including slashes
+    ->name('products.show');
 Route::post('/products/get-variation-info', [ProductController::class, 'getVariationInfo'])->name('products.getVariationInfo');
 Route::post('/products/show-product-info', [ProductController::class, 'showInfo'])->name('products.showInfo');
 
@@ -103,7 +105,9 @@ Route::get('/coupons', [HomeController::class, 'allCoupons'])->name('home.coupon
 # pages
 Route::get('/pages/about-us', [HomeController::class, 'aboutUs'])->name('home.pages.aboutUs');
 Route::get('/pages/contact-us', [HomeController::class, 'contactUs'])->name('home.pages.contactUs');
-Route::get('/pages/{slug}', [HomeController::class, 'showPage'])->name('home.pages.show');
+Route::get('/pages/{slug}', [HomeController::class, 'showPage'])
+->where('slug', '.*')
+->name('home.pages.show');
 
 # contact us message
 Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contactUs.store');
