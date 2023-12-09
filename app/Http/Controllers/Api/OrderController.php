@@ -181,7 +181,7 @@ class OrderController extends Controller
                 $orderItem->product_variation_id = $cart->product_variation_id;
                 $orderItem->qty                  = $cart->qty;
                 $orderItem->location_id          = $request->header('Stock-Location-Id');
-                $orderItem->unit_price           = variationDiscountedPrice($cart->product_variation->product, $cart->product_variation);
+                $orderItem->unit_price           = variationDiscountedPrice($cart->product_variation->product, $cart->product_price);
                 $orderItem->total_tax            = variationTaxAmount($cart->product_variation->product, $cart->product_variation);
                 $orderItem->total_price          = $orderItem->unit_price * $orderItem->qty;
                 $orderItem->save();

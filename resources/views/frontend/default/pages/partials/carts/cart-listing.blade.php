@@ -23,7 +23,7 @@
         <td>
             <span class="text-dark fw-bold me-2 d-lg-none">{{ localize('Prix unitaire') }}:</span>
             <span class="text-dark fw-bold">
-                {{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_variation)) }}
+                {{ formatPrice($cart->product_price) }}
             </span>
         </td>
 
@@ -38,7 +38,7 @@
         <td>
             <span class="text-dark fw-bold me-2 d-lg-none">{{ localize('Prix Total') }}:</span>
             <span class="text-dark fw-bold">
-                {{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_variation) * $cart->qty) }}
+                {{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_price) * $cart->qty) }}
             </span>
         </td>
         <td>

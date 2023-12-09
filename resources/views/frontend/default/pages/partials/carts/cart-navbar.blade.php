@@ -25,7 +25,7 @@
             <div class="products_meta mt-1 d-flex align-items-center">
                 <div>
                     <span
-                        class="price text-primary fw-semibold">{{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_variation)) }}</span>
+                        class="price text-primary fw-semibold">{{ formatPrice($cart->product_price) }}</span>
                     <span class="count fs-semibold">x {{ $cart->qty }}</span>
                 </div>
                 <button class="remove_cart_btn ms-2" onclick="handleCartItem('delete', {{ $cart->id }})"><i

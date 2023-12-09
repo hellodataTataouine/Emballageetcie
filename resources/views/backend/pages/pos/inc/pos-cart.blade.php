@@ -40,7 +40,7 @@
         <td>
             <div class="tt-tb-price fs-sm fw-semibold">
                 <span
-                    class="text-accent">{{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_variation) * $cart->qty) }}</span>
+                    class="text-accent">{{ formatPrice(variationDiscountedPrice($cart->product_variation->product, $cart->product_price) * $cart->qty) }}</span>
             </div>
         </td>
 

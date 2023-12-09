@@ -89,9 +89,12 @@
             onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
     @else
         <form action="" class="direct-add-to-cart-form">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="product_price" value="{{ $product->max_price }}">
+
             <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
             <input type="hidden" value="1" name="quantity">
+           
 
             @if (!$isVariantProduct && $stock < 1)
                 <a href="javascript:void(0);" class="btn btn-secondary d-block btn-md rounded-1 w-100">

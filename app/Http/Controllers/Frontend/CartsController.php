@@ -43,6 +43,7 @@ class CartsController extends Controller
                 $product = $productVariation->product;
                 $cart = new Cart;
                 $cart->product_variation_id = $productVariation->id;
+                $cart->product_price = $request->product_price;
                 if($request->quantity > $product->max_purchase_qty){
                     $cart->qty                  = (int) $product->max_purchase_qty;
                 }else{
