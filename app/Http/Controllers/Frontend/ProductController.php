@@ -133,71 +133,11 @@ foreach ($produitsApi as $produitApi) {
         
         $virtualProducts->push($matchingProduct);
     } else {
-        // Create a new product or do additional handling for new products
     }
 }
 
 
 
-        /*  foreach ($produitsApi as $produitApi) {
-            $name = $produitApi['Libellé'];
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiStock = $produitApi['StockActual'];
-    
-      // Find products with matching barcode
-      $matchingProducts = Product::where('slug', $barcode)->get();
-      if ($matchingProducts->isNotEmpty()) {
-        foreach ($matchingProducts as $matchingProduct) {
-            if ($matchingProduct->stock_qty !== $apiStock) {
-            $matchingProduct->stock_qty = $apiStock;
-            $matchingProduct->save();
-        }
-        }
-    } else {
-    // Update prices for matching products
-    $location = Location::where('is_default', 1)->first();
-    $newProduct = new Product();
-    $newProduct->name = $name;
-    $newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
-    // Set other properties of the product
-    $newProduct->min_price = $apiPrice;
-    $newProduct->max_price = $apiPrice;
-    
-    $newProduct->stock_qty = $apiStock;
-   // $newProduct->has_variation = 0;
-    // Set other properties accordingly based on your product model
-    
-    $newProduct->save();
-    
-    $variation              = new ProductVariation;
-    $variation->product_id  = $newProduct->id;
-    //$variation->sku         = $request->sku;
-    //$variation->code         = $request->code;
-    $variation->price       = $apiPrice;
-    $variation->save();
-    $product_variation_stock                          = new ProductVariationStock;
-    $product_variation_stock->product_variation_id    = $variation->id;
-    $product_variation_stock->location_id             = $location->id;
-    $product_variation_stock->stock_qty               = $apiStock;
-    $product_variation_stock->save();
-    $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
-    $ProductLocalization->name = $name;
-    //$ProductLocalization->description = $request->description;
-    $ProductLocalization->save();
-    
-    
-    }
-    
-        }*/
-        
-       // $products = $virtualProducts;
-
-
-
-       // $products = Product::isPublished();
-
-        # conditional - search by
 
 
         if ($request->search != null) {
@@ -221,11 +161,11 @@ foreach ($produitsApi as $produitApi) {
 
         # sort by
         if ($sort_by == 'new') {
-            $virtualProducts = $virtualProducts->sortByDesc('created_at'); // Or any timestamp field
+            $virtualProducts = $virtualProducts->sortByDesc('created_at'); 
 
             
         } else {
-            $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); // Or any other criteria
+            $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); 
 
             
         }
@@ -263,6 +203,7 @@ foreach ($produitsApi as $produitApi) {
         $products->withPath('/products'); // Set the desired path for pagination
 
         //$products = $products->paginate(paginationNumber($per_page));
+        
 
         $tags = Tag::all();
         return getView('pages.products.index', [

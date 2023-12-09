@@ -134,7 +134,7 @@
                     <input type="number" max="{{ $max_range }}"
                         oninput="validity.valid||(value='{{ $max_range }}');"
                         class="max_price price-range-field price-input price-input-max" name="max_price"
-                        data-value="{{ $max_value }}" data-max-range="{{ $max_range }}">
+                        data-value="{{ $max_value ?? '' }}" data-max-range="{{ $max_range }}">
 
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm mt-3">{{ localize('Filtrer') }}</button>

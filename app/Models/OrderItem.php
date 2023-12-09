@@ -17,9 +17,9 @@ class OrderItem extends Model
 
 
 
-    public function product_variation()
+    public function productVariation()
     {
-        return $this->belongsTo(ProductVariation::class);
+        return $this->belongsTo(ProductVariation::class, 'product_variation_id');
     }
 
     public function location()

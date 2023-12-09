@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Str;
 
+use App\Models\OrderItem;
+use App\Models\ProductVariation;
+use App\Models\Product;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+
+
 class CustomerController extends Controller
 {
 
@@ -33,29 +40,34 @@ class CustomerController extends Controller
         return getView('pages.users.dashboard');
     }
 
-    # customer's mes produits (all products from order history)
-public function mesProduits()
-{
-    $user = auth()->user();
 
-    $orders = $user->orders()
-        ->with(['orderGroup', 'orderItems.product']) // Eager load order items and related products
-        ->latest()
-        ->paginate(paginationNumber());
-
-    $mesProduits = [];
-    foreach ($orders as $order) {
-        foreach ($order->orderItems as $orderItem) {
-            if (!in_array($orderItem->product, $mesProduits)) {
-                $mesProduits[] = $orderItem->product;
-            }
-        }
+    public function mesProduits()
+    {
+        $user = auth()->user();
+    
+        $orderIds = $user->orders()->pluck('id')->toArray();
+    
+        $productVariationIds = OrderItem::whereIn('order_id', $orderIds)
+            ->pluck('product_variation_id')
+            ->toArray();
+    
+        $productIds = ProductVariation::whereIn('id', $productVariationIds)
+            ->pluck('product_id')
+            ->toArray();
+    
+        $mesProduits = Product::whereIn('id', $productIds)->get();    
+        //dd($mesProduits);
+    
+        $perPage = 12;
+        $page = request()->get('page', 1);
+        $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);
+    
+        $mesProduits = new LengthAwarePaginator($mesProduits, $mesProduits->count(), $perPage, $page);
+    
+        return getView('pages.users.mesProduits', compact('mesProduits'));
     }
-
-    return getView('pages.users.mesProduits', [
-        'mesProduits' => $mesProduits,
-    ]);
-}
+    
+    
 
 
     # customer's order history
