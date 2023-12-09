@@ -82,7 +82,7 @@
                                                 <img src="{{ uploadedAsset($childProduct->thumbnail_image) }}" alt="{{ $childProduct->name }}" class="img-fluid" style="max-width: 40px; max-height: 40px;">
                                             </a>
                                         @else
-                                            {{ localize('Pas d\'image') }}
+                                        {{ $childProduct->slug }}
                                         @endif
                                     </td>
                                     <td class="align-middle">
@@ -110,14 +110,8 @@
                                         </a>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="product-qty d-inline-flex align-items-center" >
-                                            <button class="decrease btn btn-light btn-sm"  onclick="handleQuantity('decrease',{{ $childProduct->id }})">-</button>
-                                            <input type="text" readonly value="1" style="width: 30px; text-align: center;" class="form-control form-control-sm" id="quantityInput_{{ $childProduct->id }}">
-                                            <button class="increase btn btn-light btn-sm" onclick="handleQuantity('increase', {{ $childProduct->id }})">+</button>
-                                        </div>
-
-                                        <div class="mt-2"> 
-                                            <button type="button" class="btn btn-primary btn-sm" onclick="addToCart({{ $childProduct->id }})">
+                                        <div class="d-flex justify-content-between align-items-center mt-2">
+                                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="showProductDetailsModal({{ $childProduct->id }})">
                                                 <i class="fas fa-shopping-cart fa-sm"></i>
                                             </button> 
 
