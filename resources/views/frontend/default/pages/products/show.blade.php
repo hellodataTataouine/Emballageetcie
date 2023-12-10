@@ -94,7 +94,7 @@
                     <tr>
                         <th>{{ localize('Image') }}</th>
                         <th>{{ localize('Réference') }}</th>
-                        <th>{{ localize('Nom') }}</th>
+                        <th>{{ localize('Désignation') }}</th>
                         <th>{{ localize('Volume') }}</th>
                         <th>{{ localize('Dimension') }}</th>
                         <th>{{ localize('Couleur') }}</th>
