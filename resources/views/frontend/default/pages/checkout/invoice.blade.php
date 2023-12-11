@@ -109,39 +109,50 @@
                                     <th>{{ localize('Remboursement') }}</th>
                                 @endif
                             </tr>
-                            @foreach ($orderItems as $key => $item)
-                                @php
-                                $product = optional($item->product_variation)->product;
-                                @endphp
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td class="text-nowrap">
-                                        <div class="d-flex">
-                                            <img src="{{ uploadedAsset($product->thumbnail_image) }}"
-                                                alt="{{ $product->collectLocalization('name') }}"
-                                                class="img-fluid product-item d-none">
-                                            {{-- <div class="ms-2"> --}}
-                                            <div class="">
-                                                <span>{{ $product->collectLocalization('name') }}</span>
-                                                <div>
-                                                    @foreach (generateVariationOptions($item->product_variation->combinations) as $variation)
-                                                        <span class="fs-xs">
-                                                            {{ $variation['name'] }}:
-                                                            @foreach ($variation['values'] as $value)
-                                                                {{ $value['name'] }}
+                            
+                                    <!-- product problem  -->
+
+ 
+                                    @foreach ($orderItems as $key => $item)
+                                    @php
+                                        $product = optional($item->product_variation)->product;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td class="text-nowrap">
+                                            <div class="d-flex">
+                                                @if ($product)
+                                                    <img src="{{ uploadedAsset($product->thumbnail_image) }}"
+                                                        alt="{{ $product->collectLocalization('name') }}"
+                                                        class="img-fluid product-item d-none">
+                                                    <div class="">
+                                                        <span>{{ $product->collectLocalization('name') }}</span>
+                                                        <div>
+                                                            @foreach (generateVariationOptions($item->product_variation->combinations) as $variation)
+                                                                <span class="fs-xs">
+                                                                    {{ $variation['name'] }}:
+                                                                    @foreach ($variation['values'] as $value)
+                                                                        {{ $value['name'] }}
+                                                                    @endforeach
+                                                                    @if (!$loop->last)
+                                                                        ,
+                                                                    @endif
+                                                                </span>
                                                             @endforeach
-                                                            @if (!$loop->last)
-                                                                ,
-                                                            @endif
-                                                        </span>
-                                                    @endforeach
-                                                </div>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <span>{{ localize('Produit') }}</span>
+                                                @endif
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>{{ formatPrice($item->unit_price) }}</td>
-                                    <td>{{ $item->qty }}</td>
-                                    <td>{{ formatPrice($item->total_price) }}</td>
+                                        </td>
+                                        <td>{{ formatPrice($item->unit_price) }}</td>
+                                        <td>{{ $item->qty }}</td>
+                                        <td>{{ formatPrice($item->total_price) }}</td> 
+
+
+                                        <!-- product problem  -->
+
 
                                     @if (getSetting('enable_refund_system') == 1)
                                         <td>
