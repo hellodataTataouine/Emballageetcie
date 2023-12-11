@@ -281,14 +281,16 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         
             if ($matchingChild) {
                 // Update child product details from the API
-                $matchingChild->update([
-                    'min_price' => $produitApi['PrixVTTC'],
-                    'max_price' => $produitApi['PrixVTTC'],
-                    'Prix_HT' => $produitApi['PrixVenteHT'],
-                    'stock_qty' => $produitApi['StockActual'],
-                    'Unit' => $produitApi['unité_lot'],
-                    'Qty_Unit' => $produitApi['QTEUNITE']
-                ]);
+                $matchingChild->min_price = $apiPrice; 
+                $matchingChild->max_price = $apiPrice;
+                $matchingChild->Prix_HT = $apiPriceHT;
+           
+                $matchingChild->stock_qty = $apiStock;
+            
+                $matchingChild->Qty_Unit = $apiQTEUNITE;
+           
+                $matchingChild->Unit = $apiunité;
+           
         
                 $virtualChildrenProducts->push($matchingChild);
             }
