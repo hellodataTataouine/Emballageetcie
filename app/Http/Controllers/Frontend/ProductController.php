@@ -224,6 +224,7 @@ foreach ($produitsApi as $produitApi) {
     # product show
     public function show($slug)
     {
+        $virtualChidrenProducts = collect(); 
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -272,13 +273,42 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
+$productchildren = $product->children()->keyBy('slug');
+foreach($productchildren as $children){
+    foreach ($produitsApi as $produitApi) {
+        $name = $produitApi['Libellé'];
+        $barcode = $produitApi['codeabarre'];
+        $apiPrice = $produitApi['PrixVTTC'];
+        $apiPriceHT = $produitApi['PrixVenteHT'];
+        $apiStock = $produitApi['StockActual'];
+        $apiunité = $produitApi['unité_lot'];
+        $apiQTEUNITE = $produitApi['QTEUNITE'];
+        if (isset($productchildren[$barcode])) {
+            $matchingProduct = $productchildren[$barcode];
+            
+                 $matchingProduct->min_price = $apiPrice; 
+                $matchingProduct->max_price = $apiPrice;
+                $matchingProduct->Prix_HT = $apiPriceHT;
+           
+                $matchingProduct->stock_qty = $apiStock;
+            
+                $matchingProduct->Qty_Unit = $apiQTEUNITE;
+           
+                $matchingProduct->Unit = $apiunité;
+           
+            
+            $virtualChidrenProducts->push($matchingProduct);
+        } 
+    }
 
+
+}
         $product_page_widgets = [];
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
 
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $relatedProducts, 'product_page_widgets' => $product_page_widgets]);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $relatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChidrenProducts]);
     }
 
     # product info
