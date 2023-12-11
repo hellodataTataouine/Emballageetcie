@@ -154,7 +154,7 @@
                     </tr>
 
                     <!-- Child Products Rows -->
-                    @foreach (childrenProducts as $childProduct)
+                    @foreach ($childrenProducts as $childProduct)
                         <tr>
                             <td class="align-middle">
                                 @if($childProduct->thumbnail_image)
