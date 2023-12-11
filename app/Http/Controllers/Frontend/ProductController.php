@@ -256,6 +256,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $product->stock_qty = $apiStock;
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
+                break;
                 
             }
         }
@@ -273,43 +274,31 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
-$productchildren = $product->children()->get()
-->keyBy('slug');
-foreach($productchildren as $children){
-    foreach ($produitsApi as $produitApi) {
-        $name = $produitApi['Libellé'];
-        $barcode = $produitApi['codeabarre'];
-        $apiPrice = $produitApi['PrixVTTC'];
-        $apiPriceHT = $produitApi['PrixVenteHT'];
-        $apiStock = $produitApi['StockActual'];
-        $apiunité = $produitApi['unité_lot'];
-        $apiQTEUNITE = $produitApi['QTEUNITE'];
-        if (isset($productchildren[$barcode])) {
-            $matchingProduct = $productchildren[$barcode];
-            
-                 $matchingProduct->min_price = $apiPrice; 
-                $matchingProduct->max_price = $apiPrice;
-                $matchingProduct->Prix_HT = $apiPriceHT;
-           
-                $matchingProduct->stock_qty = $apiStock;
-            
-                $matchingProduct->Qty_Unit = $apiQTEUNITE;
-           
-                $matchingProduct->Unit = $apiunité;
-           
-            
-            $virtualChidrenProducts->push($matchingProduct);
-        } 
-    }
-
-
-}
+        $virtualChildrenProducts = collect();
+        foreach ($produitsApi as $produitApi) {
+            $barcode = $produitApi['codeabarre'];
+            $matchingChild = $product->children()->where('slug', $barcode)->first();
+        
+            if ($matchingChild) {
+                // Update child product details from the API
+                $matchingChild->update([
+                    'min_price' => $produitApi['PrixVTTC'],
+                    'max_price' => $produitApi['PrixVTTC'],
+                    'Prix_HT' => $produitApi['PrixVenteHT'],
+                    'stock_qty' => $produitApi['StockActual'],
+                    'Unit' => $produitApi['unité_lot'],
+                    'Qty_Unit' => $produitApi['QTEUNITE']
+                ]);
+        
+                $virtualChildrenProducts->push($matchingChild);
+            }
+        }
         $product_page_widgets = [];
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
 
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $relatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChidrenProducts]);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $relatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
     }
 
     # product info
