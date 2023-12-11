@@ -43,7 +43,10 @@
                 class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}
             </a>
         </h3>
-
+        <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Référence:</span>
+                        <span class="fw-bold text-danger">{{ $product->slug }}</span>
+                    </div>
         <h6 class="price">
             @include('frontend.default.pages.partials.products.pricing', [
                 'product' => $product,
