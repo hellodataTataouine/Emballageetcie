@@ -100,7 +100,7 @@
                                                 <th>{{ localize('Couleur') }}</th>
                                                 <th>{{ localize('Quantité') }}</th>
                                                 <th>{{ localize('Disponibilité') }}</th>
-                                                <th>{{ localize('Prix HT') }}</th>
+                                                <th>{{ localize('Prix TTC') }}</th>
                                                 <th>{{ localize('Fiche Technique') }}</th> 
                                                 <th>{{ localize('Action') }}</th> 
                                             </tr>
@@ -182,7 +182,7 @@
                                                             <span class="text-danger h1">&bull;</span>
                                                         @endif
                                                     </td>
-                                                    <td class="align-middle">{{ formatPrice($childProduct->min_price) }}</td>
+                                                    <td class="align-middle">{{ formatPrice($childProduct->max_price) }}</td>
                                                     <td class="align-middle">
                                                         <!-- Fiche Technique  -->
                                                         <a href="{{ asset('storage/' . $childProduct->fiche_technique) }}" target="_blank" class="btn btn-info btn-sm disabled">

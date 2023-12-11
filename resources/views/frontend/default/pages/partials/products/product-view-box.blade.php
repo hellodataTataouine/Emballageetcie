@@ -43,6 +43,8 @@
                     @endphp
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="product_price" value="{{ $product->max_price }}">
+
                     <input type="hidden" name="product_variation_id"
                         @if (!$isVariantProduct) value="{{ $product->variations[0]->id }}" @endif>
 
