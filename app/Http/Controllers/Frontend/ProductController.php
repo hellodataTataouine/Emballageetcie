@@ -273,7 +273,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
-$productchildren = $product->children()->keyBy('slug');
+$productchildren = $product->children()->get()
+->keyBy('slug');
 foreach($productchildren as $children){
     foreach ($produitsApi as $produitApi) {
         $name = $produitApi['Libellé'];
