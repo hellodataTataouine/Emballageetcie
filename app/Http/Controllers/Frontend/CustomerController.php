@@ -55,9 +55,9 @@ class CustomerController extends Controller
             ->pluck('product_id')
             ->toArray();
     
-        $mesProduits = Product::whereIn('id', $productIds)->get();    
+        $mesProduits = Product::whereIn('id', $productIds)->get();   
         //dd($mesProduits);
-    
+
         $perPage = 12;
         $page = request()->get('page', 1);
         $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);

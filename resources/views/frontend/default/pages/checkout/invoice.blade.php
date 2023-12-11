@@ -111,7 +111,7 @@
                             </tr>
                             @foreach ($orderItems as $key => $item)
                                 @php
-                                    $product = $item->product_variation->product;
+                                $product = optional($item->product_variation)->product;
                                 @endphp
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
