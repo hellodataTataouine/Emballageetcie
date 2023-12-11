@@ -1,5 +1,4 @@
 @auth
-    @if ($product->is_parent != 1)
         @if (productBasePrice($product) == discountedProductBasePrice($product))
             @if (productBasePrice($product) == productMaxPrice($product))
                 <div class="mb-3">
@@ -62,5 +61,5 @@
         @if ($product->unit)
             <small>/{{ $product->unit->collectLocalization('name') }}</small>
         @endif
-    @endif
+   
 @endauth
