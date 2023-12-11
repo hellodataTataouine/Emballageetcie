@@ -41,7 +41,6 @@ $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
 $existingProducts = Product::whereIn('slug', $barcodes)
-   
     ->with('categories')
     ->get()
     ->keyBy('slug');
@@ -103,7 +102,9 @@ $ProductLocalization->save();
 }
 
     }
-
+    $existingProducts = $existingProducts
+    ->where('is_published', 1);
+  
 
 foreach ($produitsApi as $produitApi) {
     $barcode = $produitApi['codeabarre'];
