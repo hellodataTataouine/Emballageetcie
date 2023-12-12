@@ -6,6 +6,7 @@
 @endsection
 
 @section('contents')
+
     <section class="tt-section pt-4">
         <div class="container">
             <div class="row mb-3">
@@ -198,55 +199,159 @@
                                 </div>
 
                             </div>
-
-
                             <!-- Product Children start -->
+                            <head>
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
+                            </head>
                             <div class="card mb-4" id="section-5">
-                                    <div class="card-body "> <!-- Set the width to col-lg-6 to match the other section -->
-                                        <h5 class="mb-4">{{ localize('Produits Fils') }}</h5>
-                                        <div class="mb-4">
-                                            <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]">
-                                                @foreach ($products as $childProduct)
-                                                    <option value="{{ $childProduct->id }}"
-                                                        {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
-                                                        {{ $childProduct->name }}
-                                                    </option>
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
+                                    <div class="mb-4">
+                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                            @foreach ($products as $childProduct)
+                                                <option value="{{ $childProduct->id }}" data-position="{{ $childProduct->child_position }}" {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
+                                                    {{ $childProduct->child_position }}. {{ $childProduct->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
+                                    </div>
+                                    <div class="table-responsive">
+                                    <h6 class="mb-4">{{ localize('Trie de Fils') }}</h6> 
+                                    <table class="table table-bordered text-center" id="childProductsTable" style="border-radius: 10px; overflow: hidden;">
+                                        <input type="hidden" name="child_ids" id="childIdsInput" value="">
+                                        <input type="hidden" name="temporary_order" id="temporaryOrderInput" value="">
+                                            <thead>
+                                                <tr>
+                                                    <th>Position</th>
+                                                    <th>Désignation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
+                                                    <tr id="childProductRow_{{ $childProduct->id }}">
+                                                        <td>
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'up')">&#9650;</button>
+                                                            {{ $temporaryOrder[$childProduct->id] }}
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'down')">&#9660;</button>
+                                                        </td>
+                                                        <td>{{ $childProduct->name }}</td>
+                                                    </tr>
                                                 @endforeach
-                                            </select>
-                                            <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <!-- Product Children end -->
+                            </div>
+                            <!-- Product Children end -->
 
-                                <script>
-                                    function handleIsParentChange() {
-                                        var isParentValue = document.getElementById('is_parent').value;
-                                        var childSection = document.getElementById('section-5');
+                            <script>
+                                var temporaryOrder = [];
 
-                                        if (isParentValue === '1') {
-                                            childSection.style.display = 'block';
-                                        } else {
-                                            childSection.style.display = 'none';
-                                            updateChildProductsParentId(null); // Set parent_id to null when is_parent is 0
+                                function moveRow(childProductId, direction) {
+                                    var currentRow = document.getElementById('childProductRow_' + childProductId);
+                                    var targetRow = direction === 'up' ? currentRow.previousElementSibling : currentRow.nextElementSibling;
+
+                                    if (!targetRow) {
+                                        return;
+                                    }
+
+                                    swapRows(currentRow, targetRow);
+                                    updateRowPositions();
+                                }
+
+                                function swapRows(row1, row2) {
+                                    var parent = row1.parentNode;
+                                    var clone1 = row1.cloneNode(true);
+                                    var clone2 = row2.cloneNode(true);
+                                    parent.replaceChild(clone1, row2);
+                                    parent.replaceChild(clone2, row1);
+                                }
+
+                                function updateRowPositions() {
+                                    var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                    rows.forEach(function (row, index) {
+                                        var childProductId = row.id.split('_')[1];
+                                        if (temporaryOrder[childProductId] !== null) {
+                                            temporaryOrder[childProductId] = index + 1;
+                                            row.children[0].innerHTML = `
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')" ${index === 0 ? 'disabled' : ''}>&#9650;</button>
+                                                ${temporaryOrder[childProductId] || ''}
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')" ${index === rows.length - 1 ? 'disabled' : ''}>&#9660;</button>
+                                            `;
                                         }
+                                    });
+
+                                    temporaryOrder = Object.fromEntries(
+                                        Object.entries(temporaryOrder).filter(([key, value]) => value !== null)
+                                    );
+
+                                    document.getElementById('childIdsInput').value = JSON.stringify(Object.keys(temporaryOrder));
+                                    document.getElementById('temporaryOrderInput').value = JSON.stringify(temporaryOrder);
+                                }
+
+                                updateRowPositions();
+
+                                function updateChildTable() {
+                                var selectedProducts = document.getElementById('childProductIds').selectedOptions;
+
+                                var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                rows.forEach(function (row) {
+                                    var childProductId = row.id.split('_')[1];
+                                    if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
+                                        row.remove();
+                                        delete temporaryOrder[childProductId]; 
                                     }
+                                });
 
-                                    function updateChildProductsParentId(parentId) {
-                                        var childProductIds = document.getElementsByName('child_product_ids[]');
-                                        childProductIds.forEach(function(childProduct) {
-                                            childProduct.value = parentId;
-                                        });
+                                Array.from(selectedProducts).forEach(function (selectedOption) {
+                                    var childProductId = selectedOption.value;
+                                    if (!document.getElementById('childProductRow_' + childProductId)) {
+                                        var newRow = document.createElement('tr');
+                                        newRow.id = 'childProductRow_' + childProductId;
+                                        newRow.innerHTML = `
+                                            <td>
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
+                                                ${temporaryOrder[childProductId] || ''}
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
+                                            </td>
+                                            <td>${selectedOption.text}</td>
+                                        `;
+                                        document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
                                     }
+                                });
 
-                                    handleIsParentChange();
-                                </script>
+                                updateRowPositions();
+                            }
 
+                            </script>
 
+                            <script>
+
+                                function handleIsParentChange() {
+                                    var isParentValue = document.getElementById('is_parent').value;
+                                    var childSection = document.getElementById('section-5');
+
+                                    if (isParentValue === '1') {
+                                        childSection.style.display = 'block';
+                                    } else {
+                                        childSection.style.display = 'none';
+                                        updateChildProductsParentId(null); 
+                                    }
+                                }
+
+                                function updateChildProductsParentId(parentId) {
+                                    var childProductIds = document.getElementsByName('child_product_ids[]');
+                                    childProductIds.forEach(function(childProduct) {
+                                        childProduct.value = parentId;
+                                    });
+                                }
+
+                                handleIsParentChange();
+
+                            </script>
 
                             <!--product Parent -->
-
-
 
 
                             <!--product category start-->
@@ -911,6 +1016,8 @@
                 </div>
             </div>
         </div>
+
+        
     </section>
 @endsection
 
