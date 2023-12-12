@@ -425,7 +425,8 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
                 $childProduct->save();
             }
         } else {
-            $product->children()->update(['parent_id' => null, 'child_position' => null]);
+            $product->children()->update(['child_position' => null]);
+            // 'parent_id' => null, 
         }            
     
         
