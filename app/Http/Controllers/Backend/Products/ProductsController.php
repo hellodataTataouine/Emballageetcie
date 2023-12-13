@@ -458,7 +458,14 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             if ($request->hasFile('fiche_technique')) {
                 $file = $request->file('fiche_technique');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('fiche_technique', $filename, 'public');
+                
+                // Define the storage path
+                $storagePath = 'storage/fiche_technique';
+            
+                // Store the file in the specified location
+                $path = $file->storeAs($storagePath, $filename);
+            
+                // Assign the file path to the product and save
                 $product->fiche_technique = $path;
                 $product->save(); 
             }

@@ -276,11 +276,23 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 return redirect()->route('home');
             }
         }
-
+        $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+        $existingProducts = Product::whereIn('slug', $barcodes)
+            ->get()
+            ->keyBy('slug');
+            foreach ($existingProducts as $existingProduct) {
+                // Check if the existing product is not found in the API list
+                if (!in_array($existingProduct->slug, $barcodes)) {
+                   
+                    $existingProduct->is_published = 0;
+                    
+                    $existingProduct->save();
+                }
+            }
         $productCategories              = $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
-        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
+        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
       
         $virtualRelatedProducts = collect();
         $virtualChildrenProducts = collect();
@@ -299,9 +311,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $relatedProduct->name = $matchingApiData['Libellé'];
         
                 // Only add the related product if it is published
-                if ($relatedProduct->is_published) {
                     $virtualChildrenProducts->push($relatedProduct);
-                }
+               
             }
         }
         
@@ -315,7 +326,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $name = $produitApi['Libellé'];
 
             $barcode = $produitApi['codeabarre'];
-            $matchingChild = $product->children()->where('slug', $barcode)->first();
+            $matchingChild = $product->children()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
         
             if ($matchingChild) {
@@ -330,8 +341,9 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
            
                 $matchingChild->Unit = $apiunité;
                 $matchingChild->name = $name;
-        
-                $virtualChildrenProducts->push($matchingChild);
+                
+                    $virtualChildrenProducts->push($matchingChild);
+                
             }
             else if ($matchingrelatedProduct){
                 $matchingrelatedProduct->min_price = $apiPrice; 
