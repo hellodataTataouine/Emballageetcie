@@ -296,7 +296,10 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $relatedProduct->Unit = $matchingApiData['unité_lot'];
                 $relatedProduct->name = $matchingApiData['Libellé'];
         
-                $virtualChildrenProducts->push($relatedProduct);
+                // Only add the related product if it is published
+                if ($relatedProduct->is_published) {
+                    $virtualChildrenProducts->push($relatedProduct);
+                }
             }
         }
         

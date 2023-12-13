@@ -154,7 +154,7 @@
                                             </tr>
 
                                             <!-- Child Products Rows -->
-                                            @foreach ($childrenProducts->sortBy('child_position') as $childProduct)
+                                            @foreach ($childrenProducts->where('parent_id', $product->id)->unique('id')->sortBy('child_position') as $childProduct)
                                                 <tr>
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
@@ -201,6 +201,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
