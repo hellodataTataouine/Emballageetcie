@@ -282,6 +282,25 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
         $virtualChildrenProducts = collect();
+
+        foreach ($relatedProducts as $relatedProduct) {
+            $matchingApiData = collect($produitsApi)->firstWhere('codeabarre', $relatedProduct->slug);
+        
+            if ($matchingApiData) {
+                // Update related product details from the API
+                $relatedProduct->min_price = $matchingApiData['PrixVTTC'];
+                $relatedProduct->max_price = $matchingApiData['PrixVTTC'];
+                $relatedProduct->Prix_HT = $matchingApiData['PrixVenteHT'];
+                $relatedProduct->stock_qty = $matchingApiData['StockActual'];
+                $relatedProduct->Qty_Unit = $matchingApiData['QTEUNITE'];
+                $relatedProduct->Unit = $matchingApiData['unité_lot'];
+                $relatedProduct->name = $matchingApiData['Libellé'];
+        
+                $virtualChildrenProducts->push($relatedProduct);
+            }
+        }
+        
+        
         foreach ($produitsApi as $produitApi) {
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
