@@ -13,9 +13,9 @@ class AddProductPriceToCarts extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
+       /* Schema::table('carts', function (Blueprint $table) {
             $table->double('product_price', 8, 2)->after('qty');
-        });
+        });*/
     }
 
     /**
