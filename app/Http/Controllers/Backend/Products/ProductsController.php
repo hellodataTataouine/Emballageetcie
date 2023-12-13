@@ -454,14 +454,23 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
-            $product->fiche_technique   = $request->fiche_technique;
+            $product->fiche_technique = $request->fiche_technique;
+
             if ($request->hasFile('fiche_technique')) {
                 $file = $request->file('fiche_technique');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('fiche_technique', $filename, 'public');
-                $product->fiche_technique = $path;
-                $product->save(); 
+            
+                // Store the file in the desired directory
+                $path = $file->storeAs('public/fiche_technique', $filename);
+            
+                // Update the product's file path to the correct URL structure
+                $correctPath = str_replace('public/', 'storage/', $path);
+            
+                // Update the product's file path in the database
+                $product->fiche_technique = $correctPath;
+                $product->save();
             }
+            
                         
             //dd($product->fiche_technique); 
          
