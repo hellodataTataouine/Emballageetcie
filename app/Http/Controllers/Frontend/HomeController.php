@@ -55,6 +55,8 @@ class HomeController extends Controller
         $produitsApi = $response->json();
 
         foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -79,7 +81,8 @@ class HomeController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiunité;
                 }
-                
+                $matchingProduct->name = $name;
+
             }
             if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
                 $virtualProducts->push($matchingProduct);

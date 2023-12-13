@@ -63,6 +63,8 @@ class ProductsController extends Controller
                 }
             }
         foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -87,6 +89,7 @@ class ProductsController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
+                $matchingProduct->name = $name;
                 
                 $virtualProducts->push($matchingProduct);
             } else {
@@ -433,7 +436,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->brand_id          = $request->brand_id;
             $product->unit_id           = $request->unit_id;
             $product->short_description = $request->short_description;
-            $product->parent_id = $request->parent_id;
+           // $product->parent_id = $request->parent_id;
             $product->is_parent = $request->is_parent;
             $product->total_volume = $request->total_volume;
             $product->dimensions = $request->dimensions;
@@ -761,6 +764,7 @@ $newProduct->max_purchase_qty = 10;
     
         // Retrieve all existing products and organize them by slug
         foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -785,7 +789,7 @@ $newProduct->max_purchase_qty = 10;
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
-                
+                $matchingProduct->name = $name;
                 $virtualProducts->push($matchingProduct);
             } else {
                 // Create a new product or do additional handling for new products

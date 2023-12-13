@@ -107,6 +107,8 @@ $ProductLocalization->save();
   
 
 foreach ($produitsApi as $produitApi) {
+    $name = $produitApi['Libellé'];
+
     $barcode = $produitApi['codeabarre'];
     $apiPrice = $produitApi['PrixVTTC'];
     $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -131,7 +133,7 @@ foreach ($produitsApi as $produitApi) {
         if ($matchingProduct->Unit != $apiunité) {
             $matchingProduct->Unit = $apiunité;
         }
-        
+        $matchingProduct->name = $name;
         $virtualProducts->push($matchingProduct);
     } else {
     }
@@ -248,6 +250,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $name = $produitApi['Libellé'];
+
             if($produitApi['codeabarre'] == $slug ){
 
                 
@@ -257,6 +261,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $product->stock_qty = $apiStock;
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
+                $product->name = $name;
+
                 break;
                 
             }
@@ -282,7 +288,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-           
+            $name = $produitApi['Libellé'];
+
             $barcode = $produitApi['codeabarre'];
             $matchingChild = $product->children()->where('slug', $barcode)->first();
         
@@ -297,7 +304,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $matchingChild->Qty_Unit = $apiQTEUNITE;
            
                 $matchingChild->Unit = $apiunité;
-           
+                $matchingChild->name = $name;
         
                 $virtualChildrenProducts->push($matchingChild);
             }
@@ -339,6 +346,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $name = $produitApi['Libellé'];
+
             if($produitApi['codeabarre'] == $product->slug ){
 
                 
@@ -348,6 +357,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $product->stock_qty = $apiStock;
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
+                $product->name = $name;
+
             }
         }
         return getView('pages.partials.products.product-view-box', ['product' => $product]);
