@@ -391,7 +391,10 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         $variations = Variation::isActive()->whereNotIn('id', [1, 2])->get();
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
-        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren'));
+
+        $temporaryOrder = $currentChildren->pluck('child_position', 'id')->toArray();
+
+        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder'));
     }
 
     
@@ -410,22 +413,28 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 //dd($request->id);
         $oldProduct= clone $product;
 
-
         if ($request->has('child_product_ids')) {
-        $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($request->child_product_ids);
-        Product::whereIn('id', $removedChildIds)->update(['parent_id' => null]);
+            $childProductIds = $request->child_product_ids;
+            $temporaryOrder = json_decode($request->temporary_order, true);
+            $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds);
 
-        foreach ($request->child_product_ids as $childProductId) {
-            $childProduct = Product::findOrFail($childProductId);
-
-            $childProduct->parent_id = $request->id;
-
-
-            $childProduct->save();
-        }
-    } else {
-        $product->children()->update(['parent_id' => null]);
-    }
+            // Remove the parent_id association for removed child products
+            Product::whereIn('id', $removedChildIds)->update(['parent_id' => null, 'child_position' => null]);
+        
+            foreach ($childProductIds as $index => $childProductId) {
+                $childProduct = Product::findOrFail($childProductId);
+                $childProduct->parent_id = $request->id;
+                $childProduct->child_position = $temporaryOrder[$childProductId];
+                $childProduct->save();
+            }
+        } else {
+            $product->children()->update(['parent_id' => null, 'child_position' => null]);
+            //  
+        }            
+    
+        
+        
+        
 
 
         if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
