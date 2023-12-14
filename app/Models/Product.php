@@ -55,7 +55,7 @@ class Product extends Model
     }
     public function parents()
     {
-        return $this->belongsToMany(Product::class, 'product_parent', 'product_id', 'parent_id');
+        return $this->belongsToMany(Product::class, 'product_parent', 'product_id', 'child_id');
     }
 
 
