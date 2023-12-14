@@ -89,7 +89,7 @@
                             <div class="mt-4">
                                 <h2 class="mb-4">{{ localize('Réferences') }}</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover text-center">
+                                <table class="table table-bordered table-hover text-center">
                                         <thead>
                                             <tr>
                                                 <th>{{ localize('Image') }}</th>
@@ -137,9 +137,15 @@
                                                 <td class="align-middle">{{ formatPrice($product->min_price) }}</td>
                                                 <td class="align-middle">
                                                     <!-- Fiche Technique  -->
+                                                    @if (!empty($product->fiche_technique))
                                                     <a href="{{ asset('public/storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-info btn-sm " >
-                                                        <i class="fas fa-file-pdf fa-sm"></i> <!-- PDF Icon -->
+                                                        <i class="fas fa-file-pdf fa-sm"></i> 
                                                     </a>
+                                                    @else
+                                                        <button class="btn btn-info btn-sm" disabled>
+                                                            <i class="fas fa-file-pdf fa-sm"></i> 
+                                                        </button>
+                                                    @endif
                                                 </td>
                                                 <td class="align-middle">
                                                     <div class="d-flex justify-content-between align-items-center mt-2">
@@ -185,9 +191,16 @@
                                                     <td class="align-middle">{{ formatPrice($childProduct->max_price) }}</td>
                                                     <td class="align-middle">
                                                         <!-- Fiche Technique  -->
+                                                        @if (!empty($childProduct->fiche_technique))
                                                         <a href="{{ asset('public/storage/' . $childProduct->fiche_technique) }}" target="_blank" class="btn btn-info btn-sm">
-                                                            <i class="fas fa-file-pdf fa-sm"></i> <!-- PDF Icon -->
+                                                            <i class="fas fa-file-pdf fa-sm"></i>
                                                         </a>
+                                                        @else
+                                                          
+                                                            <button class="btn btn-info btn-sm" disabled>
+                                                                <i class="fas fa-file-pdf fa-sm"></i> 
+                                                            </button>
+                                                        @endif
                                                     </td>
                                                     <td class="align-middle">
                                                         <div class="d-flex justify-content-between align-items-center mt-2">
