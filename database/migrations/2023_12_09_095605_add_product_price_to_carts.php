@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUsersTableForVerificationCodeLength extends Migration
+class AddProductPriceToCarts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateUsersTableForVerificationCodeLength extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('verification_code', 255)->change();
-        });
+       /* Schema::table('carts', function (Blueprint $table) {
+            $table->double('product_price', 8, 2)->after('qty');
+        });*/
     }
 
     /**
@@ -25,8 +25,8 @@ class UpdateUsersTableForVerificationCodeLength extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('verification_code', 191)->change(); 
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('product_price');
         });
     }
 }

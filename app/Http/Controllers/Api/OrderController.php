@@ -97,7 +97,7 @@ class OrderController extends Controller
             foreach ($carts as $cart) {
                 $productVariationStock = $cart->product_variation->product_variation_stock ? $cart->product_variation->product_variation_stock->stock_qty : 0;
                 if ($cart->qty > $productVariationStock) {
-                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Sur Commande');
+                    $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Rupture de stock');
 
                     return $this->order_failed(localize($message));
                 }
@@ -181,7 +181,7 @@ class OrderController extends Controller
                 $orderItem->product_variation_id = $cart->product_variation_id;
                 $orderItem->qty                  = $cart->qty;
                 $orderItem->location_id          = $request->header('Stock-Location-Id');
-                $orderItem->unit_price           = variationDiscountedPrice($cart->product_variation->product, $cart->product_variation);
+                $orderItem->unit_price           = variationDiscountedPrice($cart->product_variation->product, $cart->product_price);
                 $orderItem->total_tax            = variationTaxAmount($cart->product_variation->product, $cart->product_variation);
                 $orderItem->total_price          = $orderItem->unit_price * $orderItem->qty;
                 $orderItem->save();

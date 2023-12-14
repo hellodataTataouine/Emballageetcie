@@ -23,7 +23,7 @@ class ProductController extends Controller
     {
         $virtualProducts = collect(); 
 $searchKey = null;
-$per_page = 9;
+$per_page = 12;
 $sort_by = $request->sort_by ? $request->sort_by : "new";
 $maxRange = Product::max('max_price');
 $min_value = 0;
@@ -41,7 +41,6 @@ $produitsApi = $response->json();
 
 $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
 $existingProducts = Product::whereIn('slug', $barcodes)
-   
     ->with('categories')
     ->get()
     ->keyBy('slug');
@@ -63,7 +62,7 @@ $existingProducts = Product::whereIn('slug', $barcodes)
         $apiStock = $produitApi['StockActual'];
         $apiunité = $produitApi['unité_lot'];
         $apiQTEUNITE = $produitApi['QTEUNITE'];
-        
+
   // Find products with matching barcode
   if (!(isset($existingProducts[$barcode]))) {
  
@@ -103,14 +102,13 @@ $ProductLocalization->save();
 }
 
     }
-
-    $existingProducts = Product::whereIn('slug', $barcodes)
-   ->where('is_published', 1)
-    ->with('categories')
-    ->get()
-    ->keyBy('slug');
+    $existingProducts = $existingProducts
+    ->where('is_published', 1);
+  
 
 foreach ($produitsApi as $produitApi) {
+    $name = $produitApi['Libellé'];
+
     $barcode = $produitApi['codeabarre'];
     $apiPrice = $produitApi['PrixVTTC'];
     $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -135,74 +133,14 @@ foreach ($produitsApi as $produitApi) {
         if ($matchingProduct->Unit != $apiunité) {
             $matchingProduct->Unit = $apiunité;
         }
-        
+        $matchingProduct->name = $name;
         $virtualProducts->push($matchingProduct);
     } else {
-        // Create a new product or do additional handling for new products
     }
 }
 
 
 
-        /*  foreach ($produitsApi as $produitApi) {
-            $name = $produitApi['Libellé'];
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiStock = $produitApi['StockActual'];
-    
-      // Find products with matching barcode
-      $matchingProducts = Product::where('slug', $barcode)->get();
-      if ($matchingProducts->isNotEmpty()) {
-        foreach ($matchingProducts as $matchingProduct) {
-            if ($matchingProduct->stock_qty !== $apiStock) {
-            $matchingProduct->stock_qty = $apiStock;
-            $matchingProduct->save();
-        }
-        }
-    } else {
-    // Update prices for matching products
-    $location = Location::where('is_default', 1)->first();
-    $newProduct = new Product();
-    $newProduct->name = $name;
-    $newProduct->slug = $barcode; // Assuming 'slug' is your barcode field
-    // Set other properties of the product
-    $newProduct->min_price = $apiPrice;
-    $newProduct->max_price = $apiPrice;
-    
-    $newProduct->stock_qty = $apiStock;
-   // $newProduct->has_variation = 0;
-    // Set other properties accordingly based on your product model
-    
-    $newProduct->save();
-    
-    $variation              = new ProductVariation;
-    $variation->product_id  = $newProduct->id;
-    //$variation->sku         = $request->sku;
-    //$variation->code         = $request->code;
-    $variation->price       = $apiPrice;
-    $variation->save();
-    $product_variation_stock                          = new ProductVariationStock;
-    $product_variation_stock->product_variation_id    = $variation->id;
-    $product_variation_stock->location_id             = $location->id;
-    $product_variation_stock->stock_qty               = $apiStock;
-    $product_variation_stock->save();
-    $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
-    $ProductLocalization->name = $name;
-    //$ProductLocalization->description = $request->description;
-    $ProductLocalization->save();
-    
-    
-    }
-    
-        }*/
-        
-       // $products = $virtualProducts;
-
-
-
-       // $products = Product::isPublished();
-
-        # conditional - search by
 
 
         if ($request->search != null) {
@@ -226,11 +164,11 @@ foreach ($produitsApi as $produitApi) {
 
         # sort by
         if ($sort_by == 'new') {
-            $virtualProducts = $virtualProducts->sortByDesc('created_at'); // Or any timestamp field
+            $virtualProducts = $virtualProducts->sortByDesc('created_at'); 
 
             
         } else {
-            $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); // Or any other criteria
+            $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); 
 
             
         }
@@ -260,7 +198,7 @@ foreach ($produitsApi as $produitApi) {
         }
         # conditional
         $currentPage = $request->input('page', 1); 
-        $perPage = 9;
+        $perPage = 12;
         $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
       
        
@@ -268,6 +206,7 @@ foreach ($produitsApi as $produitApi) {
         $products->withPath('/products'); // Set the desired path for pagination
 
         //$products = $products->paginate(paginationNumber($per_page));
+        
 
         $tags = Tag::all();
         return getView('pages.products.index', [
@@ -288,6 +227,7 @@ foreach ($produitsApi as $produitApi) {
     # product show
     public function show($slug)
     {
+        $virtualChidrenProducts = collect(); 
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -310,6 +250,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $name = $produitApi['Libellé'];
+
             if($produitApi['codeabarre'] == $slug ){
 
                 
@@ -319,6 +261,9 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $product->stock_qty = $apiStock;
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
+                $product->name = $name;
+
+                break;
                 
             }
         }
@@ -331,18 +276,97 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 return redirect()->route('home');
             }
         }
-
+        $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+        $existingProducts = Product::whereIn('slug', $barcodes)
+            ->get()
+            ->keyBy('slug');
+            foreach ($existingProducts as $existingProduct) {
+                // Check if the existing product is not found in the API list
+                if (!in_array($existingProduct->slug, $barcodes)) {
+                   
+                    $existingProduct->is_published = 0;
+                    
+                    $existingProduct->save();
+                }
+            }
         $productCategories              = $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
-        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->get();
+        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
+      
+        $virtualRelatedProducts = collect();
+        $virtualChildrenProducts = collect();
 
+        foreach ($relatedProducts as $relatedProduct) {
+            $matchingApiData = collect($produitsApi)->firstWhere('codeabarre', $relatedProduct->slug);
+        
+            if ($matchingApiData) {
+                // Update related product details from the API
+                $relatedProduct->min_price = $matchingApiData['PrixVTTC'];
+                $relatedProduct->max_price = $matchingApiData['PrixVTTC'];
+                $relatedProduct->Prix_HT = $matchingApiData['PrixVenteHT'];
+                $relatedProduct->stock_qty = $matchingApiData['StockActual'];
+                $relatedProduct->Qty_Unit = $matchingApiData['QTEUNITE'];
+                $relatedProduct->Unit = $matchingApiData['unité_lot'];
+                $relatedProduct->name = $matchingApiData['Libellé'];
+        
+                // Only add the related product if it is published
+                    $virtualChildrenProducts->push($relatedProduct);
+               
+            }
+        }
+        
+        
+        foreach ($produitsApi as $produitApi) {
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
+            $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $name = $produitApi['Libellé'];
+
+            $barcode = $produitApi['codeabarre'];
+            $matchingChild = $product->children()->where('slug', $barcode)->where('is_published', 1)->first();
+            $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
+        
+            if ($matchingChild) {
+                // Update child product details from the API
+                $matchingChild->min_price = $apiPrice; 
+                $matchingChild->max_price = $apiPrice;
+                $matchingChild->Prix_HT = $apiPriceHT;
+           
+                $matchingChild->stock_qty = $apiStock;
+            
+                $matchingChild->Qty_Unit = $apiQTEUNITE;
+           
+                $matchingChild->Unit = $apiunité;
+                $matchingChild->name = $name;
+                
+                    $virtualChildrenProducts->push($matchingChild);
+                
+            }
+            else if ($matchingrelatedProduct){
+                $matchingrelatedProduct->min_price = $apiPrice; 
+                $matchingrelatedProduct->max_price = $apiPrice;
+                $matchingrelatedProduct->Prix_HT = $apiPriceHT;
+           
+                $matchingrelatedProduct->stock_qty = $apiStock;
+            
+                $matchingrelatedProduct->Qty_Unit = $apiQTEUNITE;
+           
+                $matchingrelatedProduct->Unit = $apiunité;
+                $matchingrelatedProduct->name = $name;
+        
+                $virtualRelatedProducts->push($matchingrelatedProduct);
+
+            }
+        }
         $product_page_widgets = [];
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
 
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $relatedProducts, 'product_page_widgets' => $product_page_widgets]);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
     }
 
     # product info
@@ -374,6 +398,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $name = $produitApi['Libellé'];
+
             if($produitApi['codeabarre'] == $product->slug ){
 
                 
@@ -383,6 +409,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $product->stock_qty = $apiStock;
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
+                $product->name = $name;
+
             }
         }
         return getView('pages.partials.products.product-view-box', ['product' => $product]);

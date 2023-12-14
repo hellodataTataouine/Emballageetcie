@@ -79,7 +79,7 @@
                         @endforeach
                         <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>
                         <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
-                        <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
+                        <!-- <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li> --> 
 
                     </ul>
                 </div>
@@ -88,6 +88,9 @@
                 <div class="footer-widget">
                     <h5 class="text-white mb-4">{{ localize('Pages Clients') }}</h5>
                     <ul class="footer-nav">
+                    @if(auth()->check())
+                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mes Produits') }}</a></li>
+                                    @endif
                         <li><a href="{{ route('customers.dashboard') }}">{{ localize('Votre Compte') }}</a></li>
                         <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Vos Commandes') }}</a></li>
                         <li><a href="{{ route('customers.wishlist') }}">{{ localize('Liste d\'envies') }}</a></li>

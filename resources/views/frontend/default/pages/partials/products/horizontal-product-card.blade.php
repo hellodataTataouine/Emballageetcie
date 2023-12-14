@@ -59,15 +59,18 @@
         </div>
     @else
         <form action="" class="direct-add-to-cart-form">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="product_price" value="{{ $product->max_price }}">
+
             <input type="hidden" name="product_variation_id" value="{{ $product->variations[0]->id }}">
             <input type="hidden" value="1" name="quantity">
+           
 
             <div class="d-flex justify-content-between align-items-center mt-10">
                 <span class="flex-grow-1">
                     @if (!$isVariantProduct && $product->stock_qty < 1)
                         <a href="javascript:void(0);" class="fs-xs fw-bold d-inline-block explore-btn">
-                            {{ localize('Sur Commande') }}
+                            {{ localize('Rupture de stock') }}
                             <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     @else

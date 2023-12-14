@@ -9,9 +9,17 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    public function product_variation()
+    // Define the relationship with the Product model through ProductVariation
+    public function product()
     {
-        return $this->belongsTo(ProductVariation::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+
+
+    public function productVariation()
+    {
+        return $this->belongsTo(ProductVariation::class, 'product_variation_id');
     }
 
     public function location()

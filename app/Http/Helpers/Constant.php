@@ -673,9 +673,9 @@ if (!function_exists('variationPrice')) {
 
 if (!function_exists('variationDiscountedPrice')) {
     // return discounted price of a variation
-    function variationDiscountedPrice($product, $variation, $addTax = true)
+    function variationDiscountedPrice($product, $product_price, $addTax = true)
     {
-        $price = $variation->price;
+        $price = $product_price;
 
         $discount_applicable = false;
 
@@ -758,9 +758,9 @@ if (!function_exists('getSubTotal')) {
         if (count($carts) > 0) {
             foreach ($carts as $cart) {
                 $product    = $cart->product_variation->product;
-                $variation  = $cart->product_variation;
-
-                $discountedVariationPriceWithTax = variationDiscountedPrice($product, $variation, $addTax);
+                //$variation  = $cart->product_variation;
+                $product_price = $cart->product_price;
+                $discountedVariationPriceWithTax = variationDiscountedPrice($product, $product_price, $addTax );
                 $price += (float) $discountedVariationPriceWithTax * $cart->qty;
             }
 

@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Str;
 
+use App\Models\OrderItem;
+use App\Models\ProductVariation;
+use App\Models\Product;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+
+
 class CustomerController extends Controller
 {
 
@@ -32,6 +39,36 @@ class CustomerController extends Controller
     {
         return getView('pages.users.dashboard');
     }
+
+
+    public function mesProduits()
+    {
+        $user = auth()->user();
+    
+        $orderIds = $user->orders()->pluck('id')->toArray();
+    
+        $productVariationIds = OrderItem::whereIn('order_id', $orderIds)
+            ->pluck('product_variation_id')
+            ->toArray();
+    
+        $productIds = ProductVariation::whereIn('id', $productVariationIds)
+            ->pluck('product_id')
+            ->toArray();
+    
+        $mesProduits = Product::whereIn('id', $productIds)->get();   
+        //dd($mesProduits);
+
+        $perPage = 12;
+        $page = request()->get('page', 1);
+        $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);
+    
+        $mesProduits = new LengthAwarePaginator($mesProduits, $mesProduits->count(), $perPage, $page);
+    
+        return getView('pages.users.mesProduits', compact('mesProduits'));
+    }
+    
+    
+
 
     # customer's order history
     public function orderHistory()

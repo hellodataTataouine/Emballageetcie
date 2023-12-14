@@ -105,6 +105,8 @@
                                     </th>
                                     <th>{{ localize('Nom du produit') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
+
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
                                     <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
@@ -135,6 +137,15 @@
                                             <span
                                                 class="fs-sm">{{ optional($product->brand)->collectLocalization('name') }}</span>
                                         </td>
+                                        <td>
+    @if($product->is_parent == 1)
+        <span class="fs-sm">Produit Principal</span>
+    @elseif($product->parent_id != null)
+        <span class="fs-sm">Produit Secondaire</span>
+    @else
+        <span class="fs-sm">Produit Individuel</span>
+    @endif
+</td>
                                         <td>
                                             @forelse ($product->categories as $category)
                                                 <span
