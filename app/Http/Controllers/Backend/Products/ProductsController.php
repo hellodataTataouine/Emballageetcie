@@ -467,12 +467,16 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
                 // Store the file in the specified location
                 $path = $file->storeAs($storagePath, $filename);
             // Remove the 'storage' part from the path
-    $trimmedPath = str_replace('storage/', '', $path);
+                $trimmedPath = str_replace('storage/', '', $path);
 
                 // Assign the file path to the product and save
                 $product->fiche_technique = $trimmedPath;
-                $product->save(); 
+            } elseif ($request->has('remove_fiche_technique') && $request->remove_fiche_technique) {
+                // User has requested to remove the Fiche Technique
+                $product->fiche_technique = null;
             }
+        
+          $product->save(); 
                         
             //dd($product->fiche_technique); 
          

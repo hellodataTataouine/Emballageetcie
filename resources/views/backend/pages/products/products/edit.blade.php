@@ -73,27 +73,50 @@
 
                                 
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
-                                    <div class="mb-4">
-                                        <label class="form-label">{{ localize('(PDF)') }}</label>
-                                        <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
-                                            <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
 
-                                            <!-- Input for PDF file -->
-                                            <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+                                <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
 
-                                            <!-- Display the uploaded file name -->
-                                            <div id="uploadedFileName" class="mt-2 text-muted">{{ $currentFicheTechnique ? basename($currentFicheTechnique) : '' }}</div>
-                                        </div>
+                                <div class="mb-4">
+                                    <label class="form-label">{{ localize('(PDF)') }}</label>
+                                    <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
+                                        <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
+
+                                        <!-- Input for PDF file -->
+                                        <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+                                        <input type="hidden" name="remove_fiche_technique" id="removeFicheTechniqueInput" value="0">
+
+                                        <!-- Display the uploaded file name -->
+                                        <div id="uploadedFileName" class="mt-2 text-muted">{{ $currentFicheTechnique ? basename($currentFicheTechnique) : '' }}</div>
+
+                                        @if ($currentFicheTechnique)
+                                        <button type="button" class="btn btn-danger mt-2" onclick="removeFicheTechnique()">
+                                             Supprimer
+                                        </button>
+
+                                        @endif
                                     </div>
                                 </div>
+                            </div>
 
-                                <script>
-                                    function displayFileName(input) {
-                                        const uploadedFileName = document.getElementById('uploadedFileName');
-                                        uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
-                                    }
-                                </script>
+                            <script>
+                                function displayFileName(input) {
+                                    const uploadedFileName = document.getElementById('uploadedFileName');
+                                    uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
+                                }
+
+                                function removeFicheTechnique() {
+                                    // Remove the selected file
+                                    const input = document.querySelector('input[name="fiche_technique"]');
+                                    input.value = ''; // Clear the file input
+                                    const uploadedFileName = document.getElementById('uploadedFileName');
+                                    uploadedFileName.textContent = ''; // Clear the displayed file name
+
+                                    // Set the hidden input value to 1
+                                    const removeFicheTechniqueInput = document.getElementById('removeFicheTechniqueInput');
+                                    removeFicheTechniqueInput.value = 1;
+                                }
+                            </script>
+
 
 
                             </div>
