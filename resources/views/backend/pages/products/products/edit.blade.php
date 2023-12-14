@@ -210,7 +210,7 @@
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
                                                 <option value="{{ $childProduct->id }}" data-position="{{ $childProduct->child_position }}" {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
-                                                    {{ $childProduct->child_position }}. {{ $childProduct->name }}
+                                                    {{ $childProduct->child_position }}. {{ $childProduct->collectLocalization('name') }} 
                                                 </option>
                                             @endforeach
                                         </select>
@@ -235,7 +235,7 @@
                                                             {{ $temporaryOrder[$childProduct->id] }}
                                                             <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'down')">&#9660;</button>
                                                         </td>
-                                                        <td>{{ $childProduct->name }}</td>
+                                                        <td>{{ $childProduct->collectLocalization('name') }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

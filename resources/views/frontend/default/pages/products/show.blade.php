@@ -224,11 +224,6 @@
                         @endif
                         <!-- Réferences -->
 
-
-
-
-
-
                         <!-- description -->
                         @include(
                             'frontend.default.pages.partials.products.description',
