@@ -83,7 +83,7 @@
                                             <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
 
                                             <!-- Display the uploaded file name -->
-                                            <div id="uploadedFileName" class="mt-2 text-muted"></div>
+                                            <div id="uploadedFileName" class="mt-2 text-muted">{{ $currentFicheTechnique ? basename($currentFicheTechnique) : '' }}</div>
                                         </div>
                                     </div>
                                 </div>

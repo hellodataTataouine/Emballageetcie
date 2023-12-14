@@ -379,6 +379,8 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
         $currentIsParent = $product->is_parent;
         $currentChildren = $product->children;
+        $currentFicheTechnique = $product->fiche_technique;
+
 
         
         //dd($product);
@@ -394,7 +396,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
         $temporaryOrder = $currentChildren->pluck('child_position', 'id')->toArray();
 
-        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder'));
+        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
 
     
@@ -454,7 +456,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
-            $product->fiche_technique   = $request->fiche_technique;
+            //$product->fiche_technique   = $request->fiche_technique;
             if ($request->hasFile('fiche_technique')) {
                 $file = $request->file('fiche_technique');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
