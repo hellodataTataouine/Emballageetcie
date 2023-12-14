@@ -24,20 +24,31 @@
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
         </div>
         <ul class="widget-nav mt-4">
-
             @php
                 $product_listing_categories = getSetting('product_listing_categories') != null ? json_decode(getSetting('product_listing_categories')) : [];
-                $categories = \App\Models\Category::whereIn('id', $product_listing_categories)->get();
+                $categories = \App\Models\Category::whereIn('id', $product_listing_categories)
+                ->where('parent_id', 0)
+                ->get();
             @endphp
             @foreach ($categories as $category)
                 @php
                     $productsCount = \App\Models\ProductCategory::where('category_id', $category->id)->count();
+                    $Sous_categories = \App\Models\Category::where('parent_id', $category->id)->get();
                 @endphp
-                <li><a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
-                        class="d-flex justify-content-between align-items-center">{{ $category->collectLocalization('name') }}<span
-                            class="fw-bold fs-xs total-count">{{ $productsCount }}</span></a></li>
+                 <li><a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
+                    class="d-flex justify-content-between align-items-center">{{ $category->collectLocalization('name') }}<span
+                        class="fw-bold fs-xs total-count">{{ $productsCount }}</span></a>
+                    <ul class="subcategories" >
+                        @foreach ($Sous_categories as $sousCategory)
+                            <li>
+                                <a href="{{ route('products.index') }}?&category_id={{ $sousCategory->id }}">
+                                    {{ $sousCategory->collectLocalization('name') }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             @endforeach
-
         </ul>
     </div>
     <!--Filter by Categories-->
@@ -84,3 +95,16 @@
     </div>
     <!--Filter by Tags-->
 </div>
+<script>
+    // JavaScript to handle the click event and toggle subcategories visibility
+    document.addEventListener("DOMContentLoaded", function() {
+        const categoryLinks = document.querySelectorAll('.category-link');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const subcategories = this.nextElementSibling;
+                subcategories.style.display = subcategories.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
