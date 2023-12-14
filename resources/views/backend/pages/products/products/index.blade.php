@@ -138,14 +138,14 @@
                                                 class="fs-sm">{{ optional($product->brand)->collectLocalization('name') }}</span>
                                         </td>
                                         <td>
-    @if($product->is_parent == 1)
-        <span class="fs-sm">Produit Principal</span>
-    @elseif($product->parent_id != null)
-        <span class="fs-sm">Produit Secondaire</span>
-    @else
-        <span class="fs-sm">Produit Individuel</span>
-    @endif
-</td>
+                                            @if($product->is_parent == 1)
+                                                <span class="fs-sm">Produit Principal</span>
+                                            @elseif($product->parent_id != null)
+                                                <span class="fs-sm">Produit Secondaire</span>
+                                            @else
+                                                <span class="fs-sm">Produit Individuel</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @forelse ($product->categories as $category)
                                                 <span
