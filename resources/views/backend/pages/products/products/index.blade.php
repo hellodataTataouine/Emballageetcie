@@ -83,7 +83,7 @@
                                                     @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
                                                         @endisset>
-                                                    {{ localize('Caché') }}</option>
+                                                    {{ localize('Non Publié') }}</option>
                                             </select>
                                         </div>
                                     </div>

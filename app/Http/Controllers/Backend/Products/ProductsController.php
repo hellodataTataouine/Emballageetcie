@@ -113,25 +113,24 @@ class ProductsController extends Controller
 $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
 
-if ($request->search != null) {
-    $searchTerm = strtolower($request->search);
+        if ($request->search != null) {
+            $searchTerm = strtolower($request->search);
 
-    $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-        $lowercaseName = strtolower($product->name);
-        $lowercaseSlug = strtolower($product->slug);
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
+                $lowercaseName = strtolower($product->name);
+                $lowercaseSlug = strtolower($product->slug);
 
-        return
-            stripos($lowercaseName, $searchTerm) !== false ||
-            stripos($lowercaseSlug, $searchTerm) !== false ||
-            $this->containsPartialWord($lowercaseName, $searchTerm) ||
-            $this->containsPartialWord($lowercaseSlug, $searchTerm);
-    });
+                return
+                    stripos($lowercaseName, $searchTerm) !== false ||
+                    stripos($lowercaseSlug, $searchTerm) !== false ||
+                    $this->containsPartialWord($lowercaseName, $searchTerm) ||
+                    $this->containsPartialWord($lowercaseSlug, $searchTerm);
+            });
 
-    // Reassign the filtered products to $virtualProducts
-    $virtualProducts = $filteredProducts->values();
-    $searchKey = $request->search;
-}
-        
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $request->search;
+        }
+                
        /*  if ($request->brand_id != null) {
             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
             $brand_id    = $request->brand_id;
@@ -143,16 +142,16 @@ if ($request->search != null) {
         }
 
           // Fetch all products from the database
-    $dbProducts = Product::with('categories')
-    ->when($request->search, function ($query) use ($request) {
-        $query->where('slug', 'like', '%' . $request->search . '%');
-    })
-    ->when($request->is_published, function ($query) use ($request) {
-        $query->where('is_published', $request->is_published);
-    })
-    ->get();
-
-$virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+          $dbProducts = Product::with('categories')
+          ->when($request->search, function ($query) use ($request) {
+              $query->where('slug', 'like', '%' . $request->search . '%');
+          })
+          ->when($request->is_published, function ($query) use ($request) {
+              $query->where('is_published', $request->is_published);
+          })
+          ->get();
+      
+      $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
             // Paginate the combined products
         $page = $request->input('page', 1);
