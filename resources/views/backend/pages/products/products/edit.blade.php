@@ -887,7 +887,7 @@
                             <!--product tax end-->
 
                             <!--product sell target & status start-->
-                            <div class="row g-3" id="section-9">
+                           <!-- <div class="row g-3" id="section-9">
                                 <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-body">
@@ -919,7 +919,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--product sell target & status end-->
 
                             <!--seo meta description start-->
@@ -1025,9 +1025,9 @@
                                             <a href="#section-8">{{ localize('Taxes sur le produit') }}</a>
                                         </li>
 
-                                        <li>
+                                        <!-- <li>
                                             <a href="#section-9">{{ localize('Objectif de vente et Statut') }}</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <a href="#section-10">{{ localize('Options SEO Meta') }}</a>
                                         </li>

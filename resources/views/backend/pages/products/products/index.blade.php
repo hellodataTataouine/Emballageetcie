@@ -110,13 +110,13 @@
 
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                    <!-- <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th> -->
-                                    <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
+                                    <th data-breakpoints="xs sm md">{{ localize('Statut ') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($paginatedProducts->isEmpty())
-                                    <p>Aucun Produit Trouvé.</p>
+                                    
                                 @else
                                 
                                 @foreach ($paginatedProducts as $key => $product)
@@ -174,7 +174,7 @@
                                                 </span>
                                             </div>
                                         </td> -->
-                                        <td>
+                                       <!--  <td>
                                             @can('publish_products')
                                                 <div class="form-check form-switch">
                                                     <input type="checkbox" onchange="updatePublishedStatus(this)"
@@ -184,6 +184,13 @@
                                                 </div>
                                             @endcan
 
+                                        </td> -->
+                                        <td>
+                                            @if ($product->is_published)
+                                                <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
+                                            @else
+                                                <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
+                                            @endif
                                         </td>
                                         <td class="text-end">
                                             <div class="dropdown tt-tb-dropdown">
