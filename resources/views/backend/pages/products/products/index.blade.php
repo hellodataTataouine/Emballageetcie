@@ -131,7 +131,7 @@
                                                         src="{{ uploadedAsset($product->thumbnail_image) }}" alt=""
                                                         onerror="this.onerror=null;this.src='{{ staticAsset('backend/assets/img/placeholder-thumb.png') }}';" />
                                                 </div>
-                                                <h6 class="fs-sm mb-0 ms-2">{{ $product->collectLocalization('name') }}
+                                                <h6 class="fs-sm mb-0 ms-2">{{ $product->name }}
                                                 </h6>
                                             </a>
                                         </td>

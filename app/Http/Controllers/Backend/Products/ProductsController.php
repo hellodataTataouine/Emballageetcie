@@ -99,16 +99,17 @@ class ProductsController extends Controller
     
 
         if ($request->search != null) {
-            $searchTerm = $request->search;
+            $searchTerm = strtolower($request->search); // Convert search term to lowercase
             $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
+                // Change 'slug' to the correct attribute name if it's different in your Product model
+                return stripos(strtolower($product->slug), $searchTerm) !== false;
             });
         
             // Reassign the filtered products to $virtualProducts
             $virtualProducts = $filteredProducts->values();
-            $searchKey = $searchTerm;
+            $searchKey = $request->search;
         }
+        
 
         if ($request->brand_id != null) {
             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
@@ -797,6 +798,9 @@ $newProduct->max_purchase_qty = 10;
             // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
                 
                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
@@ -814,6 +818,7 @@ $newProduct->max_purchase_qty = 10;
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
                 $matchingProduct->name = $name;
+                $matchingProduct->save();
                 $virtualProducts->push($matchingProduct);
             } else {
                 // Create a new product or do additional handling for new products

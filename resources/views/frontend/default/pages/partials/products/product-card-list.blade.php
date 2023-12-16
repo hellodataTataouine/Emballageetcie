@@ -11,7 +11,7 @@
     @endif
 
     <div class="thumbnail position-relative text-center p-4 flex-shrink-0">
-        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
+        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}"
             class="img-fluid">
     </div>
     <div class="card-content w-100">
@@ -40,7 +40,7 @@
 
         <h3 class="h5 mb-2">
             <a href="{{ route('products.show', $product->slug) }}"
-                class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}
+                class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
             </a>
         </h3>
         <div class="d-flex justify-content-between">
