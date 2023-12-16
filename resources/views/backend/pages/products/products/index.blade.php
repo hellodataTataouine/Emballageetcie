@@ -18,7 +18,7 @@
                             </div>
                             <div class="tt-action">
                                 <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-success">
-                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les Produits') }}</a>
+                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les nomations des Produits') }}</a>
 
                             </div>
                             <!-- <div class="tt-action">
@@ -52,7 +52,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-auto">
+                                    <!-- <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="brand_id">
                                                 <option value="">{{ localize('Sélectionner la marque') }}</option>
@@ -66,7 +66,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_published"
@@ -104,19 +104,21 @@
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
                                     <th>{{ localize('Nom du produit') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th>
+                                    <th>{{ localize('Référence') }}</th>
+                                    <!-- <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th> -->
                                     <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
 
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
+                                   <!-- <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th> -->
                                     <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($paginatedProducts->isEmpty())
-    <p>Aucun Produit Trouvé.</p>
-@else
+                                    <p>Aucun Produit Trouvé.</p>
+                                @else
+                                
                                 @foreach ($paginatedProducts as $key => $product)
                                     <tr>
                                         <td class="text-center">
@@ -133,10 +135,14 @@
                                                 </h6>
                                             </a>
                                         </td>
-                                        <td>
+                                       <!-- <td>
                                             <span
                                                 class="fs-sm">{{ optional($product->brand)->collectLocalization('name') }}</span>
-                                        </td>
+                                        </td> -->
+                                          <td>
+                                            <span
+                                                class="fs-sm">{{ $product->collectLocalization('slug') }}</span>
+                                        </td> 
                                         <td>
                                             @if($product->is_parent == 1)
                                                 <span class="fs-sm">Produit Principal</span>
@@ -155,7 +161,7 @@
                                                 <span class="badge rounded-pill bg-secondary">{{ localize('N/A') }}</span>
                                             @endforelse
                                         </td>
-                                        <td>
+                                       <!-- <td>
                                             <div class="tt-tb-price fs-sm fw-bold">
                                                 <span class="text-accent">
                                                     @if ($product->max_price != $product->min_price)
@@ -167,7 +173,7 @@
                                                     @endif
                                                 </span>
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             @can('publish_products')
                                                 <div class="form-check form-switch">
