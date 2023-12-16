@@ -61,8 +61,8 @@ class ProductsController extends Controller
 
                     $virtualProducts->push($existingProduct);
 
-                    
-                    // $existingProduct->save();
+                   
+                     $existingProduct->save();
                 }
             }
         foreach ($produitsApi as $produitApi) {
@@ -741,7 +741,7 @@ public function delete($id)
 
 public function SynchronizeProducts(Request $request)
 {
-    $virtualProducts = collect(); // Initialize a collection to hold virtual products
+    $virtualProducts = collect(); 
     
     // Fetch all products from the API
     $apiUrl = env('API_CATEGORIES_URL');
@@ -754,15 +754,24 @@ public function SynchronizeProducts(Request $request)
         ->with('categories')
         ->get()
         ->keyBy('slug');
-        foreach ($existingProducts as $existingProduct) {
-            // Check if the existing product is not found in the API list
-            if (!in_array($existingProduct->slug, $barcodes)) {
-               
-                $existingProduct->is_published = 0;
+
+    $notExistingProducts = Product::whereNotIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
+
+
+        foreach ($notExistingProducts as $notExistingProduct) {
+            
+            // Check if the existing product is not found in the API l
+                $notExistingProduct->is_published = 0;
+                $virtualProducts->push($notExistingProduct);
                 
-                $existingProduct->save();
-            }
+                $notExistingProduct->save();
+            
         }
+
+       
     
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
@@ -851,7 +860,12 @@ $newProduct->is_published = 1;
                 $matchingProduct->save();
                 $virtualProducts->push($matchingProduct);
             } else {
-                // Create a new product or do additional handling for new products
+                // set exisiting product is_published to 0 if not found in the API list
+                $existingProduct = Product::where('slug', $barcode)->first();
+                $existingProduct->is_published = 0;
+                $virtualProducts->push($existingProduct);
+                $existingProduct->save();
+               
             }
         }
     
@@ -897,6 +911,7 @@ $newProduct->is_published = 1;
         ->get();
     
     $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+
     
 
 
