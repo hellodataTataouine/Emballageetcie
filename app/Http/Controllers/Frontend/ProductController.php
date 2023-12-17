@@ -193,9 +193,13 @@ class ProductController extends Controller
         }
 
         # by category
-        if ($request->category_id && $request->category_id != null) {
-            $product_category_product_ids = ProductCategory::where('category_id', $request->category_id)->pluck('product_id');
+
+        $selectedCategoryId = $request->category_id;
+
+        if ($selectedCategoryId && $selectedCategoryId != null) {
+            $product_category_product_ids = ProductCategory::where('category_id', $selectedCategoryId)->pluck('product_id');
             $virtualProducts = $virtualProducts->whereIn('id', $product_category_product_ids);
+
         }
 
         # by tag
@@ -208,16 +212,18 @@ class ProductController extends Controller
         $perPage = 12;
         
         // Filter out products with parent_id not null 
-        $visibleProducts = $virtualProducts->where('parent_id', null);
-        $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
+        //$visibleProducts = $virtualProducts->where('parent_id', null);
+        
+        $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
 
         // Paginate only the visible products
-        $products = new LengthAwarePaginator($slicedProducts, $visibleProducts->count(), paginationNumber($perPage), $currentPage);
+        $visibleProducts = $virtualProducts->where('parent_id', null);
+        $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($perPage), $currentPage);
         $products->withPath('/products');
                 //$products = $products->paginate(paginationNumber($per_page));
-                
 
         $tags = Tag::all();
+        
         return getView('pages.products.index', [
             'products'      => $products,
             'searchKey'     => $searchKey,
@@ -227,6 +233,7 @@ class ProductController extends Controller
             'min_value'     => $min_value,
             'max_value'     => $max_value,
             'tags'          => $tags,
+            'selectedCategoryId' => $selectedCategoryId,
         ]);   
 
      
