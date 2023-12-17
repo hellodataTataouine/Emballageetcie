@@ -139,7 +139,7 @@
                                 @if (count($products) > 0)
                                     @if (request()->has('view') && request()->view == 'list')
                                         @foreach ($products as $product)
-                                            @if ($product->parent_id === null) <!-- Add this condition to hide products with parent_id not null -->
+                                            @if ($product->parent_id === null || $product->is_parent === 1 )
                                                 <div class="col-xl-12">
                                                     @include(
                                                         'frontend.default.pages.partials.products.product-card-list',
@@ -152,8 +152,8 @@
                                         @endforeach
                                     @else
                                         <div class="row">
-                                            @foreach ($products as $index => $product)
-                                                @if ($product->parent_id === null) <!-- Add this condition to hide products with parent_id not null -->
+                                            @foreach ($products as $index => $product )
+                                                @if ($product->parent_id === null || $product->is_parent === 1 )  
                                                     <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                         @include(
                                                             'frontend.default.pages.partials.products.vertical-product-card',

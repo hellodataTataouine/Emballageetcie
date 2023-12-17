@@ -142,9 +142,7 @@
                                                         <i class="fas fa-file-pdf fa-sm"></i> 
                                                     </a>
                                                     @else
-                                                        <button class="btn btn-info btn-sm" disabled>
-                                                            <i class="fas fa-file-pdf fa-sm"></i> 
-                                                        </button>
+                                                        
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
@@ -197,9 +195,7 @@
                                                         </a>
                                                         @else
                                                           
-                                                            <button class="btn btn-info btn-sm" disabled>
-                                                                <i class="fas fa-file-pdf fa-sm"></i> 
-                                                            </button>
+                                                           
                                                         @endif
                                                     </td>
                                                     <td class="align-middle">

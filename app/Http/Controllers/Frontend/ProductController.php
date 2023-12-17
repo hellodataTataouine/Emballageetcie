@@ -141,15 +141,26 @@ class ProductController extends Controller
 
         if ($request->search != null) {
             $searchTerm = $request->search;
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
+            
+            // Split the search term into words
+            $keywords = explode(' ', $searchTerm);
+        
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if all keywords are present in the product name or other attributes
+                return collect($keywords)->every(function ($keyword) use ($product) {
+                    return (
+                        stripos($product->name, $keyword) !== false ||
+                        stripos($product->description, $keyword) !== false
+                        
+                    );
+                });
             });
         
             // Reassign the filtered products to $virtualProducts
             $virtualProducts = $filteredProducts->values();
             $searchKey = $searchTerm;
         }
+        
 
         
         

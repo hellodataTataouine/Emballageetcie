@@ -113,28 +113,33 @@ class ProductsController extends Controller
 $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
 
-        if ($request->search != null) {
-            $searchTerm = strtolower($request->search);
-
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                $lowercaseName = strtolower($product->name);
-                $lowercaseSlug = strtolower($product->slug);
-
-                return
-                    stripos($lowercaseName, $searchTerm) !== false ||
-                    stripos($lowercaseSlug, $searchTerm) !== false ||
-                    $this->containsPartialWord($lowercaseName, $searchTerm) ||
-                    $this->containsPartialWord($lowercaseSlug, $searchTerm);
-            });
-
-            $virtualProducts = $filteredProducts->values();
-            $searchKey = $request->search;
-        }
-                
+       
        /*  if ($request->brand_id != null) {
             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
             $brand_id    = $request->brand_id;
         }  */
+
+        if ($request->search != null) {
+            $searchTerm = $request->search;
+            
+            // Split the search term into words
+            $keywords = explode(' ', $searchTerm);
+        
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if all keywords are present in the product name or other attributes
+                return collect($keywords)->every(function ($keyword) use ($product) {
+                    return (
+                        stripos($product->name, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false
+                        
+                    );
+                });
+            });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
+        }
 
         if ($request->is_published != null) {
             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
@@ -538,7 +543,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
             # stock qty based on all variations / no variation 
             //$product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
 
-            $product->is_published         = $request->is_published;
+            //$product->is_published         = $request->is_published;
             $product->has_variation        = ($request->has('is_variant') && $request->has('variations')) ? 1 : 0;
 
             # shipping info
@@ -798,7 +803,7 @@ public function SynchronizeProducts(Request $request)
     $newProduct->has_variation = 0;
     $newProduct->Qty_Unit = $apiQTEUNITE;
 $newProduct->Unit = $apiunité;
-$newProduct->max_purchase_qty = 10;
+$newProduct->max_purchase_qty = 1000;
 $newProduct->is_published = 1;
     // Set other properties accordingly based on your product model
     
@@ -870,24 +875,8 @@ $newProduct->is_published = 1;
         }
     
 
-        if ($request->search != null) {
-            $searchTerm = strtolower($request->search);
-        
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                $lowercaseName = strtolower($product->name);
-                $lowercaseSlug = strtolower($product->slug);
-        
-                return
-                    stripos($lowercaseName, $searchTerm) !== false ||
-                    stripos($lowercaseSlug, $searchTerm) !== false ||
-                    $this->containsPartialWord($lowercaseName, $searchTerm) ||
-                    $this->containsPartialWord($lowercaseSlug, $searchTerm);
-            });
-        
-            // Reassign the filtered products to $virtualProducts
-            $virtualProducts = $filteredProducts->values();
-            $searchKey = $request->search;
-        }
+       
+
         
 
         
@@ -936,18 +925,7 @@ $newProduct->is_published = 1;
        
 }
 
-private function containsPartialWord($text, $searchTerm)
-        {
-            $words = explode(' ', $searchTerm);
-        
-            foreach ($words as $word) {
-                if (stripos($text, $word) !== false) {
-                    return true;
-                }
-            }
-        
-            return false;
-        }
+
 
 
 }

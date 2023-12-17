@@ -46,7 +46,7 @@
                                     <label for="name" class="form-label">{{ localize('Nom du produit') }}</label>
                                     <input class="form-control" type="text" id="name"
                                         placeholder="{{ localize('Taper le Nom du produit ') }}" name="name"
-                                        value="{{ $product->collectLocalization('name') }}" required  readonly>
+                                        value="{{ $product->name }}" required  readonly>
                                     <span class="fs-sm text-muted">
                                         {{ localize('Le nom du produit est requis et il est recommandé qu\'il soit unique.') }}
                                     </span>
@@ -89,6 +89,9 @@
                                         <div id="uploadedFileName" class="mt-2 text-muted">{{ $currentFicheTechnique ? basename($currentFicheTechnique) : '' }}</div>
 
                                         @if ($currentFicheTechnique)
+                                        <a href="{{ asset('public/storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-success mt-2" >
+                                                        Consulter
+                                                    </a>
                                         <button type="button" class="btn btn-danger mt-2" onclick="removeFicheTechnique()">
                                              Supprimer
                                         </button>
@@ -232,9 +235,11 @@
                                     <div class="mb-4">
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
+                                            @if ($childProduct->is_published)
                                                 <option value="{{ $childProduct->id }}" data-position="{{ $childProduct->child_position }}" {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
                                                     {{ $childProduct->child_position }}. {{ $childProduct->name }} 
                                                 </option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
@@ -431,7 +436,7 @@
                             <!--product tag end-->
 
                             <!--product brand and unit start-->
-                            <div class="row" id="section-4">
+                            <!-- <div class="row" id="section-4">
                                 <div class="col-lg-12">
                                     <div class="card mb-4">
                                         <div class="card-body">
@@ -450,7 +455,7 @@
                                         </div>
                                     </div>
                                 </div>
-                             <!--   <div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <h5 class="mb-4">{{ localize('Unité du produit') }}</h5>
@@ -467,8 +472,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>-->
-                            </div>
+                                </div>
+                            </div> -->
                             <!--product brand and unit end-->
 
                             <!-- product price sku and stock start-->
@@ -729,7 +734,7 @@
                             <!--product price sku and stock end -->
 
                             <!--product discount start-->
-                            <div class="card mb-4" id="section-6">
+                            <!-- <div class="card mb-4" id="section-6">
                                 <div class="card-body">
                                     <h5 class="mb-4">{{ localize('Remise sur le produit') }}</h5>
 
@@ -779,7 +784,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--product discount end-->
 
                             <!--shipping configuration start-->
@@ -1008,16 +1013,16 @@
                                         <li>
                                             <a href="#section-tags">{{ localize('Tags du produit') }}</a>
                                         </li>
-                                        <li>
+                                       <!--  <li>
                                             <a href="#section-4">{{ localize('Marque du produit') }}</a>
-                                        </li>
+                                        </li> -->
                                        
                                         <!-- <li>
                                             <a href="#section-5">{{ localize('SKU, Code ') }}</a>
                                         </li> -->
-                                        <li>
+                                        <!-- <li>
                                             <a href="#section-6">{{ localize('Remise sur le produit') }}</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <a href="#section-7">{{ localize('Achat minimum') }}</a>
                                         </li>
