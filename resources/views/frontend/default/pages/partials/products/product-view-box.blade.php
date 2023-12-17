@@ -7,7 +7,7 @@
         </div>
         <div class="col-xl-6">
             <div class="product-info">
-                <h3 class="mt-1 mb-3 h5">{{ $product->collectLocalization('name') }}</h3>
+                <h3 class="mt-1 mb-3 h5">{{ $product->name }}</h3>
                 <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Référence:</span>
                         <span class="fw-bold text-danger">{{ $product->slug }}</span>
