@@ -225,6 +225,7 @@
                                 </div>
 
                             </div>
+                            <!-- fixed -->
                             <!-- Product Children start -->
                             <head>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
