@@ -117,7 +117,6 @@
                                     @if (request()->has('view') && request()->view == 'list')
                                     
                                         @foreach ($mesProduits as $product)
-                                            @if ($product && $product->parent_id === null) <!-- Check if $product is not null -->
                                                 <div class="col-xl-12">
                                                     @include(
                                                         'frontend.default.pages.partials.products.product-card-list',
@@ -126,12 +125,10 @@
                                                         ]
                                                     )
                                                 </div>
-                                            @endif
                                         @endforeach
                                     @else
                                         <div class="row">
                                             @foreach ($mesProduits as $index => $product)
-                                                @if ($product && $product->parent_id === null) <!-- Check if $product is not null -->
                                                     <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                         @include(
                                                             'frontend.default.pages.partials.products.vertical-product-card',
@@ -145,7 +142,6 @@
                                                     @if (($index + 1) % 4 === 0 && $index + 1 !== count($mesProduits))
                                                         <div class="w-100"></div>
                                                     @endif
-                                                @endif
                                             @endforeach
                                         </div>
                                     @endif

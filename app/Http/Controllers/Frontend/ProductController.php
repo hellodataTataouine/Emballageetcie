@@ -213,7 +213,7 @@ class ProductController extends Controller
         
         
 
-        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null ){
+        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
         $visibleProducts = $virtualProducts;
         }else{
             $visibleProducts = $virtualProducts->where('parent_id', null);
@@ -344,7 +344,8 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $barcode = $produitApi['codeabarre'];
             $matchingChild = $product->children()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
-        
+
+           
             if ($matchingChild) {
                 // Update child product details from the API
                 $matchingChild->min_price = $apiPrice; 
@@ -358,9 +359,14 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $matchingChild->Unit = $apiunité;
                 $matchingChild->name = $name;
                 
-                    $virtualChildrenProducts->push($matchingChild);
+                 $virtualChildrenProducts->push($matchingChild);
+
+                 //dd($matchingChild);
+
+                   
                 
             }
+
             else if ($matchingrelatedProduct){
                 $matchingrelatedProduct->min_price = $apiPrice; 
                 $matchingrelatedProduct->max_price = $apiPrice;
@@ -377,6 +383,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
 
             }
         }
+
         $product_page_widgets = [];
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
@@ -395,13 +402,13 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
-{
-$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-}else{
-   
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+    {
+    $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+    }else{
+    
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-}
+    }
         $produitsApi = $response->json();
 
         
