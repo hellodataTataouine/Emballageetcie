@@ -15,6 +15,8 @@ use App\Models\Location;
 use App\Models\ProductVariationStock;
 use App\Models\ProductLocalization;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\ProductParents;
+
 use Auth;
 class ProductController extends Controller
 {
@@ -309,7 +311,9 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
-      
+        $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
+        ->join('products', 'product_parent.product_id', '=', 'products.id')
+        ->get();
         $virtualRelatedProducts = collect();
         $virtualChildrenProducts = collect();
 
@@ -342,7 +346,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $name = $produitApi['Libellé'];
 
             $barcode = $produitApi['codeabarre'];
-            $matchingChild = $product->childs()->where('slug', $barcode)->where('is_published', 1)->first();
+            $matchingChild = $product->parents()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
 
            

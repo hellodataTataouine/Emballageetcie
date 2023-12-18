@@ -544,6 +544,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
             if ($request->has('child_product_ids')) {
                 $childProductIds = $request->child_product_ids;
                 $temporaryOrder = json_decode($request->temporary_order, true);
+                //dd($temporaryOrder);
                 $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds)->filter(); // Filter out null values
             
                 // Remove the parent_id association for removed child products
@@ -583,7 +584,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
             # category
             $product->categories()->sync($request->category_ids);
             $product->parents()->sync($request->child_product_ids);
-$childs= ProductParents::where('product_id', $request->id)->get();;
+$childs= ProductParents::where('product_id', $request->id)->get();
 //dd($childs);
       foreach($childs as $child) {
         

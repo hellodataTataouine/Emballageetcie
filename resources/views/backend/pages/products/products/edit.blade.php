@@ -234,18 +234,20 @@
                                     <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
                                     <div class="mb-4">
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
-                                            @foreach ($products as $childProduct)
-                                            @if ($childProduct->is_published)
                                             @php
-                                            $productParent = $product->parents->where('child_id', $childProduct->id)->first();
-                                            $childPosition = $productParent ? $productParent->child_position : '';
-                                            $isSelected = $product->parents->contains('child_id', $childProduct->id);
-                                           
-                                        @endphp
-                                                <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
-                                                    {{ $childPosition }}. {{ $childProduct->name }} 
-                                                </option>
-                                            @endif
+                                                $product_childs = $product->parents()->pluck('child_id');
+                                            @endphp
+                                        
+                                            @foreach ($products as $childProduct)
+                                                @if ($childProduct->is_published)
+                                                    @php
+                                                        $childPosition = $product_childs->get($childProduct->id);
+                                                        $isSelected = $product_childs->contains($childProduct->id);
+                                                    @endphp
+                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                        {{ $childPosition }}. {{ $childProduct->name }} 
+                                                    </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
