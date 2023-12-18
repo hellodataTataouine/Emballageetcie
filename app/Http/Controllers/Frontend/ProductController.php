@@ -237,8 +237,6 @@ class ProductController extends Controller
             'tags'          => $tags,
             'selectedCategoryId' => $selectedCategoryId,
         ]);   
-
-     
     }
 
 

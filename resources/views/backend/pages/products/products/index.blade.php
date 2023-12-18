@@ -215,11 +215,14 @@
                                                             
                                                     </a>
                                                      <!-- Add the delete button -->
-                   @can('delete_products')
-                       <!--  <a class="dropdown-item" href="#" onclick="confirmDelete({{ $product->id }})">
-                            <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
-                        </a> -->
-                    @endcan
+                                                @can('delete_products')
+                                                    @if ($product->is_published == 0)
+                                                        <a class="dropdown-item"  href="#" data-href="{{ route('admin.products.delete', $product->id) }}" onclick="confirmDelete(this)">
+                                                            <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
+                                                        </a> 
+                                                    @endif
+                                                @endcan 
+
                                                 </div>
                                             </div>
                                         </td>

@@ -449,25 +449,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 //dd($request->id);
         $oldProduct= clone $product;
 
-        if ($request->has('child_product_ids')) {
-            $childProductIds = $request->child_product_ids;
-            $temporaryOrder = json_decode($request->temporary_order, true);
-            $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds);
-
-            // Remove the parent_id association for removed child products
-            Product::whereIn('id', $removedChildIds)->update(['parent_id' => null, 'child_position' => null]);
         
-            foreach ($childProductIds as $index => $childProductId) {
-                $childProduct = Product::findOrFail($childProductId);
-                $childProduct->parent_id = $request->id;
-                $childProduct->child_position = $temporaryOrder[$childProductId];
-                $childProduct->save();
-            }
-        } else {
-            $product->children()->update(['parent_id' => null, 'child_position' => null]);
-            //  
-        }            
-    
         
         
         
@@ -558,6 +540,26 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
             $product->save();
 
+            if ($request->has('child_product_ids')) {
+                $childProductIds = $request->child_product_ids;
+                $temporaryOrder = json_decode($request->temporary_order, true);
+                $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds);
+    
+                // Remove the parent_id association for removed child products
+                Product::whereIn('id', $removedChildIds)->update(['parent_id' => null, 'child_position' => null]);
+            
+                foreach ($childProductIds as $index => $childProductId) {
+                    $childProduct = Product::findOrFail($childProductId);
+                    $childProduct->parent_id = $request->id;
+                    $childProduct->child_position = $temporaryOrder[$childProductId];
+                    $childProduct->save();
+                }
+            } else {
+                $product->children()->update(['parent_id' => null, 'child_position' => null]);
+                 
+            }            
+        
+
             if ($request->is_parent == 0) {
                 // Set the parent_id of associated child products to null
                 $product->children()->update(['parent_id' => null]);
@@ -566,17 +568,18 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
             if ($request->has('child_product_ids')) {
                 foreach ($request->child_product_ids as $childProductId) {
                     $childProduct = Product::findOrFail($childProductId);
-                    $childProduct->parent_id = $request->id; // Set the parent ID
+                    $childProduct->parent_id = $request->id; 
                     $childProduct->save();
                 }
             }
+            $product->parents()->sync($request->child_product_ids);
+
 
             # tags
             $product->tags()->sync($request->tag_ids);
 
             # category
             $product->categories()->sync($request->category_ids);
-            $product->parents()->sync($request->child_product_ids);
             # taxes
             $tax_data = array();
             $tax_ids = array();
@@ -728,16 +731,67 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         return 0;
     }
 
-   # delete product
-public function delete($id)
+//    # delete product
+// public function delete(Request $request)
+// {
+//     $product = Product::findOrFail($request->id);
+
+//     $product->delete();
+//     //dd($product);
+
+//     flash(localize('Le produit a été supprimé avec succès'))->success(); 
+//     return back();
+// }
+
+
+
+# Delete product
+public function delete(Request $request)
 {
-    $product = Product::findOrFail($id);
+    $product = Product::findOrFail($request->id);
+
+    $product->children()->delete();
+
+    // Delete product variations and associated data
+    if ($product->is_variant) {
+        foreach ($product->variations as $variation) {
+            foreach ($variation->combinations as $combination) {
+                $combination->delete();
+            }
+            $variation->delete();
+        }
+    }
+
+    $product->product_taxes()->detach();
+
+    $product->categories()->detach();
+    $product->tags()->detach();
+
+    
+    // Delete product images and files
+    if ($product->thumbnail_image) {
+        Storage::delete('storage/' . $product->thumbnail_image);
+    }
+
+    if ($product->gallery_images) {
+        $galleryImages = json_decode($product->gallery_images, true);
+        foreach ($galleryImages as $image) {
+            Storage::delete('storage/' . $image);
+        }
+    }
+
+    if ($product->fiche_technique) {
+        Storage::delete('storage/' . $product->fiche_technique);
+    }
 
     $product->delete();
 
-    flash(__('Le produit a été supprimé avec succès'))->success();
-    return redirect()->route('admin.products.index');
+    flash(localize('Le produit a été supprimé avec succès'))->success();
+    return back();
 }
+
+
+
 
 
 
