@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Products;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\Brand;
+use App\Models\ProductParents;
 use App\Models\Unit;
 use App\Models\Tax;
 use App\Models\Category;
@@ -12,6 +13,7 @@ use App\Models\Location;
 use App\Models\Variation;
 use App\Models\VariationValue;
 use App\Models\Product;
+
 use App\Models\ProductLocalization;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationStock;
@@ -412,7 +414,11 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         $products = Product::all();
 
         $currentIsParent = $product->is_parent;
-        $currentChildren = $product->children;
+        $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
+    ->join('products', 'product_parent.product_id', '=', 'products.id')
+    ->get();
+
+//dd($currentChildren);
         $currentFicheTechnique = $product->fiche_technique;
 
 
@@ -428,7 +434,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
 
-        $temporaryOrder = $currentChildren->pluck('child_position', 'id')->toArray();
+        $temporaryOrder = $currentChildren->pluck('child_position', 'product_id')->toArray();
 
         return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
@@ -448,30 +454,6 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
          $product = Product::findOrFail($request->id);
 //dd($request->id);
         $oldProduct= clone $product;
-
-        if ($request->has('child_product_ids')) {
-            $childProductIds = $request->child_product_ids;
-            $temporaryOrder = json_decode($request->temporary_order, true);
-            $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds);
-
-            // Remove the parent_id association for removed child products
-            Product::whereIn('id', $removedChildIds)->update(['parent_id' => null, 'child_position' => null]);
-        
-            foreach ($childProductIds as $index => $childProductId) {
-                $childProduct = Product::findOrFail($childProductId);
-                $childProduct->parent_id = $request->id;
-                $childProduct->child_position = $temporaryOrder[$childProductId];
-                $childProduct->save();
-            }
-        } else {
-            $product->children()->update(['parent_id' => null, 'child_position' => null]);
-            //  
-        }            
-    
-        
-        
-        
-
 
         if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
            // $product->name              = $request->name;
@@ -558,25 +540,58 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
             $product->save();
 
-            if ($request->is_parent == 0) {
+
+            if ($request->has('child_product_ids')) {
+                $childProductIds = $request->child_product_ids;
+                $temporaryOrder = json_decode($request->temporary_order, true);
+                $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds)->filter(); // Filter out null values
+            
+                // Remove the parent_id association for removed child products
+                if ($removedChildIds->isNotEmpty()) {
+                    ProductParents::where('product_id', $product->id)
+                        ->whereIn('child_id', $removedChildIds)
+                        ->delete();
+                }
+            
+                /*foreach ($childProductIds as $index => $childProductId) {
+                    $childProduct = Product::findOrFail($childProductId);
+                    $childProduct->parent_id = $request->id;
+                    $childProduct->child_position = $temporaryOrder[$childProductId];
+                    $childProduct->save();
+                }*/
+            } else {
+                $product->children()->update(['parent_id' => null, 'child_position' => null]);
+                //  
+            }        
+
+           if ($request->is_parent == 0) {
                 // Set the parent_id of associated child products to null
                 $product->children()->update(['parent_id' => null]);
             }
 
-            if ($request->has('child_product_ids')) {
+           /* if ($request->has('child_product_ids')) {
                 foreach ($request->child_product_ids as $childProductId) {
                     $childProduct = Product::findOrFail($childProductId);
                     $childProduct->parent_id = $request->id; // Set the parent ID
                     $childProduct->save();
                 }
-            }
-
+            }*/
+        
             # tags
             $product->tags()->sync($request->tag_ids);
 
             # category
             $product->categories()->sync($request->category_ids);
-            $product->childs()->sync($request->child_product_ids);
+            $product->parents()->sync($request->child_product_ids);
+$childs= ProductParents::where('product_id', $request->id)->get();;
+//dd($childs);
+      foreach($childs as $child) {
+        
+        $child->child_position = $temporaryOrder[$child->child_id];
+        $child->save();
+      }    
+
+
             # taxes
             $tax_data = array();
             $tax_ids = array();
