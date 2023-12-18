@@ -165,7 +165,6 @@
                                     @else
                                         <div class="row">
                                             @foreach ($products as $index => $product )
-                                                @if ($searchKey === null || $tags === null || $selectedCategoryId == null || $product->parent_id === null || $product->is_parent === 1 )  
                                                 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                         @include(
                                                             'frontend.default.pages.partials.products.vertical-product-card',
@@ -178,22 +177,7 @@
                                                     @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
                                                         <div class="w-100"></div>
                                                     @endif
-                                                    @else
-                                                    @if ($searchKey !== null || $tags !== null || $selectedCategoryId !== null )  
-                                                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                                                        @include(
-                                                            'frontend.default.pages.partials.products.vertical-product-card',
-                                                            [
-                                                                'product' => $product,
-                                                                'bgClass' => 'bg-white',
-                                                            ]
-                                                        )
-                                                    </div>
-                                                    @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
-                                                        <div class="w-100"></div>
-                                                    @endif
-                                                @endif
-                                                @endif
+                                                   
                                             @endforeach
                                         </div>
                                     @endif

@@ -776,8 +776,6 @@ public function SynchronizeProducts(Request $request)
             
         }
 
-       
-    
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
