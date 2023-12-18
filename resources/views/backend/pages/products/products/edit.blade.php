@@ -6,6 +6,7 @@
 @endsection
 
 @section('contents')
+
     <section class="tt-section pt-4">
         <div class="container">
             <div class="row mb-3">
@@ -45,7 +46,7 @@
                                     <label for="name" class="form-label">{{ localize('Nom du produit') }}</label>
                                     <input class="form-control" type="text" id="name"
                                         placeholder="{{ localize('Taper le Nom du produit ') }}" name="name"
-                                        value="{{ $product->collectLocalization('name') }}" required  readonly>
+                                        value="{{ $product->name }}" required  readonly>
                                     <span class="fs-sm text-muted">
                                         {{ localize('Le nom du produit est requis et il est recommandé qu\'il soit unique.') }}
                                     </span>
@@ -72,32 +73,52 @@
 
                                 
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
-                                    <div class="mb-4">
-                                        <label class="form-label">{{ localize('(PDF)') }}</label>
-                                        <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
-                                            <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
 
-                                            <!-- Input for PDF file -->
-                                            <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+                                <h5 class="mb-4">{{ localize('Fiche Technique') }}</h5>
 
-                                            <!-- Display the uploaded file name -->
-                                            <div id="uploadedFileName" class="mt-2 text-muted"></div>
-                                        </div>
+                                <div class="mb-4">
+                                    <label class="form-label">{{ localize('(PDF)') }}</label>
+                                    <div class="tt-image-drop rounded" style="display: flex; flex-direction: column; align-items: center;">
+                                        <span class="fw-semibold mb-2">{{ localize('Choisir le Fiche Technique') }}</span>
+
+                                        <!-- Input for PDF file -->
+                                        <input type="file" name="fiche_technique" accept=".pdf" class="form-control-file" onchange="displayFileName(this)">
+                                        <input type="hidden" name="remove_fiche_technique" id="removeFicheTechniqueInput" value="0">
+
+                                        <!-- Display the uploaded file name -->
+                                        <div id="uploadedFileName" class="mt-2 text-muted">{{ $currentFicheTechnique ? basename($currentFicheTechnique) : '' }}</div>
+
+                                        @if ($currentFicheTechnique)
+                                        <a href="{{ asset('public/storage/' . $product->fiche_technique) }}" target="_blank" class="btn btn-success mt-2" >
+                                                        Consulter
+                                                    </a>
+                                        <button type="button" class="btn btn-danger mt-2" onclick="removeFicheTechnique()">
+                                             Supprimer
+                                        </button>
+
+                                        @endif
                                     </div>
                                 </div>
+                            </div>
 
-                                <script>
-                                    function displayFileName(input) {
-                                        const uploadedFileName = document.getElementById('uploadedFileName');
-                                        uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
-                                    }
-                                </script>
+                            <script>
+                                function displayFileName(input) {
+                                    const uploadedFileName = document.getElementById('uploadedFileName');
+                                    uploadedFileName.textContent = input.files[0] ? input.files[0].name : '';
+                                }
 
-                                
+                                function removeFicheTechnique() {
+                                    // Remove the selected file
+                                    const input = document.querySelector('input[name="fiche_technique"]');
+                                    input.value = ''; // Clear the file input
+                                    const uploadedFileName = document.getElementById('uploadedFileName');
+                                    uploadedFileName.textContent = ''; // Clear the displayed file name
 
-
-
+                                    // Set the hidden input value to 1
+                                    const removeFicheTechniqueInput = document.getElementById('removeFicheTechniqueInput');
+                                    removeFicheTechniqueInput.value = 1;
+                                }
+                            </script>
 
 
 
@@ -153,6 +174,214 @@
                             </div>
                             <!--product image and gallery end-->
 
+                            <!-- Total Volume, Dimensions, and Color -->
+                            <div class="card mb-4" id="section-11">
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Informations additionnelles du produit') }}</h5>
+
+                                    <div class="row g-3">
+                                        <!-- Total Volume -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Volume total du produit') }}</label>
+                                                <input class="form-control" type="text" name="total_volume" value="{{ $product->total_volume }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Dimensions -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Dimensions du produit') }}</label>
+                                                <input class="form-control" type="text" name="dimensions" value="{{ $product->dimensions }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Color -->
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ localize('Couleur du produit') }}</label>
+                                                <input class="form-control" type="text" name="color" value="{{ $product->color }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Total Volume, Dimensions, and Color end -->
+
+                             <div class="card mb-4" id="section-11">
+                                <div class="card-body mb-4"> <!-- Add margin-bottom here -->
+                                    <h5 class="mb-4">{{ localize('Produit parent') }}</h5>
+                                    <div class="tt-select-brand">
+                                    <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
+                                        <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
+                                            {{ localize('Définir comme produit parent') }}
+                                        </option>
+                                        <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
+                                            {{ localize('Ne pas définir comme produit parent') }}
+                                        </option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Product Children start -->
+                            <head>
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
+                            </head>
+                            <div class="card mb-4" id="section-5">
+                                <div class="card-body">
+                                    <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
+                                    <div class="mb-4">
+                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                            @foreach ($products as $childProduct)
+                                            @if ($childProduct->is_published)
+                                                <option value="{{ $childProduct->id }}" data-position="{{ $childProduct->child_position }}" {{ $product->children->contains($childProduct->id) ? 'selected' : '' }}>
+                                                    {{ $childProduct->child_position }}. {{ $childProduct->name }} 
+                                                </option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                        <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
+                                    </div>
+                                    <div class="table-responsive">
+                                    <h6 class="mb-4">{{ localize('Trie de Fils') }}</h6> 
+                                    <table class="table table-bordered text-center" id="childProductsTable" style="border-radius: 10px; overflow: hidden;">
+                                        <input type="hidden" name="child_ids" id="childIdsInput" value="">
+                                        <input type="hidden" name="temporary_order" id="temporaryOrderInput" value="">
+                                            <thead>
+                                                <tr>
+                                                    <th>Position</th>
+                                                    <th>Désignation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
+                                                    <tr id="childProductRow_{{ $childProduct->id }}">
+                                                        <td>
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'up')">&#9650;</button>
+                                                            {{ $temporaryOrder[$childProduct->id] }}
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'down')">&#9660;</button>
+                                                        </td>
+                                                        <td>{{ $childProduct->name }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product Children end -->
+
+                            <script>
+                                var temporaryOrder = [];
+
+                                function moveRow(childProductId, direction) {
+                                    var currentRow = document.getElementById('childProductRow_' + childProductId);
+                                    var targetRow = direction === 'up' ? currentRow.previousElementSibling : currentRow.nextElementSibling;
+
+                                    if (!targetRow) {
+                                        return;
+                                    }
+
+                                    swapRows(currentRow, targetRow);
+                                    updateRowPositions();
+                                }
+
+                                function swapRows(row1, row2) {
+                                    var parent = row1.parentNode;
+                                    var clone1 = row1.cloneNode(true);
+                                    var clone2 = row2.cloneNode(true);
+                                    parent.replaceChild(clone1, row2);
+                                    parent.replaceChild(clone2, row1);
+                                }
+
+                                function updateRowPositions() {
+                                    var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                    rows.forEach(function (row, index) {
+                                        var childProductId = row.id.split('_')[1];
+                                        if (temporaryOrder[childProductId] !== null) {
+                                            temporaryOrder[childProductId] = index + 1;
+                                            row.children[0].innerHTML = `
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')" ${index === 0 ? 'disabled' : ''}>&#9650;</button>
+                                                ${temporaryOrder[childProductId] || ''}
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')" ${index === rows.length - 1 ? 'disabled' : ''}>&#9660;</button>
+                                            `;
+                                        }
+                                    });
+
+                                    temporaryOrder = Object.fromEntries(
+                                        Object.entries(temporaryOrder).filter(([key, value]) => value !== null)
+                                    );
+
+                                    document.getElementById('childIdsInput').value = JSON.stringify(Object.keys(temporaryOrder));
+                                    document.getElementById('temporaryOrderInput').value = JSON.stringify(temporaryOrder);
+                                }
+
+                                updateRowPositions();
+
+                                function updateChildTable() {
+                                var selectedProducts = document.getElementById('childProductIds').selectedOptions;
+
+                                var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                rows.forEach(function (row) {
+                                    var childProductId = row.id.split('_')[1];
+                                    if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
+                                        row.remove();
+                                        delete temporaryOrder[childProductId]; 
+                                    }
+                                });
+
+                                Array.from(selectedProducts).forEach(function (selectedOption) {
+                                    var childProductId = selectedOption.value;
+                                    if (!document.getElementById('childProductRow_' + childProductId)) {
+                                        var newRow = document.createElement('tr');
+                                        newRow.id = 'childProductRow_' + childProductId;
+                                        newRow.innerHTML = `
+                                            <td>
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
+                                                ${temporaryOrder[childProductId] || ''}
+                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
+                                            </td>
+                                            <td>${selectedOption.text}</td>
+                                        `;
+                                        document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
+                                    }
+                                });
+
+                                updateRowPositions();
+                            }
+
+                            </script>
+
+                            <script>
+
+                                function handleIsParentChange() {
+                                    var isParentValue = document.getElementById('is_parent').value;
+                                    var childSection = document.getElementById('section-5');
+
+                                    if (isParentValue === '1') {
+                                        childSection.style.display = 'block';
+                                    } else {
+                                        childSection.style.display = 'none';
+                                        updateChildProductsParentId(null); 
+                                    }
+                                }
+
+                                function updateChildProductsParentId(parentId) {
+                                    var childProductIds = document.getElementsByName('child_product_ids[]');
+                                    childProductIds.forEach(function(childProduct) {
+                                        childProduct.value = parentId;
+                                    });
+                                }
+
+                                handleIsParentChange();
+
+                            </script>
+
+                            <!--product Parent -->
+
+
                             <!--product category start-->
                             <div class="card mb-4" id="section-3">
                                 <div class="card-body">
@@ -184,6 +413,7 @@
                             </div>
                             <!--product category end-->
 
+
                             <!--product tag start-->
                             <div class="card mb-4" id="section-tags">
                                 <div class="card-body">
@@ -206,7 +436,7 @@
                             <!--product tag end-->
 
                             <!--product brand and unit start-->
-                            <div class="row" id="section-4">
+                            <!-- <div class="row" id="section-4">
                                 <div class="col-lg-12">
                                     <div class="card mb-4">
                                         <div class="card-body">
@@ -225,7 +455,7 @@
                                         </div>
                                     </div>
                                 </div>
-                             <!--   <div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <h5 class="mb-4">{{ localize('Unité du produit') }}</h5>
@@ -242,21 +472,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>-->
-                            </div>
+                                </div>
+                            </div> -->
                             <!--product brand and unit end-->
 
-                            <!--product price sku and stock start-->
-                            <div class="card mb-4" id="section-5">
+                            <!-- product price sku and stock start-->
+                            <!-- <div class="card mb-4" id="section-5">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="mb-4">{{ localize('Sku & Code') }}
                                         </h5>
                                         
-                                    </div>
+                                    </div> -->
 
                                     <!-- without variation start-->
-                                    <div class="noVariation"
+                                    <!-- <div class="noVariation"
                                         @if ($product->has_variation) style="display:none;" @endif>
                                         @php
                                             $first_variation = $product->variations->first();
@@ -264,7 +494,7 @@
                                             $stock_qty = !$product->has_variation ? ($first_variation->product_variation_stock ? $first_variation->product_variation_stock->stock_qty : 0) : 1;
                                             $sku = !$product->has_variation ? $first_variation->sku : null;
                                             $code = !$product->has_variation ? $first_variation->code : null;
-                                        @endphp
+                                        @endphp -->
 
                                        <!-- @php
                                         $first_variation = $product->variations->first();
@@ -274,7 +504,7 @@
                                         $code = !$product->has_variation || !$first_variation ? null : $first_variation->code;
                                     @endphp -->   
  
-                                        <div class="row g-3">
+                                        <!-- <div class="row g-3"> -->
                                             <!-- <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="price"
@@ -298,7 +528,7 @@
 
                                                 </div>
                                             </div>-->
-                                            <div class="col-lg-3">
+                                            <!--<div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="sku"
                                                         class="form-label">{{ localize('SKU') }}</label>
@@ -318,14 +548,14 @@
                                                         value="{{ $code }}" class="form-control"
                                                         >
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </div> -->
+                                        <!-- </div>
+                                    </div> -->
                                     <!-- without variation start end-->
 
 
                                     <!--for variation row start-->
-                                    <div class="hasVariation"
+                                    <!-- <div class="hasVariation"
                                         @if (!$product->has_variation) style="display:none;" @endif>
                                         @php
                                             $sizes = \App\Models\VariationValue::where('variation_id', 1)->get();
@@ -346,9 +576,9 @@
                                                 ->toArray();
                                         @endphp
 
-                                        <div class="row g-3">
+                                        <div class="row g-3"> -->
                                             <!-- size -->
-                                            @if (count($sizes) > 0)
+                                            <!-- @if (count($sizes) > 0)
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="product-thumb"
@@ -366,11 +596,11 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            @endif -->
                                             <!-- size end -->
 
                                             <!-- colors -->
-                                            @if (count($colors) > 0)
+                                            <!-- @if (count($colors) > 0)
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="product-thumb"
@@ -388,9 +618,9 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            @endif -->
                                             <!-- colors end -->
-                                        </div>
+                                        <!-- </div>
 
                                         @foreach (generateVariationOptions(
             $product->variation_combinations()->whereNotIn('variation_id', [1, 2])->get(),
@@ -472,16 +702,16 @@
                                                         ]
                                                     )
                                                 @endif
-                                            </div>
+                                            </div> -->
 
                                             <!-- size guide -->
-                                            <div class="mt-4">
+                                            <!-- <div class="mt-4">
                                                 <label class="form-label">{{ localize('Guide des tailles du produit') }}</label>
                                                 <div class="tt-image-drop rounded">
                                                     <span
-                                                        class="fw-semibold">{{ localize('Choisissez une image pour le guide des tailles') }}</span>
+                                                        class="fw-semibold">{{ localize('Choisissez une image pour le guide des tailles') }}</span> -->
                                                     <!-- choose media -->
-                                                    <div class="tt-product-thumb show-selected-files mt-3">
+                                                    <!-- <div class="tt-product-thumb show-selected-files mt-3">
                                                         <div class="avatar avatar-xl cursor-pointer choose-media"
                                                             data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
                                                             onclick="showMediaManager(this)" data-selection="single">
@@ -491,20 +721,20 @@
                                                                 <span><i data-feather="plus"></i></span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- choose media -->
-                                                </div>
-                                            </div>
+                                                <!-- </div>
+                                            </div> -->
                                             <!-- size guide end -->
-                                        </div>
+                                        <!-- </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!--for variation row end-->
-                            </div>
-                            <!--product price sku and stock end-->
+                            <!-- </div> -->
+                            <!--product price sku and stock end -->
 
                             <!--product discount start-->
-                            <div class="card mb-4" id="section-6">
+                            <!-- <div class="card mb-4" id="section-6">
                                 <div class="card-body">
                                     <h5 class="mb-4">{{ localize('Remise sur le produit') }}</h5>
 
@@ -554,7 +784,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--product discount end-->
 
                             <!--shipping configuration start-->
@@ -662,7 +892,7 @@
                             <!--product tax end-->
 
                             <!--product sell target & status start-->
-                            <div class="row g-3" id="section-9">
+                           <!-- <div class="row g-3" id="section-9">
                                 <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-body">
@@ -694,7 +924,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--product sell target & status end-->
 
                             <!--seo meta description start-->
@@ -774,20 +1004,25 @@
                                             <a href="#section-2">{{ localize('Images du produit') }}</a>
                                         </li>
                                         <li>
+                                            <a href="#section-11">{{ localize('Informations additionnelles') }}</a>
+                                        </li>
+                                        <li>
                                             <a href="#section-3">{{ localize('Catégorie') }}</a>
                                         </li>
+                                        
                                         <li>
                                             <a href="#section-tags">{{ localize('Tags du produit') }}</a>
                                         </li>
-                                        <li>
+                                       <!--  <li>
                                             <a href="#section-4">{{ localize('Marque du produit') }}</a>
-                                        </li>
-                                        <li>
+                                        </li> -->
+                                       
+                                        <!-- <li>
                                             <a href="#section-5">{{ localize('SKU, Code ') }}</a>
-                                        </li>
-                                        <li>
+                                        </li> -->
+                                        <!-- <li>
                                             <a href="#section-6">{{ localize('Remise sur le produit') }}</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <a href="#section-7">{{ localize('Achat minimum') }}</a>
                                         </li>
@@ -795,9 +1030,9 @@
                                             <a href="#section-8">{{ localize('Taxes sur le produit') }}</a>
                                         </li>
 
-                                        <li>
+                                        <!-- <li>
                                             <a href="#section-9">{{ localize('Objectif de vente et Statut') }}</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <a href="#section-10">{{ localize('Options SEO Meta') }}</a>
                                         </li>
@@ -809,6 +1044,8 @@
                 </div>
             </div>
         </div>
+
+        
     </section>
 @endsection
 

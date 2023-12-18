@@ -14,23 +14,23 @@
             </div>
         </div>
         <div class="rl-products-slider swiper mt-8">
-            <div class="swiper-wrapper">
-                @forelse ($relatedProducts as $relatedProduct)
-                    <!-- veritcal product card -->
-                    @include('frontend.default.pages.partials.products.vertical-product-card', [
-                        'product' => $relatedProduct,
-                        'bgClass' => 'bg-white',
-                    ])
-                    <!-- veritcal product card -->
-                @empty
-                    <div class="mx-auto w-50 w-md-25">
-
-                        <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt=""
-                            srcset="" class="img-fluid">
-                    </div>
-                @endforelse
-
+    <div class="swiper-wrapper">
+        @forelse ($relatedProducts as $relatedProduct)
+            @if ($relatedProduct->is_published)
+                <!-- veritcal product card -->
+                @include('frontend.default.pages.partials.products.vertical-product-card', [
+                    'product' => $relatedProduct,
+                    'bgClass' => 'bg-white',
+                ])
+                <!-- veritcal product card -->
+            @endif
+        @empty
+            <div class="mx-auto w-50 w-md-25">
+                <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" class="img-fluid">
             </div>
-        </div>
+        @endforelse
+    </div>
+</div>
+
     </div>
 </section>

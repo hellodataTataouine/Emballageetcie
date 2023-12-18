@@ -18,7 +18,7 @@
                             </div>
                             <div class="tt-action">
                                 <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-success">
-                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les Produits') }}</a>
+                                <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les nomations des Produits') }}</a>
 
                             </div>
                             <!-- <div class="tt-action">
@@ -52,7 +52,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-auto">
+                                    <!-- <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="brand_id">
                                                 <option value="">{{ localize('Sélectionner la marque') }}</option>
@@ -66,7 +66,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <select class="form-select select2" name="is_published"
@@ -83,7 +83,7 @@
                                                     @isset($is_published)
                                                          @if ($is_published == 0) selected @endif
                                                         @endisset>
-                                                    {{ localize('Caché') }}</option>
+                                                    {{ localize('Non Publié') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -104,17 +104,21 @@
                                     <th class="text-center">{{ localize('S/L') }}
                                     </th>
                                     <th>{{ localize('Nom du produit') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th>
+                                    <th>{{ localize('Référence') }}</th>
+                                    <!-- <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th> -->
+                                    <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
+
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
-                                    <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th>
-                                    <th data-breakpoints="xs sm md">{{ localize('Publié ') }}</th>
+                                   <!-- <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th> -->
+                                    <th data-breakpoints="xs sm md">{{ localize('Statut ') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($paginatedProducts->isEmpty())
-    <p>Aucun Produit Trouvé.</p>
-@else
+                                    
+                                @else
+                                
                                 @foreach ($paginatedProducts as $key => $product)
                                     <tr>
                                         <td class="text-center">
@@ -127,13 +131,26 @@
                                                         src="{{ uploadedAsset($product->thumbnail_image) }}" alt=""
                                                         onerror="this.onerror=null;this.src='{{ staticAsset('backend/assets/img/placeholder-thumb.png') }}';" />
                                                 </div>
-                                                <h6 class="fs-sm mb-0 ms-2">{{ $product->collectLocalization('name') }}
+                                                <h6 class="fs-sm mb-0 ms-2">{{ $product->name }}
                                                 </h6>
                                             </a>
                                         </td>
-                                        <td>
+                                       <!-- <td>
                                             <span
                                                 class="fs-sm">{{ optional($product->brand)->collectLocalization('name') }}</span>
+                                        </td> -->
+                                          <td>
+                                            <span
+                                                class="fs-sm">{{ $product->collectLocalization('slug') }}</span>
+                                        </td> 
+                                        <td>
+                                            @if($product->is_parent == 1)
+                                                <span class="fs-sm">Produit Principal</span>
+                                            @elseif($product->parent_id != null)
+                                                <span class="fs-sm">Produit Secondaire</span>
+                                            @else
+                                                <span class="fs-sm">Produit Individuel</span>
+                                            @endif
                                         </td>
                                         <td>
                                             @forelse ($product->categories as $category)
@@ -144,7 +161,7 @@
                                                 <span class="badge rounded-pill bg-secondary">{{ localize('N/A') }}</span>
                                             @endforelse
                                         </td>
-                                        <td>
+                                       <!-- <td>
                                             <div class="tt-tb-price fs-sm fw-bold">
                                                 <span class="text-accent">
                                                     @if ($product->max_price != $product->min_price)
@@ -156,8 +173,8 @@
                                                     @endif
                                                 </span>
                                             </div>
-                                        </td>
-                                        <td>
+                                        </td> -->
+                                       <!--  <td>
                                             @can('publish_products')
                                                 <div class="form-check form-switch">
                                                     <input type="checkbox" onchange="updatePublishedStatus(this)"
@@ -167,6 +184,13 @@
                                                 </div>
                                             @endcan
 
+                                        </td> -->
+                                        <td>
+                                            @if ($product->is_published)
+                                                <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
+                                            @else
+                                                <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
+                                            @endif
                                         </td>
                                         <td class="text-end">
                                             <div class="dropdown tt-tb-dropdown">
@@ -191,11 +215,14 @@
                                                             
                                                     </a>
                                                      <!-- Add the delete button -->
-                   @can('delete_products')
-                       <!--  <a class="dropdown-item" href="#" onclick="confirmDelete({{ $product->id }})">
-                            <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
-                        </a> -->
-                    @endcan
+                                                @can('delete_products')
+                                                    @if ($product->is_published == 0)
+                                                        <a class="dropdown-item"  href="#" data-href="{{ route('admin.products.delete', $product->id) }}" onclick="confirmDelete(this)">
+                                                            <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
+                                                        </a> 
+                                                    @endif
+                                                @endcan 
+
                                                 </div>
                                             </div>
                                         </td>

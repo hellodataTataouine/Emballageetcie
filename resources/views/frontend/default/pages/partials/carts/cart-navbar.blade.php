@@ -28,8 +28,9 @@
                         class="price text-primary fw-semibold">{{ formatPrice($cart->product_price) }}</span>
                     <span class="count fs-semibold">x {{ $cart->qty }}</span>
                 </div>
-                <button class="remove_cart_btn ms-2" onclick="handleCartItem('delete', {{ $cart->id }})"><i
-                        class="fa-solid fa-trash-can"></i></button>
+                <button class="remove_cart_btn ms-2" onclick="handleCartItem('delete', {{ $cart->id }})">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
             </div>
         </div>
     </li>

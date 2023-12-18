@@ -7,8 +7,11 @@
         </div>
         <div class="col-xl-6">
             <div class="product-info">
-                <h3 class="mt-1 mb-3 h5">{{ $product->collectLocalization('name') }}</h3>
-
+                <h3 class="mt-1 mb-3 h5">{{ $product->name }}</h3>
+                <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Référence:</span>
+                        <span class="fw-bold text-danger">{{ $product->slug }}</span>
+                    </div>
                 <!-- pricing -->
                 <div class="pricing all-pricing mt-2">
                     @include('frontend.default.pages.partials.products.pricing', compact('product'))
@@ -36,7 +39,6 @@
                         if ($product->variations()->count() > 1) {
                             $isVariantProduct = 1;
                         } else {
-                            //$stock = $product->variations[0]->product_variation_stock ? $product->variations[0]->product_variation_stock->stock_qty : 0;
                             $stock = $product->variations[0]->product_variation_stock ? $product->variations[0]->product_variation_stock->stock_qty : 0;
 
                        
@@ -44,6 +46,8 @@
                     @endphp
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="product_price" value="{{ $product->max_price }}">
+
                     <input type="hidden" name="product_variation_id"
                         @if (!$isVariantProduct) value="{{ $product->variations[0]->id }}" @endif>
 
@@ -60,22 +64,22 @@
                         </div>
 
                         @auth
-    <button type="submit" class="btn btn-secondary btn-md add-to-cart-btn"
-        @if (!$isVariantProduct && $stock < 1) disabled @endif>
-        <span class="me-2">
-            <i class="fa-solid fa-bag-shopping"></i>
-        </span>
-        <span class="add-to-cart-text">
-            @if (!$isVariantProduct && $product->stock_qty < 1)
-                {{ localize('Sur Commande') }}
-            @else
-                {{ localize('Ajouter au panier') }}
-            @endif
-        </span>
-    </button>
-@else
-    <!-- Omit the button entirely when the user is not authenticated -->
-@endauth
+                        <button type="submit" class="btn btn-secondary btn-md add-to-cart-btn"
+                            @if (!$isVariantProduct && $stock < 1) disabled @endif>
+                            <span class="me-2">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </span>
+                            <span class="add-to-cart-text">
+                                @if (!$isVariantProduct && $product->stock_qty < 1)
+                                    {{ localize('Rupture de stock') }}
+                                @else
+                                    {{ localize('Ajouter au panier') }}
+                                @endif
+                            </span>
+                        </button>
+                    @else
+                        <!-- Omit the button entirely when the user is not authenticated -->
+                    @endauth
 
 
                         <button type="button" class="btn btn-primary btn-md"

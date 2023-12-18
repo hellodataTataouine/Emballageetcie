@@ -11,7 +11,7 @@
     @endif
 
     <div class="thumbnail position-relative text-center p-4 flex-shrink-0">
-        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
+        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}"
             class="img-fluid">
     </div>
     <div class="card-content w-100">
@@ -40,10 +40,13 @@
 
         <h3 class="h5 mb-2">
             <a href="{{ route('products.show', $product->slug) }}"
-                class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}
+                class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
             </a>
         </h3>
-
+        <div class="d-flex justify-content-between">
+                        <span class="fw-bold text-muted">Référence:</span>
+                        <span class="fw-bold text-danger">{{ $product->slug }}</span>
+                    </div>
         <h6 class="price">
             @include('frontend.default.pages.partials.products.pricing', [
                 'product' => $product,
@@ -64,7 +67,7 @@
             if ($product->variations()->count() > 1) {
                 $isVariantProduct = 1;
             } else {
-                $stock = $product->stock_qty : 0;
+                $stock = $product->stock_qty ?: 0;
             }
         @endphp
 
@@ -72,7 +75,12 @@
     @if ($isVariantProduct)
         <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
             onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
-    @else
+            @else
+        @if ($product->is_parent)
+        <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
+        {{ __('Disponible en  :count références', ['count' => $product->children()->where('is_published', 1)->count() + 1]) }}
+    </a>
+        @else
         <form action="" class="direct-add-to-cart-form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="product_price" value="{{ $product->max_price }}">
@@ -83,12 +91,13 @@
 
             @if (!$isVariantProduct && $stock < 1)  
                 <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
-                    {{ localize('Sur Commande') }}</a>
+                    {{ localize('Rupture de stock') }}</a>
             @else
                 <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
                     class="btn btn-outline-secondary btn-sm border-secondary mt-4 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
             @endif
         </form>
+    @endif
     @endif
 @else
     <!-- Omit the button entirely when the user is not authenticated -->

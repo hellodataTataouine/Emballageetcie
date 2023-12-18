@@ -14,6 +14,16 @@ class Product extends Model
     ];
 
     protected $guarded = [];
+    
+    public function parent()
+    {
+        return $this->belongsTo(Product::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Product::class, 'parent_id');
+    }
 
     public function scopeShop($query)
     {
@@ -43,6 +53,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
     }
+    public function parents()
+    {
+        return $this->belongsToMany(Product::class, 'product_parent', 'product_id', 'child_id');
+    }
+
 
     public function product_categories()
     {

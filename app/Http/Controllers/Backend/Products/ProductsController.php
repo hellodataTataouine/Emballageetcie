@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Products;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\Brand;
+use App\Models\ProductParents;
 use App\Models\Unit;
 use App\Models\Tax;
 use App\Models\Category;
@@ -12,6 +13,7 @@ use App\Models\Location;
 use App\Models\Variation;
 use App\Models\VariationValue;
 use App\Models\Product;
+
 use App\Models\ProductLocalization;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationStock;
@@ -40,7 +42,7 @@ class ProductsController extends Controller
     # product list
     public function index(Request $request)
     {
-        $virtualProducts = collect(); // Initialize a collection to hold virtual products
+        $virtualProducts = collect(); 
     
         // Fetch all products from the API
         $apiUrl = env('API_CATEGORIES_URL');
@@ -58,11 +60,15 @@ class ProductsController extends Controller
                 if (!in_array($existingProduct->slug, $barcodes)) {
                    
                     $existingProduct->is_published = 0;
-                    
-                    $existingProduct->save();
+
+                    $virtualProducts->push($existingProduct);
+
+                   
+                     $existingProduct->save();
                 }
             }
         foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -87,19 +93,49 @@ class ProductsController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
+                $matchingProduct->name = $name;
                 
                 $virtualProducts->push($matchingProduct);
-            } else {
-                // Create a new product or do additional handling for new products
+                
+           // } else {
+               
             }
         }
-    
+        
+          // Fetch all products from the database
+    $dbProducts = Product::with('categories')
+    ->when($request->search, function ($query) use ($request) {
+        $query->where('slug', 'like', '%' . $request->search . '%');
+    })
+    ->when($request->is_published, function ($query) use ($request) {
+        $query->where('is_published', $request->is_published);
+    })
+    ->get();
+
+$virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+
+
+       
+       /*  if ($request->brand_id != null) {
+            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
+            $brand_id    = $request->brand_id;
+        }  */
 
         if ($request->search != null) {
             $searchTerm = $request->search;
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
+            
+            // Split the search term into words
+            $keywords = explode(' ', $searchTerm);
+        
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if all keywords are present in the product name or other attributes
+                return collect($keywords)->every(function ($keyword) use ($product) {
+                    return (
+                        stripos($product->name, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false
+                        
+                    );
+                });
             });
         
             // Reassign the filtered products to $virtualProducts
@@ -107,26 +143,29 @@ class ProductsController extends Controller
             $searchKey = $searchTerm;
         }
 
-        if ($request->brand_id != null) {
-            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }
-
         if ($request->is_published != null) {
             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
             $is_published    = $request->is_published;
         }
 
+          // Fetch all products from the database
+          $dbProducts = Product::with('categories')
+          ->when($request->search, function ($query) use ($request) {
+              $query->where('slug', 'like', '%' . $request->search . '%');
+          })
+          ->when($request->is_published, function ($query) use ($request) {
+              $query->where('is_published', $request->is_published);
+          })
+          ->get();
+      
+      $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
-
-
-       // Paginate the combined products
-$page = $request->input('page', 1);
-$perPage = 15;
-$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
-$paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
-$paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
-
+            // Paginate the combined products
+        $page = $request->input('page', 1);
+        $perPage = 15;
+        $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+        $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+        $paginatedProducts->withPath('/admin/products'); 
 
 
    $brands = Brand::latest()->get();
@@ -372,6 +411,18 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         }*/
         //dd($id);
         $product = Product::findOrFail($id);
+        $products = Product::all();
+
+        $currentIsParent = $product->is_parent;
+        $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
+    ->join('products', 'product_parent.product_id', '=', 'products.id')
+    ->get();
+
+//dd($currentChildren);
+        $currentFicheTechnique = $product->fiche_technique;
+
+
+        
         //dd($product);
         $categories = Category::where('parent_id', 0)
             ->orderBy('sorting_order_level', 'desc')
@@ -382,7 +433,10 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         $variations = Variation::isActive()->whereNotIn('id', [1, 2])->get();
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
-        return view('backend.pages.products.products.edit', compact('product', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key'));
+
+        $temporaryOrder = $currentChildren->pluck('child_position', 'product_id')->toArray();
+
+        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
 
     
@@ -401,7 +455,6 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 //dd($request->id);
         $oldProduct= clone $product;
 
-
         if ($request->lang_key == env("DEFAULT_LANGUAGE")) {
            // $product->name              = $request->name;
             //$product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
@@ -410,25 +463,40 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->brand_id          = $request->brand_id;
             $product->unit_id           = $request->unit_id;
             $product->short_description = $request->short_description;
+           // $product->parent_id = $request->parent_id;
+            $product->is_parent = $request->is_parent;
+            $product->total_volume = $request->total_volume;
+            $product->dimensions = $request->dimensions;
+            $product->color = $request->color;
+
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
-            $product->fiche_technique   = $request->fiche_technique;
+            //$product->fiche_technique   = $request->fiche_technique;
             if ($request->hasFile('fiche_technique')) {
                 $file = $request->file('fiche_technique');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('fiche_technique', $filename, 'public');
-                $product->fiche_technique = $path;
-                $product->save(); 
-            }
+                
+                // Define the storage path
+                $storagePath = 'storage/fiche_technique';
             
+                // Store the file in the specified location
+                $path = $file->storeAs($storagePath, $filename);
+            // Remove the 'storage' part from the path
+                $trimmedPath = str_replace('storage/', '', $path);
+
+                // Assign the file path to the product and save
+                $product->fiche_technique = $trimmedPath;
+            } elseif ($request->has('remove_fiche_technique') && $request->remove_fiche_technique) {
+                // User has requested to remove the Fiche Technique
+                $product->fiche_technique = null;
+            }
+        
+          $product->save(); 
+                        
             //dd($product->fiche_technique); 
          
-
-
             $product->size_guide        = $request->size_guide;
-
-           
 
             # min-max price
             if ($request->has('is_variant') && $request->has('variations')) {
@@ -457,7 +525,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             # stock qty based on all variations / no variation 
             //$product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
 
-            $product->is_published         = $request->is_published;
+            //$product->is_published         = $request->is_published;
             $product->has_variation        = ($request->has('is_variant') && $request->has('variations')) ? 1 : 0;
 
             # shipping info
@@ -466,19 +534,63 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             $product->min_purchase_qty     = $request->min_purchase_qty;
             $product->max_purchase_qty     = $request->max_purchase_qty;
 
-
             $product->meta_title = $request->meta_title;
             $product->meta_description = $request->meta_description;
             $product->meta_img = $request->meta_image;
 
-
             $product->save();
 
+
+            if ($request->has('child_product_ids')) {
+                $childProductIds = $request->child_product_ids;
+                $temporaryOrder = json_decode($request->temporary_order, true);
+                $removedChildIds = collect($oldProduct->children->pluck('id'))->diff($childProductIds)->filter(); // Filter out null values
+            
+                // Remove the parent_id association for removed child products
+                if ($removedChildIds->isNotEmpty()) {
+                    ProductParents::where('product_id', $product->id)
+                        ->whereIn('child_id', $removedChildIds)
+                        ->delete();
+                }
+            
+                /*foreach ($childProductIds as $index => $childProductId) {
+                    $childProduct = Product::findOrFail($childProductId);
+                    $childProduct->parent_id = $request->id;
+                    $childProduct->child_position = $temporaryOrder[$childProductId];
+                    $childProduct->save();
+                }*/
+            } else {
+                $product->children()->update(['parent_id' => null, 'child_position' => null]);
+                //  
+            }        
+
+           if ($request->is_parent == 0) {
+                // Set the parent_id of associated child products to null
+                $product->children()->update(['parent_id' => null]);
+            }
+
+           /* if ($request->has('child_product_ids')) {
+                foreach ($request->child_product_ids as $childProductId) {
+                    $childProduct = Product::findOrFail($childProductId);
+                    $childProduct->parent_id = $request->id; 
+                    $childProduct->save();
+                }
+            }*/
+        
             # tags
             $product->tags()->sync($request->tag_ids);
 
             # category
             $product->categories()->sync($request->category_ids);
+            $product->parents()->sync($request->child_product_ids);
+$childs= ProductParents::where('product_id', $request->id)->get();;
+//dd($childs);
+      foreach($childs as $child) {
+        
+        $child->child_position = $temporaryOrder[$child->child_id];
+        $child->save();
+      }    
+
 
             # taxes
             $tax_data = array();
@@ -497,6 +609,9 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
 
             $location = Location::where('is_default', 1)->first();
+
+            //fixed
+            
 
             if ($request->has('is_variant') && $request->has('variations')) {
 
@@ -631,16 +746,67 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         return 0;
     }
 
-   # delete product
-public function delete($id)
+//    # delete product
+// public function delete(Request $request)
+// {
+//     $product = Product::findOrFail($request->id);
+
+//     $product->delete();
+//     //dd($product);
+
+//     flash(localize('Le produit a été supprimé avec succès'))->success(); 
+//     return back();
+// }
+
+
+
+# Delete product
+public function delete(Request $request)
 {
-    $product = Product::findOrFail($id);
+    $product = Product::findOrFail($request->id);
+
+    $product->children()->delete();
+
+    // Delete product variations and associated data
+    if ($product->is_variant) {
+        foreach ($product->variations as $variation) {
+            foreach ($variation->combinations as $combination) {
+                $combination->delete();
+            }
+            $variation->delete();
+        }
+    }
+
+    $product->product_taxes()->detach();
+
+    $product->categories()->detach();
+    $product->tags()->detach();
+
+    
+    // Delete product images and files
+    if ($product->thumbnail_image) {
+        Storage::delete('storage/' . $product->thumbnail_image);
+    }
+
+    if ($product->gallery_images) {
+        $galleryImages = json_decode($product->gallery_images, true);
+        foreach ($galleryImages as $image) {
+            Storage::delete('storage/' . $image);
+        }
+    }
+
+    if ($product->fiche_technique) {
+        Storage::delete('storage/' . $product->fiche_technique);
+    }
 
     $product->delete();
 
-    flash(__('Le produit a été supprimé avec succès'))->success();
-    return redirect()->route('admin.products.index');
+    flash(localize('Le produit a été supprimé avec succès'))->success();
+    return back();
 }
+
+
+
 
 
 
@@ -649,7 +815,7 @@ public function delete($id)
 
 public function SynchronizeProducts(Request $request)
 {
-    $virtualProducts = collect(); // Initialize a collection to hold virtual products
+    $virtualProducts = collect(); 
     
     // Fetch all products from the API
     $apiUrl = env('API_CATEGORIES_URL');
@@ -662,16 +828,23 @@ public function SynchronizeProducts(Request $request)
         ->with('categories')
         ->get()
         ->keyBy('slug');
-        foreach ($existingProducts as $existingProduct) {
-            // Check if the existing product is not found in the API list
-            if (!in_array($existingProduct->slug, $barcodes)) {
-               
-                $existingProduct->is_published = 0;
+
+    $notExistingProducts = Product::whereNotIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
+
+
+        foreach ($notExistingProducts as $notExistingProduct) {
+            
+            // Check if the existing product is not found in the API l
+                $notExistingProduct->is_published = 0;
+                $virtualProducts->push($notExistingProduct);
                 
-                $existingProduct->save();
-            }
+                $notExistingProduct->save();
+            
         }
-    
+
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
@@ -697,7 +870,8 @@ public function SynchronizeProducts(Request $request)
     $newProduct->has_variation = 0;
     $newProduct->Qty_Unit = $apiQTEUNITE;
 $newProduct->Unit = $apiunité;
-$newProduct->max_purchase_qty = 10;
+$newProduct->max_purchase_qty = 1000;
+$newProduct->is_published = 1;
     // Set other properties accordingly based on your product model
     
     $newProduct->save();
@@ -725,6 +899,7 @@ $newProduct->max_purchase_qty = 10;
     
         // Retrieve all existing products and organize them by slug
         foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -733,6 +908,9 @@ $newProduct->max_purchase_qty = 10;
             // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
                 
                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
@@ -749,25 +927,26 @@ $newProduct->max_purchase_qty = 10;
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
-                
+                $matchingProduct->name = $name;
+                $matchingProduct->is_published = 1;
+                $matchingProduct->save();
                 $virtualProducts->push($matchingProduct);
             } else {
-                // Create a new product or do additional handling for new products
+                // set exisiting product is_published to 0 if not found in the API list
+                $existingProduct = Product::where('slug', $barcode)->first();
+                $existingProduct->is_published = 0;
+                $virtualProducts->push($existingProduct);
+                $existingProduct->save();
+               
             }
         }
     
 
-        if ($request->search != null) {
-            $searchTerm = $request->search;
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
-            });
+       
+
         
-            // Reassign the filtered products to $virtualProducts
-            $virtualProducts = $filteredProducts->values();
-            $searchKey = $searchTerm;
-        }
+
+        
 
         if ($request->brand_id != null) {
             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
@@ -778,20 +957,32 @@ $newProduct->max_purchase_qty = 10;
             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
             $is_published    = $request->is_published;
         }
+        $dbProducts = Product::with('categories')
+        ->when($request->search, function ($query) use ($request) {
+            $query->where('slug', 'like', '%' . $request->search . '%');
+        })
+        ->when($request->is_published, function ($query) use ($request) {
+            $query->where('is_published', $request->is_published);
+        })
+        ->get();
+    
+    $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+
+    
 
 
 
 
        // Paginate the combined products
-$page = $request->input('page', 1);
-$perPage = 20;
-$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
-$paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
-$paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
+        $page = $request->input('page', 1);
+        $perPage = 15;
+        $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+        $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+        $paginatedProducts->withPath('/admin/products'); 
 
 
 
-   $brands = Brand::latest()->get();
+     $brands = Brand::latest()->get();
     
         $searchKey = null;
         $brand_id = null;
@@ -800,6 +991,8 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
        
 }
+
+
 
 
 }

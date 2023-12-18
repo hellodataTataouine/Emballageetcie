@@ -19,7 +19,7 @@
     </div>
     <div class="card-content mt-4 mt-sm-0 w-100">
         <a href="{{ route('products.show', $product->slug) }}"
-            class="fw-bold text-heading title fs-sm tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}</a>
+            class="fw-bold text-heading title fs-sm tt-line-clamp tt-clamp-1">{{ $product->name }}</a>
             
         <!-- Check if the user is logged in and is a customer -->
         @if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -70,7 +70,7 @@
                 <span class="flex-grow-1">
                     @if (!$isVariantProduct && $product->stock_qty < 1)
                         <a href="javascript:void(0);" class="fs-xs fw-bold d-inline-block explore-btn">
-                            {{ localize('Sur Commande') }}
+                            {{ localize('Rupture de stock') }}
                             <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     @else
