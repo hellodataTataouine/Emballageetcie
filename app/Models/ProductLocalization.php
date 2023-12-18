@@ -14,4 +14,6 @@ class ProductLocalization extends Model
         'product_id',
         'lang_key',
     ];
+
+    
 }

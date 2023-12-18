@@ -19,7 +19,6 @@
                     </svg>
                 </span>
                 <span class="mobile-toolbar-label">{{ localize('Recherche') }}</span>
-                <span class="mobile-toolbar-label">{{ localize('Recherche') }}</span>
             </button>
             <div class="dropdown-menu dropdown-menu-start border-0">
                 <form class="search-form d-flex align-items-center" action="{{ route('products.index') }}">

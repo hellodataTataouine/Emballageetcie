@@ -26,20 +26,20 @@
                             <a href="{{ $menuItem }}">{{ localize($labels[$menuKey]) }}</a>
                         </li>
                     @endforeach
-                @else
-                    <li>
-                        <a href="{{ route('home') }}">{{ localize('Accueil') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('products.index') }}">{{ localize('Produits') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a>
-                    </li>
-                @endif
+                    @else
+                                    <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                                    <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
+                                    @if(auth()->check())
+                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mes Produits') }}</a></li>
+                                    @endif
+
+                                    <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>
+                                    <!-- <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li> -->
+                                    <!-- <li><a href="{{ route('home.campaigns') }}">{{ localize('Campagnes') }}</a> </li> -->
+                                    
+                                    <!-- <li><a href="{{ route('home.catalogues.index') }}">{{ localize('Catalogues') }}</a></li>  -->
+                                    <!--<li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a> </li> -->
+                                @endif
 
 
                 @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)
@@ -54,9 +54,12 @@
                                 }
                             @endphp
 
-                            <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
+                            <!-- <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li>
                             <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a></li>
-                            <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a></li>
+                            <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a></li> -->
+
+                            <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
+
                             @foreach ($pages as $navbarPage)
                                 <li><a
                                         href="{{ route('home.pages.show', $navbarPage->slug) }}">{{ $navbarPage->title }}</a>
@@ -66,7 +69,7 @@
                     </li>
                 @endif
 
-                @php
+                <!-- @php
                     if (Session::has('locale')) {
                         $locale = Session::get('locale', Config::get('app.locale'));
                     } else {
@@ -125,18 +128,38 @@
                         @endforeach
 
                     </ul>
-                </li>
+                </li> -->
 
                 @auth
-                    <li>
-                        <a href="{{ route('logout') }}">{{ localize('Déconnexion') }}</a>
-                    </li>
-                @endauth
-                @guest
-                    <li>
-                        <a href="{{ route('login') }}">{{ localize('Se connecter') }}</a>
-                    </li>
-                @endguest
+                                            @if (auth()->user()->user_type == 'customer')
+                                                <li><a href="{{ route('customers.dashboard') }}"><span class="me-2"><i
+                                                                class="fa-solid fa-user"></i></span>{{ localize('Mon compte') }}</a>
+                                                </li>
+                                                <li><a href="{{ route('customers.orderHistory') }}"><span
+                                                            class="me-2"><i
+                                                                class="fa-solid fa-tags"></i></span>{{ localize('Mes commandes') }}</a>
+                                                </li>
+                                                <li><a href="{{ route('customers.wishlist') }}"><span class="me-2"><i
+                                                                class="fa-solid fa-heart"></i></span>{{ localize('Ma liste d\'envies') }}</a>
+                                                </li>
+                                            @else
+                                                <li><a href="{{ route('admin.dashboard') }}"><span class="me-2"><i
+                                                                class="fa-solid fa-bars"></i></span>{{ localize('Tableau de bord') }}</a>
+                                                </li>
+                                            @endif
+
+                                            <li><a href="{{ route('logout') }}"><span class="me-2"><i
+                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Déconnexion') }}
+                                                </a></li>
+                                        @endauth
+
+
+                                        @guest
+                                            <li><a href="{{ route('login') }}"><span class="me-2"><i
+                                                            class="fa-solid fa-arrow-right-from-bracket"></i></span>{{ localize('Se connecter') }}</a>
+                                            </li>
+                                        @endguest
+
             </ul>
         </nav>
 

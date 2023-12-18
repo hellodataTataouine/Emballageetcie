@@ -572,7 +572,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
            /* if ($request->has('child_product_ids')) {
                 foreach ($request->child_product_ids as $childProductId) {
                     $childProduct = Product::findOrFail($childProductId);
-                    $childProduct->parent_id = $request->id; // Set the parent ID
+                    $childProduct->parent_id = $request->id; 
                     $childProduct->save();
                 }
             }*/
@@ -743,16 +743,67 @@ $childs= ProductParents::where('product_id', $request->id)->get();;
         return 0;
     }
 
-   # delete product
-public function delete($id)
+//    # delete product
+// public function delete(Request $request)
+// {
+//     $product = Product::findOrFail($request->id);
+
+//     $product->delete();
+//     //dd($product);
+
+//     flash(localize('Le produit a été supprimé avec succès'))->success(); 
+//     return back();
+// }
+
+
+
+# Delete product
+public function delete(Request $request)
 {
-    $product = Product::findOrFail($id);
+    $product = Product::findOrFail($request->id);
+
+    $product->children()->delete();
+
+    // Delete product variations and associated data
+    if ($product->is_variant) {
+        foreach ($product->variations as $variation) {
+            foreach ($variation->combinations as $combination) {
+                $combination->delete();
+            }
+            $variation->delete();
+        }
+    }
+
+    $product->product_taxes()->detach();
+
+    $product->categories()->detach();
+    $product->tags()->detach();
+
+    
+    // Delete product images and files
+    if ($product->thumbnail_image) {
+        Storage::delete('storage/' . $product->thumbnail_image);
+    }
+
+    if ($product->gallery_images) {
+        $galleryImages = json_decode($product->gallery_images, true);
+        foreach ($galleryImages as $image) {
+            Storage::delete('storage/' . $image);
+        }
+    }
+
+    if ($product->fiche_technique) {
+        Storage::delete('storage/' . $product->fiche_technique);
+    }
 
     $product->delete();
 
-    flash(__('Le produit a été supprimé avec succès'))->success();
-    return redirect()->route('admin.products.index');
+    flash(localize('Le produit a été supprimé avec succès'))->success();
+    return back();
 }
+
+
+
 
 
 
