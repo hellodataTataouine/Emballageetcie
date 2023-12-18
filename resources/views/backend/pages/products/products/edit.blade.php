@@ -225,7 +225,6 @@
                                 </div>
 
                             </div>
-                            <!-- fixed -->
                             <!-- Product Children start -->
                             <head>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
@@ -265,25 +264,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($currentChildren->sortBy('pivot.child_position') as $childProduct)
-                                                <tr id="childProductRow_{{ $childProduct->product_id }}">
-                                                    <td>
-                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->product_id }}', 'up')">&#9650;</button>
-                                                        {{ $temporaryOrder[$childProduct->product_id] }}
-                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->product_id }}', 'down')">&#9660;</button>
-                                                    </td>
-                                                    <td>
-                                                        {{-- Check if the product exists before accessing its properties --}}
-                                                        @php  
-                                                            $childproduct = App\Models\Product::find($childProduct->child_id); 
-                                                           
-                                                        @endphp
-                                                        
-                                                            {{ $childproduct->name }}
-                                                      
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
+                                                    <tr id="childProductRow_{{ $childProduct->id }}">
+                                                        <td>
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'up')">&#9650;</button>
+                                                            {{ $temporaryOrder[$childProduct->id] }}
+                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'down')">&#9660;</button>
+                                                        </td>
+                                                        <td>{{ $childProduct->name }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
