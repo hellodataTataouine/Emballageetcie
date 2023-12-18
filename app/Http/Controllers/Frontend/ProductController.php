@@ -211,22 +211,18 @@ class ProductController extends Controller
         $currentPage = $request->input('page', 1); 
         $perPage = 12;
         
-        // Filter out products with parent_id not null 
         
-        if ($request->search != null  || $request->tag_id != null){
+
+        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null ){
         $visibleProducts = $virtualProducts;
         }else{
             $visibleProducts = $virtualProducts->where('parent_id', null);
         }
        
-        
-        $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
-        // Paginate only the visible products
-        //$visibleProducts = $virtualProducts->where('parent_id', null);
+        $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
         $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($perPage), $currentPage);
 
         $products->withPath('/products');
-        //$products = $products->paginate(paginationNumber($per_page));
 
         $tags = Tag::all();
         
