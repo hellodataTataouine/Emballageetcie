@@ -536,7 +536,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
             # category
             $product->categories()->sync($request->category_ids);
-            $product->parents()->sync($request->child_product_ids);
+            $product->childs()->sync($request->child_product_ids);
             # taxes
             $tax_data = array();
             $tax_ids = array();

@@ -326,7 +326,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $name = $produitApi['Libellé'];
 
             $barcode = $produitApi['codeabarre'];
-            $matchingChild = $product->children()->where('slug', $barcode)->where('is_published', 1)->first();
+            $matchingChild = $product->childs()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
         
             if ($matchingChild) {
