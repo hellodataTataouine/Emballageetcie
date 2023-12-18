@@ -40,7 +40,7 @@ class ProductsController extends Controller
     # product list
     public function index(Request $request)
     {
-        $virtualProducts = collect(); // Initialize a collection to hold virtual products
+        $virtualProducts = collect(); 
     
         // Fetch all products from the API
         $apiUrl = env('API_CATEGORIES_URL');
@@ -58,13 +58,15 @@ class ProductsController extends Controller
                 if (!in_array($existingProduct->slug, $barcodes)) {
                    
                     $existingProduct->is_published = 0;
-                    
-                    $existingProduct->save();
+
+                    $virtualProducts->push($existingProduct);
+
+                   
+                     $existingProduct->save();
                 }
             }
         foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
-
             $barcode = $produitApi['codeabarre'];
             $apiPrice = $produitApi['PrixVTTC'];
             $apiPriceHT = $produitApi['PrixVenteHT'];
@@ -92,17 +94,46 @@ class ProductsController extends Controller
                 $matchingProduct->name = $name;
                 
                 $virtualProducts->push($matchingProduct);
-            } else {
-                // Create a new product or do additional handling for new products
+                
+           // } else {
+               
             }
         }
-    
+        
+          // Fetch all products from the database
+    $dbProducts = Product::with('categories')
+    ->when($request->search, function ($query) use ($request) {
+        $query->where('slug', 'like', '%' . $request->search . '%');
+    })
+    ->when($request->is_published, function ($query) use ($request) {
+        $query->where('is_published', $request->is_published);
+    })
+    ->get();
+
+$virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+
+
+       
+       /*  if ($request->brand_id != null) {
+            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
+            $brand_id    = $request->brand_id;
+        }  */
 
         if ($request->search != null) {
             $searchTerm = $request->search;
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
+            
+            // Split the search term into words
+            $keywords = explode(' ', $searchTerm);
+        
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if all keywords are present in the product name or other attributes
+                return collect($keywords)->every(function ($keyword) use ($product) {
+                    return (
+                        stripos($product->name, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false
+                        
+                    );
+                });
             });
         
             // Reassign the filtered products to $virtualProducts
@@ -110,26 +141,29 @@ class ProductsController extends Controller
             $searchKey = $searchTerm;
         }
 
-        if ($request->brand_id != null) {
-            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }
-
         if ($request->is_published != null) {
             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
             $is_published    = $request->is_published;
         }
 
+          // Fetch all products from the database
+          $dbProducts = Product::with('categories')
+          ->when($request->search, function ($query) use ($request) {
+              $query->where('slug', 'like', '%' . $request->search . '%');
+          })
+          ->when($request->is_published, function ($query) use ($request) {
+              $query->where('is_published', $request->is_published);
+          })
+          ->get();
+      
+      $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
-
-
-       // Paginate the combined products
-$page = $request->input('page', 1);
-$perPage = 15;
-$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
-$paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
-$paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
-
+            // Paginate the combined products
+        $page = $request->input('page', 1);
+        $perPage = 15;
+        $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+        $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+        $paginatedProducts->withPath('/admin/products'); 
 
 
    $brands = Brand::latest()->get();
@@ -379,6 +413,8 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
         $currentIsParent = $product->is_parent;
         $currentChildren = $product->children;
+        $currentFicheTechnique = $product->fiche_technique;
+
 
         
         //dd($product);
@@ -394,7 +430,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
         $temporaryOrder = $currentChildren->pluck('child_position', 'id')->toArray();
 
-        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder'));
+        return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
 
     
@@ -454,7 +490,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
 
             $product->thumbnail_image   = $request->image;
             $product->gallery_images   = $request->images;
-            $product->fiche_technique   = $request->fiche_technique;
+            //$product->fiche_technique   = $request->fiche_technique;
             if ($request->hasFile('fiche_technique')) {
                 $file = $request->file('fiche_technique');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -465,12 +501,16 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
                 // Store the file in the specified location
                 $path = $file->storeAs($storagePath, $filename);
             // Remove the 'storage' part from the path
-    $trimmedPath = str_replace('storage/', '', $path);
+                $trimmedPath = str_replace('storage/', '', $path);
 
                 // Assign the file path to the product and save
                 $product->fiche_technique = $trimmedPath;
-                $product->save(); 
+            } elseif ($request->has('remove_fiche_technique') && $request->remove_fiche_technique) {
+                // User has requested to remove the Fiche Technique
+                $product->fiche_technique = null;
             }
+        
+          $product->save(); 
                         
             //dd($product->fiche_technique); 
          
@@ -503,7 +543,7 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
             # stock qty based on all variations / no variation 
             //$product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
 
-            $product->is_published         = $request->is_published;
+            //$product->is_published         = $request->is_published;
             $product->has_variation        = ($request->has('is_variant') && $request->has('variations')) ? 1 : 0;
 
             # shipping info
@@ -706,7 +746,7 @@ public function delete($id)
 
 public function SynchronizeProducts(Request $request)
 {
-    $virtualProducts = collect(); // Initialize a collection to hold virtual products
+    $virtualProducts = collect(); 
     
     // Fetch all products from the API
     $apiUrl = env('API_CATEGORIES_URL');
@@ -719,15 +759,24 @@ public function SynchronizeProducts(Request $request)
         ->with('categories')
         ->get()
         ->keyBy('slug');
-        foreach ($existingProducts as $existingProduct) {
-            // Check if the existing product is not found in the API list
-            if (!in_array($existingProduct->slug, $barcodes)) {
-               
-                $existingProduct->is_published = 0;
+
+    $notExistingProducts = Product::whereNotIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
+
+
+        foreach ($notExistingProducts as $notExistingProduct) {
+            
+            // Check if the existing product is not found in the API l
+                $notExistingProduct->is_published = 0;
+                $virtualProducts->push($notExistingProduct);
                 
-                $existingProduct->save();
-            }
+                $notExistingProduct->save();
+            
         }
+
+       
     
              // Loop through each product from the API
         foreach ($produitsApi as $produitApi) {
@@ -754,7 +803,8 @@ public function SynchronizeProducts(Request $request)
     $newProduct->has_variation = 0;
     $newProduct->Qty_Unit = $apiQTEUNITE;
 $newProduct->Unit = $apiunité;
-$newProduct->max_purchase_qty = 10;
+$newProduct->max_purchase_qty = 1000;
+$newProduct->is_published = 1;
     // Set other properties accordingly based on your product model
     
     $newProduct->save();
@@ -791,6 +841,9 @@ $newProduct->max_purchase_qty = 10;
             // Check if the API product exists in the existing products
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
                 
                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
@@ -808,24 +861,25 @@ $newProduct->max_purchase_qty = 10;
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
                 $matchingProduct->name = $name;
+                $matchingProduct->is_published = 1;
+                $matchingProduct->save();
                 $virtualProducts->push($matchingProduct);
             } else {
-                // Create a new product or do additional handling for new products
+                // set exisiting product is_published to 0 if not found in the API list
+                $existingProduct = Product::where('slug', $barcode)->first();
+                $existingProduct->is_published = 0;
+                $virtualProducts->push($existingProduct);
+                $existingProduct->save();
+               
             }
         }
     
 
-        if ($request->search != null) {
-            $searchTerm = $request->search;
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTerm) {
-                // Change 'name' to the correct attribute name if it's different in your Product model
-                return stripos($product->name, $searchTerm) !== false;
-            });
+       
+
         
-            // Reassign the filtered products to $virtualProducts
-            $virtualProducts = $filteredProducts->values();
-            $searchKey = $searchTerm;
-        }
+
+        
 
         if ($request->brand_id != null) {
             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
@@ -836,20 +890,32 @@ $newProduct->max_purchase_qty = 10;
             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
             $is_published    = $request->is_published;
         }
+        $dbProducts = Product::with('categories')
+        ->when($request->search, function ($query) use ($request) {
+            $query->where('slug', 'like', '%' . $request->search . '%');
+        })
+        ->when($request->is_published, function ($query) use ($request) {
+            $query->where('is_published', $request->is_published);
+        })
+        ->get();
+    
+    $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+
+    
 
 
 
 
        // Paginate the combined products
-$page = $request->input('page', 1);
-$perPage = 20;
-$slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
-$paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
-$paginatedProducts->withPath('/admin/products'); // Set the desired path for pagination
+        $page = $request->input('page', 1);
+        $perPage = 15;
+        $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+        $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+        $paginatedProducts->withPath('/admin/products'); 
 
 
 
-   $brands = Brand::latest()->get();
+     $brands = Brand::latest()->get();
     
         $searchKey = null;
         $brand_id = null;
@@ -858,6 +924,8 @@ $paginatedProducts->withPath('/admin/products'); // Set the desired path for pag
         return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
        
 }
+
+
 
 
 }

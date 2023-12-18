@@ -1,6 +1,7 @@
 <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
-    <!--Filter by search-->
-    <div class="sidebar-widget search-widget bg-white py-5 px-4">
+   <!-- Filter by search -->
+<div class="sidebar-widget search-widget bg-white py-5 px-4">
+    <form action="{{ route('products.index') }}" method="GET">
         <div class="widget-title d-flex">
             <h6 class="mb-0 flex-shrink-0">{{ localize('Rechercher maintenant') }}</h6>
             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
@@ -8,15 +9,14 @@
         <div class="search-form d-flex align-items-center mt-4">
             <input type="hidden" name="view" value="{{ request()->view }}">
             <input type="text" id="search" name="search"
-                @isset($searchKey)
-       value="{{ $searchKey }}"
-       @endisset
+                @isset($searchKey) value="{{ $searchKey }}" @endisset
                 placeholder="{{ localize('Recherche') }}">
-            <button type="submit" class="submit-icon-btn-secondary"><i
-                    class="fa-solid fa-magnifying-glass"></i></button>
+            <button type="submit" class="submit-icon-btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-    </div>
-    <!--Filter by search-->
+    </form>
+</div>
+<!-- Filter by search -->
+
 
     <div class="sidebar-widget category-widget bg-white py-3 px-4 border-top mobile-menu-wrapper scrollbar h-50px">
     <div class="widget-title d-flex">

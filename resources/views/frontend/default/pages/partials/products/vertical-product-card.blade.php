@@ -11,7 +11,7 @@
     @endif
 
     <div class="thumbnail position-relative text-center p-4">
-        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
+        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}"
             class="img-fluid">
         <div class="product-btns position-absolute d-flex gap-2 flex-column">
             @if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -49,7 +49,7 @@
         <!--product category end-->
 
         <a href="{{ route('products.show', $product->slug) }}"
-            class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->collectLocalization('name') }}
+            class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
         </a>
 
         <h6 class="price">
@@ -86,10 +86,10 @@
             {{ localize('Ajouter au panier') }}
         </a>
     @else
-        @if ($product->is_parent)
-            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
-                {{ __('Disponible en  :count références', ['count' => $product->children()->count() + 1]) }}
-            </a>
+    @if ($product->is_parent)
+    <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
+        {{ __('Disponible en  :count références', ['count' => $product->children()->where('is_published', 1)->count() + 1]) }}
+    </a>
         @else
             <form action="" class="direct-add-to-cart-form">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
