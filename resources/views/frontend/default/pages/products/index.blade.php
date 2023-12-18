@@ -139,7 +139,6 @@
                                 @if (count($products) > 0)
                                     @if (request()->has('view') && request()->view == 'list')
                                         @foreach ($products as $product)
-                                            @if ($searchKey === null || $tags === null || $selectedCategoryId == null || $product->parent_id === null || $product->is_parent === 1 ) 
                                                 <div class="col-xl-12">
                                                     @include(
                                                         'frontend.default.pages.partials.products.product-card-list',
@@ -148,19 +147,6 @@
                                                         ]
                                                     )
                                                 </div>
-                                                @else
-                                                    @if ($searchKey !== null || $tags !== null || $selectedCategoryId !== null )  
-                                                    <div class="col-xl-12">
-                                                    @include(
-                                                        'frontend.default.pages.partials.products.product-card-list',
-                                                        [
-                                                            'product' => $product,
-                                                        ]
-                                                    )
-                                                </div>
-                                                @endif
-                                            @endif
-                                            
                                         @endforeach
                                     @else
                                         <div class="row">
@@ -177,7 +163,6 @@
                                                     @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
                                                         <div class="w-100"></div>
                                                     @endif
-                                                   
                                             @endforeach
                                         </div>
                                     @endif

@@ -213,19 +213,18 @@ class ProductController extends Controller
         
         // Filter out products with parent_id not null 
         
-
-        if ($searchKey != null){
+        if ($request->search != null  || $request->tag_id != null){
         $visibleProducts = $virtualProducts;
         }else{
             $visibleProducts = $virtualProducts->where('parent_id', null);
         }
        
-        dd($visibleProducts);
+        
         $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
-
         // Paginate only the visible products
         //$visibleProducts = $virtualProducts->where('parent_id', null);
         $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($perPage), $currentPage);
+
         $products->withPath('/products');
         //$products = $products->paginate(paginationNumber($per_page));
 
