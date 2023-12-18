@@ -13,6 +13,7 @@ class ProductParents extends Model
         protected $fillable = [
             'product_id',
             'child_id',
+            'child_position',
         ];
     
         // Define the relationships with the Product model

@@ -434,7 +434,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
 
-        $temporaryOrder = $currentChildren->pluck('child_position', 'product_id')->toArray();
+        $temporaryOrder = $currentChildren->pluck('child_position', 'child_id')->toArray();
 
         return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
