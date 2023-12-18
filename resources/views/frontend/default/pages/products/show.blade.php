@@ -85,7 +85,7 @@
                         <!-- product-view-box -->
 
                         <!-- Réferences -->
-                        @if ($product->children->isNotEmpty())
+                        @if ($product->parents->isNotEmpty())
                             <div class="mt-4">
                                 <h2 class="mb-4">{{ localize('Réferences') }}</h2>
                                 <div class="table-responsive">
@@ -195,7 +195,6 @@
                                                         </a>
                                                         @else
                                                           
-                                                           
                                                         @endif
                                                     </td>
                                                     <td class="align-middle">
