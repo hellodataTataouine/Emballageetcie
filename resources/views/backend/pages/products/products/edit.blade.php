@@ -234,7 +234,7 @@
                                 <div class="card-body">
                                     <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
                                     <div class="mb-4">
-                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                        <!-- <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
                                             @if ($childProduct->is_published)
                                             @php
@@ -242,13 +242,30 @@
                                             $childPosition = $productParent ? $productParent->child_position : '';
                                             $isSelected = $product->parents->contains('child_id', $childProduct->id);
                                            
-                                        @endphp
+                                            @endphp
                                                 <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
                                                     {{ $childPosition }}. {{ $childProduct->name }} 
                                                 </option>
                                             @endif
                                             @endforeach
-                                        </select>
+                                        </select> -->
+
+                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                        @foreach ($products as $childProduct)
+                                            @if ($childProduct->is_published  && $childProduct->id !== $product->id)
+                                                @php
+                                                    $productParent = $product->parents->where('child_id', $childProduct->id)->first();
+                                                    $childPosition = $productParent ? $productParent->child_position : '';
+                                                    $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
+                                                @endphp
+                                                <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                    {{ $childPosition }}. {{ $childProduct->name }} 
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+
+
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
                                     </div>
                                     <div class="table-responsive">
@@ -260,10 +277,13 @@
                                                 <tr>
                                                     <th>Position</th>
                                                     <th>Désignation</th>
+                                                    <th>Afficher dans le recherche </th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($currentChildren->sortBy('pivot.child_position') as $childProduct)
+                                               
                                                 <tr id="childProductRow_{{ $childProduct->product_id }}">
                                                     <td>
                                                         <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->product_id }}', 'up')">&#9650;</button>
@@ -276,10 +296,22 @@
                                                             $childproduct = App\Models\Product::find($childProduct->child_id); 
                                                            
                                                         @endphp
-                                                        
-                                                            {{ $childproduct->name }}
+
+                                                        {{ optional($childproduct)->name }}
+                                                                              
                                                       
                                                     </td>
+                                                    <td>
+                                                        @can('aficher_products')
+                                                            <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                                                                <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                                    class="form-check-input"
+                                                                    @if (optional($childproduct)->afficher) checked @endif
+                                                                    value="{{ optional($childproduct)->id }}">
+                                                            </div>
+                                                        @endcan
+                                                    </td>
+
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -337,36 +369,49 @@
                                 updateRowPositions();
 
                                 function updateChildTable() {
-                                var selectedProducts = document.getElementById('childProductIds').selectedOptions;
+                                    var selectedProducts = document.getElementById('childProductIds').selectedOptions;
 
-                                var rows = document.querySelectorAll('#childProductsTable tbody tr');
-                                rows.forEach(function (row) {
-                                    var childProductId = row.id.split('_')[1];
-                                    if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
-                                        row.remove();
-                                        delete temporaryOrder[childProductId]; 
-                                    }
-                                });
+                                    var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                    rows.forEach(function (row) {
+                                        var childProductId = row.id.split('_')[1];
+                                        if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
+                                            row.remove();
+                                            delete temporaryOrder[childProductId];
+                                        }
+                                    });
 
-                                Array.from(selectedProducts).forEach(function (selectedOption) {
-                                    var childProductId = selectedOption.value;
-                                    if (!document.getElementById('childProductRow_' + childProductId)) {
-                                        var newRow = document.createElement('tr');
-                                        newRow.id = 'childProductRow_' + childProductId;
-                                        newRow.innerHTML = `
-                                            <td>
-                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
-                                                ${temporaryOrder[childProductId] || ''}
-                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
-                                            </td>
-                                            <td>${selectedOption.text}</td>
-                                        `;
-                                        document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
-                                    }
-                                });
+                                    Array.from(selectedProducts).forEach(function (selectedOption) {
+                                        var childProductId = selectedOption.value;
+                                        var childProductData = @json(optional(App\Models\Product::find($childProduct->child_id)));
 
-                                updateRowPositions();
-                            }
+                                        if (!document.getElementById('childProductRow_' + childProductId)) {
+                                            var newRow = document.createElement('tr');
+                                            newRow.id = 'childProductRow_' + childProductId;
+                                            newRow.innerHTML = `
+                                                <td>
+                                                    <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
+                                                    ${temporaryOrder[childProductId] || ''}
+                                                    <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
+                                                </td>
+                                                <td>${selectedOption.text}</td>
+                                                <td>
+                                                    @can('aficher_products')
+                                                    <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                                                        <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                            class="form-check-input"
+                                                            ${childProductData.afficher ? 'checked' : ''}
+                                                            value="${childProductId}">
+                                                    </div>
+                                                    @endcan
+                                                </td>
+                                            `;
+                                            document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
+                                        }
+                                    });
+
+                                    updateRowPositions();
+                                }
+
 
                             </script>
 
@@ -942,6 +987,28 @@
                                 </div>
                             </div> -->
                             <!--product sell target & status end-->
+
+                              <!--product sell target & status start-->
+                          <div class="row g-3" id="section-9">                               
+                                <div class="col-lg-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5 class="mb-4">{{ localize('Affichage du produit') }}</h5>
+                                            <div class="tt-select-brand">
+                                                <select class="select2 form-control" id="afficher"
+                                                    name="afficher">
+                                                    <option value="1"
+                                                        {{ $product->afficher == 1 ? 'selected' : '' }}>
+                                                        {{ localize('Afficher') }}</option>
+                                                    <option value="0"
+                                                        {{ $product->afficher == 0 ? 'selected' : '' }}>
+                                                        {{ localize(' Non Afficher') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
 
                             <!--seo meta description start-->
                             <div class="card mb-4" id="section-10">

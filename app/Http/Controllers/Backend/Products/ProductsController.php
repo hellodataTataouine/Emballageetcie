@@ -37,6 +37,7 @@ class ProductsController extends Controller
         $this->middleware(['permission:add_products'])->only(['create', 'store']);
         $this->middleware(['permission:edit_products'])->only(['edit', 'update']);
         $this->middleware(['permission:publish_products'])->only(['updatePublishedStatus']);
+        $this->middleware(['permission:publish_products'])->only(['updateAfficherStatus']);
     }
 
     # product list
@@ -55,28 +56,107 @@ class ProductsController extends Controller
             ->with('categories')
             ->get()
             ->keyBy('slug');
+
+        $notExistingProducts = Product::whereNotIn('slug', $barcodes)
+            ->with('categories')
+            ->get()
+            ->keyBy('slug');
+
+            //dd($notExistingProducts);
+    
+    
+            foreach ($notExistingProducts as $notExistingProduct) {
+                
+                // Check if the existing product is not found in the API l
+                    $notExistingProduct->is_published = 0;
+                    $notExistingProduct->afficher = 0;
+                    
+
+
+
+                    $virtualProducts->push($notExistingProduct);
+                    
+                    $notExistingProduct->save();
+                
+            }
+
             foreach ($existingProducts as $existingProduct) {
                 // Check if the existing product is not found in the API list
-                if (!in_array($existingProduct->slug, $barcodes)) {
+                if (in_array($existingProduct->slug, $barcodes)) {
                    
-                    $existingProduct->is_published = 0;
+                    $existingProduct->is_published = 1;
 
                     $virtualProducts->push($existingProduct);
+                    $existingProduct->save();
 
-                   
-                     $existingProduct->save();
                 }
             }
-        foreach ($produitsApi as $produitApi) {
-            $name = $produitApi['Libellé'];
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiPriceHT = $produitApi['PrixVenteHT'];
-            $apiStock = $produitApi['StockActual'];
-            $apiunité = $produitApi['unité_lot'];
+
+            foreach ($produitsApi as $produitApi) {
+                $name = $produitApi['Libellé'];
+                $barcode = $produitApi['codeabarre'];
+                $apiPrice = $produitApi['PrixVTTC'];
+                $apiPriceHT = $produitApi['PrixVenteHT'];
+                $apiStock = $produitApi['StockActual'];
+                $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            if (isset($existingProducts[$barcode])) {
-                $matchingProduct = $existingProducts[$barcode];
+        
+          // Find products with matching barcode
+          if (!(isset($existingProducts[$barcode]))) {
+         
+        // Update prices for matching products
+        $location = Location::where('is_default', 1)->first();
+        $newProduct = new Product();
+        $newProduct->name = $name;
+        $newProduct->slug = $barcode; 
+        $newProduct->min_price = $apiPrice;
+        $newProduct->max_price = $apiPrice;
+        $newProduct->Prix_HT = $apiPrice;
+        $newProduct->stock_qty = $apiStock;
+        $newProduct->has_variation = 0;
+        $newProduct->Qty_Unit = $apiQTEUNITE;
+        $newProduct->Unit = $apiunité;
+        $newProduct->max_purchase_qty = 1000;
+        $newProduct->is_published = 1;
+        $newProduct->afficher = 1;
+
+        // Set other properties accordingly based on your product model
+        
+        $newProduct->save();
+        
+        $variation              = new ProductVariation;
+        $variation->product_id  = $newProduct->id;
+       // $variation->sku         = $request->sku;
+       // $variation->code         = $request->code;
+        $variation->price       = $apiPrice;
+        $variation->save();
+        $product_variation_stock = new ProductVariationStock;
+        $product_variation_stock->product_variation_id    = $variation->id;
+        $product_variation_stock->location_id             = $location->id;
+        $product_variation_stock->stock_qty               = $apiStock;
+        $product_variation_stock->save();
+        $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+        $ProductLocalization->name = $name;
+        //$ProductLocalization->description = $request->description;
+        $ProductLocalization->save();
+        
+        
+       
+        
+            
+
+
+        // foreach ($produitsApi as $produitApi) {
+        //     $name = $produitApi['Libellé'];
+        //     $barcode = $produitApi['codeabarre'];
+        //     $apiPrice = $produitApi['PrixVTTC'];
+        //     $apiPriceHT = $produitApi['PrixVenteHT'];
+        //     $apiStock = $produitApi['StockActual'];
+        //     $apiunité = $produitApi['unité_lot'];
+        //     $apiQTEUNITE = $produitApi['QTEUNITE'];
+        //     if (isset($existingProducts[$barcode])) {
+        } else {    
+            $matchingProduct = $existingProducts[$barcode];
                 
                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
@@ -94,6 +174,7 @@ class ProductsController extends Controller
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
                 $matchingProduct->name = $name;
+                
                 
                 $virtualProducts->push($matchingProduct);
                 
@@ -168,13 +249,20 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         $paginatedProducts->withPath('/admin/products'); 
 
 
-   $brands = Brand::latest()->get();
+        $brands = Brand::latest()->get();
     
         $searchKey = null;
         $brand_id = null;
         $is_published = null;
+
+        
+
+
+
+
+        
     
-        return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
+        return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published', ));
     }
     
     # return view of create form
@@ -415,8 +503,9 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
         $currentIsParent = $product->is_parent;
         $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
-    ->join('products', 'product_parent.product_id', '=', 'products.id')
-    ->get();
+        ->join('products', 'product_parent.product_id', '=', 'products.id')
+        ->where('product_parent.product_id', $id)
+        ->get();
 
 //dd($currentChildren);
         $currentFicheTechnique = $product->fiche_technique;
@@ -526,6 +615,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
             //$product->stock_qty   = ($request->has('is_variant') && $request->has('variations')) ? max(array_column($request->variations, 'stock')) : $request->stock;
 
             //$product->is_published         = $request->is_published;
+             $product->afficher         = $request->afficher;
             $product->has_variation        = ($request->has('is_variant') && $request->has('variations')) ? 1 : 0;
 
             # shipping info
@@ -586,9 +676,12 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 $childs= ProductParents::where('product_id', $request->id)->get();;
 //dd($childs);
       foreach($childs as $child) {
+        dd($child->child_id, $temporaryOrder);
         
         $child->child_position = $temporaryOrder[$child->child_id];
         $child->save();
+        //dd($temporaryOrder);
+
       }    
 
 
@@ -746,6 +839,17 @@ $childs= ProductParents::where('product_id', $request->id)->get();;
         return 0;
     }
 
+     # update afficher
+     public function updateAfficherStatus(Request $request)
+     {
+         $product = Product::findOrFail($request->id);
+         $product->afficher = $request->status;
+         if ($product->save()) {
+             return 1;
+         }
+         return 0;
+     }
+
 //    # delete product
 // public function delete(Request $request)
 // {
@@ -806,140 +910,138 @@ public function delete(Request $request)
 }
 
 
+}
 
 
 
 
-
-
-
-public function SynchronizeProducts(Request $request)
-{
-    $virtualProducts = collect(); 
+// public function SynchronizeProducts(Request $request)
+// {
+//     $virtualProducts = collect(); 
     
-    // Fetch all products from the API
-    $apiUrl = env('API_CATEGORIES_URL');
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
-    $produitsApi = $response->json();
+//     // Fetch all products from the API
+//     $apiUrl = env('API_CATEGORIES_URL');
+//     $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+//     $produitsApi = $response->json();
 
-    // Retrieve all existing products and organize them by slug
-    $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
-    $existingProducts = Product::whereIn('slug', $barcodes)
-        ->with('categories')
-        ->get()
-        ->keyBy('slug');
+//     // Retrieve all existing products and organize them by slug
+//     $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+//     $existingProducts = Product::whereIn('slug', $barcodes)
+//         ->with('categories')
+//         ->get()
+//         ->keyBy('slug');
 
-    $notExistingProducts = Product::whereNotIn('slug', $barcodes)
-        ->with('categories')
-        ->get()
-        ->keyBy('slug');
+//     $notExistingProducts = Product::whereNotIn('slug', $barcodes)
+//         ->with('categories')
+//         ->get()
+//         ->keyBy('slug');
 
 
-        foreach ($notExistingProducts as $notExistingProduct) {
+//         foreach ($notExistingProducts as $notExistingProduct) {
             
-            // Check if the existing product is not found in the API l
-                $notExistingProduct->is_published = 0;
-                $virtualProducts->push($notExistingProduct);
+//             // Check if the existing product is not found in the API l
+//                 $notExistingProduct->is_published = 0;
+//                 $virtualProducts->push($notExistingProduct);
                 
-                $notExistingProduct->save();
+//                 $notExistingProduct->save();
             
-        }
+//         }
 
-             // Loop through each product from the API
-        foreach ($produitsApi as $produitApi) {
-            $name = $produitApi['Libellé'];
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiPriceHT = $produitApi['PrixVenteHT'];
-            $apiStock = $produitApi['StockActual'];
-            $apiunité = $produitApi['unité_lot'];
-        $apiQTEUNITE = $produitApi['QTEUNITE'];
+//              // Loop through each product from the API
+//         foreach ($produitsApi as $produitApi) {
+//             $name = $produitApi['Libellé'];
+//             $barcode = $produitApi['codeabarre'];
+//             $apiPrice = $produitApi['PrixVTTC'];
+//             $apiPriceHT = $produitApi['PrixVenteHT'];
+//             $apiStock = $produitApi['StockActual'];
+//             $apiunité = $produitApi['unité_lot'];
+//         $apiQTEUNITE = $produitApi['QTEUNITE'];
     
-      // Find products with matching barcode
-      if (!(isset($existingProducts[$barcode]))) {
+//       // Find products with matching barcode
+//       if (!(isset($existingProducts[$barcode]))) {
      
-    // Update prices for matching products
-    $location = Location::where('is_default', 1)->first();
-    $newProduct = new Product();
-    $newProduct->name = $name;
-    $newProduct->slug = $barcode; 
-    $newProduct->min_price = $apiPrice;
-    $newProduct->max_price = $apiPrice;
-    $newProduct->Prix_HT = $apiPrice;
-    $newProduct->stock_qty = $apiStock;
-    $newProduct->has_variation = 0;
-    $newProduct->Qty_Unit = $apiQTEUNITE;
-$newProduct->Unit = $apiunité;
-$newProduct->max_purchase_qty = 1000;
-$newProduct->is_published = 1;
-    // Set other properties accordingly based on your product model
+//     // Update prices for matching products
+//     $location = Location::where('is_default', 1)->first();
+//     $newProduct = new Product();
+//     $newProduct->name = $name;
+//     $newProduct->slug = $barcode; 
+//     $newProduct->min_price = $apiPrice;
+//     $newProduct->max_price = $apiPrice;
+//     $newProduct->Prix_HT = $apiPrice;
+//     $newProduct->stock_qty = $apiStock;
+//     $newProduct->has_variation = 0;
+//     $newProduct->Qty_Unit = $apiQTEUNITE;
+// $newProduct->Unit = $apiunité;
+// $newProduct->max_purchase_qty = 1000;
+// $newProduct->is_published = 1;
+//     // Set other properties accordingly based on your product model
     
-    $newProduct->save();
+//     $newProduct->save();
     
-    $variation              = new ProductVariation;
-    $variation->product_id  = $newProduct->id;
-   // $variation->sku         = $request->sku;
-   // $variation->code         = $request->code;
-    $variation->price       = $apiPrice;
-    $variation->save();
-    $product_variation_stock = new ProductVariationStock;
-    $product_variation_stock->product_variation_id    = $variation->id;
-    $product_variation_stock->location_id             = $location->id;
-    $product_variation_stock->stock_qty               = $apiStock;
-    $product_variation_stock->save();
-    $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
-    $ProductLocalization->name = $name;
-    //$ProductLocalization->description = $request->description;
-    $ProductLocalization->save();
+//     $variation              = new ProductVariation;
+//     $variation->product_id  = $newProduct->id;
+//    // $variation->sku         = $request->sku;
+//    // $variation->code         = $request->code;
+//     $variation->price       = $apiPrice;
+//     $variation->save();
+//     $product_variation_stock = new ProductVariationStock;
+//     $product_variation_stock->product_variation_id    = $variation->id;
+//     $product_variation_stock->location_id             = $location->id;
+//     $product_variation_stock->stock_qty               = $apiStock;
+//     $product_variation_stock->save();
+//     $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+//     $ProductLocalization->name = $name;
+//     //$ProductLocalization->description = $request->description;
+//     $ProductLocalization->save();
     
     
-    }
+//     }
     
-        }
+//         }
     
-        // Retrieve all existing products and organize them by slug
-        foreach ($produitsApi as $produitApi) {
-            $name = $produitApi['Libellé'];
-            $barcode = $produitApi['codeabarre'];
-            $apiPrice = $produitApi['PrixVTTC'];
-            $apiPriceHT = $produitApi['PrixVenteHT'];
-            $apiStock = $produitApi['StockActual'];
+//         // Retrieve all existing products and organize them by slug
+//         foreach ($produitsApi as $produitApi) {
+//             $name = $produitApi['Libellé'];
+//             $barcode = $produitApi['codeabarre'];
+//             $apiPrice = $produitApi['PrixVTTC'];
+//             $apiPriceHT = $produitApi['PrixVenteHT'];
+//             $apiStock = $produitApi['StockActual'];
             
-            // Check if the API product exists in the existing products
-            if (isset($existingProducts[$barcode])) {
-                $matchingProduct = $existingProducts[$barcode];
-                if ($matchingProduct->stock_qty != $apiStock) {
-                    $matchingProduct->stock_qty = $apiStock;
-                }
+//             // Check if the API product exists in the existing products
+//             if (isset($existingProducts[$barcode])) {
+//                 $matchingProduct = $existingProducts[$barcode];
+//                 if ($matchingProduct->stock_qty != $apiStock) {
+//                     $matchingProduct->stock_qty = $apiStock;
+//                 }
                 
-                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
-                    $matchingProduct->min_price = $apiPrice; 
-                    $matchingProduct->max_price = $apiPrice;
-                    $matchingProduct->Prix_HT = $apiPriceHT;
-                }
+//                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
+//                     $matchingProduct->min_price = $apiPrice; 
+//                     $matchingProduct->max_price = $apiPrice;
+//                     $matchingProduct->Prix_HT = $apiPriceHT;
+//                 }
                 
-                if ($matchingProduct->stock_qty != $apiStock) {
-                    $matchingProduct->stock_qty = $apiStock;
-                }
-                if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
-                    $matchingProduct->Qty_Unit = $apiQTEUNITE;
-                }
-                if ($matchingProduct->Unit != $apiunité) {
-                    $matchingProduct->Unit = $apiQTEUNITE;
-                }
-                $matchingProduct->name = $name;
-                $matchingProduct->is_published = 1;
-                $matchingProduct->save();
-                $virtualProducts->push($matchingProduct);
-            } else {
-                // set exisiting product is_published to 0 if not found in the API list
-                $existingProduct = Product::where('slug', $barcode)->first();
-                $existingProduct->is_published = 0;
-                $virtualProducts->push($existingProduct);
-                $existingProduct->save();
+//                 if ($matchingProduct->stock_qty != $apiStock) {
+//                     $matchingProduct->stock_qty = $apiStock;
+//                 }
+//                 if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+//                     $matchingProduct->Qty_Unit = $apiQTEUNITE;
+//                 }
+//                 if ($matchingProduct->Unit != $apiunité) {
+//                     $matchingProduct->Unit = $apiQTEUNITE;
+//                 }
+//                 $matchingProduct->name = $name;
+//                 $matchingProduct->is_published = 1;
+//                 $matchingProduct->save();
+//                 $virtualProducts->push($matchingProduct);
+//             } else {
+//                 // set exisiting product is_published to 0 if not found in the API list
+//                 $existingProduct = Product::where('slug', $barcode)->first();
+//                 $existingProduct->is_published = 0;
+//                 $virtualProducts->push($existingProduct);
+//                 $existingProduct->save();
                
-            }
-        }
+//             }
+//         }
     
 
        
@@ -948,51 +1050,50 @@ $newProduct->is_published = 1;
 
         
 
-        if ($request->brand_id != null) {
-            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }
+//         if ($request->brand_id != null) {
+//             $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
+//             $brand_id    = $request->brand_id;
+//         }
 
-        if ($request->is_published != null) {
-            $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
-            $is_published    = $request->is_published;
-        }
-        $dbProducts = Product::with('categories')
-        ->when($request->search, function ($query) use ($request) {
-            $query->where('slug', 'like', '%' . $request->search . '%');
-        })
-        ->when($request->is_published, function ($query) use ($request) {
-            $query->where('is_published', $request->is_published);
-        })
-        ->get();
+//         if ($request->is_published != null) {
+//             $virtualProducts = $virtualProducts->where('is_published', $request->is_published);
+//             $is_published    = $request->is_published;
+//         }
+//         $dbProducts = Product::with('categories')
+//         ->when($request->search, function ($query) use ($request) {
+//             $query->where('slug', 'like', '%' . $request->search . '%');
+//         })
+//         ->when($request->is_published, function ($query) use ($request) {
+//             $query->where('is_published', $request->is_published);
+//         })
+//         ->get();
     
-    $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+//     $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 
     
 
 
 
 
-       // Paginate the combined products
-        $page = $request->input('page', 1);
-        $perPage = 15;
-        $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
-        $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
-        $paginatedProducts->withPath('/admin/products'); 
+//        // Paginate the combined products
+//         $page = $request->input('page', 1);
+//         $perPage = 15;
+//         $slicedProducts = $virtualProducts->slice(($page - 1) * $perPage, paginationNumber())->values();
+//         $paginatedProducts = new LengthAwarePaginator($slicedProducts, $virtualProducts->count(), $perPage, $page);
+//         $paginatedProducts->withPath('/admin/products'); 
 
 
 
-     $brands = Brand::latest()->get();
+//      $brands = Brand::latest()->get();
     
-        $searchKey = null;
-        $brand_id = null;
-        $is_published = null;
+//         $searchKey = null;
+//         $brand_id = null;
+//         $is_published = null;
     
-        return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
+//         return view('backend.pages.products.products.index', compact('paginatedProducts', 'brands', 'searchKey', 'brand_id', 'is_published'));
        
-}
+// }
 
 
 
 
-}
