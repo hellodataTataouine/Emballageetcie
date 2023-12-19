@@ -886,6 +886,7 @@ class ComposerStaticInit6b5499d5aac6468831273ca62664c03f
         'App\\Models\\ProductCategory' => __DIR__ . '/../..' . '/app/Models/ProductCategory.php',
         'App\\Models\\ProductColor' => __DIR__ . '/../..' . '/app/Models/ProductColor.php',
         'App\\Models\\ProductLocalization' => __DIR__ . '/../..' . '/app/Models/ProductLocalization.php',
+        'App\\Models\\ProductParents' => __DIR__ . '/../..' . '/app/Models/ProductParents.php',
         'App\\Models\\ProductTag' => __DIR__ . '/../..' . '/app/Models/ProductTag.php',
         'App\\Models\\ProductTax' => __DIR__ . '/../..' . '/app/Models/ProductTax.php',
         'App\\Models\\ProductVariation' => __DIR__ . '/../..' . '/app/Models/ProductVariation.php',

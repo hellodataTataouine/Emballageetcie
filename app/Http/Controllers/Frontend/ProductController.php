@@ -214,10 +214,13 @@ class ProductController extends Controller
         
 
         if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        $visibleProducts = $virtualProducts;
+        $visibleProducts = $virtualProducts->where('afficher', 1);
         }else{
             $visibleProducts = $virtualProducts->where('parent_id', null);
         }
+
+        // $visibleProducts = $virtualProducts->where('afficher', 1);
+        // // dd($visibleProducts);
        
         $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
         $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($perPage), $currentPage);
