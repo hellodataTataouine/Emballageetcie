@@ -52,11 +52,7 @@ class ProductsController extends Controller
     
         // Retrieve all existing products and organize them by slug
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
-        $existingProducts = Product::whereIn('slug', $barcodes)
-            ->with('categories')
-            ->get()
-            ->keyBy('slug');
-
+        
         $notExistingProducts = Product::whereNotIn('slug', $barcodes)
             ->with('categories')
             ->get()
@@ -80,16 +76,22 @@ class ProductsController extends Controller
                 
             }
 
+
+            $existingProducts = Product::whereIn('slug', $barcodes)
+            ->with('categories')
+            ->get()
+            ->keyBy('slug');
+
+
             foreach ($existingProducts as $existingProduct) {
                 // Check if the existing product is not found in the API list
-                if (in_array($existingProduct->slug, $barcodes)) {
-                   
+                  
                     $existingProduct->is_published = 1;
-
-                    $virtualProducts->push($existingProduct);
+                    
+                   // $virtualProducts->push($existingProduct);
                     $existingProduct->save();
 
-                }
+                
             }
 
             foreach ($produitsApi as $produitApi) {
@@ -99,7 +101,7 @@ class ProductsController extends Controller
                 $apiPriceHT = $produitApi['PrixVenteHT'];
                 $apiStock = $produitApi['StockActual'];
                 $apiunité = $produitApi['unité_lot'];
-            $apiQTEUNITE = $produitApi['QTEUNITE'];
+                $apiQTEUNITE = $produitApi['QTEUNITE'];
         
           // Find products with matching barcode
           if (!(isset($existingProducts[$barcode]))) {
@@ -157,7 +159,10 @@ class ProductsController extends Controller
         //     if (isset($existingProducts[$barcode])) {
         } else {    
             $matchingProduct = $existingProducts[$barcode];
-                
+            if ($matchingProduct->Unit != $name) {
+                $matchingProduct->name = $name;
+                $matchingProduct->save();
+                }
                 if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
@@ -173,18 +178,16 @@ class ProductsController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiQTEUNITE;
                 }
-                $matchingProduct->name = $name;
-                
                 
                 $virtualProducts->push($matchingProduct);
                 
-           // } else {
+          
                
             }
         }
         
           // Fetch all products from the database
-    $dbProducts = Product::with('categories')
+  /*  $dbProducts = Product::with('categories')
     ->when($request->search, function ($query) use ($request) {
         $query->where('slug', 'like', '%' . $request->search . '%');
     })
@@ -193,14 +196,11 @@ class ProductsController extends Controller
     })
     ->get();
 
-$virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+$virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
 
 
        
-       /*  if ($request->brand_id != null) {
-            $virtualProducts = $virtualProducts->where('brand_id', $request->brand_id);
-            $brand_id    = $request->brand_id;
-        }  */
+      
 
         if ($request->search != null) {
             $searchTerm = $request->search;
@@ -230,7 +230,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         }
 
           // Fetch all products from the database
-          $dbProducts = Product::with('categories')
+         /* $dbProducts = Product::with('categories')
           ->when($request->search, function ($query) use ($request) {
               $query->where('slug', 'like', '%' . $request->search . '%');
           })
@@ -239,7 +239,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
           })
           ->get();
       
-      $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
+      $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
 
             // Paginate the combined products
         $page = $request->input('page', 1);
@@ -523,8 +523,8 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
         $taxes = Tax::isActive()->get();
         $tags = Tag::all();
 
-        $temporaryOrder = $currentChildren->pluck('child_position', 'product_id')->toArray();
-
+        $temporaryOrder = $currentChildren->pluck('child_position', 'child_id')->toArray();
+//dd($temporaryOrder);
         return view('backend.pages.products.products.edit', compact('product', 'products', 'categories', 'brands', 'units', 'variations', 'taxes', 'tags', 'lang_key', 'currentIsParent', 'currentChildren', 'temporaryOrder', 'currentFicheTechnique'));
     }
 
@@ -643,20 +643,19 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
                         ->delete();
                 }
             
-                /*foreach ($childProductIds as $index => $childProductId) {
+                foreach ($childProductIds as $index => $childProductId) {
                     $childProduct = Product::findOrFail($childProductId);
-                    $childProduct->parent_id = $request->id;
-                    $childProduct->child_position = $temporaryOrder[$childProductId];
+                    $childProduct->is_child = 1;
                     $childProduct->save();
-                }*/
+                }
             } else {
-                $product->children()->update(['parent_id' => null, 'child_position' => null]);
+                $product->parents()->delete();
                 //  
             }        
 
            if ($request->is_parent == 0) {
                 // Set the parent_id of associated child products to null
-                $product->children()->update(['parent_id' => null]);
+                $product->parents()->delete();;
             }
 
            /* if ($request->has('child_product_ids')) {
@@ -676,7 +675,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');
 $childs= ProductParents::where('product_id', $request->id)->get();;
 //dd($childs);
       foreach($childs as $child) {
-        dd($child->child_id, $temporaryOrder);
+        //dd($child->child_id, $temporaryOrder);
         
         $child->child_position = $temporaryOrder[$child->child_id];
         $child->save();
