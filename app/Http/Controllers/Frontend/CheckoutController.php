@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Payments\PaymentsController;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product; 
+
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\CouponUsage;
@@ -371,10 +372,6 @@ class CheckoutController extends Controller
             $orderGroup->payment_method = $request->payment_method;
             $orderGroup->save();
 
-            
-        $orderGroup->payment_method = $request->payment_method;
-        $orderGroup->save();
-
 
 
 
@@ -413,7 +410,7 @@ class CheckoutController extends Controller
     {
         $orderGroup = OrderGroup::where('user_id', auth()->user()->id)->where('order_code', $code)->first();
         $user = auth()->user();
-
+    
         // todo:: change this from here
         try {
             Notification::send($user, new OrderPlacedNotification($orderGroup->order));

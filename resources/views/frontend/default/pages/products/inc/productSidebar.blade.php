@@ -143,7 +143,8 @@
     </div>
     <!--Filter by Price-->
 
-    <!--Filter by Tags-->
+   <!--  Filter by Tags
+   
     <div class="sidebar-widget tags-widget py-5 px-4 bg-white">
         <div class="widget-title d-flex">
             <h6 class="mb-0">{{ localize('Mots-clés') }}</h6>
@@ -156,7 +157,8 @@
             @endforeach
         </div>
     </div>
-    <!--Filter by Tags-->
+
+    Filter by Tags --> 
 </div>
 <script>
     // JavaScript to handle the click event and toggle subcategories visibility

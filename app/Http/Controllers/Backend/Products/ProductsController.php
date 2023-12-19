@@ -894,11 +894,14 @@ public function delete(Request $request)
 
     if ($product->gallery_images) {
         $galleryImages = json_decode($product->gallery_images, true);
-        foreach ($galleryImages as $image) {
-            Storage::delete('storage/' . $image);
+    
+        if (is_array($galleryImages)) {
+            foreach ($galleryImages as $image) {
+                Storage::delete('storage/' . $image);
+            }
         }
     }
-
+    
     if ($product->fiche_technique) {
         Storage::delete('storage/' . $product->fiche_technique);
     }

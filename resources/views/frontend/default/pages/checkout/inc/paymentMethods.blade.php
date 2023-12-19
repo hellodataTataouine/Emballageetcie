@@ -17,7 +17,7 @@
     @endif
 @endif
 <!--wallet-->
-@if (getSetting('enable_wallet_checkout') == 1)
+<!-- @if (getSetting('enable_wallet_checkout') == 1)
     <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
         <div class="radio-left d-inline-flex align-items-center">
             <div class="theme-radio">
@@ -32,7 +32,7 @@
             <img src="{{ staticAsset('frontend/pg/wallet.svg') }}" alt="wallet" class="img-fluid">
         </div>
     </div>
-@endif
+@endif -->
 
 <!--Paypal-->
 @if (getSetting('enable_paypal') == 1)
