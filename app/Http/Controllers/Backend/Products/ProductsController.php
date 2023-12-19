@@ -703,6 +703,9 @@ $childs= ProductParents::where('product_id', $request->id)->get();;
 
             $location = Location::where('is_default', 1)->first();
 
+            //fixed
+            
+
             if ($request->has('is_variant') && $request->has('variations')) {
 
                 $new_requested_variations = collect($request->variations);
