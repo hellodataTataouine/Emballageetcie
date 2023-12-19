@@ -123,9 +123,9 @@
                                                 <td class="align-middle">
                                                     <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
                                                 </td>
-                                                <td class="align-middle">{{ $product->total_volume }}</td>
-                                                <td class="align-middle">{{ $product->dimensions }}</td>
-                                                <td class="align-middle">{{ $product->color }}</td>
+                                                <td class="align-middle">{{ $product->total_volume ? $product->total_volume : '-'}}</td>
+                                                <td class="align-middle">{{ $product->dimensions ? $product->dimensions : '-' }}</td>
+                                                <td class="align-middle">{{ $product->color ? $product->color : '-' }}</td>
                                                 <td class="align-middle">{{ $product->Qty_Unit }}</td>
                                                 <td class="align-middle">
                                                     @if($product->stock_qty > 0)
@@ -175,9 +175,9 @@
                                                     <td class="align-middle">
                                                         <a href="{{ route('products.show', $childProduct->slug) }}">{{ $childProduct->name }}</a>
                                                     </td>
-                                                    <td class="align-middle">{{ $childProduct->total_volume }}</td>
-                                                    <td class="align-middle">{{ $childProduct->dimensions }}</td>
-                                                    <td class="align-middle">{{ $childProduct->color }}</td>
+                                                    <td class="align-middle">{{ $childProduct->total_volume  ? $childProduct->total_volume : '-'}}</td>
+                                                    <td class="align-middle">{{ $childProduct->dimensions ? $childProduct->dimensions : '-'}}</td>
+                                                    <td class="align-middle">{{ $childProduct->color ? $childProduct->color : '-'}}</td>
                                                     <td class="align-middle">{{ $childProduct->Qty_Unit }}</td>
                                                     <td class="align-middle">
                                                         @if($childProduct->stock_qty > 0)

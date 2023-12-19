@@ -211,7 +211,7 @@
 
                              <div class="card mb-4" id="section-11">
                                 <div class="card-body mb-4"> <!-- Add margin-bottom here -->
-                                    <h5 class="mb-4">{{ localize('Produit parent') }}</h5>
+                                    <h5 class="mb-4">{{ localize('Produit principale') }}</h5>
                                     <div class="tt-select-brand">
                                     <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
                                         <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
