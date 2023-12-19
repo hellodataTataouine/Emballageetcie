@@ -215,24 +215,24 @@
                                     <div class="tt-select-brand">
                                     <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
                                         <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
-                                            {{ localize('Définir comme produit parent') }}
+                                            {{ localize('A des Produits Équivalents') }}
                                         </option>
                                         <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
-                                            {{ localize('Ne pas définir comme produit parent') }}
+                                            {{ localize('N\'a pas des Produits Équivalents') }}
                                         </option>
                                     </select>
                                     </div>
                                 </div>
 
                             </div>
-                            fixed
+                            
                             <!-- Product Children start -->
                             <head>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
                             </head>
                             <div class="card mb-4" id="section-5">
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
+                                    <h5 class="mb-4">{{ localize('Produits Équivalents') }}</h5> 
                                     <div class="mb-4">
                                         <!-- <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
@@ -252,10 +252,14 @@
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                         @foreach ($products as $childProduct)
-                                            @if ($childProduct->is_published  && $childProduct->id !== $product->id)
+                                            @if ($childProduct->is_published  && $childProduct->id !== $product->id && $childProduct->is_parent == 0)
                                                 @php
-                                                    $productParent = $product->parents->where('child_id', $childProduct->id)->first();
-                                                    $childPosition = $productParent ? $productParent->child_position : '';
+                                                $parentId = $product->id; // Assuming $product is the current product
+$childProductId = $childProduct->id; 
+$productParent = DB::table('product_parent')
+    ->where('product_id', $parentId)
+    ->where('child_id', $childProductId)
+    ->first();                                                    $childPosition = $productParent ? $productParent->child_position : '';
                                                     $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
                                                 @endphp
                                                 <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
@@ -282,13 +286,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($currentChildren->sortBy('pivot.child_position') as $childProduct)
+                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
                                                
-                                                <tr id="childProductRow_{{ $childProduct->product_id }}">
+                                                <tr id="childProductRow_{{ $childProduct->child_id }}">
                                                     <td>
-                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->product_id }}', 'up')">&#9650;</button>
-                                                        {{ $temporaryOrder[$childProduct->product_id] }}
-                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->product_id }}', 'down')">&#9660;</button>
+                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->child_id }}', 'up')">&#9650;</button>
+                                                        {{ $temporaryOrder[$childProduct->child_id] }}
+                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->child_id }}', 'down')">&#9660;</button>
                                                     </td>
                                                     <td>
                                                         {{-- Check if the product exists before accessing its properties --}}
@@ -307,7 +311,7 @@
                                                                 <input type="checkbox" onchange="updateAfficherStatus(this)"
                                                                     class="form-check-input"
                                                                     @if (optional($childproduct)->afficher) checked @endif
-                                                                    value="{{ optional($childproduct)->id }}">
+                                                                    value="{{ $childproduct->id }}">
                                                             </div>
                                                         @endcan
                                                     </td>
@@ -411,6 +415,25 @@
 
                                     updateRowPositions();
                                 }
+
+
+                                function updateAfficherStatus(el) {
+            var productId = el.value;
+            var status = el.checked ? 1 : 0;
+
+            $.post('{{ route('admin.products.updateAfficherStatus') }}', {
+                _token: '{{ csrf_token() }}',
+                id: productId,
+                status: status
+            }, function (data) {
+                if (data == 1) {
+                    var message = (status === 1) ? '{{ localize('Produit affiché avec succès') }}' : '{{ localize('Produit masqué avec succès') }}';
+                    notifyMe('success', message);
+                } else {
+                    notifyMe('danger', '{{ localize('Something went wrong') }}');
+                }
+            });
+        }
 
 
                             </script>
@@ -1133,5 +1156,6 @@
 @endsection
 
 @section('scripts')
+
     @include('backend.inc.product-scripts')
 @endsection

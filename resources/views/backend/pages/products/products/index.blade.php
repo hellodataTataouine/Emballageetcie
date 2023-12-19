@@ -147,8 +147,8 @@
                                         <td>
                                             @if($product->is_parent == 1)
                                                 <span class="fs-sm">Produit Principal</span>
-                                            @elseif($product->parent_id != null)
-                                                <span class="fs-sm">Produit Secondaire</span>
+                                            @elseif($product->is_child == 1)
+                                                <span class="fs-sm">Produit Equivalent</span>
                                             @else
                                                 <span class="fs-sm">Produit Individuel</span>
                                             @endif
