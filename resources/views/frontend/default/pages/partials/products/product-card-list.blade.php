@@ -58,8 +58,8 @@
             <span class="card-progress bg-primary" data-progress="{{ sellCountPercentage($product) }}%"
                 style="width: {{ sellCountPercentage($product) }}%;"></span>
         </div>
-        <p class="mb-0 fw-semibold">{{ localize('Total Vendu ') }}: <span
-                class="fw-bold text-secondary">{{ $product->total_sale_count }}/{{ $product->sell_target }}</span></p>
+        <!-- <p class="mb-0 fw-semibold">{{ localize('Total Vendu ') }}: <span
+                class="fw-bold text-secondary">{{ $product->total_sale_count }}/{{ $product->sell_target }}</span></p> -->
 
         @php
             $isVariantProduct = 0;
@@ -77,7 +77,7 @@
             onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
             @else
             @if ($product->parents()->count() > 0)
-        <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
+        <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
         {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1]) }}
     </a>
         @else
