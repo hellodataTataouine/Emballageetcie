@@ -344,7 +344,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                     $existingProduct->save();
                 }
             }
-        $productCategories              = $product->categories()->pluck('category_id');
+        $productCategories= $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
@@ -427,10 +427,11 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
-       /* $sortedChildren = $virtualChildrenProducts->sortByDesc(function ($child) {
-            return optional($child->pivot)->child_position ?? PHP_INT_MAX;
-        });*/
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
+        $sortedChildren = $virtualChildrenProducts->sortBy(function ($child) {
+            return $child->pivot->child_position;
+        });
+       // dd($sortedChildren);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $sortedChildren]);
     }
 
     # product info

@@ -55,7 +55,9 @@ class Product extends Model
     }
     public function parents()
     {
-        return $this->belongsToMany(Product::class, 'product_parent', 'product_id', 'child_id');
+        return $this->belongsToMany(Product::class, 'product_parent', 'product_id', 'child_id') 
+        ->withPivot('child_position'); // Specify the pivot column to be retrieved
+
     }
 
 
