@@ -643,11 +643,11 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
                         ->delete();
                 }
             
-                foreach ($childProductIds as $index => $childProductId) {
+               /* foreach ($childProductIds as $index => $childProductId) {
                     $childProduct = Product::findOrFail($childProductId);
-                    $childProduct->is_child = 1;
+                  //  $childProduct->is_child = 1;
                     $childProduct->save();
-                }
+                }*/
             } else {
                 ProductParents::where('product_id', $product->id)
                 

@@ -251,7 +251,7 @@ class ProductController extends Controller
         $visibleProducts = $virtualProducts->where('afficher', 1);
         }else{
             $visibleProducts = $virtualProducts->filter(function ($product) {
-                return $product->is_parent === 1 || $product->is_child === 0;
+            return $product->parents()->count() > 0;
             }); 
                }
 
