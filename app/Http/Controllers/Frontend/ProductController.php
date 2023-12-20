@@ -241,19 +241,22 @@ class ProductController extends Controller
             $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
             $virtualProducts = $virtualProducts->whereIn('id', $product_tag_product_ids);
         }
+
         # conditional
         $currentPage = $request->input('page', 1); 
         $perPage = 12;
         
         
 
-        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        $visibleProducts = $virtualProducts->where('afficher', 1);
-        }else{
-            $visibleProducts = $virtualProducts->filter(function ($product) {
-                return $product->is_parent === 1 || $product->is_child === 0;
-            }); 
-               }
+        //if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
+        
+            $visibleProducts = $virtualProducts->where('is_published', 1)->where('afficher', 1);
+            
+       // }else{
+         //   $visibleProducts = $virtualProducts->filter(function ($product) {
+         //       return $product->is_parent === 1 || $product->is_child === 0;
+         //   }); 
+         //      }
 
         // $visibleProducts = $virtualProducts->where('afficher', 1);
         // // dd($visibleProducts);
@@ -286,13 +289,14 @@ class ProductController extends Controller
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
-{
-$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-}else{
-   
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+            {
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+                
+            }else{
+            
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-}
+            }
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -344,7 +348,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                     $existingProduct->save();
                 }
             }
-        $productCategories              = $product->categories()->pluck('category_id');
+        $productCategories= $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
@@ -366,7 +370,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $relatedProduct->name = $matchingApiData['Libellé'];
         
                 // Only add the related product if it is published
-                    $virtualChildrenProducts->push($relatedProduct);
+                $virtualRelatedProducts->push($relatedProduct);
                
             }
         }
@@ -427,8 +431,11 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
-
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
+        $sortedChildren = $virtualChildrenProducts->sortBy(function ($child) {
+            return $child->pivot->child_position;
+        });
+       // dd($sortedChildren);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $sortedChildren]);
     }
 
     # product info

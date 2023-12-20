@@ -76,9 +76,9 @@
         <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
             onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
             @else
-        @if ($product->is_parent)
+            @if ($product->parents()->count() > 0)
         <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
-        {{ __('Disponible en  :count références', ['count' => $product->children()->where('is_published', 1)->count() + 1]) }}
+        {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1]) }}
     </a>
         @else
         <form action="" class="direct-add-to-cart-form">
