@@ -241,19 +241,22 @@ class ProductController extends Controller
             $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
             $virtualProducts = $virtualProducts->whereIn('id', $product_tag_product_ids);
         }
+
         # conditional
         $currentPage = $request->input('page', 1); 
         $perPage = 12;
         
         
 
-        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        $visibleProducts = $virtualProducts->where('afficher', 1);
-        }else{
-            $visibleProducts = $virtualProducts->filter(function ($product) {
-                return $product->is_parent === 1 || $product->is_child === 0;
-            }); 
-               }
+        //if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
+        
+            $visibleProducts = $virtualProducts->where('is_published', 1)->where('afficher', 1);
+            
+       // }else{
+         //   $visibleProducts = $virtualProducts->filter(function ($product) {
+         //       return $product->is_parent === 1 || $product->is_child === 0;
+         //   }); 
+         //      }
 
         // $visibleProducts = $virtualProducts->where('afficher', 1);
         // // dd($visibleProducts);
@@ -286,13 +289,14 @@ class ProductController extends Controller
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
-{
-$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-}else{
-   
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+            {
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+                
+            }else{
+            
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-}
+            }
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();

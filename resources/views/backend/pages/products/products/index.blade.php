@@ -106,7 +106,7 @@
                                     <th>{{ localize('Nom du produit') }}</th>
                                     <th>{{ localize('Référence') }}</th>
                                     <!-- <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th> -->
-                                    <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('P.Equivalents') }}</th>
 
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                    <!-- <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th> -->
@@ -144,14 +144,15 @@
                                             <span
                                                 class="fs-sm">{{ $product->collectLocalization('slug') }}</span>
                                         </td> 
+                                       
                                         <td>
-                                            @if($product->is_parent == 1)
-                                                <span class="fs-sm">Produit Principal</span>
-                                            @elseif($product->is_child == 1)
-                                                <span class="fs-sm">Produit Equivalent</span>
-                                            @else
-                                                <span class="fs-sm">Produit Individuel</span>
-                                            @endif
+                                       
+                                        <span
+                                                class="fs-sm">
+                                        {{ __(':count', ['count' => $product->parents()->count()]) }}
+                                        </span>
+                              
+
                                         </td>
                                         <td>
                                             @forelse ($product->categories as $category)
