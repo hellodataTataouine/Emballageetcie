@@ -159,7 +159,7 @@
 
                                             <!-- Child Products Rows -->
                                             @foreach ($childrenProducts as $childProduct)
-                                                <tr>
+                                                                       <tr>
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
                                                             <a href="{{ route('products.show', $childProduct->slug) }}">
