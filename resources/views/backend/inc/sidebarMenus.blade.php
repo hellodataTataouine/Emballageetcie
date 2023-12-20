@@ -45,7 +45,7 @@
                         </li>
                     @endcan
 
-                    @can('variations')
+                    <!-- @can('variations')
                         <li
                             class="{{ areActiveRoutes(
                                 ['admin.variations.index', 'admin.variations.edit', 'admin.variationValues.index', 'admin.variationValues.edit'],
@@ -59,31 +59,31 @@
                                     'admin.variationValues.edit',
                                 ]) }}">{{ localize('Variations') }}</a>
                         </li>
-                    @endcan
+                    @endcan -->
 
-                    @can('brands')
+                    <!-- @can('brands')
                         <li class="{{ areActiveRoutes(['admin.brands.index', 'admin.brands.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.brands.index') }}"
                                 class="{{ areActiveRoutes(['admin.brands.index', 'admin.brands.edit']) }}">{{ localize('Marques') }}</a>
                                 
                         </li>
-                    @endcan
+                    @endcan -->
 
-                    @can('units')
+                    <!-- @can('units')
                         <li class="{{ areActiveRoutes(['admin.units.index', 'admin.units.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.units.index') }}"
                                 class="{{ areActiveRoutes(['admin.units.index']) }}">{{ localize('Unités') }}</a>
                                 
                         </li>
-                    @endcan
+                    @endcan -->
 
-                    @can('taxes')
+                    <!-- @can('taxes')
                         <li class="{{ areActiveRoutes(['admin.taxes.index', 'admin.taxes.edit'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.taxes.index') }}"
                                 class="{{ areActiveRoutes(['admin.taxes.index']) }}">{{ localize('Taxes') }}</a>
                                 
                         </li>
-                    @endcan
+                    @endcan -->
                 </ul>
             </div>
         </li>
@@ -379,7 +379,7 @@
     @endcan
 
 
-    <!-- Blog Systems -->
+    <!-- Blog Systems
     @php
         $blogActiveRoutes = ['admin.blogs.index', 'admin.blogs.create', 'admin.blogs.edit', 'admin.blogCategories.index', 'admin.blogCategories.edit'];
     @endphp
@@ -410,7 +410,7 @@
                 </ul>
             </div>
         </li>
-    @endcan
+    @endcan -->
 
     <!-- media manager -->
     @can('media_manager')
@@ -543,13 +543,13 @@
             <div class="collapse {{ areActiveRoutes($reportActiveRoutes, 'show') }}" id="reports">
                 <ul class="side-nav-second-level">
 
-                    @can('order_reports')
+                    <!-- @can('order_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.orders'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.orders') }}"
                                 class="{{ areActiveRoutes(['admin.reports.orders']) }}">{{ localize('Rapport des commandes') }}</a>
                                 
                         </li>
-                    @endcan
+                    @endcan -->
 
                     @can('product_sale_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.sales'], 'tt-menu-item-active') }}">
@@ -575,13 +575,13 @@
                         </li>
                     @endcan
 
-                    @can('delivery_status_reports')
+                    <!-- @can('delivery_status_reports')
                         <li class="{{ areActiveRoutes(['admin.reports.deliveryStatus'], 'tt-menu-item-active') }}">
                             <a href="{{ route('admin.reports.deliveryStatus') }}"
                                 class="{{ areActiveRoutes(['admin.reports.deliveryStatus']) }}">{{ localize('Rapport de l \'état de livraison') }}</a>
                                 
                         </li>
-                    @endcan
+                    @endcan -->
                 </ul>
             </div>
         </li>
