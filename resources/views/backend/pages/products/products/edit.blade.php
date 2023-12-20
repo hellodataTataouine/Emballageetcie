@@ -38,6 +38,26 @@
                         <input type="hidden" name="lang_key" value="{{ $lang_key }}">
 
                         <!--basic information start-->
+                        <div class="row g-3" id="section-0">                               
+                                
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5 class="mb-4">{{ localize('Affichage du produit dans le recherche') }}</h5>
+                                            <div class="tt-select-brand">
+                                                <select class="select2 form-control" id="afficher"
+                                                    name="afficher">
+                                                    <option value="1"
+                                                        {{ $product->afficher == 1 ? 'selected' : '' }}>
+                                                        {{ localize('Afficher') }}</option>
+                                                    <option value="0"
+                                                        {{ $product->afficher == 0 ? 'selected' : '' }}>
+                                                        {{ localize(' Non Afficher') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div> 
+
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
@@ -209,8 +229,8 @@
 
                              <!-- Total Volume, Dimensions, and Color end -->
 
-                             <div class="card mb-4" id="section-11">
-                                <div class="card-body mb-4"> <!-- Add margin-bottom here -->
+                             <!-- <div class="card mb-4" id="section-11">
+                                <div class="card-body mb-4">
                                     <h5 class="mb-4">{{ localize('Produit Principal') }}</h5>
                                     <div class="tt-select-brand">
                                     <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
@@ -224,7 +244,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
                             
                             <!-- Product Children start -->
                             <head>
@@ -254,12 +274,11 @@
                                         @foreach ($products as $childProduct)
                                             @if ($childProduct->is_published  && $childProduct->id !== $product->id && $childProduct->is_parent == 0)
                                                 @php
-                                                $parentId = $product->id; // Assuming $product is the current product
-$childProductId = $childProduct->id; 
-$productParent = DB::table('product_parent')
-    ->where('product_id', $parentId)
-    ->where('child_id', $childProductId)
-    ->first();                                                    $childPosition = $productParent ? $productParent->child_position : '';
+                                                    $childProductId = $childProduct->id; 
+                                                    $productParent = DB::table('product_parent')
+                                                        ->where('child_id', $childProductId)
+                                                        ->first();                                                  
+                                                $childPosition = $productParent ? $productParent->child_position : '';
                                                     $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
                                                 @endphp
                                                 <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
@@ -438,7 +457,7 @@ $productParent = DB::table('product_parent')
 
                             </script>
 
-                            <script>
+                            <!-- <script>
 
                                 function handleIsParentChange() {
                                     var isParentValue = document.getElementById('is_parent').value;
@@ -461,7 +480,7 @@ $productParent = DB::table('product_parent')
 
                                 handleIsParentChange();
 
-                            </script>
+                            </script> -->
 
                             <!--product Parent -->
 
@@ -1012,27 +1031,7 @@ $productParent = DB::table('product_parent')
                             <!--product sell target & status end-->
 
                               <!--product sell target & status start-->
-                          <div class="row g-3" id="section-9">                               
-                                <div class="col-lg-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h5 class="mb-4">{{ localize('Affichage du produit') }}</h5>
-                                            <div class="tt-select-brand">
-                                                <select class="select2 form-control" id="afficher"
-                                                    name="afficher">
-                                                    <option value="1"
-                                                        {{ $product->afficher == 1 ? 'selected' : '' }}>
-                                                        {{ localize('Afficher') }}</option>
-                                                    <option value="0"
-                                                        {{ $product->afficher == 0 ? 'selected' : '' }}>
-                                                        {{ localize(' Non Afficher') }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-
+                          
                             <!--seo meta description start-->
                             <div class="card mb-4" id="section-10">
                                 <div class="card-body">
@@ -1101,6 +1100,9 @@ $productParent = DB::table('product_parent')
                             <h5 class="mb-4">{{ localize('Informations sur le produit') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
+                                <li>
+                                        <a href="#section-0" class="active">{{ localize('Affichage du produit') }}</a>
+                                    </li>
                                     <li>
                                         <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>

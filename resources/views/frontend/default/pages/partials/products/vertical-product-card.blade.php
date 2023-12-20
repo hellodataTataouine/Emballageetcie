@@ -49,7 +49,8 @@
         <!--product category end-->
 
         <a href="{{ route('products.show', $product->slug) }}"
-            class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
+        class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-2" style="-webkit-box-orient: vertical;">
+{{ $product->name }}
         </a>
 
         <h6 class="price">
