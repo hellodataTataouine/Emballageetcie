@@ -1,7 +1,12 @@
 <ul class="child-categories" data-category-id="{{ $category->id }}" style="display: none; padding-top: {{ $padding }}px;">
     @foreach($children as $childCategory)
-        @php
-            $childProductsCount = \App\Models\ProductCategory::where('category_id', $childCategory->id)->count();
+    @php
+            $childProductsCount = \App\Models\ProductCategory::where('category_id', $childCategory->id)
+                ->whereHas('product', function ($query) {
+                    $query->where('is_published', 1)
+                          ->where('afficher', 1);
+                })
+                ->count();
         @endphp
         <li class="category-item" data-category-id="{{ $childCategory->id }}">
             <div class="toggle-wrapper">
