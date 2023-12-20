@@ -271,28 +271,28 @@
                                         </select> -->
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
-                                        @foreach ($products as $childProduct)
-                                            @if ($childProduct->is_published  && $childProduct->id !== $product->id && $childProduct->is_parent == 0)
-                                                @php
-                                                    $childProductId = $childProduct->id; 
-                                                    $productParent = DB::table('product_parent')
-                                                        ->where('child_id', $childProductId)
-                                                        ->first();                                                  
-                                                $childPosition = $productParent ? $productParent->child_position : '';
-                                                    $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
-                                                @endphp
-                                                <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
-                                                    {{ $childPosition }}. {{ $childProduct->name }} 
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                            @foreach ($products as $childProduct)
+                                                @if ($childProduct->is_published )
+                                                    @php
+                                                        $childProductId = $childProduct->id; 
+                                                        $productParent = DB::table('product_parent')
+                                                            ->where('child_id', $childProductId)
+                                                            ->first();                                                  
+                                                    $childPosition = $productParent ? $productParent->child_position : '';
+                                                        $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
+                                                    @endphp
+                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                        {{ $childProduct->name }} 
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
 
 
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
                                     </div>
                                     <div class="table-responsive">
-                                    <h6 class="mb-4">{{ localize('Trie de Fils') }}</h6> 
+                                    <h6 class="mb-4">{{ localize('Trie de Equivalents') }}</h6> 
                                     <table class="table table-bordered text-center" id="childProductsTable" style="border-radius: 10px; overflow: hidden;">
                                         <input type="hidden" name="child_ids" id="childIdsInput" value="">
                                         <input type="hidden" name="temporary_order" id="temporaryOrderInput" value="">
