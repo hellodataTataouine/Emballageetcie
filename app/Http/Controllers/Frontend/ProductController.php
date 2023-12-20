@@ -366,7 +366,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $relatedProduct->name = $matchingApiData['Libellé'];
         
                 // Only add the related product if it is published
-                    $virtualChildrenProducts->push($relatedProduct);
+                $virtualRelatedProducts->push($relatedProduct);
                
             }
         }
@@ -381,7 +381,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
             $name = $produitApi['Libellé'];
 
             $barcode = $produitApi['codeabarre'];
-            $matchingChild = $product->parents()->withPivot('child_position')->where('slug', $barcode)->where('is_published', 1)->first();
+            $matchingChild = $product->parents()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
 
            
@@ -427,10 +427,10 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
-        $sortedChildren = $virtualChildrenProducts->sortBy(function ($child) {
-            return $child->pivot->child_position;
-        });
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $sortedChildren]);
+       /* $sortedChildren = $virtualChildrenProducts->sortByDesc(function ($child) {
+            return optional($child->pivot)->child_position ?? PHP_INT_MAX;
+        });*/
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
     }
 
     # product info

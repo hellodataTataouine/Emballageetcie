@@ -649,13 +649,17 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
                     $childProduct->save();
                 }
             } else {
-                $product->parents()->delete();
+                ProductParents::where('product_id', $product->id)
+                
+                ->delete();
                 //  
             }        
 
            if ($request->is_parent == 0) {
                 // Set the parent_id of associated child products to null
-                $product->parents()->delete();;
+                ProductParents::where('product_id', $product->id)
+                
+                ->delete();
             }
 
            /* if ($request->has('child_product_ids')) {
@@ -674,6 +678,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             $product->parents()->sync($request->child_product_ids);
 $childs= ProductParents::where('product_id', $request->id)->get();;
 //dd($childs);
+if($childs != null){
       foreach($childs as $child) {
         //dd($child->child_id, $temporaryOrder);
         
@@ -683,7 +688,7 @@ $childs= ProductParents::where('product_id', $request->id)->get();;
 
       }    
 
-
+    }
             # taxes
             $tax_data = array();
             $tax_ids = array();
