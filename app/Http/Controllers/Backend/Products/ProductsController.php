@@ -832,6 +832,8 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
         return 0;
     }
 
+    
+
     # update published
     public function updatePublishedStatus(Request $request)
     {
