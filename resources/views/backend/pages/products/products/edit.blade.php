@@ -279,7 +279,9 @@
                                                             ->where('child_id', $childProductId)
                                                             ->first();                                                  
                                                     $childPosition = $productParent ? $productParent->child_position : '';
-                                                    $isSelected = $childProduct->is_published && ($product->parents->contains('child_id', $childProductId) || in_array($childProductId, $currentChildren->pluck('child_id')->toArray()));
+                                                        <!-- $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray()); -->
+                                                        $isSelected = $childProduct->is_published && ($product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray()));
+
                                                     @endphp
                                                     <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
                                                         {{ $childProduct->name }} 
