@@ -67,7 +67,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-auto">
+                                    <!-- <div class="col-auto">
                                         <select class="form-select select2" name="delivery_status"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
                                             <option value="">{{ localize('Statut de livraison') }}</option>
@@ -110,7 +110,7 @@
                                                 {{ localize('POS Commandes') }}
                                             </option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-primary">
                                             <i data-feather="search" width="18"></i>
@@ -133,10 +133,10 @@
                                     <th data-breakpoints="xs sm">{{ localize('Paiement ') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Statut ') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
-                                    @if (count($locations) > 0)
+                                    <!-- @if (count($locations) > 0)
                                         <th data-breakpoints="xs sm">{{ localize('Emplacement') }} </th>
                                     @endif
-                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}</th>
+                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,7 +211,7 @@
                                             </span>
                                         </td>
 
-                                        @if (count($locations) > 0)
+                                        <!-- @if (count($locations) > 0)
                                             <td>
                                                 <span class="badge rounded-pill text-capitalize bg-secondary">
                                                     @if ($order->location)
@@ -231,7 +231,7 @@
                                                     <i data-feather="eye"></i>
                                                 </a>
                                             @endcan
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
