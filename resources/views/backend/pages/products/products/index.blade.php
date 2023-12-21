@@ -144,13 +144,14 @@
                                                 class="fs-sm">{{ $product->collectLocalization('slug') }}</span>
                                         </td> 
                                         <td>
-                                            @if($product->is_parent == 1)
+                                            @if($product->parent()-> == 1)
                                                 <span class="fs-sm">Produit Principal</span>
                                             @elseif($product->parent_id != null)
                                                 <span class="fs-sm">Produit Secondaire</span>
                                             @else
                                                 <span class="fs-sm">Produit Individuel</span>
                                             @endif
+                                            
                                         </td>
                                         <td>
                                             @forelse ($product->categories as $category)

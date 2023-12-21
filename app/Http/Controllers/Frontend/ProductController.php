@@ -211,7 +211,7 @@ class ProductController extends Controller
         }
         # conditional
         $currentPage = $request->input('page', 1); 
-        $perPage = 12;
+       
         
         
 
@@ -221,8 +221,8 @@ class ProductController extends Controller
             $visibleProducts = $virtualProducts->where('parent_id', null);
         }
        
-        $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($perPage), paginationNumber($perPage))->values();
-        $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($perPage), $currentPage);
+        $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
+        $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
 
         $products->withPath('/products');
 

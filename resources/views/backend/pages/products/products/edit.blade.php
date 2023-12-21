@@ -233,23 +233,23 @@
                                 <div class="card-body">
                                     <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
                                     <div class="mb-4">
-                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
-                                            @php
-                                                $product_childs = $product->parents()->pluck('child_id');
-                                            @endphp
-                                        
-                                            @foreach ($products as $childProduct)
-                                                @if ($childProduct->is_published)
-                                                    @php
-                                                        $childPosition = $product_childs->get($childProduct->id);
-                                                        $isSelected = $product_childs->contains($childProduct->id);
-                                                    @endphp
-                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
-                                                        {{ $childPosition }}. {{ $childProduct->name }} 
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                       <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+    @php
+        $product_childs = $product->parents()->pluck('child_id');
+    @endphp
+
+    @foreach ($products as $childProduct)
+        @if ($childProduct->is_published)
+            @php
+                $childPosition = $product_childs->get($childProduct->id);
+                $isSelected = $product_childs->contains($childProduct->id);
+            @endphp
+            <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                {{ $childPosition }}. {{ $childProduct->name }} 
+            </option>
+        @endif
+    @endforeach
+</select>
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
                                     </div>
                                     <div class="table-responsive">
@@ -264,16 +264,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
-                                                    <tr id="childProductRow_{{ $childProduct->id }}">
-                                                        <td>
-                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'up')">&#9650;</button>
-                                                            {{ $temporaryOrder[$childProduct->id] }}
-                                                            <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->id }}', 'down')">&#9660;</button>
-                                                        </td>
-                                                        <td>{{ $childProduct->name }}</td>
-                                                    </tr>
-                                                @endforeach
+                                                @foreach ($currentChildren->sortBy('pivot.child_position') as $childProduct)
+                                                <tr id="childProductRow_{{ $childProduct->child_id }}">
+                                                    <td>
+                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->child_id }}', 'up')">&#9650;</button>
+                                                        {{ $temporaryOrder[$childProduct->child_id] }}
+                                                        <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->child_id }}', 'down')">&#9660;</button>
+                                                    </td>
+                                                    <td>
+                                                        {{-- Check if the product exists before accessing its properties --}}
+                                                        @php  
+                                                            $childproduct = App\Models\Product::find($childProduct->child_id); 
+                                                           
+                                                        @endphp
+                                                        
+                                                            {{ $childproduct->name }}
+                                                      
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
