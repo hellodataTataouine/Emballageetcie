@@ -676,9 +676,9 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             # category
             $product->categories()->sync($request->category_ids);
             $product->parents()->sync($request->child_product_ids);
-$childs= ProductParents::where('product_id', $request->id)->get();;
-//dd($childs);
-if($childs != null){
+    $childs= ProductParents::where('product_id', $request->id)->get();;
+    //dd($childs);
+    if($childs != null){
       foreach($childs as $child) {
         //dd($child->child_id, $temporaryOrder);
         

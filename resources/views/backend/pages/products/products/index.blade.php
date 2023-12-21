@@ -67,8 +67,8 @@
                                             </select>
                                         </div>
                                     </div> -->
-                                    <div class="col-auto">
-                                        <div class="input-group">
+
+                                    <div class="input-group">
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
                                                 <option value="">{{ localize('Sélectionner le statut') }}</option>

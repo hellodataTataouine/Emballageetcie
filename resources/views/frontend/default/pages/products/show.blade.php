@@ -168,6 +168,7 @@
 
                                             <!-- Child Products Rows -->
                                             @foreach ($childrenProducts as $childProduct)
+                                            @if ($childProduct->is_published )
                                                                        <tr>
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
@@ -223,6 +224,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
 
                                         </tbody>

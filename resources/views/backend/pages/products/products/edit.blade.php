@@ -272,7 +272,6 @@
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits Equivalents') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
-                                                @if ($childProduct->is_published )
                                                     @php
                                                         $childProductId = $childProduct->id; 
                                                         $productParent = DB::table('product_parent')
@@ -284,7 +283,7 @@
                                                     <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
                                                         {{ $childProduct->name }} 
                                                     </option>
-                                                @endif
+                                               
                                             @endforeach
                                         </select>
 
@@ -301,6 +300,7 @@
                                                     <th>Position</th>
                                                     <th>Désignation</th>
                                                     <th>Afficher dans le recherche </th>
+                                                    <!-- <th>Statut </th> -->
 
                                                 </tr>
                                             </thead>
@@ -320,7 +320,7 @@
                                                            
                                                         @endphp
 
-                                                        {{ optional($childproduct)->name }}
+                                                        {{ optional($childproduct)->name }} {{ optional($childproduct)->is_published }} 
                                                                               
                                                       
                                                     </td>
@@ -334,6 +334,25 @@
                                                             </div>
                                                         @endcan
                                                     </td>
+                                                    
+                                                    <!-- <td>
+                                                        {{-- Check if the product exists before accessing its properties --}}
+                                                        @php  
+                                                            $childproduct = App\Models\Product::find($childProduct->child_id); 
+                                                           
+                                                        @endphp
+
+                                                        
+                                                            @if ($product->is_published)
+                                                                <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
+                                                            @else
+                                                                <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
+                                                            @endif
+                                                        
+                                                                              
+                                                      
+                                                    </td>
+                                                     -->
 
                                                 </tr>
                                             @endforeach
@@ -395,6 +414,7 @@
                                     var selectedProducts = document.getElementById('childProductIds').selectedOptions;
 
                                     var rows = document.querySelectorAll('#childProductsTable tbody tr');
+
                                     rows.forEach(function (row) {
                                         var childProductId = row.id.split('_')[1];
                                         if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
@@ -427,6 +447,10 @@
                                                     </div>
                                                     @endcan
                                                 </td>
+                                                
+                                                
+                                                
+                                                
                                             `;
                                             document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
                                         }
@@ -437,22 +461,22 @@
 
 
                                 function updateAfficherStatus(el) {
-            var productId = el.value;
-            var status = el.checked ? 1 : 0;
+                                    var productId = el.value;
+                                    var status = el.checked ? 1 : 0;
 
-            $.post('{{ route('admin.products.updateAfficherStatus') }}', {
-                _token: '{{ csrf_token() }}',
-                id: productId,
-                status: status
-            }, function (data) {
-                if (data == 1) {
-                    var message = (status === 1) ? '{{ localize('Produit affiché avec succès') }}' : '{{ localize('Produit masqué avec succès') }}';
-                    notifyMe('success', message);
-                } else {
-                    notifyMe('danger', '{{ localize('Something went wrong') }}');
-                }
-            });
-        }
+                                    $.post('{{ route('admin.products.updateAfficherStatus') }}', {
+                                        _token: '{{ csrf_token() }}',
+                                        id: productId,
+                                        status: status
+                                    }, function (data) {
+                                        if (data == 1) {
+                                            var message = (status === 1) ? '{{ localize('Produit affiché avec succès') }}' : '{{ localize('Produit masqué avec succès') }}';
+                                            notifyMe('success', message);
+                                        } else {
+                                            notifyMe('danger', '{{ localize('Something went wrong') }}');
+                                        }
+                                    });
+                                }
 
 
                             </script>
