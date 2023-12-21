@@ -176,7 +176,7 @@ class ProductController extends Controller
                     // Check if the keyword is present in the product name, description, or slug
                     $inProductAttributes = (
                         stripos($product->name, $keyword) !== false ||
-                        stripos($product->description, $keyword) !== false ||
+                        //stripos($product->description, $keyword) !== false ||
                         stripos($product->slug, $keyword) !== false
                     );
         
