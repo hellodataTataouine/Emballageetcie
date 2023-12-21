@@ -74,7 +74,7 @@
 
                                 
                                     <div class="mb-4">
-                                        <label for="slug" class="form-label">{{ localize('Slug du produit') }}</label>
+                                        <label for="slug" class="form-label">{{ localize('Référence du produit') }}</label>
                                         <input class="form-control" type="text" id="slug"
                                             placeholder="{{ localize('Taper le Slug du produit') }}" name="slug"
                                             value="{{ $product->slug }}" required readonly>
@@ -279,7 +279,7 @@
                                                             ->where('child_id', $childProductId)
                                                             ->first();                                                  
                                                     $childPosition = $productParent ? $productParent->child_position : '';
-                                                        $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
+                                                    $isSelected = $childProduct->is_published && ($product->parents->contains('child_id', $childProductId) || in_array($childProductId, $currentChildren->pluck('child_id')->toArray()));
                                                     @endphp
                                                     <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
                                                         {{ $childProduct->name }} 
