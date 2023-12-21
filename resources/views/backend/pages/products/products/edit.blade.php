@@ -330,7 +330,7 @@
                                                                 <input type="checkbox" onchange="updateAfficherStatus(this)"
                                                                     class="form-check-input"
                                                                     @if (optional($childproduct)->afficher) checked @endif
-                                                                    value="{{ $childproduct->id }}">
+                                                                    value="{{ptional($childproduct->id) }}">
                                                             </div>
                                                         @endcan
                                                     </td>
