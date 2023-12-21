@@ -317,13 +317,22 @@
                                                         {{-- Check if the product exists before accessing its properties --}}
                                                         @php  
                                                             $childproduct = App\Models\Product::find($childProduct->child_id); 
-                                                           
                                                         @endphp
 
-                                                        {{ optional($childproduct)->name }} {{ optional($childproduct)->is_published }} 
-                                                                              
-                                                      
+                                                        {{ optional($childproduct)->name }}
+                                                    <!-- 
+                                                        @if (optional($childproduct)->is_published)
+                                                            <span class="badge rounded-pill bg-success">
+                                                                {{ __('Publié') }}
+                                                            </span>
+                                                        @else
+                                                            <span class="badge rounded-pill bg-secondary">
+                                                                {{ __('Non Publié') }}
+                                                            </span>
+                                                        @endif -->
                                                     </td>
+
+
                                                     <td>
                                                         @can('aficher_products')
                                                             <div class="form-check form-switch d-flex align-items-center justify-content-center">
@@ -336,23 +345,10 @@
                                                     </td>
                                                     
                                                     <!-- <td>
-                                                        {{-- Check if the product exists before accessing its properties --}}
-                                                        @php  
-                                                            $childproduct = App\Models\Product::find($childProduct->child_id); 
-                                                           
-                                                        @endphp
+                                                        {{ optional($childproduct)->is_published == 1 ? 'Published' : 'Not Published' }}
+                                                    </td> -->
 
-                                                        
-                                                            @if ($product->is_published)
-                                                                <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
-                                                            @else
-                                                                <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
-                                                            @endif
-                                                        
-                                                                              
-                                                      
-                                                    </td>
-                                                     -->
+                                                    
 
                                                 </tr>
                                             @endforeach
@@ -447,7 +443,7 @@
                                                     </div>
                                                     @endcan
                                                 </td>
-                                                
+                                           
                                                 
                                                 
                                                 
