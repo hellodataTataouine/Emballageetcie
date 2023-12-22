@@ -274,13 +274,14 @@
                                             @foreach ($products as $childProduct)
                                                     @php
                                                         $childProductId = $childProduct->id; 
+                                                        $childProductIsPublished = $childProduct->is_published; // new line added
                                                         $productParent = DB::table('product_parent')
                                                             ->where('child_id', $childProductId)
                                                             ->first();                                                  
                                                     $childPosition = $productParent ? $productParent->child_position : '';
                                                         $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
                                                     @endphp
-                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" data-is-published="{{ $childProduct->is_published }}" data-afficher="{{ $childProduct->afficher }}" {{ $isSelected ? 'selected' : '' }}>
                                                         {{ $childProduct->name }} 
                                                     </option>
                                                
@@ -299,7 +300,7 @@
                                                 <tr>
                                                     <th>Position</th>
                                                     <th>Désignation</th>
-                                                    <th>Afficher dans le recherche </th>
+                                                    <th>Afficher dans<br> le recherche </th>
                                                     <!-- <th>Statut </th> -->
 
                                                 </tr>
@@ -319,8 +320,8 @@
                                                             $childproduct = App\Models\Product::find($childProduct->child_id); 
                                                         @endphp
 
-                                                        {{ optional($childproduct)->name }}
-                                                    <!-- 
+                                                        {{ optional($childproduct)->name }} <br>
+                                                    
                                                         @if (optional($childproduct)->is_published)
                                                             <span class="badge rounded-pill bg-success">
                                                                 {{ __('Publié') }}
@@ -329,7 +330,7 @@
                                                             <span class="badge rounded-pill bg-secondary">
                                                                 {{ __('Non Publié') }}
                                                             </span>
-                                                        @endif -->
+                                                        @endif
                                                     </td>
 
 
@@ -345,9 +346,12 @@
                                                     </td>
                                                     
                                                     <!-- <td>
-                                                        {{ optional($childproduct)->is_published == 1 ? 'Published' : 'Not Published' }}
+                                                        @if ($childproduct->is_published)
+                                                            <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
+                                                        @else
+                                                            <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
+                                                        @endif
                                                     </td> -->
-
                                                     
 
                                                 </tr>
@@ -409,6 +413,7 @@
                                 function updateChildTable() {
                                     var selectedProducts = document.getElementById('childProductIds').selectedOptions;
 
+
                                     var rows = document.querySelectorAll('#childProductsTable tbody tr');
 
                                     rows.forEach(function (row) {
@@ -419,9 +424,20 @@
                                         }
                                     });
 
+                                   
+
                                     Array.from(selectedProducts).forEach(function (selectedOption) {
                                         var childProductId = selectedOption.value;
-                                        var childProductData = @json(optional(App\Models\Product::find($childProduct->child_id)));
+                                        var childProductIsPublished = selectedOption.dataset.isPublished;
+                                        var childProductAfficher = selectedOption.dataset.afficher;
+                                        var childProductInfo = {
+                                            childProductId: childProductId,
+                                            isPublished: childProductIsPublished,
+                                            afficher: childProductAfficher
+                                        };
+                                       
+
+                                        var childProductData = @json(optional(App\Models\Product::findOrFail($childProductId)));
 
                                         if (!document.getElementById('childProductRow_' + childProductId)) {
                                             var newRow = document.createElement('tr');
@@ -432,21 +448,25 @@
                                                     ${temporaryOrder[childProductId] || ''}
                                                     <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
                                                 </td>
-                                                <td>${selectedOption.text}</td>
+                                                <td>${selectedOption.text} <br>
+                                                ${childProductInfo.isPublished == 1
+                                                        ? '<span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>'
+                                                        : '<span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>'
+                                                    }
+                                                </td>
                                                 <td>
                                                     @can('aficher_products')
-                                                    <div class="form-check form-switch d-flex align-items-center justify-content-center">
-                                                        <input type="checkbox" onchange="updateAfficherStatus(this)"
-                                                            class="form-check-input"
-                                                            ${childProductData.afficher ? 'checked' : ''}
-                                                            value="${childProductId}">
-                                                    </div>
+                                                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                                                            <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                                class="form-check-input"
+                                                                ${childProductInfo.afficher == 1 ? 'checked' : ''}
+                                                                value="${childProductInfo.childProductId}">
+                                                        </div>
                                                     @endcan
                                                 </td>
+                                               
+
                                            
-                                                
-                                                
-                                                
                                             `;
                                             document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
                                         }

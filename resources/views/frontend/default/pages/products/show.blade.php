@@ -151,7 +151,7 @@
                                                         <i class="fas fa-file-pdf fa-sm"></i> 
                                                     </a>
                                                     @else
-                                                        
+                                                        <span>-</span>
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
@@ -210,7 +210,7 @@
                                                             <i class="fas fa-file-pdf fa-sm"></i>
                                                         </a>
                                                         @else
-                                                          
+                                                        <span>-</span>
                                                         @endif
                                                     </td>
                                                     <td class="align-middle">
