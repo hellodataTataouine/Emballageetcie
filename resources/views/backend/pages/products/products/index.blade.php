@@ -68,6 +68,7 @@
                                         </div>
                                     </div> -->
 
+                                    <div class="col-auto">
                                     <div class="input-group">
                                             <select class="form-select select2" name="is_published"
                                                 data-minimum-results-for-search="Infinity">
@@ -87,14 +88,15 @@
                                             </select>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-secondary">
                                             <i data-feather="search" width="18"></i>
                                             {{ localize('Rechercher') }}
-                                           
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
 

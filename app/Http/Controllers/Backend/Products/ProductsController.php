@@ -919,6 +919,15 @@ public function delete(Request $request)
 }
 
 
+
+// public function getChildProductData($id)
+// {
+//     dd($id);;
+//     $childProductData = Product::findOrFail($id);
+//     dd($childProductData);
+//     return response()->json(['data' => $childProductData]);
+// }
+
 }
 
 
