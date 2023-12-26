@@ -501,7 +501,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
         $product = Product::findOrFail($id);
         $products = Product::all();
 
-        $currentIsParent = $product->is_parent;
+        $currentIsParent = ($product->parents()->count()) > 0;
         $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
         ->join('products', 'product_parent.product_id', '=', 'products.id')
         ->where('product_parent.product_id', $id)
@@ -553,7 +553,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             $product->unit_id           = $request->unit_id;
             $product->short_description = $request->short_description;
            // $product->parent_id = $request->parent_id;
-            $product->is_parent = $request->is_parent;
+          //  $product->is_parent = $request->is_parent;
             $product->total_volume = $request->total_volume;
             $product->dimensions = $request->dimensions;
             $product->color = $request->color;
@@ -655,12 +655,12 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
                 //  
             }        
 
-           if ($request->is_parent == 0) {
+        /*   if ($request->is_parent == 0) {
                 // Set the parent_id of associated child products to null
                 ProductParents::where('product_id', $product->id)
                 
                 ->delete();
-            }
+            }*/
 
            /* if ($request->has('child_product_ids')) {
                 foreach ($request->child_product_ids as $childProductId) {
