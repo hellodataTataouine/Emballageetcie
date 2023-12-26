@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                @can('manage_orders')
+                <!-- @can('manage_orders')
                     <div class="row g-3 mb-3">
                         <a href="{{ route('admin.orders.index') }}" class="col-lg-3 col-sm-6">
                             <div class="card h-100 flex-column">
@@ -177,8 +177,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                        <a href="{{ route('admin.orders.index') }}?delivery_status={{ orderPendingStatus() }}"
+                        </a> 
+                         <a href="{{ route('admin.orders.index') }}?delivery_status={{ orderPendingStatus() }}"
                             class="col-lg-3 col-sm-6">
                             <div class="card h-100 flex-column">
                                 <div class="card-body">
@@ -233,7 +233,7 @@
                             </div>
                         </a>
                     </div>
-                @endcan
+                @endcan -->
 
                 @can('orders')
                     <div class="row mb-3">
@@ -272,7 +272,7 @@
                                             <th data-breakpoints="xs">{{ localize('Statut de paiement') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Statut de livraison') }}</th>
                                             <th data-breakpoints="xs">{{ localize('Type de livraison') }}</th>
-                                            <th data-breakpoints="xs" class="text-end">{{ localize('Action') }}</th>
+                                            <!-- <th data-breakpoints="xs" class="text-end">{{ localize('Action') }}</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -348,13 +348,13 @@
                                                     </span>
                                                 </td>
 
-                                                <td class="text-end">
+                                                <!-- <td class="text-end">
                                                     <a href="{{ route('admin.orders.show', $order->id) }}"
                                                         class="btn btn-sm p-0 tt-view-details" data-bs-toggle="tooltip"
                                                         data-bs-placement="top" title="Voir les détails">
                                                         <i data-feather="eye"></i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -367,7 +367,7 @@
                 <!-- counter in dashboard -->
                 <div class="row g-3 mb-3">
                     @can('manage_orders')
-                        <a href="{{ route('admin.orders.index') }}?delivery_status={{ orderPickedUpStatus() }}"
+                        <!-- <a href="{{ route('admin.orders.index') }}?delivery_status={{ orderPickedUpStatus() }}"
                             class="col-lg-3 col-sm-6">
                             <div class="card h-100 flex-column">
                                 <div class="card-body">
@@ -418,6 +418,23 @@
                                         <div class="ms-3">
                                             <h4 class="mb-1">{{ \App\Models\Order::isOutForDelivery()->count() }}</h4>
                                             <span class="text-muted">{{ localize('En cours de livraison') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> -->
+                        <a href="{{ route('admin.orders.index') }}" class="col-lg-3 col-sm-6">
+                            <div class="card h-100 flex-column">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar avatar-lg">
+                                            <div class="text-center bg-soft-primary rounded-circle">
+                                                <span class="text-primary"> <i data-feather="shopping-bag"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="mb-1">{{ \App\Models\Order::count() }}</h4>
+                                            <span class="text-muted">{{ localize('Commandes totales') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -481,7 +498,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-6">
+                    <!-- <div class="col-lg-3 col-sm-6">
                         <div class="card h-100 flex-column">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -497,7 +514,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-lg-3 col-sm-6">
                         <div class="card h-100 flex-column">
@@ -626,7 +643,7 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('admin.subscribers.index') }}" class="col-lg-3 col-sm-6">
+                    <!-- <a href="{{ route('admin.subscribers.index') }}" class="col-lg-3 col-sm-6">
                         <div class="card h-100 flex-column">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -642,7 +659,7 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </a> -->
 
                     <a href="{{ route('admin.categories.index') }}" class="col-lg-3 col-sm-6">
                         <div class="card h-100 flex-column">

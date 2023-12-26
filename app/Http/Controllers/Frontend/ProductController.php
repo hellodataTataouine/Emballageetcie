@@ -244,7 +244,7 @@ class ProductController extends Controller
 
         # conditional
         $currentPage = $request->input('page', 1); 
-        $perPage = 12;
+        $perPage = $request->input('per_page', 12); // Updated line
         
         
 

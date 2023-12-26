@@ -151,7 +151,7 @@
                                                         <i class="fas fa-file-pdf fa-sm"></i> 
                                                     </a>
                                                     @else
-                                                        
+                                                        <span>-</span>
                                                     @endif
                                                 </td>
                                                 <td class="align-middle">
@@ -168,6 +168,7 @@
 
                                             <!-- Child Products Rows -->
                                             @foreach ($childrenProducts as $childProduct)
+                                            @if ($childProduct->is_published )
                                                                        <tr>
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
@@ -209,7 +210,7 @@
                                                             <i class="fas fa-file-pdf fa-sm"></i>
                                                         </a>
                                                         @else
-                                                          
+                                                        <span>-</span>
                                                         @endif
                                                     </td>
                                                     <td class="align-middle">
@@ -223,6 +224,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
 
                                         </tbody>

@@ -676,9 +676,9 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             # category
             $product->categories()->sync($request->category_ids);
             $product->parents()->sync($request->child_product_ids);
-$childs= ProductParents::where('product_id', $request->id)->get();;
-//dd($childs);
-if($childs != null){
+    $childs= ProductParents::where('product_id', $request->id)->get();;
+    //dd($childs);
+    if($childs != null){
       foreach($childs as $child) {
         //dd($child->child_id, $temporaryOrder);
         
@@ -832,6 +832,8 @@ if($childs != null){
         return 0;
     }
 
+    
+
     # update published
     public function updatePublishedStatus(Request $request)
     {
@@ -916,6 +918,15 @@ public function delete(Request $request)
     return back();
 }
 
+
+
+// public function getChildProductData($id)
+// {
+//     dd($id);;
+//     $childProductData = Product::findOrFail($id);
+//     dd($childProductData);
+//     return response()->json(['data' => $childProductData]);
+// }
 
 }
 
