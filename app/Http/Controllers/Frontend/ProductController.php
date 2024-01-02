@@ -250,15 +250,18 @@ class ProductController extends Controller
         
         
 
-        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        $visibleProducts = $virtualProducts->where('afficher', 1);
-        }else{
-            $visibleProducts = $virtualProducts->filter(function ($product) {
-            return $product->parents()->count() > 0;
-            }); 
-               }
-
+        // if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
         // $visibleProducts = $virtualProducts->where('afficher', 1);
+        // }else{
+        //     $visibleProducts = $virtualProducts->filter(function ($product) {
+        //     return $product->parents()->count() > 0;
+        //     }); 
+        //        }
+
+
+
+        
+         $visibleProducts = $virtualProducts->where('afficher', 1);
         // // dd($visibleProducts);
        
         $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
