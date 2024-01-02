@@ -23,7 +23,7 @@ use Illuminate\Http\Request;
 use Notification;
 use Config;
 use Session;
-
+use Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
