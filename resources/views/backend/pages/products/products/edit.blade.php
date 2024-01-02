@@ -340,11 +340,7 @@
                                                                 <input type="checkbox" onchange="updateAfficherStatus(this)"
                                                                     class="form-check-input"
                                                                     @if (optional($childproduct)->afficher) checked @endif
-<<<<<<< HEAD
-                                                                    value="{{ optional($childproduct)->id }}">
-=======
                                                                     value="{{optional($childproduct)->id }}">
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
                                                             </div>
                                                         @endcan
                                                     </td>
