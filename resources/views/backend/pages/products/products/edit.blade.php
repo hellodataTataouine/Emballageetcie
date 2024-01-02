@@ -272,10 +272,6 @@
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits Equivalents') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
-<<<<<<< HEAD
-                                                
-=======
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
                                                     @php
                                                         $childProductId = $childProduct->id; 
                                                         $childProductIsPublished = $childProduct->is_published; // new line added
@@ -288,11 +284,7 @@
                                                     <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" data-is-published="{{ $childProduct->is_published }}" data-afficher="{{ $childProduct->afficher }}" {{ $isSelected ? 'selected' : '' }}>
                                                         {{ $childProduct->name }} 
                                                     </option>
-<<<<<<< HEAD
-                                                
-=======
                                                
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
                                             @endforeach
                                         </select>
 
