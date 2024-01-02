@@ -64,7 +64,7 @@ class CartsController extends Controller
                     $message =  localize('La quantité a été augmentée');
                 }else{ 
                     $message = localize('Vous avez atteint la quantité maximale autorisée pour ce produit lors d\'une seule commande.');
-                    return $this->getCartsInfo($message, true, '', 'Attention');
+                  //  return $this->getCartsInfo($message, true, '', 'Attention');
                 } 
             }
 
