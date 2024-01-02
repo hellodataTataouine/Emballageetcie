@@ -16,11 +16,11 @@
                                 <h2 class="h5 mb-lg-0">{{ localize('Produits') }}</h2>
                                 
                             </div>
-                            <div class="tt-action">
+                            <!-- <div class="tt-action">
                                 <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-success">
                                 <i data-feather="refresh-cw"></i> {{ localize('Synchroniser Les nomations des Produits') }}</a>
 
-                            </div>
+                            </div> -->
                             <!-- <div class="tt-action">
                                 @can('add_products')
                                     <a href="{{ route('admin.products.Synchronize') }}" class="btn btn-primary"><i class="fas fa-sync-alt"></i> {{ localize('Synchroniser les Produits') }}</a>
@@ -106,11 +106,12 @@
                                     <th>{{ localize('Nom du produit') }}</th>
                                     <th>{{ localize('Référence') }}</th>
                                     <!-- <th data-breakpoints="xs sm">{{ localize('Marque ') }}</th> -->
-                                    <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('P.Equivalents') }}</th>
 
                                     <th data-breakpoints="xs sm">{{ localize('Catégories') }}</th>
                                    <!-- <th data-breakpoints="xs sm">{{ localize('Prix ') }}</th> -->
                                     <th data-breakpoints="xs sm md">{{ localize('Statut ') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Afficher') }}</th>
                                     <th data-breakpoints="xs sm md" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
@@ -143,15 +144,15 @@
                                             <span
                                                 class="fs-sm">{{ $product->collectLocalization('slug') }}</span>
                                         </td> 
+                                       
                                         <td>
-                                            @if($product->parent()-> == 1)
-                                                <span class="fs-sm">Produit Principal</span>
-                                            @elseif($product->parent_id != null)
-                                                <span class="fs-sm">Produit Secondaire</span>
-                                            @else
-                                                <span class="fs-sm">Produit Individuel</span>
-                                            @endif
-                                            
+                                       
+                                        <span
+                                                class="fs-sm">
+                                        {{ __(':count', ['count' => $product->parents()->count()]) }}
+                                        </span>
+                              
+
                                         </td>
                                         <td>
                                             @forelse ($product->categories as $category)
@@ -186,6 +187,7 @@
                                             @endcan
 
                                         </td> -->
+
                                         <td>
                                             @if ($product->is_published)
                                                 <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
@@ -193,6 +195,20 @@
                                                 <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
                                             @endif
                                         </td>
+
+                                        <td>
+                                            @can('aficher_products')
+                                                <div class="form-check form-switch">
+                                                    <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                        class="form-check-input"
+                                                        @if ($product->afficher) checked @endif
+                                                        value="{{ $product->id }}"
+                                                        @if ($product->is_published == 0) disabled @endif>
+                                                </div>
+                                            @endcan
+                                        </td>
+                                        
+
                                         <td class="text-end">
                                             <div class="dropdown tt-tb-dropdown">
                                                 <button type="button" class="btn p-0" data-bs-toggle="dropdown"
@@ -206,7 +222,6 @@
                                                             <i data-feather="edit-3" class="me-2"></i>{{ localize('Modifier') }}
                                                         </a>
                                                     @endcan
-
 
                                                     <a class="dropdown-item"
                                                         href="{{ route('products.show', $product->slug) }}"
@@ -222,8 +237,7 @@
                                                             <i data-feather="trash" class="me-2"></i>{{ localize('Supprimer') }}
                                                         </a> 
                                                     @endif
-                                                @endcan 
-
+                                                @endcan
                                                 </div>
                                             </div>
                                         </td>
@@ -297,5 +311,24 @@
                     }
                 });
         }
+
+        function updateAfficherStatus(el) {
+            var productId = el.value;
+            var status = el.checked ? 1 : 0;
+
+            $.post('{{ route('admin.products.updateAfficherStatus') }}', {
+                _token: '{{ csrf_token() }}',
+                id: productId,
+                status: status
+            }, function (data) {
+                if (data == 1) {
+                    var message = (status === 1) ? '{{ localize('Produit affiché avec succès') }}' : '{{ localize('Produit masqué avec succès') }}';
+                    notifyMe('success', message);
+                } else {
+                    notifyMe('danger', '{{ localize('Something went wrong') }}');
+                }
+            });
+        }
+
     </script>
 @endsection

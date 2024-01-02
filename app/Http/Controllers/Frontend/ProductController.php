@@ -141,7 +141,7 @@ class ProductController extends Controller
         }
 
 
-        if ($request->search != null) {
+        /* if ($request->search != null) {
             $searchTerm = $request->search;
             
             // Split the search term into words
@@ -152,7 +152,10 @@ class ProductController extends Controller
                 return collect($keywords)->every(function ($keyword) use ($product) {
                     return (
                         stripos($product->name, $keyword) !== false ||
-                        stripos($product->description, $keyword) !== false
+                        stripos($product->description, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false ||
+                        $product->tags->contains('name', $keyword)
+
                         
                     );
                 });
@@ -161,7 +164,38 @@ class ProductController extends Controller
             // Reassign the filtered products to $virtualProducts
             $virtualProducts = $filteredProducts->values();
             $searchKey = $searchTerm;
+        } */
+
+        if ($request->search != null) {
+            $searchTerm = $request->search;
+        
+            // Split the search term into words
+            $keywords = explode(' ', $searchTerm);
+        
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if any part of the keywords matches the product name, description, slug, or tag names
+                return collect($keywords)->every(function ($keyword) use ($product) {
+                    // Check if the keyword is present in the product name, description, or slug
+                    $inProductAttributes = (
+                        stripos($product->name, $keyword) !== false ||
+                        stripos($product->description, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false
+                    );
+        
+                    // Check if the keyword is present in any part of the tag names
+                    $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
+                        return stripos($tagName, $keyword) !== false;
+                    });
+        
+                    return $inProductAttributes || $inTagNames;
+                });
+            });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
         }
+        
         
 
         
@@ -209,17 +243,25 @@ class ProductController extends Controller
             $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
             $virtualProducts = $virtualProducts->whereIn('id', $product_tag_product_ids);
         }
+
         # conditional
         $currentPage = $request->input('page', 1); 
-       
+        $perPage = $request->input('per_page', 12); // Updated line
         
         
 
-        if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        $visibleProducts = $virtualProducts;
-        }else{
-            $visibleProducts = $virtualProducts->where('parent_id', null);
-        }
+        //if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
+        
+            $visibleProducts = $virtualProducts->where('is_published', 1)->where('afficher', 1);
+            
+       // }else{
+         //   $visibleProducts = $virtualProducts->filter(function ($product) {
+         //       return $product->is_parent === 1 || $product->is_child === 0;
+         //   }); 
+         //      }
+
+        // $visibleProducts = $virtualProducts->where('afficher', 1);
+        // // dd($visibleProducts);
        
         $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
         $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
@@ -249,13 +291,14 @@ class ProductController extends Controller
         $apiUrl = env('API_CATEGORIES_URL');
         
         if (Auth::check() && Auth::user()->user_type == 'customer')
-{
-$response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-}else{
-   
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+            {
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+                
+            }else{
+            
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-}
+            }
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -307,7 +350,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                     $existingProduct->save();
                 }
             }
-        $productCategories              = $product->categories()->pluck('category_id');
+        $productCategories= $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
@@ -331,7 +374,7 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
                 $relatedProduct->name = $matchingApiData['Libellé'];
         
                 // Only add the related product if it is published
-                    $virtualChildrenProducts->push($relatedProduct);
+                $virtualRelatedProducts->push($relatedProduct);
                
             }
         }
@@ -392,8 +435,11 @@ $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
         if (getSetting('product_page_widgets') != null) {
             $product_page_widgets = json_decode(getSetting('product_page_widgets'));
         }
-
-        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $virtualChildrenProducts]);
+        $sortedChildren = $virtualChildrenProducts->sortBy(function ($child) {
+            return $child->pivot->child_position;
+        });
+       // dd($sortedChildren);
+        return getView('pages.products.show', ['product' => $product, 'relatedProducts' => $virtualRelatedProducts, 'product_page_widgets' => $product_page_widgets, 'childrenProducts' => $sortedChildren]);
     }
 
     # product info

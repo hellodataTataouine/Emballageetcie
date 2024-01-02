@@ -183,7 +183,7 @@
                                                     value="{{ $labels[$menuKey] }}" required>
                                                 <input type="url" name="header_menu_links[]"
                                                     class="form-control ms-2"
-                                                    placeholder="https://grostore.themetags.com/"
+                                                    placeholder=""
                                                     value="{{ $menuItem }}" required>
 
                                                 <button type="button" data-toggle="remove-parent"
@@ -202,7 +202,7 @@
                                                 class="form-control w-50 w-lg-25"
                                                 placeholder="{{ localize('Libellé du menu') }}" required>
                                             <input type="url" name="header_menu_links[]" class="form-control ms-2"
-                                                placeholder="https://grostore.themetags.com/" required>
+                                                placeholder="https://" required>
 
                                             <button type="button" data-toggle="remove-parent"
                                                 class="btn btn-link px-2 ms-2" data-parent=".each-menu-list">

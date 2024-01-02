@@ -211,6 +211,7 @@ return array(
     'App\\Models\\ProductCategory' => $baseDir . '/app/Models/ProductCategory.php',
     'App\\Models\\ProductColor' => $baseDir . '/app/Models/ProductColor.php',
     'App\\Models\\ProductLocalization' => $baseDir . '/app/Models/ProductLocalization.php',
+    'App\\Models\\ProductParents' => $baseDir . '/app/Models/ProductParents.php',
     'App\\Models\\ProductTag' => $baseDir . '/app/Models/ProductTag.php',
     'App\\Models\\ProductTax' => $baseDir . '/app/Models/ProductTax.php',
     'App\\Models\\ProductVariation' => $baseDir . '/app/Models/ProductVariation.php',

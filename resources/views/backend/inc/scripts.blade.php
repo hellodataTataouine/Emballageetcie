@@ -28,12 +28,20 @@
     };
     TT.baseUrl = '{{ \Request::root() }}';
 
+    // afficher model confirmation
+    function showConfirmationModal(element) {
+    // Use element instead of thisLink
+    $("#confirmation-modal").modal("show");
+}
+
+
     // on click delete confirmation -- outside footable
     function confirmDelete(thisLink) {
         var url = $(thisLink).data("href");
         $("#delete-modal").modal("show");
         $("#delete-link").attr("href", url);
     }
+   
 
     // on click all delete confirmation -- outside footable
     function confirmAllDelete(thisLink) {

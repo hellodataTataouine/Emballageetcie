@@ -100,7 +100,9 @@
                                                 <th>{{ localize('Couleur') }}</th>
                                                 <th>{{ localize('Quantité') }}</th>
                                                 <th>{{ localize('Disponibilité') }}</th>
+                                                @auth
                                                 <th>{{ localize('Prix TTC') }}</th>
+                                                @endauth
                                                 <th>{{ localize('Fiche Technique') }}</th> 
                                                 <th>{{ localize('Action') }}</th> 
                                             </tr>
@@ -123,9 +125,9 @@
                                                 <td class="align-middle">
                                                     <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
                                                 </td>
-                                                <td class="align-middle">{{ $product->total_volume }}</td>
-                                                <td class="align-middle">{{ $product->dimensions }}</td>
-                                                <td class="align-middle">{{ $product->color }}</td>
+                                                <td class="align-middle">{{ $product->total_volume ? $product->total_volume : '-' }}</td>
+                                                <td class="align-middle">{{ $product->dimensions  ? $product->dimensions : '-'}}</td>
+                                                <td class="align-middle">{{ $product->color  ? $product->color : '-'}}</td>
                                                 <td class="align-middle">{{ $product->Qty_Unit }}</td>
                                                 <td class="align-middle">
                                                     @if($product->stock_qty > 0)
@@ -134,7 +136,14 @@
                                                         <span class="text-danger h1">&bull;</span>
                                                     @endif
                                                 </td>
-                                                <td class="align-middle">{{ formatPrice($product->min_price) }}</td>
+                                                @auth
+                                                <td class="align-middle">
+                                               
+                                                        {{ formatPrice($product->min_price) }}
+                                                  
+                                                    
+                                                </td>
+                                                @endauth
                                                 <td class="align-middle">
                                                     <!-- Fiche Technique  -->
                                                     @if (!empty($product->fiche_technique))
@@ -158,8 +167,8 @@
                                             </tr>
 
                                             <!-- Child Products Rows -->
-                                            @foreach ($childrenProducts->where('parent_id', $product->id)->unique('id')->sortBy('child_position') as $childProduct)
-                                                <tr>
+                                            @foreach ($childrenProducts as $childProduct)
+                                                                       <tr>
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
                                                             <a href="{{ route('products.show', $childProduct->slug) }}">
@@ -175,9 +184,9 @@
                                                     <td class="align-middle">
                                                         <a href="{{ route('products.show', $childProduct->slug) }}">{{ $childProduct->name }}</a>
                                                     </td>
-                                                    <td class="align-middle">{{ $childProduct->total_volume }}</td>
-                                                    <td class="align-middle">{{ $childProduct->dimensions }}</td>
-                                                    <td class="align-middle">{{ $childProduct->color }}</td>
+                                                    <td class="align-middle">{{ $childProduct->total_volume ? $childProduct->total_volume : '-'}}</td>
+                                                    <td class="align-middle">{{ $childProduct->dimensions ? $childProduct->dimensions : '-'}}</td>
+                                                    <td class="align-middle">{{ $childProduct->color ? $childProduct->color : '-'}}</td>
                                                     <td class="align-middle">{{ $childProduct->Qty_Unit }}</td>
                                                     <td class="align-middle">
                                                         @if($childProduct->stock_qty > 0)
@@ -186,7 +195,13 @@
                                                             <span class="text-danger h1">&bull;</span>
                                                         @endif
                                                     </td>
-                                                    <td class="align-middle">{{ formatPrice($childProduct->max_price) }}</td>
+                                                    @auth
+                                                    <td class="align-middle">
+                                                   
+                                                        {{ formatPrice($childProduct->max_price) }}
+                                                   
+                                                    </td>
+                                                    @endauth
                                                     <td class="align-middle">
                                                         <!-- Fiche Technique  -->
                                                         @if (!empty($childProduct->fiche_technique))

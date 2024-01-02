@@ -49,7 +49,8 @@
         <!--product category end-->
 
         <a href="{{ route('products.show', $product->slug) }}"
-            class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
+        class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-2" style="-webkit-box-orient: vertical;">
+{{ $product->name }}
         </a>
 
         <h6 class="price">
@@ -86,7 +87,7 @@
             {{ localize('Ajouter au panier') }}
         </a>
     @else
-    @if ($product->parents()->count()>0)
+    @if ($product->parents()->count() > 0)
     <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
         {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1]) }}
     </a>

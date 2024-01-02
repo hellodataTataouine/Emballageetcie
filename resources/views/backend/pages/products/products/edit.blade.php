@@ -38,6 +38,26 @@
                         <input type="hidden" name="lang_key" value="{{ $lang_key }}">
 
                         <!--basic information start-->
+                        <div class="row g-3" id="section-0">                               
+                                
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5 class="mb-4">{{ localize('Affichage du produit dans le recherche') }}</h5>
+                                            <div class="tt-select-brand">
+                                                <select class="select2 form-control" id="afficher"
+                                                    name="afficher">
+                                                    <option value="1"
+                                                        {{ $product->afficher == 1 ? 'selected' : '' }}>
+                                                        {{ localize('Afficher') }}</option>
+                                                    <option value="0"
+                                                        {{ $product->afficher == 0 ? 'selected' : '' }}>
+                                                        {{ localize(' Non Afficher') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div> 
+
                         <div class="card mb-4" id="section-1">
                             <div class="card-body">
                                 <h5 class="mb-4">{{ localize('Informations de base') }}</h5>
@@ -209,51 +229,70 @@
 
                              <!-- Total Volume, Dimensions, and Color end -->
 
-                             <div class="card mb-4" id="section-11">
-                                <div class="card-body mb-4"> <!-- Add margin-bottom here -->
-                                    <h5 class="mb-4">{{ localize('Produit parent') }}</h5>
+                             <!-- <div class="card mb-4" id="section-11">
+                                <div class="card-body mb-4">
+                                    <h5 class="mb-4">{{ localize('Produit Principal') }}</h5>
                                     <div class="tt-select-brand">
                                     <select class="select2 form-control" id="is_parent" name="is_parent" onchange="handleIsParentChange()">
                                         <option value="1" {{ $currentIsParent == 1 ? 'selected' : '' }}>
-                                            {{ localize('Définir comme produit parent') }}
+                                            {{ localize('A des Produits Équivalents') }}
                                         </option>
                                         <option value="0" {{ $currentIsParent == 0 ? 'selected' : '' }}>
-                                            {{ localize('Ne pas définir comme produit parent') }}
+                                            {{ localize('N\'a pas des Produits Équivalents') }}
                                         </option>
                                     </select>
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
+                            
                             <!-- Product Children start -->
                             <head>
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-hsBWi0XBtuVGlJQIOr6mZNsQ5j/3r9wFLnr7KcBz92c2MlWm6yUqPmoGoGZ2jVcS" crossorigin="anonymous">
                             </head>
                             <div class="card mb-4" id="section-5">
                                 <div class="card-body">
-                                    <h5 class="mb-4">{{ localize('Produits Fils') }}</h5> 
+                                    <h5 class="mb-4">{{ localize('Produits Équivalents') }}</h5> 
                                     <div class="mb-4">
-                                       <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
-    @php
-        $product_childs = $product->parents()->pluck('child_id');
-    @endphp
+                                        <!-- <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                            @foreach ($products as $childProduct)
+                                            @if ($childProduct->is_published)
+                                            @php
+                                            $productParent = $product->parents->where('child_id', $childProduct->id)->first();
+                                            $childPosition = $productParent ? $productParent->child_position : '';
+                                            $isSelected = $product->parents->contains('child_id', $childProduct->id);
+                                           
+                                            @endphp
+                                                <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                    {{ $childPosition }}. {{ $childProduct->name }} 
+                                                </option>
+                                            @endif
+                                            @endforeach
+                                        </select> -->
 
-    @foreach ($products as $childProduct)
-        @if ($childProduct->is_published)
-            @php
-                $childPosition = $product_childs->get($childProduct->id);
-                $isSelected = $product_childs->contains($childProduct->id);
-            @endphp
-            <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
-                {{ $childPosition }}. {{ $childProduct->name }} 
-            </option>
-        @endif
-    @endforeach
-</select>
+                                        <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits Equivalents') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                            @foreach ($products as $childProduct)
+                                                
+                                                    @php
+                                                        $childProductId = $childProduct->id; 
+                                                        $productParent = DB::table('product_parent')
+                                                            ->where('child_id', $childProductId)
+                                                            ->first();                                                  
+                                                    $childPosition = $productParent ? $productParent->child_position : '';
+                                                        $isSelected = $product->parents->contains('child_id', $childProduct->id) || in_array($childProduct->id, $currentChildren->pluck('child_id')->toArray());
+                                                    @endphp
+                                                    <option value="{{ $childProduct->id }}" data-position="{{ $childPosition }}" {{ $isSelected ? 'selected' : '' }}>
+                                                        {{ $childProduct->name }} 
+                                                    </option>
+                                                
+                                            @endforeach
+                                        </select>
+
+
                                         <input type="hidden" name="child_parent_id" value="{{ $product->id }}" />
                                     </div>
                                     <div class="table-responsive">
-                                    <h6 class="mb-4">{{ localize('Trie de Fils') }}</h6> 
+                                    <h6 class="mb-4">{{ localize('Trie de Equivalents') }}</h6> 
                                     <table class="table table-bordered text-center" id="childProductsTable" style="border-radius: 10px; overflow: hidden;">
                                         <input type="hidden" name="child_ids" id="childIdsInput" value="">
                                         <input type="hidden" name="temporary_order" id="temporaryOrderInput" value="">
@@ -261,10 +300,13 @@
                                                 <tr>
                                                     <th>Position</th>
                                                     <th>Désignation</th>
+                                                    <th>Afficher dans le recherche </th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($currentChildren->sortBy('pivot.child_position') as $childProduct)
+                                                @foreach ($currentChildren->sortBy('child_position') as $childProduct)
+                                               
                                                 <tr id="childProductRow_{{ $childProduct->child_id }}">
                                                     <td>
                                                         <button class="btn btn-link btn-sm" onclick="moveRow('{{ $childProduct->child_id }}', 'up')">&#9650;</button>
@@ -277,10 +319,22 @@
                                                             $childproduct = App\Models\Product::find($childProduct->child_id); 
                                                            
                                                         @endphp
-                                                        
-                                                            {{ $childproduct->name }}
+
+                                                        {{ optional($childproduct)->name }}
+                                                                              
                                                       
                                                     </td>
+                                                    <td>
+                                                        @can('aficher_products')
+                                                            <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                                                                <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                                    class="form-check-input"
+                                                                    @if (optional($childproduct)->afficher) checked @endif
+                                                                    value="{{ optional($childproduct)->id }}">
+                                                            </div>
+                                                        @endcan
+                                                    </td>
+
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -338,40 +392,72 @@
                                 updateRowPositions();
 
                                 function updateChildTable() {
-                                var selectedProducts = document.getElementById('childProductIds').selectedOptions;
+                                    var selectedProducts = document.getElementById('childProductIds').selectedOptions;
 
-                                var rows = document.querySelectorAll('#childProductsTable tbody tr');
-                                rows.forEach(function (row) {
-                                    var childProductId = row.id.split('_')[1];
-                                    if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
-                                        row.remove();
-                                        delete temporaryOrder[childProductId]; 
-                                    }
-                                });
+                                    var rows = document.querySelectorAll('#childProductsTable tbody tr');
+                                    rows.forEach(function (row) {
+                                        var childProductId = row.id.split('_')[1];
+                                        if (!Array.from(selectedProducts).some(option => option.value === childProductId)) {
+                                            row.remove();
+                                            delete temporaryOrder[childProductId];
+                                        }
+                                    });
 
-                                Array.from(selectedProducts).forEach(function (selectedOption) {
-                                    var childProductId = selectedOption.value;
-                                    if (!document.getElementById('childProductRow_' + childProductId)) {
-                                        var newRow = document.createElement('tr');
-                                        newRow.id = 'childProductRow_' + childProductId;
-                                        newRow.innerHTML = `
-                                            <td>
-                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
-                                                ${temporaryOrder[childProductId] || ''}
-                                                <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
-                                            </td>
-                                            <td>${selectedOption.text}</td>
-                                        `;
-                                        document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
-                                    }
-                                });
+                                    Array.from(selectedProducts).forEach(function (selectedOption) {
+                                        var childProductId = selectedOption.value;
+                                        var childProductData = @json(optional(App\Models\Product::find($childProduct->child_id)));
 
-                                updateRowPositions();
-                            }
+                                        if (!document.getElementById('childProductRow_' + childProductId)) {
+                                            var newRow = document.createElement('tr');
+                                            newRow.id = 'childProductRow_' + childProductId;
+                                            newRow.innerHTML = `
+                                                <td>
+                                                    <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'up')">&#9650;</button>
+                                                    ${temporaryOrder[childProductId] || ''}
+                                                    <button class="btn btn-link btn-sm" onclick="moveRow('${childProductId}', 'down')">&#9660;</button>
+                                                </td>
+                                                <td>${selectedOption.text}</td>
+                                                <td>
+                                                    @can('aficher_products')
+                                                    <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                                                        <input type="checkbox" onchange="updateAfficherStatus(this)"
+                                                            class="form-check-input"
+                                                            ${childProductData.afficher ? 'checked' : ''}
+                                                            value="${childProductId}">
+                                                    </div>
+                                                    @endcan
+                                                </td>
+                                            `;
+                                            document.getElementById('childProductsTable').querySelector('tbody').appendChild(newRow);
+                                        }
+                                    });
+
+                                    updateRowPositions();
+                                }
+
+
+                                function updateAfficherStatus(el) {
+            var productId = el.value;
+            var status = el.checked ? 1 : 0;
+
+            $.post('{{ route('admin.products.updateAfficherStatus') }}', {
+                _token: '{{ csrf_token() }}',
+                id: productId,
+                status: status
+            }, function (data) {
+                if (data == 1) {
+                    var message = (status === 1) ? '{{ localize('Produit affiché avec succès') }}' : '{{ localize('Produit masqué avec succès') }}';
+                    notifyMe('success', message);
+                } else {
+                    notifyMe('danger', '{{ localize('Something went wrong') }}');
+                }
+            });
+        }
+
 
                             </script>
 
-                            <script>
+                            <!-- <script>
 
                                 function handleIsParentChange() {
                                     var isParentValue = document.getElementById('is_parent').value;
@@ -394,7 +480,7 @@
 
                                 handleIsParentChange();
 
-                            </script>
+                            </script> -->
 
                             <!--product Parent -->
 
@@ -944,6 +1030,8 @@
                             </div> -->
                             <!--product sell target & status end-->
 
+                              <!--product sell target & status start-->
+                          
                             <!--seo meta description start-->
                             <div class="card mb-4" id="section-10">
                                 <div class="card-body">
@@ -1012,6 +1100,9 @@
                             <h5 class="mb-4">{{ localize('Informations sur le produit') }}</h5>
                             <div class="tt-vertical-step">
                                 <ul class="list-unstyled">
+                                <li>
+                                        <a href="#section-0" class="active">{{ localize('Affichage du produit') }}</a>
+                                    </li>
                                     <li>
                                         <a href="#section-1" class="active">{{ localize('Informations de base') }}</a>
                                     </li>
@@ -1067,5 +1158,6 @@
 @endsection
 
 @section('scripts')
+
     @include('backend.inc.product-scripts')
 @endsection
