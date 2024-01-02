@@ -501,11 +501,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
         $product = Product::findOrFail($id);
         $products = Product::all();
 
-<<<<<<< HEAD
-       $currentIsParent = $product->parents()->count()>0;
-=======
         $currentIsParent = ($product->parents()->count()) > 0;
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
         $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
         ->join('products', 'product_parent.product_id', '=', 'products.id')
         ->where('product_parent.product_id', $id)
@@ -557,11 +553,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             $product->unit_id           = $request->unit_id;
             $product->short_description = $request->short_description;
            // $product->parent_id = $request->parent_id;
-<<<<<<< HEAD
-            //$product->is_parent = $request->is_parent;
-=======
           //  $product->is_parent = $request->is_parent;
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
             $product->total_volume = $request->total_volume;
             $product->dimensions = $request->dimensions;
             $product->color = $request->color;
@@ -664,11 +656,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
                 //  
             }        
 
-<<<<<<< HEAD
-          /* if ($request->is_parent == 0) {
-=======
         /*   if ($request->is_parent == 0) {
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
                 // Set the parent_id of associated child products to null
                 ProductParents::where('product_id', $product->id)
                 
@@ -689,15 +677,9 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             # category
             $product->categories()->sync($request->category_ids);
             $product->parents()->sync($request->child_product_ids);
-<<<<<<< HEAD
-$childs= ProductParents::where('product_id', $request->id)->get();
-//dd($childs);
-if($childs != null){
-=======
     $childs= ProductParents::where('product_id', $request->id)->get();;
     //dd($childs);
     if($childs != null){
->>>>>>> 094516c5963481d020fe4836e5c5559d68aad8f2
       foreach($childs as $child) {
         //dd($child->child_id, $temporaryOrder);
         
