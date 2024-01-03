@@ -254,7 +254,7 @@
                                 <div class="card-body">
                                     <h5 class="mb-4">{{ localize('Produits Équivalents') }}</h5> 
                                     <div class="mb-4">
-                                        <!-- <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
+                                        {{-- <!-- <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits fils') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
                                             @if ($childProduct->is_published)
                                             @php
@@ -268,7 +268,7 @@
                                                 </option>
                                             @endif
                                             @endforeach
-                                        </select> -->
+                                        </select> --> --}}
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits Equivalents') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
                                             @foreach ($products as $childProduct)
