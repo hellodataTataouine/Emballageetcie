@@ -345,13 +345,13 @@
                                                         @endcan
                                                     </td>
                                                     
-                                                    <!-- <td>
+                                                    {{-- <!-- <td>
                                                         @if ($childproduct->is_published)
                                                             <span class="badge rounded-pill bg-success">{{ localize('Publié') }}</span>
                                                         @else
                                                             <span class="badge rounded-pill bg-secondary">{{ localize('Non Publié') }}</span>
                                                         @endif
-                                                    </td> -->
+                                                    </td> --> --}}
                                                     
 
                                                 </tr>
