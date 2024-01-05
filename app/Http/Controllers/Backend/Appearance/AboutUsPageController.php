@@ -7,7 +7,7 @@ use App\Models\Brand;
 use App\Models\MediaManager;
 use App\Models\SystemSetting;
 use Illuminate\Http\Request;
-
+// 
 class AboutUsPageController extends Controller
 {
     # construct
