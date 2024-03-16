@@ -192,23 +192,7 @@
                                 </div>
                             </div>
                         @endif
-
-                        <nav class="gshop-navmenu ms-3 d-none d-xl-block">
-                            <ul class="d-flex align-itmes-center justify-content-end">
-
-                                @if (!is_null(getSetting('header_menu_labels')))
-                                    @php
-                                        $labels = json_decode(getSetting('header_menu_labels')) ?? [];
-                                        $menus = json_decode(getSetting('header_menu_links')) ?? [];
-                                    @endphp
-
-                                    @foreach ($menus as $menuKey => $menuItem)
-                                        <li>
-                                            <a href="{{ $menuItem }}">{{ localize($labels[$menuKey]) }}</a>
-                                        </li>
-                                    @endforeach
-                                @else
-                                <div class="category-dropdown position-relative d-none d-md-inline-block">
+                        <div class="category-dropdown position-relative d-none d-md-inline-block">
                                 <a href="javascript:void(0)"
                                     class="category-dropdown-btn fw-bold d-none d-sm-inline-block">{{ localize('Métiers') }}<span
                                         class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
@@ -241,6 +225,23 @@
                                     </ul>
                                 </div>
                             </div>
+
+                        <nav class="gshop-navmenu ms-3 d-none d-xl-block">
+                            <ul class="d-flex align-itmes-center justify-content-end">
+
+                                @if (!is_null(getSetting('header_menu_labels')))
+                                    @php
+                                        $labels = json_decode(getSetting('header_menu_labels')) ?? [];
+                                        $menus = json_decode(getSetting('header_menu_links')) ?? [];
+                                    @endphp
+
+                                    @foreach ($menus as $menuKey => $menuItem)
+                                        <li>
+                                            <a href="{{ $menuItem }}">{{ localize($labels[$menuKey]) }}</a>
+                                        </li>
+                                    @endforeach
+                                @else
+                             
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                                     
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
