@@ -247,14 +247,14 @@
                                                     href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a>
                                             </li> -->
 
-                                            @foreach ($pages as $navbarPage)
+                                            <!-- @foreach ($pages as $navbarPage)
                                                 <li>
                                                     <a href="{{ route('home.pages.show', $navbarPage->slug) }}"
                                                         class="d-flex align-items-center">
                                                         <span>{{ $navbarPage->collectLocalization('title') }}</span>
                                                     </a>
                                                 </li>
-                                            @endforeach
+                                            @endforeach -->
                                         </ul>
                                     </li>
                                 @endif
