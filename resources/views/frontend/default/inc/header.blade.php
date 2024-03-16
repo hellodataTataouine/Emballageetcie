@@ -256,7 +256,7 @@
                                     <!--<li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a> </li> -->
                                 @endif
 
-                                @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)
+                                <!-- @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)
                                     <li class="has-submenu">
                                         <a href="javascript:void(0);">{{ localize('Pages') }}<span
                                                 class="ms-1 fs-xs float-end"><i
@@ -269,27 +269,13 @@
                                                 }
                                             @endphp
 
-                                            <!--<li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li> -->
+                                          
                                             <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
 
-                                            <!-- <li><a
-                                                    href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a>
-                                            </li> -->
-                                            <!-- <li><a
-                                                    href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a>
-                                            </li> -->
-
-                                            <!-- @foreach ($pages as $navbarPage)
-                                                <li>
-                                                    <a href="{{ route('home.pages.show', $navbarPage->slug) }}"
-                                                        class="d-flex align-items-center">
-                                                        <span>{{ $navbarPage->collectLocalization('title') }}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach -->
+                                          
                                         </ul>
                                     </li>
-                                @endif
+                                @endif -->
                             </ul>
                         </nav>
                         <div
