@@ -192,6 +192,7 @@
                                 </div>
                             </div>
                         @endif
+                        <br>
                         <div class="category-dropdown position-relative d-none d-md-inline-block">
                                 <a href="javascript:void(0)"
                                     class="category-dropdown-btn fw-bold d-none d-sm-inline-block">{{ localize('Métiers') }}<span
