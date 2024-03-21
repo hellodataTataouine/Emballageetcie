@@ -4,22 +4,22 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Qté Unité:</span>
-                        <span class="fw-bold ">{{ $product->Qty_Unit }}</span>
+                        <span class="fw-bold text-muted">{{ $product->Qty_Unit }}</span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Unité:</span>
-                        <span class="fw-bold ">{{ $product->Unit }}</span>
+                        <span class="fw-bold text-muted">{{ $product->Unit }}</span>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Prix HT:</span>
-                        <span class="fw-bold ">{{ formatPrice($product->Prix_HT) }}</span>
+                        <span class="fw-bold text-muted">{{ formatPrice($product->Prix_HT) }}</span>
                     </div>
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Prix TTC:</span>
-                        <span class="fw-bold ">{{ formatPrice(productBasePrice($product)) }}</span>
+                        <span class="fw-bold text-muted">{{ formatPrice(productBasePrice($product)) }}</span>
                     </div>
                 </div>
             @else
