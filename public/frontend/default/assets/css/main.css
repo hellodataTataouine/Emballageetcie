@@ -23803,7 +23803,7 @@ body {
     display: block;
     color: #5d6374;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 17px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
@@ -24692,7 +24692,7 @@ body {
     padding: 12px;
 }
 .avatar-icon {
-    width: 2.75rem;
+    width: 3.5rem;
     height: 2.75rem;
     line-height: 1.75rem;
 }
