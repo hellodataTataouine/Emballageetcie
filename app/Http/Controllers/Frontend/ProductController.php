@@ -7,6 +7,7 @@ use App\Http\Resources\ProductVariationInfoResource;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductTag;
+use App\Models\Category;
 use App\Models\ProductVariation;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -231,13 +232,14 @@ class ProductController extends Controller
         # by category
 
         $selectedCategoryId = $request->category_id;
-
+        $selectedCategory = 0;
         if ($selectedCategoryId && $selectedCategoryId != null) {
             $product_category_product_ids = ProductCategory::where('category_id', $selectedCategoryId)->pluck('product_id');
             $virtualProducts = $virtualProducts->whereIn('id', $product_category_product_ids);
-
+            $selectedCategory = Category::where('id', $selectedCategoryId)->first();
+           
         }
-
+       
         # by tag
         if ($request->tag_id && $request->tag_id != null) {
             $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
@@ -281,6 +283,7 @@ class ProductController extends Controller
             'max_value'     => $max_value,
             'tags'          => $tags,
             'selectedCategoryId' => $selectedCategoryId,
+            'selectedCategory' => $selectedCategory,
         ]);   
     }
 
