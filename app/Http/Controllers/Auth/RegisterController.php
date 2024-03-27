@@ -82,6 +82,9 @@ public function verifyClient(Request $request, $CODETIERS)
             if (isset($clientData['CODETIERS'])) {
                 $data['codetiers'] = $clientData['CODETIERS'];
             }
+            if (isset($clientData['IDClient'])) {
+                $data['IDClient'] = $clientData['IDClient'];
+            }
 
             // Check if CodePostal is present in the API response
             if (isset($clientData['CodePostal'])) {
@@ -109,6 +112,7 @@ public function verifyClient(Request $request, $CODETIERS)
                'password' => Hash::make($data['password']),
                'codetiers' => $data['codetiers'],
                'postal_code' => $data['postal_code'],
+               'IdClientApi' => $data['IDClient'],
            ]);
    
            // set guest_user_id to user_id from carts 

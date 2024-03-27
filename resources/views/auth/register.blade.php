@@ -144,6 +144,7 @@
 
                                 <!-- Add these hidden fields within your form -->
                                 <input type="hidden" id="codetiers" name="codetiers">
+                                <input type="hidden" id="IDClient" name="IDClient">
                                 <input type="hidden" id="postal_code" name="postal_code">
                                 <input type="hidden" id="address" name="address">
 
@@ -226,6 +227,7 @@ function fillFormWithClientData(clientData) {
             const email = firstClient.EMail;
             const phone = extractPhoneNumber(firstClient);
             const codetiers = firstClient.CODETIERS;
+            const IDClient = firstClient.IDClient;
             const postalCode = firstClient.CodePostal;
             const address = firstClient.Adresse;
 
@@ -235,6 +237,7 @@ function fillFormWithClientData(clientData) {
             setFieldValueAndReadonly('#email', email);
             setFieldValueAndReadonly('#phone', phone);
             setFieldValueAndReadonly('#codetiers', codetiers);
+            setFieldValueAndReadonly('#IDClient', IDClient);
             setFieldValueAndReadonly('#postal_code', postalCode);
             setFieldValueAndReadonly('#address', address); 
 

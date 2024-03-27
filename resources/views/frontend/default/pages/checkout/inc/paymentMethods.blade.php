@@ -1,4 +1,4 @@
-@if (!empty(auth()->user()->CODETIERS))
+
     <!--COD-->
     @if (getSetting('enable_cod') == 1)
         <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
@@ -15,7 +15,7 @@
             </div>
         </div>
     @endif
-@endif
+
 <!--wallet-->
 <!-- @if (getSetting('enable_wallet_checkout') == 1)
     <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
