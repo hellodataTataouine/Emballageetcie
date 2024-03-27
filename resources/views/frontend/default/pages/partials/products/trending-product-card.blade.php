@@ -71,7 +71,7 @@
             </p>
         @endisset
     </div>
-    <div class="card-btn bg-white">
+    <div class="card-btn">
 
         @php
             $isVariantProduct = 0;
