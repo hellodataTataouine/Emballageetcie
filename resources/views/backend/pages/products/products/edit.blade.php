@@ -90,6 +90,10 @@
                                     <label for="description" class="form-label">{{ localize('Description') }}</label>
                                     <textarea id="description" class="editor" name="description">{{ $product->description }}</textarea>
                                 </div>
+                                <div class="mb-4">
+                                    <label for="Infos_complementaires" class="form-label">{{ localize('Informations complémentaires') }}</label>
+                                    <textarea id="Infos_complementaires" class="editor" name="Infos_complementaires">{{ $product->Infos_complementaires }}</textarea>
+                                </div>
 
                                 
                                 <div class="card-body">

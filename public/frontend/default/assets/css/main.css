@@ -15144,6 +15144,8 @@ fieldset:disabled .btn {
     display: flex;
     padding-left: 0;
     list-style: none;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 .page-link {
     position: relative;
@@ -23801,7 +23803,7 @@ body {
     display: block;
     color: #5d6374;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 17px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
@@ -24690,8 +24692,8 @@ body {
     padding: 12px;
 }
 .avatar-icon {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 3.5rem;
+    height: 2.75rem;
     line-height: 1.75rem;
 }
 .horizontal-product-card .thumbnail {

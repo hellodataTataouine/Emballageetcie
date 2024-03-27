@@ -160,7 +160,7 @@ class ProductsController extends Controller
         //     if (isset($existingProducts[$barcode])) {
         } else {    
             $matchingProduct = $existingProducts[$barcode];
-            if ($matchingProduct->Unit != $name) {
+            if ($matchingProduct->name != $name) {
                 $matchingProduct->name = $name;
                 $matchingProduct->save();
                 }
@@ -549,6 +549,7 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
            // $product->name              = $request->name;
             //$product->slug              = (!is_null($request->slug)) ? Str::slug($request->slug, '-') : Str::slug($request->name, '-') . '-' . strtolower(Str::random(5));
             $product->description       = $request->description;
+            $product->Infos_complementaires  = $request->Infos_complementaires;
             $product->sell_target       = $request->sell_target;
             $product->brand_id          = $request->brand_id;
             $product->unit_id           = $request->unit_id;

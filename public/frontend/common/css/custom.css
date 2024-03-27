@@ -304,8 +304,8 @@ html:not([dir="rtl"]) .toast-close-button {
 }
 
 .avatar-icon {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 3.5rem;
+    height: 2.75rem;
     line-height: 1.75rem;
 }
 

@@ -19,25 +19,11 @@
         </div>
 
         <div class="tab-pane fade px-4 py-5" id="info">
-            <table class="w-100 product-info-table">
-                @forelse (generateVariationOptions($product->variation_combinations) as $variation)
-                    <tr>
-                        <td class="text-dark fw-semibold">{{ $variation['name'] }}</td>
-                        <td>
-                            @foreach ($variation['values'] as $value)
-                                {{ $value['name'] }}@if (!$loop->last)
-                                    ,
-                                @endif
-                            @endforeach
-                        </td>
-                    </tr>
-                    @empty
-                        <tr>
-                            <td class="text-dark text-center" colspan="2">{{ localize('Non disponible') }}
-                            </td>
-                        </tr>
-                    @endforelse
-                </table>
+        @if ($product->description)
+                {!! $product->collectLocalization('Infos_complementaires') !!}
+            @else
+                <div class="text-dark text-center border py-2">{{ localize('Non disponible') }}</div>
+            @endif
             </div>
 
         </div>

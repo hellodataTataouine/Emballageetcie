@@ -94,7 +94,8 @@
 
     <!--preloader start-->
     <div id="preloader">
-        <img src="{{ staticAsset('frontend/default/assets/img/embalage et cie.png') }}" alt="preloader" class="img-fluid">
+    <img src="{{ uploadedAsset(getSetting('navbar_logo')) }}" alt="preloader" class="img-fluid">
+        <!-- <img src="{{ staticAsset('frontend/default/assets/img/embalage etcie.png') }}" alt="preloader" class="img-fluid"> -->
     </div>
     <!--preloader end-->
 

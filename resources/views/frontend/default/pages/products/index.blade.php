@@ -6,12 +6,21 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Produits') }}</h2>
+    @if($selectedCategoryId != null)
+    <h2 class="mb-2 text-center">{{ $selectedCategory->name }}</h2>
+              @else
+              <h2 class="mb-2 text-center">{{ localize('Produits') }}</h2>
+                @endif
+       
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
                         href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                        @if($selectedCategoryId != null)
+                <li class="breadcrumb-item fw-bold" aria-current="page" style='font-weight: bold; color: #ff7c08;'>{{ $selectedCategory->name }}</li>
+                @endif
                 <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Produits') }}</li>
+                
             </ol>
         </nav>
     </div>

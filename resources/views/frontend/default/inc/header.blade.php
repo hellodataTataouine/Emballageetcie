@@ -192,6 +192,40 @@
                                 </div>
                             </div>
                         @endif
+                        <div class="spacer" style="width: 20px;"></div>
+                        <div class="category-dropdown position-relative d-none d-md-inline-block">
+                                <a href="javascript:void(0)"
+                                    class="category-dropdown-btn fw-bold d-none d-sm-inline-block">{{ localize('Métiers') }}<span
+                                        class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
+
+                                <div class="category-dropdown-box scrollbar">
+                                    <ul class="category-dropdown-menu">
+                                        @php
+                                        $metiersCategoryId = \App\Models\Category::where('name', 'Métiers')->value('id');
+
+                                            $metiers = [];
+                                            if ($metiersCategoryId) {
+                                           
+                                                $metiers = \App\Models\Category::where('parent_id', $metiersCategoryId)->get();
+                                            
+                                        }
+                                        @endphp
+                                        @foreach ($metiers as $navbarCat)
+                                            <li>
+                                                <a href="{{ route('products.index') }}?&category_id={{ $navbarCat->id }}"
+                                                    class="d-flex align-items-center">
+                                                    <div class="me-2 avatar-icon">
+                                                        <img src="{{ uploadedAsset($navbarCat->collectLocalization('thumbnail_image')) }}"
+                                                            alt="" class="rounded-circle h-100 w-100">
+                                                    </div>
+                                                    <span>{{ $navbarCat->collectLocalization('name') }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
+                                </div>
+                            </div>
 
                         <nav class="gshop-navmenu ms-3 d-none d-xl-block">
                             <ul class="d-flex align-itmes-center justify-content-end">
@@ -208,7 +242,9 @@
                                         </li>
                                     @endforeach
                                 @else
+                             
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
+                                    
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
                                     @if(auth()->check())
                                         <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mes Produits') }}</a></li>
@@ -222,7 +258,7 @@
                                     <!--<li><a href="{{ route('home.coupons') }}">{{ localize('Coupons') }}</a> </li> -->
                                 @endif
 
-                                @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)
+                                <!-- @if (getSetting('show_navbar_pages') != 0 || getSetting('show_navbar_pages') == null)
                                     <li class="has-submenu">
                                         <a href="javascript:void(0);">{{ localize('Pages') }}<span
                                                 class="ms-1 fs-xs float-end"><i
@@ -235,27 +271,13 @@
                                                 }
                                             @endphp
 
-                                            <!--<li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li> -->
+                                          
                                             <li><a href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos') }}</a> </li>
 
-                                            <!-- <li><a
-                                                    href="{{ route('home.pages.aboutUs') }}">{{ localize('À propos de nous') }}</a>
-                                            </li> -->
-                                            <!-- <li><a
-                                                    href="{{ route('home.pages.contactUs') }}">{{ localize('Contactez-nous') }}</a>
-                                            </li> -->
-
-                                            @foreach ($pages as $navbarPage)
-                                                <li>
-                                                    <a href="{{ route('home.pages.show', $navbarPage->slug) }}"
-                                                        class="d-flex align-items-center">
-                                                        <span>{{ $navbarPage->collectLocalization('title') }}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
+                                          
                                         </ul>
                                     </li>
-                                @endif
+                                @endif -->
                             </ul>
                         </nav>
                         <div
