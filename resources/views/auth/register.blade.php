@@ -227,10 +227,10 @@ function fillFormWithClientData(clientData) {
             const email = firstClient.EMail;
             const phone = extractPhoneNumber(firstClient);
             const codetiers = firstClient.CODETIERS;
-            const IDClient = firstClient.IDClient;
+            const IDClient = String(firstClient.IDClient);
             const postalCode = firstClient.CodePostal;
             const address = firstClient.Adresse;
-
+console.log(IDClient);
            // console.log('Extracted values:', { fullName, email, phone, codetiers, postalCode, address });
 
             setFieldValueAndReadonly('#name', fullName);

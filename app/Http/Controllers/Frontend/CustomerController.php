@@ -63,29 +63,124 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
         return getView('pages.users.dashboard');
     }
 
-    public function mesProduits()
+    public function mesProduits(Request $request)
 {
     $user = auth()->user();
+    $virtualProducts = collect();
     $mesProduits = collect(); 
-
+    $searchKey = null;
+    $per_page = 12;
+    $sort_by = $request->sort_by ? $request->sort_by : "new";
+    $maxRange = Product::max('max_price');
+    $min_value = 0;
+    $max_value = formatPrice($maxRange, false, false, false, false);
     // Fetch all products from the API
     $apiUrl = env('API_CATEGORIES_URL');
     $IdClientApi = $user->IdClientApi;
 
     $response = Http::get($apiUrl . 'GetProduitParIdClient/' . $IdClientApi);
-    $produitsApi = $response->json();
-
-    // Filter products where 'MyPhoto' is not empty
-    $mesProduits = collect(array_filter($produitsApi, function($produit) {
+    $produitsApi1 = $response->json();
+    $produitsApi = collect(array_filter($produitsApi1, function($produit) {
         return !empty($produit['MyPhoto']);
     }));
+    $barcodes = collect($produitsApi)->pluck('Codeabarre')->toArray();
+    $existingProducts = Product::whereIn('slug', $barcodes)
+    ->with('categories')
+    ->get()
+    ->keyBy('slug');
+    foreach ($produitsApi as $produitApi) {
+        $name = $produitApi['Libellé'];
 
+        $barcode = $produitApi['Codeabarre'];
+        $apiPrice = $produitApi['PrixVTTC'];
+        $apiPriceHT = $produitApi['PrixVenteHT'];
+        //$apiStock = $produitApi['StockActual'];
+       // $apiunité = $produitApi['unité_lot'];
+        //$apiQTEUNITE = $produitApi['QTEUNITE'];
+        if (isset($existingProducts[$barcode])) {
+   
+            $matchingProduct = $existingProducts[$barcode];
+                
+            if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
+                $matchingProduct->min_price = $apiPrice; 
+                $matchingProduct->max_price = $apiPrice;
+                $matchingProduct->Prix_HT = $apiPriceHT;
+            }
+            
+            // if ($matchingProduct->stock_qty != $apiStock) {
+            //     $matchingProduct->stock_qty = $apiStock;
+            // }
+            // if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+            //     $matchingProduct->Qty_Unit = $apiQTEUNITE;
+            // }
+            // if ($matchingProduct->Unit != $apiunité) {
+            //     $matchingProduct->Unit = $apiunité;
+            // }
+            $matchingProduct->name = $name;
+            $virtualProducts->push($matchingProduct);
+        } else {
+        }
+    }
+    // Filter products where 'MyPhoto' is not empty
+    if ($request->search != null) {
+        $searchTerm = $request->search;
+    
+        // Split the search term into words
+        $keywords = explode(' ', $searchTerm);
+    
+        $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+            // Check if any part of the keywords matches the product name, description, slug, or tag names
+            return collect($keywords)->every(function ($keyword) use ($product) {
+                // Check if the keyword is present in the product name, description, or slug
+                $inProductAttributes = (
+                    stripos($product->name, $keyword) !== false ||
+                    stripos($product->description, $keyword) !== false ||
+                    stripos($product->slug, $keyword) !== false
+                );
+    
+                // Check if the keyword is present in any part of the tag names
+                $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
+                    return stripos($tagName, $keyword) !== false;
+                });
+    
+                return $inProductAttributes || $inTagNames;
+            });
+        });
+    
+        // Reassign the filtered products to $virtualProducts
+        $virtualProducts = $filteredProducts->values();
+        $searchKey = $searchTerm;
+    }
+   
+        $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); 
+
+        
+   
     // Pagination
-    $perPage = 12;
-    $page = request()->get('page', 1);
-    $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);
-    $mesProduits = new LengthAwarePaginator($mesProduits, count($mesProduits), $perPage, $page);
+    if ($request->per_page != null) {
+        $per_page = $request->per_page;
+    }
 
+    # sort by
+    if ($sort_by == 'new') {
+        $virtualProducts = $virtualProducts->sortByDesc('created_at'); 
+
+        
+    } else {
+        $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); 
+
+        
+    }
+    $currentPage = $request->input('page', 1); 
+    $perPage = $request->input('per_page', 12); // Updated line
+
+
+
+    $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
+
+
+    $mesProduits = new LengthAwarePaginator($slicedProducts, count($slicedProducts),paginationNumber($per_page), $currentPage);
+//dd($mesProduits);
     return getView('pages.users.mesProduits', compact('mesProduits'));
 }
 

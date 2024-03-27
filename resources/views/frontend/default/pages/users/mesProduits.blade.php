@@ -131,7 +131,7 @@
                                             @foreach ($mesProduits as $index => $product)
                                                     <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                         @include(
-                                                            'frontend.default.pages.partials.products.vertical-product-card',
+                                                            'frontend.default.pages.partials.products.vertical-product-card-mesproduits',
                                                             [
                                                                 'product' => $product,
                                                                 'bgClass' => 'bg-white',

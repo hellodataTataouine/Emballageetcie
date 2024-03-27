@@ -134,7 +134,7 @@ public function verifyClient(Request $request, $CODETIERS)
                    }
                }
            }
-   
+   //dd($user);
            // Check if postal_code exists in the API response
            if (isset($data['postal_code'])) {
                $user->postal_code = $data['postal_code'];
@@ -146,7 +146,10 @@ public function verifyClient(Request $request, $CODETIERS)
                // Store address in user_addresses table
                $this->storeUserAddress($user, $data['address']);
            }
-   
+           if (isset($data['IDClient'])) {
+            $user->IdClientApi = $data['IDClient'];
+            $user->save();
+        }
            return $user;
        }
    
