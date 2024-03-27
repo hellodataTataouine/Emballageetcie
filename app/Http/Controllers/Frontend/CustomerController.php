@@ -13,7 +13,7 @@ use App\Models\OrderItem;
 use App\Models\ProductVariation;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
-
+use Illuminate\Support\Facades\Http;
 
 
 class CustomerController extends Controller
@@ -40,34 +40,32 @@ class CustomerController extends Controller
         return getView('pages.users.dashboard');
     }
 
-
     public function mesProduits()
-    {
-        $user = auth()->user();
-    
-        $orderIds = $user->orders()->pluck('id')->toArray();
-    
-        $productVariationIds = OrderItem::whereIn('order_id', $orderIds)
-            ->pluck('product_variation_id')
-            ->toArray();
-    
-        $productIds = ProductVariation::whereIn('id', $productVariationIds)
-            ->pluck('product_id')
-            ->toArray();
-    
-        $mesProduits = Product::whereIn('id', $productIds)->get();   
-        //dd($mesProduits);
+{
+    $user = auth()->user();
+    $mesProduits = collect(); 
 
-        $perPage = 12;
-        $page = request()->get('page', 1);
-        $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);
-    
-        $mesProduits = new LengthAwarePaginator($mesProduits, $mesProduits->count(), $perPage, $page);
-    
-        return getView('pages.users.mesProduits', compact('mesProduits'));
-    }
-    
-    
+    // Fetch all products from the API
+    $apiUrl = env('API_CATEGORIES_URL');
+    $IdClientApi = $user->IdClientApi;
+
+    $response = Http::get($apiUrl . 'GetProduitParIdClient/' . $IdClientApi);
+    $produitsApi = $response->json();
+
+    // Filter products where 'MyPhoto' is not empty
+    $mesProduits = collect(array_filter($produitsApi, function($produit) {
+        return !empty($produit['MyPhoto']);
+    }));
+
+    // Pagination
+    $perPage = 12;
+    $page = request()->get('page', 1);
+    $mesProduits = $mesProduits->slice(($page - 1) * $perPage, $perPage);
+    $mesProduits = new LengthAwarePaginator($mesProduits, count($mesProduits), $perPage, $page);
+
+    return getView('pages.users.mesProduits', compact('mesProduits'));
+}
+
 
 
     # customer's order history
