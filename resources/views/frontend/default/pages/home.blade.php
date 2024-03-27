@@ -12,6 +12,9 @@
     <!--category section start-->
     @include('frontend.default.pages.partials.home.category')
     <!--category section end-->
+     <!--metier section start-->
+     @include('frontend.default.pages.partials.home.metiers')
+    <!--metier section end-->
 
     <!--featured products start-->
     @include('frontend.default.pages.partials.home.featuredProducts')
@@ -26,7 +29,7 @@
     <!--banner section end-->
 
     <!--banner section start-->
-    @include('frontend.default.pages.partials.home.bestDeals')
+    <!-- @include('frontend.default.pages.partials.home.bestDeals') -->
     <!--banner section end-->
 
     <!--banner 2 section start-->
@@ -34,7 +37,7 @@
     <!--banner 2 section end-->
 
     <!--feedback section start-->
-    @include('frontend.default.pages.partials.home.feedback')
+    <!-- @include('frontend.default.pages.partials.home.feedback') -->
     <!--feedback section end-->
 
 

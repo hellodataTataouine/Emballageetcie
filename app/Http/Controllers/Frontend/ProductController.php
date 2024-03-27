@@ -251,7 +251,7 @@ class ProductController extends Controller
         
 
         // if ($request->search != null  || $request->tag_id != null || $selectedCategoryId != null || request()->route()->getName() === 'customers.mesProduits' ){
-        // $visibleProducts = $virtualProducts->where('afficher', 1);
+// $visibleProducts = $virtualProducts->where('afficher', 1);
         // }else{
         //     $visibleProducts = $virtualProducts->filter(function ($product) {
         //     return $product->parents()->count() > 0;
