@@ -12,7 +12,6 @@ use App\Models\Coupon;
 use App\Models\CouponUsage;
 use App\Models\Currency;
 use App\Models\LogisticZone;
-use App\Models\Logistic;
 use App\Models\LogisticZoneCity;
 use App\Models\Order;
 use App\Models\OrderGroup;
@@ -94,7 +93,6 @@ class CheckoutController extends Controller
                 
                 $product = $cart->product_variation->product;
 
-
                 $apiUrl = env('API_CATEGORIES_URL');
         
                 if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -127,8 +125,8 @@ class CheckoutController extends Controller
 
 
                 if($product->max_purchase_qty >= $cart->qty && $cart->qty >= $product->min_purchase_qty){
-                    $productVariationStock = $product->stock_qty ;
-                   if ($cart->qty > $productVariationStock) {
+                    $productVariationStock =  $product->stock_qty ;
+                    if ($cart->qty > $productVariationStock) {
                         $message = $cart->product_variation->product->collectLocalization('name') . ' ' . localize('Est en rupture de stoc');
                         flash($message)->error();
                         return back();
@@ -160,10 +158,8 @@ class CheckoutController extends Controller
                 # [done->codes below] increase coupon usage counter after successful order
             }
             $logisticZone = LogisticZone::where('id', $request->chosen_logistic_zone_id)->first();
-            $logistic = Logistic::find((int)$logisticZone->logistic_id);
-            $shippingAmount     = $logistic->price;
             # todo::[for eCommerce] handle exceptions for standard & express
-            $orderGroup->total_shipping_cost                = $shippingAmount;
+            $orderGroup->total_shipping_cost                = $logisticZone->standard_delivery_charge;
 
             // to convert input price to base price
             if (Session::has('currency_code')) {
@@ -216,52 +212,51 @@ class CheckoutController extends Controller
 
             # order items
             $total_points = 0;
-//Post Client to get code tier 
-
-$apiEndpoint = env('API_CATEGORIES_URL');
-$sCodeTiers = auth()->user()->codetiers;
-if($sCodeTiers == null){
-    $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
-
-$Client = [
-    "Adresse" => $UserAddress->address ?? '',
-    "CodePostal" => auth()->user()->postal_code ?? '',
-    "Ville" => $UserAddress->city->name ?? '',
-    "Mobile "=> $request->phone ?? '',
-     "RIB" => 0, 
-     "Société" => auth()->user()->name,
-      "NTVA" => auth()->user()->NTVA ?? '000000',
-      "IDSecteurs"=> 0,
-       "IDCHAUFFEURS"=> 0, 
-       "EMail" => auth()->user()->email, 
-       "Portable"=>$request->phone ?? '',
-];
-$ClientApiPost = Http::post("$apiEndpoint/Client", $Client);
-if ($ClientApiPost->successful()) {
-    $ClientApiPostData = $ClientApiPost->json();
-   
-    $sCodeTiers = $ClientApiPostData['CODETIERS'];
-    //dd(auth()->user());
-    $user = User::find(auth()->user()->id);
-    $user->codetiers =$sCodeTiers;
-$user->save();
-  // Wait until codetiers is updated or maximum retries reached
-  $maxRetries = 100; // Adjust as needed
-  $retryCount = 0;
-  while ($user->codetiers == null && $retryCount < $maxRetries) {
-      sleep(1); // Adjust the sleep time as needed
-      $user = User::find(auth()->user()->id);
-      $retryCount++;
-  }
-}
 
 
-}    
-$sCodeTiers =$user->codetiers;
-if($sCodeTiers != null){   
-           // $apiUrl = env('API_CATEGORIES_URL');
-           
-           
+            $apiEndpoint = env('API_CATEGORIES_URL');
+            $sCodeTiers = auth()->user()->CODETIERS;
+
+            if($sCodeTiers == null){
+                $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
+            
+            $Client = [
+                "Adresse" => $UserAddress->address ?? '',
+                "CodePostal" => auth()->user()->postal_code ?? '',
+                "Ville" => $UserAddress->city->name ?? '',
+                "Mobile "=> $request->phone ?? '',
+                 "RIB" => 0, 
+                 "Société" => auth()->user()->name,
+                  "NTVA" => auth()->user()->NTVA ?? '000000',
+                  "IDSecteurs"=> 0,
+                   "IDCHAUFFEURS"=> 0, 
+                   "EMail" => auth()->user()->email, 
+                   "Portable"=>$request->phone ?? '',
+            ];
+            $ClientApiPost = Http::post("$apiEndpoint/Client", $Client);
+            if ($ClientApiPost->successful()) {
+                $ClientApiPostData = $ClientApiPost->json();
+               
+                $sCodeTiers = $ClientApiPostData['CODETIERS'];
+                //dd(auth()->user());
+                $user = User::find(auth()->user()->id);
+                $user->codetiers =$sCodeTiers;
+            $user->save();
+              // Wait until codetiers is updated or maximum retries reached
+              $maxRetries = 100; // Adjust as needed
+              $retryCount = 0;
+              while ($user->codetiers == null && $retryCount < $maxRetries) {
+                  sleep(1); // Adjust the sleep time as needed
+                  $user = User::find(auth()->user()->id);
+                  $retryCount++;
+              }
+            }
+            
+            
+            }
+            $sCodeTiers =$user->codetiers;
+            if($sCodeTiers != null){   
+
             $rTotalHT = $orderGroup->sub_total_amount;
             $RtotalTTC = $orderGroup->grand_total_amount;
             
@@ -273,13 +268,10 @@ if($sCodeTiers != null){
                 ->where('location_id', $stockLocationId);
             
             $carts = $cartsQuery->get();
-            $poidsnet = 0; //
-            foreach ($carts as $cartItem) {
-                $poidsnet += $cartItem->product_poids; // Accumulate the product_poids for each cart.
-            }
+            
+            
             $mainOrderApiData = [
                 "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
-                "PoidNet" => $poidsnet ,
             ];
             
             // Document API request
@@ -313,9 +305,7 @@ if($sCodeTiers != null){
                         $slug = $product->slug;
                         $barcode = strpos($slug, '-') !== false ? substr($slug, 0, strpos($slug, '-')) : $slug;
                     } else {
-                        flash(localize('Veuillez reéssayer '))->error();
-               
-                        return redirect()->back();
+                    
                     }
             
                     $apiLineData = [
@@ -330,7 +320,6 @@ if($sCodeTiers != null){
                         "totaletva"       => $cart->total_tax,
                         "IDProduit"        => $cart->product_variation->product->id,
                         "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
-                        "PoidNet"  => $cart->product_poids,
                     ];
 
                   //  dd( $apiLineData);
@@ -343,9 +332,7 @@ if($sCodeTiers != null){
                     if ($apiLineResponse->successful()) {
                        
                     } else {
-                        flash(localize('Veuillez reéssayer '))->error();
-               
-                        return redirect()->back();  
+                        
                     }
             
                     
@@ -399,7 +386,9 @@ if($sCodeTiers != null){
                     "Référence"        => "",
                     "LibProd" => "Moy Paiement  " . $request->payment_method . "\n" . "NonPayé" ,
 
-                    "Quantité"         => 1,  
+                    "Quantité"         => 1,
+                    
+                    
                     "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
                 ];
 
@@ -412,12 +401,7 @@ if($sCodeTiers != null){
 
 
             } else {
-                
-                flash(localize('Veuillez reéssayer '))->error();
-               
-                return redirect()->back();
-               
-                //dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
+                dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
             
             
@@ -461,7 +445,9 @@ if($sCodeTiers != null){
             $orderGroup->save();
 
 
-            if ($request->payment_method != "cod" && $request->payment_method != "wallet" && $request->payment_method != "vir" ) {
+
+
+            if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
                 $request->session()->put('payment_type', 'order_payment');
                 $request->session()->put('order_code', $orderGroup->order_code);
                 $request->session()->put('payment_method', $request->payment_method);
@@ -492,7 +478,7 @@ if($sCodeTiers != null){
             return redirect()->back();
             //Console.log(auth()->user()->CODETIERS);
         }
-    }
+        }
 
         flash(localize('Votre panier est vide'))->error();
         return back();
