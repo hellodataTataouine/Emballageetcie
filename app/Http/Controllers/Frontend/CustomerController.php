@@ -25,11 +25,34 @@ class CustomerController extends Controller
     public function extraitDeCompte()
     {
 
-        return getView('pages.users.extraitDeCompte');
-    } 
+        $user = auth()->user();
+
+        $apiUrl = env('API_CATEGORIES_URL');
+        $IdClientApi = $user->IdClientApi;
+    
+        $response = Http::get($apiUrl . 'ExtraitDeCompte/' . $IdClientApi);
+        $extraits = $response->json();
+// Calculate total debit and credit amounts
+$totalDebit = collect($extraits)->sum('Debit');
+$totalCredit = collect($extraits)->sum('Credit');
+
+// Pass data to the view
+return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 'totalCredit'));
+}
+
+
+
+
+
+     
 
     public function extraitDetail()
     {
+
+
+
+
+
         return getView('pages.users.extraitDetail'); 
     }
 
