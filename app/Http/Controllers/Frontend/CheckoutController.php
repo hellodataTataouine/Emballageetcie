@@ -26,7 +26,7 @@ use Session;
 use Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-
+use App\Models\UserAddress;
 
 
 class CheckoutController extends Controller
