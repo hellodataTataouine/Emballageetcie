@@ -179,7 +179,7 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
     $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
 
 
-    $mesProduits = new LengthAwarePaginator($slicedProducts, count($slicedProducts),paginationNumber($per_page), $currentPage);
+    $mesProduits = new LengthAwarePaginator($slicedProducts, count($virtualProducts),paginationNumber($per_page), $currentPage);
 //dd($mesProduits);
     return getView('pages.users.mesProduits', compact('mesProduits'));
 }
