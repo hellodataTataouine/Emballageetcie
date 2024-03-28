@@ -118,6 +118,9 @@
                                         </div>
                                         <!-- choose media -->
                                     </div>
+                                    <div>    
+                                        <label class="form-label">{{ localize("Taille d'image conseillée : 652px*312px.") }}</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

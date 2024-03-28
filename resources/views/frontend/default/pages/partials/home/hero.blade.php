@@ -1,6 +1,8 @@
 <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Package.png') }}" alt="Package"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 77.png') }}" alt="Photo 77"
         class="position-absolute leaf-shape z--1 rounded-circle d-none d-lg-inline">
+        <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 137.png') }}" alt="Photo 137"
+        class="position-absolute z--1 garlic vector-shape">
     <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 2.png') }}" alt="Lunchbox 2"
         class="position-absolute mango z--1" data-parallax='{"y": -120}'> -->
 
@@ -34,9 +36,7 @@
                             <div class="col-xl-6 col-lg-5">
                                 <div class="hero-right text-center position-relative z-1 mt-6 mt-xl-0">
 
-                                    <img src="{{ uploadedAsset($slider->image) }}" alt=""
-                                        class="img-fluid position-absolute end-0 top-50 hero-img">
-
+                                    
                                     <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-lg.png') }}"
                                         alt="circle shape" class="img-fluid hero-circle">
                                 </div>

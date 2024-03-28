@@ -17,9 +17,11 @@
                         $productsCount = \App\Models\ProductCategory::where('category_id', $category->id)->count();
                     @endphp
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
+                        <a href="{{ route('products.index') }}?&category_id={{ $category->id }}">
                         <div
                             class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden {{ $loop->even ? 'color-2' : '' }}">
-                            <div
+                           
+                            <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"> <div
                                 class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
                                 <img src="{{ uploadedAsset($category->collectLocalization('thumbnail_image')) }}"
                                     alt="" class="img-fluid">
@@ -27,13 +29,12 @@
 
                             <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
                                 class="text-dark fs-sm fw-bold d-block mt-3">{{ $category->collectLocalization('name') }}</a>
-                            <span
-                                class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">{{ $productsCount }}
-                                {{ localize('Articles') }}</span>
+                       
 
                             <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
                                 class="explore-btn position-absolute"><i class="fa-solid fa-arrow-up"></i></a>
                         </div>
+                    </a>
                     </div>
                 @endforeach
             </div>

@@ -6,7 +6,7 @@
 <footer class="gshop-footer position-relative pt-8 bg-dark z-1 overflow-hidden">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Bag.png') }}" alt="Bag"
         class="position-absolute z--1 tomato vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 3.png') }}" alt="Lunchbox 3"
+        <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 31.png') }}" alt="Photo 31"
         class="position-absolute z--1 pata-lg vector-shape">
     <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/pata-xs.svg') }}" alt="pata"
         class="position-absolute z--1 pata-xs vector-shape"> -->
@@ -15,11 +15,11 @@
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/recycle.png') }}" alt="recycle"
         class="position-absolute z--1 leaf vector-shape">
     <!--shape right -->
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Spoons 1.png') }}" alt="Plastic Spoons"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 612.png') }}" alt="Photo 612"
         class="position-absolute leaf-2 z--1 vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/cocacola.png') }}" alt="cocacola"
+        <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 56.png') }}" alt="Photo 56"
         class="position-absolute pata-xs-2 z--1 vector-shape">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Plastic Cup.png') }}" alt="Plastic Cup"
+        <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 41.png') }}" alt="Photo 41"
         class="position-absolute tomato-slice vector-shape z--1">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/Kit-couvert-4-en-1.png') }}" alt="Kit-couvert-4-en-1"
         class="position-absolute tomato-half z--1 vector-shape">

@@ -1,7 +1,7 @@
 <section class="featured-products pt-120 pb-200 bg-shade position-relative overflow-hidden z-1">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 1.png') }}" alt="Lunchbox 1"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 1ph.png') }}" alt="Lunchbox 1"
         class="position-absolute roll-1 z--1" data-parallax='{"y": -120}'>
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox.png') }}" alt="Lunchbox"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 21.png') }}" alt="Lunchbox"
         class="position-absolute roll-2 z--1" data-parallax='{"y": 120}'>
     <div class="container">
         <div class="row justify-content-center">

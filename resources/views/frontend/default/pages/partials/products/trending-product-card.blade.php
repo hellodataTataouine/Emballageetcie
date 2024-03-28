@@ -12,7 +12,7 @@
 
     <div class="thumbnail position-relative text-center p-4">
         <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
-            class="img-fluid">
+            class="img-fluid ptoducts-image">
         <div class="product-btns position-absolute d-flex gap-2 flex-column">
 
             @if (Auth::check() && Auth::user()->user_type == 'customer')
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="card-content">
+    <div class="card-content ">
         @if (getSetting('enable_reward_points') == 1)
             <span class="fs-xxs fw-bold" data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-title="{{ localize('Reward Points') }}">

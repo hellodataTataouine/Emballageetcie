@@ -12,6 +12,12 @@
     <!--category section start-->
     @include('frontend.default.pages.partials.home.category')
     <!--category section end-->
+
+ <!--products listing start-->
+ @include('frontend.default.pages.partials.home.products') 
+ <!--products listing end-->
+
+
      <!--metier section start-->
      @include('frontend.default.pages.partials.home.metiers')
     <!--metier section end-->
@@ -41,9 +47,7 @@
     <!--feedback section end-->
 
 
-    <!--products listing start-->
-   @include('frontend.default.pages.partials.home.products') 
-    <!--products listing end-->
+  
 
     @if (getSetting('enable_custom_product_section') == 1)
         <!-- start -->
