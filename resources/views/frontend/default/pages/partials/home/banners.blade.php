@@ -1,4 +1,4 @@
-<section class="banner-section position-relative z-1 overflow-hidden bg-gray">
+<section class="banner-section position-relative z-1 overflow-hidden bg-shade">
     <img src="{{ staticAsset('frontend/default/assets/img/shapes/bg-shape-3.png') }}" alt="bg shape"
         class="position-absolute start-0 bottom-0 z--1 w-100">
     <div class="container">
