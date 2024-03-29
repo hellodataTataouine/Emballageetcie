@@ -19281,7 +19281,7 @@ fieldset:disabled .btn {
 }
 .bg-gray {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-gray-rgb), var(--bs-bg-opacity)) !important;
+    background-color:#64748b12 !important;
 }
 .bg-black {
     --bs-bg-opacity: 1;

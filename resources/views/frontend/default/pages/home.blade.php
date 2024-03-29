@@ -24,9 +24,9 @@
 
 
      <!--metier section start-->
-     <div class="section">
+     
      @include('frontend.default.pages.partials.home.metiers')
-    </div>
+  
     <!--metier section end-->
 
 
@@ -64,9 +64,8 @@
         <!-- end -->
     @endif
 
-    <!--blog section start-->
-    @include('frontend.default.pages.partials.home.blogs', ['blogs' => $blogs])
-    <!--blog section end-->
+    
+    
 @endsection
 
 @section('scripts')

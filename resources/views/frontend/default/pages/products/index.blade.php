@@ -31,13 +31,12 @@
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
 
-    <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" >
+    <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" style="padding-left: 100px; >
         <!--shop grid section start-->
-        <section class="gshop-gshop-grid ptb-120">
+        <section class="gshop-gshop-grid ptb-120" >
             <div class="col-xl-11">
                 <div class="row g-4">
                   
-
                     <div class="col-xl-2">
                         <div class="d-none d-xl-block">
                             @include('frontend.default.pages.products.inc.productSidebar')
