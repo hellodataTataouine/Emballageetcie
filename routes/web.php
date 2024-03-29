@@ -130,7 +130,7 @@ Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned
      
     # Extrait de Compte
     Route::get('/extrait-de-compte', [CustomerController::class, 'extraitDeCompte'])->name('customers.extraitDeCompte');
-    Route::get('/extrait-detail', [CustomerController::class, 'extraitDetail'])->name('customers.extraitDetail');
+    Route::get('/extrait-detail/{iddoc}', [CustomerController::class, 'extraitDetail'])->name('customers.extraitDetail');
 
     Route::get('/mes-produits', [CustomerController::class, 'mesProduits'])->name('customers.mesProduits');
 

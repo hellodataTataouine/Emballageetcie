@@ -46,14 +46,29 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
      
 
-    public function extraitDetail()
+    public function extraitDetail($iddoc)
     {
 
 
+        $apiUrl = env('API_CATEGORIES_URL');
+        
+    
+        $response = Http::get($apiUrl . 'GetLigneDocByIdDoc/' . $iddoc);
+        if ($response->successful()) {
+            $extraitsDetails = $response->json();
+            $totalHT = collect($extraitsDetails)->sum('TotaleHT');
+            $totalTVA = collect($extraitsDetails)->sum('totaletva');
+            $totalTTC= collect($extraitsDetails)->sum('PRIX_details');
+            return getView('pages.users.extraitDetail',compact('extraitsDetails','totalHT','totalTVA','totalTTC')); 
+                       
+        } else {
+            flash(localize('Veuillez reéssayer '))->error();
+           
+            return redirect()->back();  
+        }
 
 
-
-        return getView('pages.users.extraitDetail'); 
+       
     }
 
 

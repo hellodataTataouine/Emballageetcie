@@ -34,19 +34,50 @@
                 <span class="my-6 w-100 d-block border-top"></span>
                 <div class="table-responsive mt-6">
                     <table class="table invoice-table">
-                        <tr>
-                            <th>{{ localize('S/L') }}</th>
-                            <th>{{ localize('Produits') }}</th>
-                            <th>{{ localize('Prix unitaire') }}</th>
-                            <th>{{ localize('Qte') }}</th>
-                            <th>{{ localize('Prix total') }}</th>
-                            @if (getSetting('enable_refund_system') == 1)
-                                <th>{{ localize('Remboursement') }}</th>
-                            @endif
-                        </tr>
-                       
-                    </table>
+                    <thead>
+            <tr>
+                <th>{{ localize('S/L') }}</th>
+                <th>{{ localize('Produits') }}</th>
+                <th>{{ localize('Qte') }}</th>
+               
+                <th>{{ localize('Prix HT') }}</th>
+                <th>{{ localize('Prix TVA') }}</th>
+                <th>{{ localize('Prix TTC') }}</th>
+                @if (getSetting('enable_refund_system') == 1)
+                    <th>{{ localize('Remboursement') }}</th>
+                @endif
+            </tr>
+        </thead>
+        <tbody>
+            @php $index = 1; @endphp
+            @foreach($extraitsDetails as $detail)
+                <tr>
+                    <td>{{ $index++ }}</td>
+                    <td>{{ $detail['LibProd'] }}</td>
+                    <td>{{ $detail['Quantité'] }}</td>
+                   
+                    <td>{{ $detail['TotaleHT'] }}</td>
+                    <td>{{ $detail['totaletva'] }}</td>
+                    <td>{{ $detail['PRIX_details'] }}</td>
+                    @if (getSetting('enable_refund_system') == 1)
+                        <td>{{ $detail['Remboursement'] }}</td>
+                    @endif
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+
                 </div>
+                  <div class="text-end">
+                            <div class="card d-inline-block p-3 mb-4">
+                                <div class="font-weight-bold">
+                                    <p class="mb-1">{{ localize('Total HT: ') }} <span class="text-success">{{ $totalHT }}</span></p>
+                                    <p class="mb-1">{{ localize('Total TVA: ') }} <span class="text-success">{{ $totalTVA }}</span></p>
+                                    <p>{{ localize('Total TTC: ') }} <span class="text-success">{{ $totalTTC }}</span></p>
+                                </div>
+                            </div>
+                        </div> 
                 <div class="mt-4 table-responsive">
                     <table class="table footer-table">
                         
