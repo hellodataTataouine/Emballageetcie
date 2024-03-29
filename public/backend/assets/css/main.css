@@ -731,9 +731,7 @@ progress {
     height: auto;
 }
 .product-image {
-    width: 400px; /* Largeur désirée pour toutes les images */
-    height: 400px; /* Hauteur désirée pour toutes les images */
-    object-fit: cover; /* Redimensionne l'image en conservant son ratio pour remplir le conteneur */
+    height: 200px; /* Set a consistent height for your images */
 }
 .img-thumbnail {
     padding: 0.25rem;

@@ -10,17 +10,25 @@
     <!--hero section end-->
 
     <!--category section start-->
+    <div class="section">
     @include('frontend.default.pages.partials.home.category')
+    </div>
     <!--category section end-->
 
- <!--products listing start-->
- @include('frontend.default.pages.partials.home.products') 
- <!--products listing end-->
+    
+ <!--banner section start-->
+ <div class="section">
+ @include('frontend.default.pages.partials.home.banners')
+</div>
+ <!--banner section end-->
 
 
      <!--metier section start-->
+     <div class="section">
      @include('frontend.default.pages.partials.home.metiers')
+    </div>
     <!--metier section end-->
+
 
     <!--featured products start-->
     @include('frontend.default.pages.partials.home.featuredProducts')
@@ -30,9 +38,7 @@
     @include('frontend.default.pages.partials.home.trendingProducts')
     <!--trending products end-->
 
-    <!--banner section start-->
-    @include('frontend.default.pages.partials.home.banners')
-    <!--banner section end-->
+  
 
     <!--banner section start-->
     <!-- @include('frontend.default.pages.partials.home.bestDeals') -->
@@ -46,7 +52,10 @@
     <!-- @include('frontend.default.pages.partials.home.feedback') -->
     <!--feedback section end-->
 
-
+  <!--products listing start-->
+  @include('frontend.default.pages.partials.home.products') 
+  <!--products listing end-->
+     
   
 
     @if (getSetting('enable_custom_product_section') == 1)

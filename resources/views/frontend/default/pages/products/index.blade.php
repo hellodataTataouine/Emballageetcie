@@ -31,13 +31,14 @@
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
 
-    <form class="filter-form " action="{{ Request::fullUrl() }}" method="GET"  style="padding-left: 100px;">
+    <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" >
         <!--shop grid section start-->
         <section class="gshop-gshop-grid ptb-120">
             <div class="col-xl-11">
                 <div class="row g-4">
+                  
 
-                    <div class="col-xl-3">
+                    <div class="col-xl-2">
                         <div class="d-none d-xl-block">
                             @include('frontend.default.pages.products.inc.productSidebar')
                         </div>
@@ -57,11 +58,12 @@
 
                             </div>
                         </div>
-                    </div>
+                     </div>
+                  
 
                     <!--rightbar-->
-                    <div class="col-xl-9">
-                        <div class="shop-grid">
+                    <div class="col-xl-10">
+                        <div class="shop-grid" >
                             <!--filter-->
                             <div
                                 class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-4 mb-5">
@@ -159,6 +161,7 @@
                                         @endforeach
                                     @else
                                         <div class="row">
+                                            <div class="produit">
                                             @foreach ($products as $index => $product )
                                                 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                                         @include(
@@ -169,10 +172,11 @@
                                                             ]
                                                         )
                                                     </div>
-                                                    @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
+                                                      <!-- @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
                                                         <div class="w-100"></div>
-                                                    @endif
+                                                    @endif-->
                                             @endforeach
+                                        </div>
                                         </div>
                                     @endif
                                 @else
