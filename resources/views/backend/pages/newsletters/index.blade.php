@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="row g-4">
+            <div class="vertical-product-card rounded-2 position-relative swiper-slide bg-white" style="padding-left: 90%; padding-right: 40%;" >
                 <!--left sidebar-->
                 <div class="col-xl-9 order-2 order-md-2 order-lg-2 order-xl-1">
                     <form action="{{ route('admin.newsletters.send') }}" method="POST" enctype="multipart/form-data"
