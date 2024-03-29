@@ -10549,7 +10549,19 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
-.row > * {
+.produit {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+.row > .produit {
     -ms-flex-negative: 0;
     flex-shrink: 0;
     width: 100%;
@@ -10557,6 +10569,7 @@ progress {
     padding-right: calc(var(--bs-gutter-x) * 0.5);
     padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-top: var(--bs-gutter-y);
+    --bs-gutter-x: -1.5rem;
 }
 .col {
     -webkit-box-flex: 1;
@@ -19064,7 +19077,7 @@ fieldset:disabled .btn {
     font-weight: 700 !important;
 }
 .fw-semibold {
-    font-weight: 600 !important;
+    font-weight: 300 !important;
 }
 .fw-bolder {
     font-weight: 800 !important;
@@ -19144,7 +19157,7 @@ fieldset:disabled .btn {
 }
 .text-danger {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+    color: #64748bb5 !important;
 }
 .text-light {
     --bs-text-opacity: 1;
@@ -24813,6 +24826,7 @@ body {
     color: #191d28;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    font-size: 11px;
 }
 .vertical-product-card .card-content .card-title:hover {
     color: #ff7c08;
@@ -28252,3 +28266,25 @@ blockquote::before {
         border-radius: 4px;
     }
 }
+ @media  (max-width: 767px) {
+        .row > .produit {
+            grid-template-columns: repeat(2,1fr);
+            display: grid;
+            --bs-gutter-x: -1.5rem;
+        }
+       
+      }
+    
+     
+ @media  (max-width: 700px) {
+        .row  .produit {
+            grid-template-columns: repeat(2,1fr);
+            display: grid;
+            --bs-gutter-x: -1.5rem;
+        }
+       
+      }
+      
+      .section {
+        margin-bottom: 50px; /* Vous pouvez ajuster la valeur selon l'espace souhaité */
+    }
