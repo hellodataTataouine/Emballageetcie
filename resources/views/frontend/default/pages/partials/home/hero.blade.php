@@ -36,6 +36,8 @@
                             <div class="col-xl-6 col-lg-5">
                                 <div class="hero-right text-center position-relative z-1 mt-6 mt-xl-0">
 
+                                <img src="{{ uploadedAsset($slider->image) }}" alt=""
+                                        class="img-fluid position-absolute end-0 top-50 hero-img">
                                     
                                     <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-lg.png') }}"
                                         alt="circle shape" class="img-fluid hero-circle">
