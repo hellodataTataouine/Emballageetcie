@@ -31,7 +31,7 @@
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
 
-    <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" style="padding-left: 100px; >
+    <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" style="padding-left: 100px;" >
         <!--shop grid section start-->
         <section class="gshop-gshop-grid ptb-120" >
             <div class="col-xl-11">
@@ -173,7 +173,7 @@
                                                     </div>
                                                       <!-- @if (($index + 1) % 4 === 0 && $index + 1 !== count($products))
                                                         <div class="w-100"></div>
-                                                    @endif-->
+                                                      @endif-->
                                             @endforeach
                                         </div>
                                         </div>

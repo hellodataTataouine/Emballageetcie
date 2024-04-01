@@ -51,3 +51,43 @@
         }
     }
 </script>
+<script>
+             
+    var url = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?3904';
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = url;
+    var options = {
+    "enabled":true,
+    "chatButtonSetting":{
+        "backgroundColor":"#00e785",
+        "ctaText":"Bonjour!",
+        "borderRadius":"25",
+        "marginLeft": "17",
+        "marginRight": "20",
+        "marginBottom": "70",
+        "ctaIconWATI":false,
+        "position":"left"
+    },
+    "brandSetting":{
+        "brandName":"emballage_et_cie",
+        "brandSubTitle":"undefined",
+        "brandImg":"",
+        "welcomeText":"Comment pouvons-nous vous aider?",
+        "messageText":"",
+        "backgroundColor":"#00e785",
+        "ctaText":"Bonjour!",
+        "borderRadius":"25",
+        "autoShow":false,
+        "phoneNumber":"33617289806"
+    }
+    };
+    s.onload = function() {
+        CreateWhatsappChatWidget(options);
+    };
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+
+</script>
+

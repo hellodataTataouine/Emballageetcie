@@ -14,45 +14,31 @@
     @include('frontend.default.pages.partials.home.category')
     </div>
     <!--category section end-->
-
-    
- <!--banner section start-->
- <div class="section">
+<!--banner section start-->
+ <div class="section bg-shape">
  @include('frontend.default.pages.partials.home.banners')
 </div>
  <!--banner section end-->
-
-
-     <!--metier section start-->
-     
-     @include('frontend.default.pages.partials.home.metiers')
-  
-    <!--metier section end-->
-
-
-    <!--featured products start-->
+ <!--metier section start-->
+      @include('frontend.default.pages.partials.home.metiers')
+  <!--metier section end-->
+ <!--featured products start-->
     @include('frontend.default.pages.partials.home.featuredProducts')
     <!--featured products end-->
-
-    <!--trending products start-->
+<!--trending products start-->
     @include('frontend.default.pages.partials.home.trendingProducts')
     <!--trending products end-->
-
-  
-
-    <!--banner section start-->
+<!--banner section start-->
     <!-- @include('frontend.default.pages.partials.home.bestDeals') -->
     <!--banner section end-->
-
-    <!--banner 2 section start-->
+<!--banner 2 section start-->
     @include('frontend.default.pages.partials.home.bannersTwo')
     <!--banner 2 section end-->
-
-    <!--feedback section start-->
+<!--feedback section start-->
     <!-- @include('frontend.default.pages.partials.home.feedback') -->
     <!--feedback section end-->
 
-  <!--products listing start-->
+<!--products listing start-->
   @include('frontend.default.pages.partials.home.products') 
   <!--products listing end-->
      
@@ -64,7 +50,9 @@
         <!-- end -->
     @endif
 
-    
+<!--blog section start-->
+@include('frontend.default.pages.partials.home.blogs', ['blogs' => $blogs])
+ <!--blog section end-->
     
 @endsection
 
