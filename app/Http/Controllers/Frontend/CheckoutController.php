@@ -301,7 +301,7 @@ $FullOrder =[];
           
                
               //  $idDocument = $mainOrderResponseData['IDDocument'];
-            
+              $idDocument = 0;
             
                 foreach ($carts as $cart) {
 
@@ -354,7 +354,7 @@ $FullOrder =[];
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
                            
                            
-                            "IDProduit"        => $cart->product_variation->product->id,
+                          
                             
                         ];
                         array_push($FullOrder, $apiLineDatafull); 
@@ -409,8 +409,9 @@ $FullOrder =[];
                 //Refis Younes
              
                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
+               
                 if ($fullLink->successful()) {
-                       
+                      
                 } else {
                    // dd($fullLink);
                    flash(localize('Veuillez reéssayer '))->error();
@@ -418,7 +419,7 @@ $FullOrder =[];
                     return redirect()->back();  
                 }
 
-
+             
              /*   $apiLineData1 = [
                     "IDDocument"      => $idDocument,
                     "Référence"        => "",
