@@ -27,7 +27,7 @@ use Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\UserAddress;
-
+use App\Models\User;
 
 class CheckoutController extends Controller
 {
@@ -408,6 +408,21 @@ $FullOrder =[];
             
                     $cart->delete();
                 }
+
+
+ //Now let send  the request 
+                //Refis Younes
+             
+                $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
+                if ($fullLink->successful()) {
+                       
+                } else {
+                    flash(localize('Veuillez reéssayer '))->error();
+           
+                    return redirect()->back();  
+                }
+
+
              /*   $apiLineData1 = [
                     "IDDocument"      => $idDocument,
                     "Référence"        => "",
