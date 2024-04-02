@@ -251,6 +251,10 @@ class CheckoutController extends Controller
                   $retryCount++;
               }
             }
+            else{
+dd($ClientApiPost);
+
+            }
             
             
             }
