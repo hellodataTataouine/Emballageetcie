@@ -254,6 +254,31 @@ class CheckoutController extends Controller
             
             
             }
+
+
+     //Refis Younes
+//recup of data to put the link updated 
+$UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
+$clientnom =auth()->user()->name ?? '';
+$codepostal =auth()->user()->postal_code ?? '';
+$Adresse = $UserAddress->address ?? '';
+$Phone =$request->phone ?? '';
+$Ville = $UserAddress->city ?? '';
+$CodeTVA =auth()->user()->NTVA ?? '000000';
+$Payment ="Moy Paiement  " . $request->payment_method . "-" . "NonPayé" ;
+$Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
+
+$rTotalHT = $orderGroup->sub_total_amount;
+$RtotalTTC = $orderGroup->grand_total_amount;
+//this is the link to use later 
+// Now we have to put data into table to send full data now 
+//Let name it first 
+
+
+$FullOrder =[];
+
+
+
             $sCodeTiers =$user->codetiers;
             if($sCodeTiers != null){   
 
@@ -321,19 +346,34 @@ class CheckoutController extends Controller
                         "IDProduit"        => $cart->product_variation->product->id,
                         "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
                     ];
-
+  //Put data into a variant
+                          //Refis Younes
+                          $apiLineDatafull = [
+                            "IDDocument"      => $idDocument,
+                            "Référence"        => $barcode,
+                            "LibProd"          => $cart->product_variation->product->name,
+                            "Quantité"         => $cart->qty,
+                            "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
+                            
+                            "IDProduit"        => $cart->product_variation->product->id,
+                            
+                        ];
+                        array_push($FullOrder, $apiLineDatafull); 
                   //  dd( $apiLineData);
 
 
             
                     // LigneDocument API request
-                    $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
+                //    $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
             
-                    if ($apiLineResponse->successful()) {
+                  /*  if ($apiLineResponse->successful()) {
                        
                     } else {
+                          flash(localize('Veuillez reéssayer '))->error();
+               
+                        return redirect()->back(); 
                         
-                    }
+                    }*/
             
                     
             
@@ -364,7 +404,7 @@ class CheckoutController extends Controller
             
                     $cart->delete();
                 }
-                $apiLineData1 = [
+             /*   $apiLineData1 = [
                     "IDDocument"      => $idDocument,
                     "Référence"        => "",
                     "LibProd"          => "Transport Marchandise "  . $logisticZone->logistic->name . "\n" . $order->scheduled_delivery_info ,
@@ -400,7 +440,7 @@ class CheckoutController extends Controller
                 $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
 
 
-            } else {
+            */    } else {
                 dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
             }
             
@@ -447,7 +487,7 @@ class CheckoutController extends Controller
 
 
 
-            if ($request->payment_method != "cod" && $request->payment_method != "wallet") {
+            if ($request->payment_method != "cod" && $request->payment_method != "wallet" && $request->payment_method != "vir") {
                 $request->session()->put('payment_type', 'order_payment');
                 $request->session()->put('order_code', $orderGroup->order_code);
                 $request->session()->put('payment_method', $request->payment_method);
@@ -465,6 +505,15 @@ class CheckoutController extends Controller
                 $user->user_balance -= $orderGroup->grand_total_amount;
                 $user->save();
 
+                flash(localize('Votre commande a été passée avec succès.'))->success();
+                return redirect()->route('checkout.success', $orderGroup->order_code);
+            } else if ($request->payment_method == "vir") {
+              
+
+
+
+
+                
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             } else {
