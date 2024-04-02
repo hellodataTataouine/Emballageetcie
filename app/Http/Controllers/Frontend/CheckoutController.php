@@ -417,6 +417,7 @@ $FullOrder =[];
                 if ($fullLink->successful()) {
                        
                 } else {
+                    dd($fullLink);
                     flash(localize('Veuillez reéssayer '))->error();
            
                     return redirect()->back();  
