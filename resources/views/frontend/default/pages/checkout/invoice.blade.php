@@ -55,8 +55,14 @@
                                 @endphp
 
                                 <p class="mb-0">{{ localize('Type de livraison') }}:
-                                    <span
+                                @if(ucwords(str_replace('_', ' ', $order->shipping_delivery_type)) == "Regular")
+                                <span
+                                        class="badge bg-primary">Standard</span>
+                                        @else
+                                        <span
                                         class="badge bg-primary">{{ Str::title(Str::replace('_', ' ', $order->shipping_delivery_type)) }}</span>
+                                        
+                                    @endif
 
 
                                 </p>
@@ -115,7 +121,7 @@
  
                                     @foreach ($orderItems as $key => $item)
                                     @php
-                                        $product = optional($item->product_variation)->product;
+                                        $product = optional($item->productvariation)->product;
                                     @endphp
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
@@ -127,19 +133,7 @@
                                                         class="img-fluid product-item d-none">
                                                     <div class="">
                                                         <span>{{ $product->collectLocalization('name') }}</span>
-                                                        <div>
-                                                            @foreach (generateVariationOptions($item->product_variation->combinations) as $variation)
-                                                                <span class="fs-xs">
-                                                                    {{ $variation['name'] }}:
-                                                                    @foreach ($variation['values'] as $value)
-                                                                        {{ $value['name'] }}
-                                                                    @endforeach
-                                                                    @if (!$loop->last)
-                                                                        ,
-                                                                    @endif
-                                                                </span>
-                                                            @endforeach
-                                                        </div>
+                                                       
                                                     </div>
                                                 @else
                                                     <span>{{ localize('Produit') }}</span>
@@ -203,7 +197,14 @@
                             <tr>
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Moyen de paiement') }}</strong>
+                                    @if(ucwords(str_replace('_', ' ', $orderGroup->payment_method)) == "Cod")
+                                    <span> Espèce</span>
+                                    @elseif(ucwords(str_replace('_', ' ', $orderGroup->payment_method)) == "Vir")
+                                    <span> "Paiement par virement"</span>
+                                    @else
+
                                     <span> {{ ucwords(str_replace('_', ' ', $orderGroup->payment_method)) }}</span>
+                                    @endif
                                 </td>
 
                                 <td>

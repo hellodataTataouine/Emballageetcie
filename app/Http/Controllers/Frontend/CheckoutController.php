@@ -240,7 +240,7 @@ class CheckoutController extends Controller
                 $sCodeTiers = $ClientApiPostData['CODETIERS'];
                 //dd(auth()->user());
                 $user = User::find(auth()->user()->id);
-                $user->codetiers =$sCodeTiers;
+                $user->CODETIERS =$sCodeTiers;
             $user->save();
               // Wait until codetiers is updated or maximum retries reached
               $maxRetries = 100; // Adjust as needed
@@ -252,7 +252,7 @@ class CheckoutController extends Controller
               }
             }
             else{
-dd($ClientApiPost);
+
 
             }
             
@@ -264,10 +264,10 @@ dd($ClientApiPost);
 //recup of data to put the link updated 
 $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
 $clientnom =auth()->user()->name ?? '';
-$codepostal =auth()->user()->postal_code ?? '';
+$codepostal =auth()->user()->postal_code ?? '00000';
 $Adresse = $UserAddress->address ?? '';
 $Phone =$request->phone ?? '';
-$Ville = $UserAddress->city ?? '';
+$Ville = $UserAddress->city->name ?? '';
 $CodeTVA =auth()->user()->NTVA ?? '000000';
 $Payment ="Moy Paiement  " . $request->payment_method . "-" . "NonPayé" ;
 $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
@@ -283,7 +283,7 @@ $FullOrder =[];
 
 
 
-            $sCodeTiers =$user->codetiers;
+            $sCodeTiers =$user->CODETIERS;
             if($sCodeTiers != null){   
 
             $rTotalHT = $orderGroup->sub_total_amount;
@@ -334,7 +334,9 @@ $FullOrder =[];
                         $slug = $product->slug;
                         $barcode = strpos($slug, '-') !== false ? substr($slug, 0, strpos($slug, '-')) : $slug;
                     } else {
-                    
+                        flash(localize('Veuillez reéssayer '))->error();
+           
+                        return redirect()->back(); 
                     }
             
                     $apiLineData = [
@@ -417,8 +419,8 @@ $FullOrder =[];
                 if ($fullLink->successful()) {
                        
                 } else {
-                    dd($fullLink);
-                    flash(localize('Veuillez reéssayer '))->error();
+                   // dd($fullLink);
+                   flash(localize('Veuillez reéssayer '))->error();
            
                     return redirect()->back();  
                 }
@@ -461,7 +463,10 @@ $FullOrder =[];
 
 
             */    } else {
-                dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
+               // dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
+               flash(localize('Veuillez reéssayer '))->error();
+           
+               return redirect()->back(); 
             }
             
             
@@ -602,7 +607,9 @@ $FullOrder =[];
         if ($apiLineResponse->successful()) {
             // Successfully updated the status to "payé"
         } else {
-            // Handle the case where the API call fails
+            flash(localize('Veuillez reéssayer '))->error();
+           
+                    return redirect()->back(); 
         }
         clearOrderSession();
         flash(localize('Votre commande a été passée avec succès.'))->success();
