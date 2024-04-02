@@ -215,9 +215,9 @@ class CheckoutController extends Controller
 
 
             $apiEndpoint = env('API_CATEGORIES_URL');
-            $sCodeTiers = auth()->user()->CODETIERS;
+          //  $sCodeTiers = auth()->user()->CODETIERS;
 
-            if($sCodeTiers == null){
+          /*  if($sCodeTiers == null){
                 $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
             
             $Client = [
@@ -257,7 +257,7 @@ class CheckoutController extends Controller
             }
             
             
-            }
+            }*/
 
 
      //Refis Younes
@@ -283,8 +283,7 @@ $FullOrder =[];
 
 
 
-            $sCodeTiers =$user->CODETIERS;
-            if($sCodeTiers != null){   
+          
 
             $rTotalHT = $orderGroup->sub_total_amount;
             $RtotalTTC = $orderGroup->grand_total_amount;
@@ -299,16 +298,9 @@ $FullOrder =[];
             $carts = $cartsQuery->get();
             
             
-            $mainOrderApiData = [
-                "LASource" => $request->payment_method . ',' . $request->shipping_delivery_type . ',' . $logisticZone->logistic->name . ',' . $orderGroup->payment_status . ',' . $orderGroup->payment_details,
-            ];
-            
-            // Document API request
-            $mainOrderApiResponse = Http::post("$apiEndpoint/Document/$sCodeTiers/$rTotalHT/$RtotalTTC", $mainOrderApiData);
-            
-            if ($mainOrderApiResponse->successful()) {
-                $mainOrderResponseData = $mainOrderApiResponse->json();
-                $idDocument = $mainOrderResponseData['IDDocument'];
+          
+               
+              //  $idDocument = $mainOrderResponseData['IDDocument'];
             
             
                 foreach ($carts as $cart) {
@@ -339,7 +331,7 @@ $FullOrder =[];
                         return redirect()->back(); 
                     }
             
-                    $apiLineData = [
+                   /* $apiLineData = [
                         "IDDocument"      => $idDocument,
                         "Référence"        => "",
                         "LibProd"          => $cart->product_variation->product->name,
@@ -351,16 +343,17 @@ $FullOrder =[];
                         "totaletva"       => $cart->total_tax,
                         "IDProduit"        => $cart->product_variation->product->id,
                         "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
-                    ];
+                    ];*/
   //Put data into a variant
                           //Refis Younes
                           $apiLineDatafull = [
-                            "IDDocument"      => $idDocument,
+                           
                             "Référence"        => $barcode,
                             "LibProd"          => $cart->product_variation->product->name,
                             "Quantité"         => $cart->qty,
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
-                            
+                           
+                           
                             "IDProduit"        => $cart->product_variation->product->id,
                             
                         ];
@@ -462,12 +455,7 @@ $FullOrder =[];
                 $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
 
 
-            */    } else {
-               // dd('API request for Document failed', $mainOrderApiResponse->status(), $mainOrderApiResponse->body());
-               flash(localize('Veuillez reéssayer '))->error();
-           
-               return redirect()->back(); 
-            }
+            */  
             
             
 
@@ -545,13 +533,7 @@ $FullOrder =[];
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             }
-        }
-        else{
-
-            flash(localize('Veuillez reéssayer '))->error();
-            return redirect()->back();
-            //Console.log(auth()->user()->CODETIERS);
-        }
+       
         }
 
         flash(localize('Votre panier est vide'))->error();
