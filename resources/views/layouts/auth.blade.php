@@ -56,7 +56,7 @@
         @yield('contents')
 
     </div>
-
+<!--main content wrapper end-->
 
     <!-- scripts -->
     @yield('scripts')

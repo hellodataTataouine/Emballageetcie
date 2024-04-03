@@ -46,7 +46,9 @@
                                     </span>
                                     <div class="info">
                                         <span class="fw-medium text-white fs-xs">{{ localize('Numéro de téléphone') }}</span>
-                                        <h5 class="mb-0 mt-1 text-white">{{ getSetting('navbar_contact_number') }}</h5>
+                                        <h5 class="mb-0 mt-1 text-white">
+                                            <a href="tel:{{ getSetting('navbar_contact_number') }}" class="text-white">{{ getSetting('navbar_contact_number') }}</a>
+                                        </h5>
                                     </div>
                                 </li>
                                 <li class="d-flex align-items-center gap-3 flex-wrap mt-3">
@@ -57,7 +59,7 @@
                                     <div class="info">
                                         <span
                                             class="fw-medium text-white fs-xs">{{ localize('Communication générale') }}</span>
-                                        <p class="mb-0 mt-1 text-white fw-medium">{{ getSetting('topbar_email') }}</p>
+                                        <p class="mb-0 mt-1 text-white fw-medium">  <a href="mailto:{{ getSetting('topbar_email') }}">{{ getSetting('topbar_email') }}</a></p>
                                     </div>
                                 </li>
                             </ul>
@@ -66,11 +68,11 @@
                                 <div class="social-links d-flex align-items-center gap-2">
                                     <a href="{{ getSetting('facebook_link') }}"><i class="fab fa-facebook-f"></i></a>
                                     <a href="{{ getSetting('twitter_link') }}" target="_blank"><i
-                                            class="fab fa-twitter"></i></a>
+                                            class="fab fa-instagram"></i></a>
                                     <a href="{{ getSetting('linkedin_link') }}" target="_blank"><i
                                             class="fab fa-linkedin"></i></a>
                                     <a href="{{ getSetting('youtube_link') }}" target="_blank"><i
-                                            class="fab fa-youtube"></i></a>
+                                            class="fab fa-tiktok"></i></a>
                                 </div>
                             </div>
                         </div>

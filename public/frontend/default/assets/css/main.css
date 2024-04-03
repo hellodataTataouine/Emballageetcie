@@ -19293,7 +19293,7 @@ fieldset:disabled .btn {
 }
 .bg-gray {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-gray-rgb), var(--bs-bg-opacity)) !important;
+    background-color:#64748b12 !important;
 }
 .bg-black {
     --bs-bg-opacity: 1;
@@ -24791,6 +24791,9 @@ body {
 }
 .product-card-lg .thumbnail {
     padding: 0 10px 10px;
+}
+.product-image {
+    height: 200px; /* Set a consistent height for your images */
 }
 .vertical-product-card {
     border: 1px solid #f4f4f4;
