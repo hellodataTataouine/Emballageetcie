@@ -266,6 +266,7 @@ $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
 $clientnom =auth()->user()->name ?? '';
 $codepostal =auth()->user()->postal_code ?? '00000';
 $Adresse = $UserAddress->address ?? '';
+$Adresse = str_replace(["\r", "\n"], '', $Adresse);
 $Phone =$request->phone ?? '';
 $Ville = $UserAddress->city->name ?? '';
 $CodeTVA =auth()->user()->NTVA ?? '000000';
