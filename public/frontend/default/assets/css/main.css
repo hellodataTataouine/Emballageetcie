@@ -10463,6 +10463,9 @@ progress {
     max-width: 100%;
     height: auto;
 }
+.product-image {
+    height: 200px; /* Set a consistent height for your images */
+}
 .img-thumbnail {
     padding: 0.25rem;
     background-color: #fafafa;

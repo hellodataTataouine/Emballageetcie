@@ -79,7 +79,7 @@
 
                             <!-- billing address -->
                             @if (count($addresses) > 0)
-                                <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
+                              
                                 <h4 class="mb-3 mt-7">{{ localize('Adresse de facturation') }}</h4>
                                 <div class="row g-4">
                                     @foreach ($addresses as $address)
