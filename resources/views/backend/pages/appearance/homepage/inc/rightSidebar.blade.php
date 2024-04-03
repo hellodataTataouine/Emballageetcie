@@ -39,7 +39,4 @@
     <a href="{{ route('admin.appearance.homepage.customProductsSection') }}"
         class="{{ areActiveRoutes(['admin.appearance.homepage.customProductsSection']) }}">{{ localize('Section Produit personnalisé') }}</a>
 </li>
-<li>
-    <a href="{{ route('admin.appearance.homepage.blogProduct') }}"
-        class="{{ areActiveRoutes(['admin.appearance.homepage.blogProduct']) }}">{{ localize('Les articles récents') }}</a>
-</li>
+

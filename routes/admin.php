@@ -490,8 +490,7 @@ Route::group(
             # homepage - best selling products 
             Route::get('/homepage/custom-products-section', [BestSellingProductsController::class, 'customProductsSection'])->name('admin.appearance.homepage.customProductsSection');
             
-            # homepage - blog products 
-            Route::get('/homepage/blogProduct', [BlogProductController::class, 'index'])->name('admin.appearance.homepage.blogProduct');
+            
 
             # products - listing
             Route::get('/homepage/products', [ProductsPageController::class, 'index'])->name('admin.appearance.products.index');

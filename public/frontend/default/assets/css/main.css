@@ -10561,6 +10561,15 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
+.row > * {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-top: var(--bs-gutter-y);
+}
 .row > .produit {
     -ms-flex-negative: 0;
     flex-shrink: 0;
@@ -24779,6 +24788,9 @@ body {
 }
 .product-card-lg .thumbnail {
     padding: 0 10px 10px;
+}
+.product-image {
+    height: 200px; /* Set a consistent height for your images */
 }
 .vertical-product-card {
     border: 1px solid #f4f4f4;

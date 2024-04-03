@@ -35,6 +35,8 @@
                             <div class="col-xl-6 col-lg-5">
                                 <div class="hero-right text-center position-relative z-1 mt-6 mt-xl-0">
 
+                                <img src="{{ uploadedAsset($slider->image) }}" alt=""
+                                        class="img-fluid position-absolute end-0 top-50 hero-img">
                                     
                                     <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-lg.png') }}"
                                         alt="circle shape" class="img-fluid hero-circle">
@@ -46,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="at-header-social d-none d-xl-flex align-items-center position-absolute">
+    <!--<div class="at-header-social d-none d-xl-flex align-items-center position-absolute">
         <span class="title fw-medium">{{ localize('Follow on') }}</span>
         <ul class="social-list ms-3">
             <li>
@@ -56,7 +58,7 @@
             <li><a href="{{ getSetting('linkedin_link') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
             <li><a href="{{ getSetting('youtube_link') }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
         </ul>
-    </div>
+    </div>-->
     <div class="gshop-hero-slider-pagination theme-slider-control position-absolute top-50 translate-middle-y z-5">
     </div>
 </section>

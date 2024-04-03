@@ -253,9 +253,9 @@
                             <span>{{ localize('Affichage') }}  {{ localize('de') }}
                                 {{ $paginatedProducts->firstItem() }}-{{ $paginatedProducts->lastItem() }} {{ localize('sur') }}
                                 {{ $paginatedProducts->total() }} {{ localize('résultats') }} </span>
-                            <span>{{ localize('Affichage') }}  {{ localize('de') }}
+                            <!--<span>{{ localize('Affichage') }}  {{ localize('de') }}
                                 {{ $paginatedProducts->firstItem() }}-{{ $paginatedProducts->lastItem() }} {{ localize('sur') }}
-                                {{ $paginatedProducts->total() }} {{ localize('résultats') }} </span>
+                                {{ $paginatedProducts->total() }} {{ localize('résultats') }} </span>-->
                             <nav>
                                 {{ $paginatedProducts->appends(request()->input())->links() }}
                             </nav>

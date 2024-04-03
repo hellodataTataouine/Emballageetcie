@@ -4,7 +4,7 @@
     <div class="container">
         <div class="gshop-category-box border-secondary rounded-3 bg-white">
             <div class="text-center section-title">
-                <h4 class="d-inline-block px-2 bg-white mb-4">{{ localize('Nos meilleures catégories') }}</h4>
+                <h4 class="d-inline-block px-2 bg-white mb-4">{{ localize('Nos catégories') }}</h4>
             </div>
             <div class="row justify-content-center g-4">
                 @php

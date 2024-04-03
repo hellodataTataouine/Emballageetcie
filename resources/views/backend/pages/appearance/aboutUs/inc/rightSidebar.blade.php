@@ -15,7 +15,7 @@
         class="{{ areActiveRoutes(['admin.appearance.about-us.whyChooseUs']) }}">{{ localize('Pourquoi nous choisir') }}</a>
 </li>
 
-<li>
+<!--<li>
     <a href="{{ route('admin.appearance.about-us.whyChooseUs') }}"
         class="{{ areActiveRoutes(['admin.appearance.about-us.whyChooseUs']) }}">{{ localize('Pourquoi nous choisir') }}</a>
-</li>
+</li>-->

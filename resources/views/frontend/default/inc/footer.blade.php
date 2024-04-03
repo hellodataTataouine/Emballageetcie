@@ -122,6 +122,23 @@
                         <!-- <li><a href="{{ route('home.blogs') }}">{{ localize('Blogs') }}</a></li> --> 
 
                     </ul>
+                    <br>
+                    
+                    <h5 class="text-white mb-4">Réseaux sociaux</h5>
+<ul class="social-media list-unstyled d-flex justify-content-start align-items-center">
+<li class="me-4">
+    <a href="{{ getSetting('facebook_link') }}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+</li>
+<li class="me-4">
+    <a href="{{ getSetting('twitter_link') }}" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+</li>
+<li class="me-4">
+    <a href="{{ getSetting('linkedin_link') }}" target="_blank" class="social-btn"><i class="fab fa-linkedin"></i></a>
+</li>
+<li>
+    <a href="{{ getSetting('youtube_link') }}" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
+</li>
+</ul>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
@@ -145,8 +162,9 @@
                     <h5 class="text-white mb-4">{{ localize('Informations de Contact') }}</h5>
                     <ul class="footer-nav">
                         <li class="text-white pb-2 fs-xs">{{ getSetting('topbar_location') }}</li>
-                        <li class="text-white pb-2 fs-xs">{{ getSetting('navbar_contact_number') }}</li>
-                        <li class="text-white pb-2 fs-xs">{{ getSetting('topbar_email') }}</li>
+                        <li class="text-white pb-2 fs-xs"><a href="tel:{{ getSetting('navbar_contact_number') }}">{{ getSetting('navbar_contact_number') }}</a></li>
+                        <li class="text-white pb-2 fs-xs"><a href="mailto:{{ getSetting('topbar_email') }}">{{ getSetting('topbar_email') }}</a></li>
+
                     </ul>
                 </div>
             </div>
