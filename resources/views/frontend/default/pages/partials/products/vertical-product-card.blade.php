@@ -1,3 +1,20 @@
+<style>
+    .thumbnail {
+        position: relative;
+        text-align: center;
+    }
+
+    .product-image {
+        height: 200px; /* Set a consistent height for your images */
+    }
+
+   
+
+    .direct-add-to-cart-btn {
+        margin-top: auto; /* Align the button to the bottom */
+    }
+</style>
+
 <div class="vertical-product-card rounded-2 position-relative swiper-slide {{ isset($bgClass) ? $bgClass : '' }}">
 
     @php

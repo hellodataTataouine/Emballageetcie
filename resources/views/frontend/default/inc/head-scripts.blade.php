@@ -1,4 +1,41 @@
 <script>
+    var url = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?96951';
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = url;
+    var options = {
+    "enabled":true,
+    "chatButtonSetting":{
+        "backgroundColor":"#00e785",
+        "ctaText":"Discute avec nous",
+        "borderRadius":"25",
+        "marginLeft": "17",
+        "marginRight": "20",
+        "marginBottom": "70",
+        "ctaIconWATI":false,
+        "position":"left"
+    },
+    "brandSetting":{
+        "brandName":"Wati",
+        "brandSubTitle":"undefined",
+        "brandImg":"https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
+        "welcomeText":"Bonjour ! \nComment puis-je vous aider ?",
+        "messageText":"Salut, %0A Que souhaitez-vous savoir à propos d'Emballage et Cie ?",
+        "backgroundColor":"#00e785",
+        "ctaText":"Discute avec nous",
+        "borderRadius":"25",
+        "autoShow":false,
+        "phoneNumber":"33344256066"
+    }
+    };
+    s.onload = function() {
+        CreateWhatsappChatWidget(options);
+    };
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+</script>
+<script>
     'use strict'
 
     var TT = TT || {};
@@ -51,3 +88,4 @@
         }
     }
 </script>
+

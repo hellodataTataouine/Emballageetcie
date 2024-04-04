@@ -10,53 +10,40 @@
     <!--hero section end-->
 
     <!--category section start-->
-    <div class="section">
-    @include('frontend.default.pages.partials.home.category')
-    </div>
-    <!--category section end-->
+      @include('frontend.default.pages.partials.home.category')
+   <!--category section end-->
 
-    
- <!--banner section start-->
- <div class="section">
+<!--banner section start-->
  @include('frontend.default.pages.partials.home.banners')
-</div>
  <!--banner section end-->
 
+ <!--metier section start-->
+      @include('frontend.default.pages.partials.home.metiers')
+  <!--metier section end-->
 
-     <!--metier section start-->
-     <div class="section">
-     @include('frontend.default.pages.partials.home.metiers')
-    </div>
-    <!--metier section end-->
-
-
-    <!--featured products start-->
+ <!--featured products start-->
     @include('frontend.default.pages.partials.home.featuredProducts')
     <!--featured products end-->
 
-    <!--trending products start-->
+<!--trending products start-->
     @include('frontend.default.pages.partials.home.trendingProducts')
     <!--trending products end-->
 
-  
-
-    <!--banner section start-->
+<!--banner section start-->
     <!-- @include('frontend.default.pages.partials.home.bestDeals') -->
     <!--banner section end-->
 
-    <!--banner 2 section start-->
+<!--banner 2 section start-->
     @include('frontend.default.pages.partials.home.bannersTwo')
     <!--banner 2 section end-->
 
-    <!--feedback section start-->
+<!--feedback section start-->
     <!-- @include('frontend.default.pages.partials.home.feedback') -->
     <!--feedback section end-->
-
-  <!--products listing start-->
+    
+    <!--products listing start-->
   @include('frontend.default.pages.partials.home.products') 
   <!--products listing end-->
-     
-  
 
     @if (getSetting('enable_custom_product_section') == 1)
         <!-- start -->
@@ -64,9 +51,10 @@
         <!-- end -->
     @endif
 
-    <!--blog section start-->
-    @include('frontend.default.pages.partials.home.blogs', ['blogs' => $blogs])
-    <!--blog section end-->
+<!--blog section start-->
+<!--@include('frontend.default.pages.partials.home.blogs', ['blogs' => $blogs])-->
+ <!--blog section end-->
+    
 @endsection
 
 @section('scripts')

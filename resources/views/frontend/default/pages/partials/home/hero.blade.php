@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="at-header-social d-none d-xl-flex align-items-center position-absolute">
+    <!--<div class="at-header-social d-none d-xl-flex align-items-center position-absolute">
         <span class="title fw-medium">{{ localize('Follow on') }}</span>
         <ul class="social-list ms-3">
             <li>
@@ -58,7 +58,7 @@
             <li><a href="{{ getSetting('linkedin_link') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
             <li><a href="{{ getSetting('youtube_link') }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
         </ul>
-    </div>
+    </div>-->
     <div class="gshop-hero-slider-pagination theme-slider-control position-absolute top-50 translate-middle-y z-5">
     </div>
 </section>

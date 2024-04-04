@@ -66,7 +66,7 @@
                             <h5 class="mb-4">{{ localize('Configuration de la page d\'accueil') }}</h5>
                             <div class="tt-vertical-step-link">
                                 <ul class="list-unstyled">
-                                    @include('backend.pages.appearance.homepage.inc.rightSidebar')
+                                    @include('backend.pages.appearance.homepage.inc.')
                                 </ul>
                             </div>
                         </div>
