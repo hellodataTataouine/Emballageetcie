@@ -85,7 +85,7 @@
     <!--about section end-->
 
     <!--brands section start-->
-    <section class="brands-section ptb-120 position-relative z-1 overflow-hidden service-section">
+    <!-- <section class="brands-section ptb-120 position-relative z-1 overflow-hidden service-section">
         <img src="{{ staticAsset('frontend/default/assets/img/shapes/bg-shape-4.png') }}" alt="bg shape"
             class="position-absolute start-0 bottom-0 w-100 z--1 bg-shape">
         <div class="container">
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!--brands section end-->
 
     <!--feature section start-->
