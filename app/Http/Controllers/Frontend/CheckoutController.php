@@ -29,6 +29,8 @@ use Illuminate\Support\Str;
 use App\Models\UserAddress;
 use App\Models\User;
 
+use App\Mail;
+
 class CheckoutController extends Controller
 {
     # checkout
@@ -407,11 +409,27 @@ $FullOrder =[];
 
  //Now let send  the request 
                 //Refis Younes
-             
+   
+                
                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
                
                 if ($fullLink->successful()) {
-                      
+                      if($user!='null'){
+                             // Si la commande a été créée avec succès, vous pouvez envoyer un e-mail à l'administrateur et au client
+                             $to = 'admin@gmail.com'; // Adresse e-mail de l'administrateur
+                             $subject = 'Nouvelle commande passée';
+                             $message = 'Bonjour, une nouvelle commande a été passée.';
+                             Mail::to($to)->send(new ConfirmationCommandeMail($subject, $message));
+
+                             // Envoyer un e-mail au client
+                          $clientEmail = 'oumayma.chouchene@isimg.tn .com'; // Remplacez ceci par l'e-mail réel du client
+                          $clientSubject = 'Confirmation de commande';
+                         $clientMessage = 'Bonjour, votre commande a été passée avec succès.';
+                            Mail::to($clientEmail)->send(new ConfirmationCommandeMail($clientSubject, $clientMessage));
+                        }
+                            
+                       }
+                    
                 } else {
                    // dd($fullLink);
                    flash(localize('Veuillez reéssayer '))->error();
@@ -523,11 +541,6 @@ $FullOrder =[];
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             } else if ($request->payment_method == "vir") {
               
-
-
-
-
-                
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             } else {
@@ -535,7 +548,7 @@ $FullOrder =[];
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             }
        
-        }
+      
 
         flash(localize('Votre panier est vide'))->error();
         return back();
