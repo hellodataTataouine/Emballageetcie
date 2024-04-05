@@ -24130,6 +24130,11 @@ body {
     -webkit-animation: 6s upsdown_animation infinite;
     animation: 6s upsdown_animation infinite;
 }
+.gshop-footer .tomato-1 {
+    left: 280px;
+    top: 85px;
+
+}
 .gshop-footer .pata-lg {
     left: 150px;
     top: 180px;
@@ -24159,6 +24164,13 @@ body {
     top: 130px;
     -webkit-animation: 12s rotate_animation infinite linear;
     animation: 12s rotate_animation infinite linear;
+}
+
+.gshop-footer .leaf-3 {
+    right: 100px;
+    top: 130px;
+    
+    
 }
 .gshop-footer .pata-xs-2 {
     right: 50px;
@@ -25318,8 +25330,13 @@ body {
     top: 50%;
 }
 .gstore-breadcrumb .pata-xs-2 {
-    right: 30px;
-    top: 30px;
+    right: 60px;
+    top: 20px;
+}
+
+.pata-xs-3 {
+    right: 130px;
+    top:210px;
 }
 .gstore-breadcrumb .tomato-half {
     bottom: 80px;
@@ -25335,7 +25352,7 @@ body {
 }
 .gstore-breadcrumb .leaf-gray {
     top: 20%;
-    right: 20%;
+    right: 18%;
 }
 @media (max-width: 767.98px) {
     .gstore-breadcrumb {
@@ -26484,7 +26501,7 @@ body {
     margin-top: -55px;
 }
 .gshop-hero .leaf-shape {
-    right: 60px;
+    right: 40px;
     top: 40px;
     -webkit-animation: 6s upsdown_animation linear infinite;
     animation: 6s upsdown_animation linear infinite;
@@ -27333,6 +27350,10 @@ blockquote::before {
     left: 100px;
     top: 50px;
 }
+.frame-circle-1 {
+    left: 100px;
+    top: 30px;
+}
 .section-404 .cauliflower {
     top: 40%;
     left: 18%;
@@ -27384,6 +27405,12 @@ blockquote::before {
 .contact-us-section .leaf {
     right: 60px;
     top: 45%;
+}
+.leaf-1 {
+    left:200px;
+    top: 73%;
+    -webkit-animation: 6s moving-x-animation linear infinite;
+    animation: 6s moving-x-animation linear infinite;
 }
 .contact-left-box {
     padding-bottom: 225px;
