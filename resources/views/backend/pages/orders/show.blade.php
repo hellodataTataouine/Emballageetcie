@@ -245,10 +245,7 @@
                                         <strong>{{ formatPrice($order->orderGroup->sub_total_amount) }}</strong>
                                     </div>
 
-                                    <div class="col-auto">
-                                        <h6 class="mb-1">{{ localize('Tips') }}</h6>
-                                        <strong>{{ formatPrice($order->orderGroup->total_tips_amount) }}</strong>
-                                    </div>
+                                  
 
                                     <div class="col-auto ps-lg-5">
                                         <h6 class="mb-1">{{ localize('Frais d\'expédition') }}</h6>
