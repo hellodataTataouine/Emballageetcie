@@ -172,6 +172,7 @@ class CheckoutController extends Controller
                 $orderGroup->total_coupon_discount_amount   = getCouponDiscount(getSubTotal($carts, false), getCoupon());
                 # [done->codes below] increase coupon usage counter after successful order
             }
+            $ids=$request->chosen_logistic_zone_id;
             $logisticZone = LogisticZone::where('id', $request->chosen_logistic_zone_id)->first();
             # todo::[for eCommerce] handle exceptions for standard & express
             $orderGroup->total_shipping_cost                = $logisticZone->standard_delivery_charge;
@@ -243,12 +244,12 @@ class CheckoutController extends Controller
               $UserAddress = UserAddress::where('id', $request->shipping_address_id)->firstOrFail();
               $billingUserAddress = UserAddress::where('id',$request->billing_address_id)->firstOrFail();
               $clientnom =auth()->user()->name ?? '';
-              $codepostal =auth()->user()->postal_code ?? '  ';
+              $codepostal =$UserAddress->codepostal ?? '';
               $Adresse = $UserAddress->address ?? '';
               $Adresse = str_replace(["\r", "\n"], '', $Adresse);
               $Phone =$request->phone ?? '';
               $phone = str_replace('+', '', $Phone); 
-              $Ville = $UserAddress->city->name ?? '';
+              $Ville = $UserAddress->city ?? '';
               $CodeTVA =auth()->user()->NTVA ?? '000000';
               $Payment =$request->payment_method . "-" . "NonPayé" ;
               $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
@@ -362,7 +363,7 @@ class CheckoutController extends Controller
                     'total_commande' => formatPrice($RtotalTTC),
                     'total_commandeHT' => formatPrice($rTotalHT),
                     'shipping_cost'   => formatPrice($shipping_cost),
-                    'billingUserAddress' => $billingUserAddress->city->name . " " . $billingUserAddress->state->name . " " . $billingUserAddress->address,
+                    'billingUserAddress' => $billingUserAddress->city . " " . $billingUserAddress->codepostal . " " . $billingUserAddress->address, 
                     'adminemail' => env('MAIL_USERNAME')
                 ];
 

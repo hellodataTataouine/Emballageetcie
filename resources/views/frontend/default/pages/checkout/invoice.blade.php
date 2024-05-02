@@ -50,6 +50,26 @@
                                 <p class="mb-0">
                                     {{ localize('Voici les détails de votre commande. Nous vous remercions pour votre achat.') }}</p>
 
+                                    @if($orderGroup->payment_method == "Cod")
+                                    <div class="alert alert-warning mt-3" role="alert">
+        <p class="mb-1">
+            Votre commande sera expédiée après réception du virement.
+        </p>
+        <p class="mb-0">
+            <strong>Coordonnées bancaires:</strong><br>
+
+            <strong>Banque:</strong> BANQUE POPULIARE<br>
+            <strong>RIB:</strong> 1020 7001 6023 2104 9556 381<br>
+            <strong>IBAN:</strong> FR76 1020 7001 6023 2104 9556 381<br>
+            <strong>BIC/SWIFT:</strong> CCBPFRPPMTG<br>
+           
+    </div>
+                                    @endif
+
+
+
+
+
                                 @php
                                     $deliveryInfo = json_decode($order->scheduled_delivery_info);
                                 @endphp
@@ -198,7 +218,7 @@
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Moyen de paiement') }}</strong>
                                     @if(ucwords(str_replace('_', ' ', $orderGroup->payment_method)) == "Cod")
-                                    <span> Espèce</span>
+                                    <span> Virement</span>
                                     @elseif(ucwords(str_replace('_', ' ', $orderGroup->payment_method)) == "Vir")
                                     <span> "Paiement par virement"</span>
                                     @else

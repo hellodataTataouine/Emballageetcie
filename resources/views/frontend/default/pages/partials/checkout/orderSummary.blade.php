@@ -83,5 +83,8 @@
 
     </div> 
 
-    <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100" onclick="this.disabled=true;this.form.submit();">{{ localize('Passer la Commande') }}</button>
+    <!-- <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100" onclick="this.disabled=true;this.form.submit();">{{ localize('Passer la Commande') }}</button> -->
+     <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100" >{{ localize('Passer la Commande') }}</button>
+
+
 </div>
