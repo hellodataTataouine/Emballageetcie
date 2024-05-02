@@ -91,6 +91,9 @@
         </table>
         @if ($Payment === "cod")
     <?php $Payment = "virement"; ?>
+
+@elseif ($Payment === "stripe")
+    <?php $Payment = "Carte Bancaire"; ?>
 @endif
         <p><strong>Sous-total:</strong> {{ $total_commandeHT }}</p>
         <p><strong>Coût d'expédition:</strong> {{ $shipping_cost }}</p>
