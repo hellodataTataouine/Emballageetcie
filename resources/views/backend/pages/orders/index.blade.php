@@ -135,8 +135,8 @@
                                     <th data-breakpoints="xs sm">{{ localize('Type') }}</th>
                                     <!-- @if (count($locations) > 0)
                                         <th data-breakpoints="xs sm">{{ localize('Emplacement') }} </th>
-                                    @endif
-                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}</th> -->
+                                    @endif -->
+                                    <th data-breakpoints="xs sm" class="text-end">{{ localize('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -221,7 +221,7 @@
                                                     @endif
                                                 </span>
                                             </td>
-                                        @endif
+                                        @endif-->
 
                                         <td class="text-end">
                                             @can('manage_orders')
@@ -231,7 +231,7 @@
                                                     <i data-feather="eye"></i>
                                                 </a>
                                             @endcan
-                                        </td> -->
+                                        </td> 
                                     </tr>
                                 @endforeach
                             </tbody>
