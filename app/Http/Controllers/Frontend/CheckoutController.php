@@ -378,7 +378,8 @@ try {
     Mail::send('order_confirmation', $data, function ($message) use ($subject, $data) {
         $message->subject($subject)
             ->to($data['clientemail'])
-            ->cc('contact@emballage-et-cie.fr');
+            ->cc('contact@emballage-et-cie.fr')
+            ->cc('contact@ecopro-distrib.fr');
     });
 
     // Mail::send('order_confirmation_admin', $data, function ($message) use ($subject, $data) {
