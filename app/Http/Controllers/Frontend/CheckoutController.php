@@ -61,7 +61,13 @@ class CheckoutController extends Controller
     # checkout logistic
     public function getLogistic(Request $request)
     {
-        $logisticZoneCities = LogisticZoneCity::where('city_id', $request->city_id)->distinct('logistic_id')->get();
+        $codepostal=$request->city_id;
+        $firstTwoCharacters = substr($codepostal, 0, 2);
+        $logisticZoneCities = LogisticZone::whereRaw("LEFT(name, 2) = '$firstTwoCharacters'")->distinct('logistic_id')->get();
+        if (count($logisticZoneCities) == 0) {
+            $logisticZoneCities = LogisticZone::where('name', '*')->distinct('logistic_id')->get();
+        }
+      
         return [
             'logistics' => getViewRender('inc.logistics', ['logisticZoneCities' => $logisticZoneCities]),
             'summary'   => getViewRender('pages.partials.checkout.orderSummary', ['carts' => Cart::where('user_id', auth()->user()->id)->where('location_id', session('stock_location_id'))->get()])
@@ -241,6 +247,7 @@ class CheckoutController extends Controller
               $Adresse = $UserAddress->address ?? '';
               $Adresse = str_replace(["\r", "\n"], '', $Adresse);
               $Phone =$request->phone ?? '';
+              $phone = str_replace('+', '', $Phone); 
               $Ville = $UserAddress->city->name ?? '';
               $CodeTVA =auth()->user()->NTVA ?? '000000';
               $Payment =$request->payment_method . "-" . "NonPayé" ;
@@ -337,7 +344,7 @@ class CheckoutController extends Controller
  //Now let send  the request 
                 //Refis Younes
              
-                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
+                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
                
               if ($fullLink->successful()) {
 

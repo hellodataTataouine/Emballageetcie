@@ -15,7 +15,7 @@ class AddressController extends Controller
     public function getStates(Request $request)
     {
         $states = State::isActive()->where('country_id', $request->country_id)->get();
-        $html = '<option value="">' . localize("Choisir une province") . '</option>';
+        $html = '<option value="">' . localize("Choisir une région") . '</option>';
 
         foreach ($states as $state) {
             $html .= '<option value="' . $state->id . '">' . $state->name . '</option>';
@@ -43,9 +43,11 @@ class AddressController extends Controller
         $address                = new UserAddress;
         $address->user_id       = $userId;
         $address->country_id    = $request->country_id;
-        $address->state_id      = $request->state_id;
-        $address->city_id       = $request->city_id;
+        // $address->state_id      = $request->state_id;
+        // $address->city_id       = $request->city_id;
 
+         $address->city     = $request->city;
+         $address->codepostal       = $request->postal_code;
         if ($request->is_default == 1) {
             $prevDefault = UserAddress::where('user_id', $userId)->where('is_default', 1)->first();
             if (!is_null($prevDefault)) {
@@ -66,13 +68,13 @@ class AddressController extends Controller
         $address  = UserAddress::where('user_id', auth()->user()->id)->where('id', $request->addressId)->first();
         if ($address) {
             $countries      = Country::isActive()->get();
-            $states         = State::isActive()->where('country_id', $address->country_id)->get();
-            $cities         = City::isActive()->where('state_id', $address->state_id)->get();
+           // $states         = State::isActive()->where('country_id', $address->country_id)->get();
+          //  $cities         = City::isActive()->where('state_id', $address->state_id)->get();
             return getViewRender('inc.addressEditForm', [
                 'address' => $address,
                 'countries' => $countries,
-                'states' => $states,
-                'cities' => $cities
+               // 'states' => $states,
+                //'cities' => $cities
             ]);
         }
     }
@@ -84,8 +86,8 @@ class AddressController extends Controller
         $address  = UserAddress::where('user_id', $userId)->where('id', $request->id)->first();
 
         $address->country_id    = $request->country_id;
-        $address->state_id      = $request->state_id;
-        $address->city_id       = $request->city_id;
+        $address->city      = $request->city;
+        $address->codepostal       = $request->postal_code;
         if ($request->is_default == 1) {
             $prevDefault = UserAddress::where('user_id', $userId)->where('is_default', 1)->first();
             if (!is_null($prevDefault)) {

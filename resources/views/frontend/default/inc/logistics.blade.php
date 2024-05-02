@@ -3,15 +3,15 @@
     <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
         <div class="radio-left d-inline-flex align-items-center">
             <div class="theme-radio">
-                <input type="radio" name="chosen_logistic_zone_id" id="logistic-{{ $zoneCity->logistic_zone_id }}"
-                    value="{{ $zoneCity->logistic_zone_id }}">
+                <input type="radio" name="chosen_logistic_zone_id" id="logistic-{{ $zoneCity->id }}"
+                    value="{{ $zoneCity->id }}">
                 <span class="custom-radio"></span>
             </div>
             <div>
                 <label for="logistic-{{ $zoneCity->logistic_zone_id }}" class="ms-3 mb-0">
                     <div class="h6 mb-0">{{ $zoneCity->logistic->name }}</div>
                     <div> {{ localize('Frais d\'expédition') }}
-                        {{ formatPrice($zoneCity->logisticZone->standard_delivery_charge) }}</div>
+                        {{ formatPrice($zoneCity->standard_delivery_charge) }}</div>
                 </label>
             </div>
         </div>

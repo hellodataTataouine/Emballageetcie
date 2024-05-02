@@ -7,8 +7,7 @@
                     <input type="radio" name="payment_method" id="cod" value="cod" required>
                     <span class="custom-radio"></span>
                 </div>
-                <label for="cod" class="ms-2 h6 mb-0">{{ localize('Paiement à la livraison') }}
-                    ({{ localize('ESPECE') }})</label>
+                <label for="cod" class="ms-2 h6 mb-0">{{ localize('Paiement par Virement') }}</label>
             </div>
             <div class="radio-right text-end">
                 <img src="{{ staticAsset('frontend/pg/cod.svg') }}" alt="cod" class="img-fluid">
@@ -58,10 +57,10 @@
                 <input type="radio" name="payment_method" id="stripe" value="stripe" required>
                 <span class="custom-radio"></span>
             </div>
-            <label for="stripe" class="ms-2 h6 mb-0">{{ localize('Payer avec Stripe') }}</label>
+            <label for="stripe" class="ms-2 h6 mb-0">{{ localize('Payer avec Carte Bancaire') }}</label>
         </div>
         <div class="radio-right text-end">
-            <img src="{{ staticAsset('frontend/pg/stripe.svg') }}" alt="stripe" class="img-fluid">
+            <img src="{{ staticAsset('frontend/pg/carte.png') }}" alt="stripe" class="img-fluid">
         </div>
     </div>
 @endif

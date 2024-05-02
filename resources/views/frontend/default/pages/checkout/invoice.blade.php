@@ -85,8 +85,8 @@
                                             $shippingAddress = $orderGroup->shippingAddress;
                                         @endphp
                                         <p class="mb-0">{{ optional($shippingAddress)->address }},
-                                            {{ optional(optional($shippingAddress)->city)->name }},
-                                            {{ optional(optional($shippingAddress)->state)->name }},
+                                        {{ optional(optional($shippingAddress))->city }},
+                                        {{ optional(optional($shippingAddress))->codepostal }},
                                             {{ optional(optional($shippingAddress)->country)->name }}</p>
                                     </div>
                                     <div class="ms-4">
@@ -95,8 +95,8 @@
                                             $billingAddress = $orderGroup->billingAddress;
                                         @endphp
                                         <p class="mb-0">{{ optional($billingAddress)->address }},
-                                            {{ optional(optional($billingAddress)->city)->name }},
-                                            {{ optional(optional($billingAddress)->state)->name }},
+                                        {{ optional(optional($billingAddress))->city }},
+                                        {{ optional(optional($billingAddress))->codepostal }},
                                             {{ optional(optional($billingAddress)->country)->name }}</p>
                                     </div>
                                 </div>

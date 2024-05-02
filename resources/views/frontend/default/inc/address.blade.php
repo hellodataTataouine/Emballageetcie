@@ -4,15 +4,15 @@
 
 <strong>{{ localize('Ville') }}: </strong>
 @if ($address->city)
-    {{ $address->city->name }}
+    {{ $address->city }}
 @else
     
 @endif
 <br>
 
-<strong>{{ localize('Région') }}: </strong>
-@if ($address->state)
-    {{ $address->state->name }}
+<strong>{{ localize('Code Postal') }}: </strong>
+@if ($address->codepostal)
+    {{ $address->codepostal }}
 @else
     
 @endif

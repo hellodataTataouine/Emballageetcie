@@ -78,7 +78,7 @@
     <div class="label-input-field mt-6">
       
     @if(isset($shippingFranco) )
-    <p>Livraison gratuit à partir de {{ $shippingFranco }}</p>
+    <p>Livraison gratuit à partir de {{ formatPrice($shippingFranco) }} </p>
 @endif
 
     </div> 

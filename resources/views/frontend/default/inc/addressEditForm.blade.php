@@ -16,35 +16,24 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="w-100 label-input-field">
-                    <label>{{ localize('Région') }}</label>
-                    <select class="select2Address" required name="state_id">
-                        <option value="">{{ localize('Sélectionner Région') }}</option>
-                        @foreach ($states as $state)
-                            <option value="{{ $state->id }}" @if ($address->state_id == $state->id) selected @endif>
-                                {{ $state->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+                                     <div class="w-100 label-input-field">
+                                         <label>{{ localize('Ville') }}</label>
+                                        
+                                         <input type="text" class="form-control" required name="city" value="{{ $address->city }}">
+                                     </div>
+                                 </div>
+                                 <div class="col-sm-6">
+                                     <div class="w-100 label-input-field">
+                                         <label>{{ localize('Code Postal') }}</label>
+                                         <input type="text" class="form-control" required name="postal_code" value="{{ $address->codepostal }}">
 
-            <div class="col-sm-6">
-                <div class="w-100 label-input-field">
-                    <label>{{ localize('Ville') }}</label>
-                    <select class="select2Address" required name="city_id">
-                        <option value="">{{ localize('Sélectionner une ville') }}</option>
-                        @foreach ($cities as $city)
-                            <option value="{{ $city->id }}" @if ($address->city_id == $city->id) selected @endif>
-                                {{ $city->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+                                     </div>
+                                 </div>
             <div class="col-sm-6">
                 <div class="w-100 label-input-field">
                     <label>{{ localize('Adresse par défaut ?') }}</label>
                     <select class="select2Address" name="is_default">
-                        <option value="0" @if ($address->is_default == 0) selected @endif>{{ localize('No') }}
+                        <option value="0" @if ($address->is_default == 0) selected @endif>{{ localize('Non') }}
                         </option>
                         <option value="1" @if ($address->is_default == 1) selected @endif>
                             {{ localize('Définir par défaut') }}</option>

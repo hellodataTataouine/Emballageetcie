@@ -104,8 +104,21 @@
             <li><strong>Code TVA:</strong> {{ $CodeTVA }}</li>
             <li><strong>Email du Client:</strong> {{ $clientemail }}</li>
             <p><strong>Téléphone:</strong> {{ $Phone }}</p>
+            
         </ul>
-        
+
+         @if ($Payment === "cod")
+           
+            Votre commande sera expédiée après la réception du virement.
+            @endif
+            <p class="mb-0">
+            <h3>Détails du Client :</h3>
+            <strong>Banque:</strong> BANQUE POPULIARE<br>
+            <strong>RIB:</strong> 1020 7001 6023 2104 9556 381<br>
+            <strong>IBAN:</strong> FR76 1020 7001 6023 2104 9556 381<br>
+            <strong>BIC/SWIFT:</strong> CCBPFRPPMTG<br>       
+            </p>
+        @endif
         <div class="footer">
             <p>Veuillez traiter cette commande dès que possible.</p>
             <p>Cordialement,</p>

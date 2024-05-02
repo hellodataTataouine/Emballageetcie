@@ -23,7 +23,7 @@
         "welcomeText":"Bonjour ! \nComment puis-je vous aider ?",
         "messageText":"Salut, %0A Que souhaitez-vous savoir à propos d'Emballage et Cie ?",
         "backgroundColor":"#00e785",
-        "ctaText":"Discute avec nous",
+        "ctaText":"Discuter avec nous",
         "borderRadius":"25",
         "autoShow":false,
         "phoneNumber":"33344256066"
