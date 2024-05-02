@@ -381,10 +381,10 @@ try {
             ->cc('contact@emballage-et-cie.fr');
     });
 
-    Mail::send('order_confirmation_admin', $data, function ($message) use ($subject, $data) {
-        $message->subject($subject)
-            ->to($data['adminemail']);
-    });
+    // Mail::send('order_confirmation_admin', $data, function ($message) use ($subject, $data) {
+    //     $message->subject($subject)
+    //         ->to($data['adminemail']);
+    // });
 } catch (\Exception $e) {
     \Log::error('Error occurred while sending order confirmation email: ' . $e->getMessage());
     

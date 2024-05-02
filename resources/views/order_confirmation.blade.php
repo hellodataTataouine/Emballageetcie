@@ -102,6 +102,7 @@
         <p><strong>Téléphone:</strong> {{ $Phone }}</p>
       
             <p class="mb-0">
+            <h3>Détails de la Banque :</h3>
             <strong>Banque:</strong> BANQUE POPULIARE<br>
             <strong>RIB:</strong> 1020 7001 6023 2104 9556 381<br>
             <strong>IBAN:</strong> FR76 1020 7001 6023 2104 9556 381<br>
