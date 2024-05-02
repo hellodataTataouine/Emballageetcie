@@ -67,6 +67,17 @@
                                         min="0" required>
                                 </div>
 
+
+
+                                <div class="mb-4">
+                                    <label for="name"
+                                        class="form-label">{{ localize('Franco de port') }}</label>
+                                    <input type="number" step="0.001" name="franco_port"
+                                        id="franco_port"
+                                        placeholder="{{ localize('Franco de port') }}" class="form-control"
+                                        min="0" required >
+                                </div>
+
                                 <div class="mb-4">
                                     <label for="name"
                                         class="form-label">{{ localize('Temps de livraison standard') }}</label>

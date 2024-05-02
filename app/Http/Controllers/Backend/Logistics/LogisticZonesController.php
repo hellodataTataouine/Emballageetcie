@@ -72,6 +72,7 @@ class LogisticZonesController extends Controller
         $logisticZone->name = $request->name;
         $logisticZone->logistic_id = $request->logistic_id;
         $logisticZone->standard_delivery_charge = $request->standard_delivery_charge;
+        $logisticZone->franco_port = $request->franco_port;
         $logisticZone->standard_delivery_time = $request->standard_delivery_time;
         $logisticZone->save();
 
@@ -105,6 +106,7 @@ class LogisticZonesController extends Controller
         $logisticZone->name = $request->name;
 
         $logisticZone->standard_delivery_charge = $request->standard_delivery_charge;
+        $logisticZone->franco_port = $request->franco_port;
         if ($request->express_delivery_charge) {
             $logisticZone->express_delivery_charge = $request->express_delivery_charge;
         }

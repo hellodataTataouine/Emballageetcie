@@ -43,11 +43,7 @@
                                             class="theme-input mb-1 @error('email') is-invalid @enderror"
                                             value="{{ old('email') }}" required>
 
-                                        <small class="">
-                                            <a href="javascript:void(0);" class="fs-sm reset-with-phone-btn"
-                                                onclick="handleResetWithPhone()">
-                                                {{ localize('Réinitialiser avec le téléphone ?') }}</a>
-                                        </small>
+                                       
                                     </span>
 
                                     @error('email')

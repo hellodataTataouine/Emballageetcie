@@ -13,8 +13,10 @@
             <td>(+) {{ localize('Taxe') }}:</td>
             <td class="text-end">{{ formatPrice(getTotalTax($carts)) }}</td>
         </tr> -->
-
-        @if (isset($shippingAmount))
+        @if(isset($shippingFranco) &&  getSubTotal($carts, false, '', false) >= $shippingFranco)
+            <td>(+) {{ localize('Frais d\'expédition') }}:</td>
+                <td class="text-end">$0</td>
+        @elseif (isset($shippingAmount))
             <tr>
                 <td>(+) {{ localize('Frais d\'expédition') }}:</td>
                 <td class="text-end">{{ formatPrice($shippingAmount) }}</td>
@@ -33,9 +35,13 @@
 
         @php
             $shipping = 0;
-            if (isset($shippingAmount) && $is_free_shipping == false) {
+            if(isset($shippingFranco) &&  getSubTotal($carts, false, '', false) >= $shippingFranco){
+                $shipping = 0 ;
+            }
+            else if (isset($shippingAmount) && $is_free_shipping == false) {
                 $shipping = $shippingAmount;
             }
+            
             $total = getSubTotal($carts, false, '', false) + getTotalTax($carts) + $shipping - getCouponDiscount(getSubTotal($carts, false), getCoupon());
         @endphp
 
@@ -69,10 +75,13 @@
 
     <span class="sidebar-spacer d-block my-4 opacity-50"></span>
 
-    <!-- <div class="label-input-field mt-6">
-        <label>{{ 'Ajouter un pourboire pour le livreur ?' }}</label>
-        <input type="number" name="tips" value="0" min="0" step="0.001">
-    </div> -->
+    <div class="label-input-field mt-6">
+      
+    @if(isset($shippingFranco) )
+    <p>Livraison gratuit à partir de {{ $shippingFranco }}</p>
+@endif
 
-    <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">{{ localize('Passer la Commande') }}</button>
+    </div> 
+
+    <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100" onclick="this.disabled=true;this.form.submit();">{{ localize('Passer la Commande') }}</button>
 </div>

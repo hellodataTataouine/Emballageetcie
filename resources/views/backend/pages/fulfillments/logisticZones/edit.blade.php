@@ -79,6 +79,15 @@
 
                                 <div class="mb-4">
                                     <label for="name"
+                                        class="form-label">{{ localize('Franco de port') }}</label>
+                                    <input type="number" step="0.001" name="franco_port"
+                                        id="franco_port"
+                                        placeholder="{{ localize('Franco de port') }}" class="form-control"
+                                        min="0" required value="{{ $logisticZone->franco_port }}">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="name"
                                         class="form-label">{{ localize('Temps de livraison standard') }}</label>
                                     <input type="text" name="standard_delivery_time" id="standard_delivery_time"
                                         placeholder="{{ localize('1 - 3 jours') }}" class="form-control" required

@@ -28,6 +28,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\UserAddress;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+ 
+
+
+
 
 class CheckoutController extends Controller
 {
@@ -69,7 +74,9 @@ class CheckoutController extends Controller
         $carts              = Cart::where('user_id', auth()->user()->id)->where('location_id', session('stock_location_id'))->get();
         $logisticZone       = LogisticZone::find((int)$request->logistic_zone_id);
         $shippingAmount     = $logisticZone->standard_delivery_charge;
-        return getViewRender('pages.partials.checkout.orderSummary', ['carts' => $carts, 'shippingAmount' => $shippingAmount]);
+        $shippingFranco     = $logisticZone->franco_port;
+       $totalHT = getSubTotal($carts, false, '', false);
+        return getViewRender('pages.partials.checkout.orderSummary', ['carts' => $carts, 'shippingAmount' => $shippingAmount, 'shippingFranco' => $shippingFranco]);
     }
 
     # complete checkout process
@@ -139,6 +146,8 @@ class CheckoutController extends Controller
                 } 
             }
             
+
+           
 
 
             # create new order group
@@ -213,96 +222,45 @@ class CheckoutController extends Controller
             # order items
             $total_points = 0;
 
-
-            $apiEndpoint = env('API_CATEGORIES_URL');
-          //  $sCodeTiers = auth()->user()->CODETIERS;
-
-          /*  if($sCodeTiers == null){
-                $UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
             
-            $Client = [
-                "Adresse" => $UserAddress->address ?? '',
-                "CodePostal" => auth()->user()->postal_code ?? '',
-                "Ville" => $UserAddress->city->name ?? '',
-                "Mobile "=> $request->phone ?? '',
-                 "RIB" => 0, 
-                 "Société" => auth()->user()->name,
-                  "NTVA" => auth()->user()->NTVA ?? '000000',
-                  "IDSecteurs"=> 0,
-                   "IDCHAUFFEURS"=> 0, 
-                   "EMail" => auth()->user()->email, 
-                   "Portable"=>$request->phone ?? '',
-            ];
-            $ClientApiPost = Http::post("$apiEndpoint/Client", $Client);
-            if ($ClientApiPost->successful()) {
-                $ClientApiPostData = $ClientApiPost->json();
-               
-                $sCodeTiers = $ClientApiPostData['CODETIERS'];
-                //dd(auth()->user());
-                $user = User::find(auth()->user()->id);
-                $user->CODETIERS =$sCodeTiers;
-            $user->save();
-              // Wait until codetiers is updated or maximum retries reached
-              $maxRetries = 100; // Adjust as needed
-              $retryCount = 0;
-              while ($user->codetiers == null && $retryCount < $maxRetries) {
-                  sleep(1); // Adjust the sleep time as needed
-                  $user = User::find(auth()->user()->id);
-                  $retryCount++;
-              }
-            }
-            else{
-
-
-            }
-            
-            
-            }*/
-
-
-     //Refis Younes
-//recup of data to put the link updated 
-$UserAddress = UserAddress::where('user_id', auth()->user()->id)->firstOrFail();
-$clientnom =auth()->user()->name ?? '';
-$codepostal =auth()->user()->postal_code ?? '00000';
-$Adresse = $UserAddress->address ?? '';
-$Adresse = str_replace(["\r", "\n"], '', $Adresse);
-$Phone =$request->phone ?? '';
-$Ville = $UserAddress->city->name ?? '';
-$CodeTVA =auth()->user()->NTVA ?? '000000';
-$Payment ="Moy Paiement  " . $request->payment_method . "-" . "NonPayé" ;
-$Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
-
-$rTotalHT = $orderGroup->sub_total_amount;
-$RtotalTTC = $orderGroup->grand_total_amount;
-//this is the link to use later 
-// Now we have to put data into table to send full data now 
-//Let name it first 
-
-
-$FullOrder =[];
-
-
-
-          
-
-            $rTotalHT = $orderGroup->sub_total_amount;
-            $RtotalTTC = $orderGroup->grand_total_amount;
-            
-            $userId = auth()->user()->id; // Ensure $userId is correctly set
-            $stockLocationId = session('stock_location_id'); // Ensure stock_location_id is correctly set
-            
-            $cartsQuery = Cart::with('product_variation.product')
-                ->where('user_id', $userId)
-                ->where('location_id', $stockLocationId);
-            
-            $carts = $cartsQuery->get();
+           
             
             
           
                
               //  $idDocument = $mainOrderResponseData['IDDocument'];
               $idDocument = 0;
+
+              $apiEndpoint = env('API_CATEGORIES_URL');
+         
+              //recup of data to put the link updated 
+              $UserAddress = UserAddress::where('id', $request->shipping_address_id)->firstOrFail();
+              $billingUserAddress = UserAddress::where('id',$request->billing_address_id)->firstOrFail();
+              $clientnom =auth()->user()->name ?? '';
+              $codepostal =auth()->user()->postal_code ?? '  ';
+              $Adresse = $UserAddress->address ?? '';
+              $Adresse = str_replace(["\r", "\n"], '', $Adresse);
+              $Phone =$request->phone ?? '';
+              $Ville = $UserAddress->city->name ?? '';
+              $CodeTVA =auth()->user()->NTVA ?? '000000';
+              $Payment =$request->payment_method . "-" . "NonPayé" ;
+              $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
+              $clientemail =auth()->user()->email ?? '';
+              $rTotalHT = $orderGroup->sub_total_amount;
+              $RtotalTTC = $orderGroup->grand_total_amount;
+              $shipping_cost = $order->shipping_cost;
+              
+              
+              $FullOrder =[];
+
+              $userId = auth()->user()->id; // Ensure $userId is correctly set
+              $stockLocationId = session('stock_location_id'); // Ensure stock_location_id is correctly set
+              
+              $cartsQuery = Cart::with('product_variation.product')
+                  ->where('user_id', $userId)
+                  ->where('location_id', $stockLocationId);
+              
+              $carts = $cartsQuery->get();
             
                 foreach ($carts as $cart) {
 
@@ -332,21 +290,7 @@ $FullOrder =[];
                         return redirect()->back(); 
                     }
             
-                   /* $apiLineData = [
-                        "IDDocument"      => $idDocument,
-                        "Référence"        => "",
-                        "LibProd"          => $cart->product_variation->product->name,
-                        "Quantité"         => $cart->qty,
-                        "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
-                        "TauxTVA"          => $cart->product_variation->product->tax_percentage,
-                        "TotaleTTC"       => $orderItem->total_price, 
-                        "TotaleHT"        => $cart->unit_price * $cart->qty,
-                        "totaletva"       => $cart->total_tax,
-                        "IDProduit"        => $cart->product_variation->product->id,
-                        "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
-                    ];*/
-  //Put data into a variant
-                          //Refis Younes
+                 
                           $apiLineDatafull = [
                            
                             "Référence"        => $barcode,
@@ -359,23 +303,7 @@ $FullOrder =[];
                             
                         ];
                         array_push($FullOrder, $apiLineDatafull); 
-                  //  dd( $apiLineData);
-
-
-            
-                    // LigneDocument API request
-                //    $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData);
-            
-                  /*  if ($apiLineResponse->successful()) {
-                       
-                    } else {
-                          flash(localize('Veuillez reéssayer '))->error();
-               
-                        return redirect()->back(); 
-                        
-                    }*/
-            
-                    
+                 
             
                     # reward points
                     if (getSetting('enable_reward_points') == 1) {
@@ -409,57 +337,58 @@ $FullOrder =[];
  //Now let send  the request 
                 //Refis Younes
              
-                $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
+                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$Phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
                
-                if ($fullLink->successful()) {
-                      
-                } else {
-                   // dd($fullLink);
-                   flash(localize('Veuillez reéssayer '))->error();
-           
-                    return redirect()->back();  
-                }
+              if ($fullLink->successful()) {
+
+                $data = [
+                    'FullOrder' => $FullOrder,
+                    'clientnom' => $clientnom,
+                    'codepostal' => $codepostal,
+                    'Adresse' => $Adresse,
+                    'Phone' => $Phone,
+                    'Ville' => $Ville,
+                    'CodeTVA' => $CodeTVA,
+                    'Payment' => $request->payment_method,
+                    'Livraison' => $Livraison,
+                    'clientemail' => $clientemail,
+                    'total_commande' => formatPrice($RtotalTTC),
+                    'total_commandeHT' => formatPrice($rTotalHT),
+                    'shipping_cost'   => formatPrice($shipping_cost),
+                    'billingUserAddress' => $billingUserAddress->city->name . " " . $billingUserAddress->state->name . " " . $billingUserAddress->address,
+                    'adminemail' => env('MAIL_USERNAME')
+                ];
+
+// Send the email using the Blade view
+try {
+    $subject = 'Confirmation de commande';
+
+    Mail::send('order_confirmation', $data, function ($message) use ($subject, $data) {
+        $message->subject($subject)
+            ->to($data['clientemail']);
+    });
+
+    Mail::send('order_confirmation_admin', $data, function ($message) use ($subject, $data) {
+        $message->subject($subject)
+            ->to($data['adminemail']);
+    });
+} catch (\Exception $e) {
+    \Log::error('Error occurred while sending order confirmation email: ' . $e->getMessage());
+    
+    \Log::error($e->getTraceAsString());
+}
+
+
+                    
+              } else {
+                 // dd($fullLink);
+                 flash(localize('Veuillez reéssayer '))->error();
+         
+                  return redirect()->back();  
+              }
 
              
-             /*   $apiLineData1 = [
-                    "IDDocument"      => $idDocument,
-                    "Référence"        => "",
-                    "LibProd"          => "Transport Marchandise "  . $logisticZone->logistic->name . "\n" . $order->scheduled_delivery_info ,
-                    "Quantité"         => 1,
-                    "PrixVente"       => $orderGroup->total_shipping_cost,
-                    
-                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
-                ];
-
-              
-
-
-        
-                // LigneDocument API request
-                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData1);
-
-                $apiLineData2 = [
-                    "IDDocument"      => $idDocument,
-                    "Référence"        => "",
-                    "LibProd" => "Moy Paiement  " . $request->payment_method . "\n" . "NonPayé" ,
-
-                    "Quantité"         => 1,
-                    
-                    
-                    "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
-                ];
-
-              //  dd( $apiLineData);
-
-
-        
-                // LigneDocument API request
-                $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$idDocument}/{$barcode}", $apiLineData2);
-
-
-            */  
-            
-            
+           
 
             # reward points
             if (getSetting('enable_reward_points') == 1) {
