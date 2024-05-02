@@ -89,7 +89,9 @@
                 @endforeach
             </tbody>
         </table>
-
+        @if ($Payment === "cod")
+    <?php $Payment = "virement"; ?>
+@endif
         <p><strong>Sous-total:</strong> {{ $total_commandeHT }}</p>
         <p><strong>Coût d'expédition:</strong> {{ $shipping_cost }}</p>
         <p><strong>Prix total:</strong> {{ $total_commande }}</p>
@@ -98,20 +100,16 @@
         <p><strong>Adresse de facturation:</strong> {{ $billingUserAddress }}</p>
         <p><strong>Type de livraison:</strong> {{ $Livraison }}</p>
         <p><strong>Téléphone:</strong> {{ $Phone }}</p>
-        @if ($Payment === "vir")
+      
             <p class="mb-0">
-                <strong>Coordonnées bancaires:</strong><br>
-                <strong>Banque:</strong> <br>
-                <strong>Agence:</strong><br>
-                <strong>Compte:</strong> <br>
-                <strong>Clé:</strong> <br>
-                <strong>IBAN:</strong> <br>
-                <strong>BIC/SWIFT:</strong> <br>
-                <strong>Titulaire:</strong><br>
+            <strong>Banque:</strong> BANQUE POPULIARE<br>
+            <strong>RIB:</strong> 1020 7001 6023 2104 9556 381<br>
+            <strong>IBAN:</strong> FR76 1020 7001 6023 2104 9556 381<br>
+            <strong>BIC/SWIFT:</strong> CCBPFRPPMTG<br>   
                <br>
                 
             </p>
-        @endif
+      
         <div class="footer">
             <p>Merci pour votre commande.</p>
             <p>Cordialement,</p>
