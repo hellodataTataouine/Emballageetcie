@@ -12,7 +12,7 @@
             @foreach ($galleryImages as $galleryImage)
                 <div class="swiper-slide text-center">
                     <img src="{{ uploadedAsset($galleryImage) }}" alt="{{ $product->collectLocalization('name') }}"
-                        class="img-fluid">
+                        class="img-fluid" style="height: 459px;">
                 </div>
             @endforeach
         </div>

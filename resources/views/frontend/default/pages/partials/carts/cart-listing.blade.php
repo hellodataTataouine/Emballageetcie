@@ -3,7 +3,7 @@
         <td class="h-100px">
             <img src="{{ uploadedAsset($cart->product_variation->product->thumbnail_image) }}"
                 alt="{{ $cart->product_variation->product->collectLocalization('name') }}" class="img-fluid"
-                width="100">
+                style="height: 100px;">
         </td>
         <td class="text-start product-title">
             <h6 class="mb-0">{{ $cart->product_variation->product->collectLocalization('name') }}
