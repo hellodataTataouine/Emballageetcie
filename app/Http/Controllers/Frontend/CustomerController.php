@@ -91,9 +91,9 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
     $max_value = formatPrice($maxRange, false, false, false, false);
     // Fetch all products from the API
     $apiUrl = env('API_CATEGORIES_URL');
-    $IdClientApi = $user->IdClientApi;
+    $UserEmail = $user->email;
 
-    $response = Http::get($apiUrl . 'GetProduitParIdClient/' . $IdClientApi);
+    $response = Http::get($apiUrl . 'GetProductsByMail/' . $UserEmail);
     $produitsApi1 = $response->json();
     $produitsApi = collect(array_filter($produitsApi1, function($produit) {
         return !empty($produit['MyPhoto']);
