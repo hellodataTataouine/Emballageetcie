@@ -175,7 +175,11 @@ class CheckoutController extends Controller
             $ids=$request->chosen_logistic_zone_id;
             $logisticZone = LogisticZone::where('id', $request->chosen_logistic_zone_id)->first();
             # todo::[for eCommerce] handle exceptions for standard & express
+            if($request->shipping_franco){
+                $orderGroup->total_shipping_cost                = 0;
+            }else{
             $orderGroup->total_shipping_cost                = $logisticZone->standard_delivery_charge;
+        }
 
             // to convert input price to base price
             if (Session::has('currency_code')) {

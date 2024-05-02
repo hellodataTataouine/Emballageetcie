@@ -30,7 +30,7 @@
                                     <li><a href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
                                     <li><a href="{{ route('products.index') }}">{{ localize('Produits') }}</a></li>
                                     @if(auth()->check())
-                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mes Produits') }}</a></li>
+                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('MaSélection') }}</a></li>
                                     @endif
 
                                     <li><a href="{{ route('home.pages.contactUs') }}">{{ localize('Contact') }}</a></li>

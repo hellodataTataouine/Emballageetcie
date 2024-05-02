@@ -1,17 +1,17 @@
 @extends('frontend.default.layouts.master')
 
 @section('title')
-    {{ localize('Mes Produits') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
+    {{ localize('MaSélection') }} {{ getSetting('title_separator') }} {{ getSetting('system_title') }}
 @endsection
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Mes Produits') }}</h2>
+        <h2 class="mb-2 text-center">{{ localize('MaSélection') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a
                         href="{{ route('home') }}">{{ localize('Accueil') }}</a></li>
-                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('Mes Produits') }}</li>
+                <li class="breadcrumb-item fw-bold" aria-current="page">{{ localize('MaSélection') }}</li>
             </ol>
         </nav>
     </div>
