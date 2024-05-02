@@ -48,7 +48,7 @@ public function payment_failed()
         $orderGroup = OrderGroup::where('order_code', session('order_code'))->first();
 
         // Display error message
-        flash(localize('Paiement échoué. Veuillez réessayer ou choisir une méthode de paiement différente.'))->error();
+        flash(localize('Paiement échoué. votre commande est passée avec un statut non payé.'))->error();
 
         return redirect()->route('checkout.proceed');
     }
