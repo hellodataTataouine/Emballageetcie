@@ -50,7 +50,7 @@ public function payment_failed()
         // Display error message
         flash(localize('Paiement échoué. Veuillez réessayer ou choisir une méthode de paiement différente.'))->error();
 
-        return redirect()->route('checkout.index');
+        return redirect()->route('checkout.proceed');
     }
 }
 
