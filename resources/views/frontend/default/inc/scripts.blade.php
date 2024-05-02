@@ -465,6 +465,7 @@
             e.preventDefault();;
             return false;
         }
+        $('.checkout-form button[type=submit]').prop('disabled', true);
     });
 
     // add to wishlist
