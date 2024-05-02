@@ -50,7 +50,7 @@
                                 <p class="mb-0">
                                     {{ localize('Voici les détails de votre commande. Nous vous remercions pour votre achat.') }}</p>
 
-                                    @if($orderGroup->payment_method == "Cod")
+                                    @if($orderGroup->payment_method == "cod")
                                     <div class="alert alert-warning mt-3" role="alert">
         <p class="mb-1">
             Votre commande sera expédiée après réception du virement.
