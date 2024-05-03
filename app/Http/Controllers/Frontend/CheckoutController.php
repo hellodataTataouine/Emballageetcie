@@ -309,7 +309,7 @@ class CheckoutController extends Controller
                             "LibProd"          => $cart->product_variation->product->name,
                             "Quantité"         => $cart->qty,
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
-                            "ClientNom"    =>  $clientnom   ,
+                            "ClientNom"    =>  $clientnom,
                             "CodePostale"        => $codepostal,
                            "Adresse"          => $Adresse,
                            "Telephone"         => $phone,

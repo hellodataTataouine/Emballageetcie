@@ -81,7 +81,7 @@
             <tbody>
                 @foreach ($FullOrder as $orderItem)
                     <tr>
-                    @if($orderItem['Référence'] !== $orderItem['Commentaire'])
+                    @if($orderItem['Référence'] !== "Commentaire")
                         <td>{{ $orderItem['Référence'] }}</td>
                         <td>{{ $orderItem['LibProd'] }}</td>
                         <td>{{ $orderItem['Quantité'] }}</td>
