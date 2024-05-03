@@ -309,7 +309,14 @@ class CheckoutController extends Controller
                             "LibProd"          => $cart->product_variation->product->name,
                             "Quantité"         => $cart->qty,
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
-                           
+                            "ClientNom"    =>  $clientnom   ,
+                            "CodePostale"        => $codepostal,
+                           "Adresse"          => $Adresse,
+                           "Telephone"         => $phone,
+                           "Ville"       => $Ville,
+                           "CodeTva" => $CodeTVA ,
+                           "ModePayement" => $Payment,
+                           "ModeLivraison" => $Livraison,
                            
                           
                             
@@ -354,11 +361,14 @@ class CheckoutController extends Controller
                     "CodeTva" => $CodeTVA ,
                     "ModePayement" => $Payment,
                    "ModeLivraison" => $Livraison,
-                    
+                   "Référence"        => 'Commentaire',
+                   "LibProd"          => 'Frais de Livraison',
+                   "Quantité"         => 1,
+                   "PrixVente"       => $order->shipping_cost,
+                
                     
                 ];
                 array_push($FullOrder, $apiLineDatafull1); 
-
  //Now let send  the request 
  $data = [
     'FullOrder' => $FullOrder,
