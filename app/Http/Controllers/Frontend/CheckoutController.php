@@ -256,7 +256,7 @@ class CheckoutController extends Controller
               $Ville = $UserAddress->city ?? '';
               $CodeTVA =auth()->user()->NTVA ?? '000000';
               $Payment =$request->payment_method . "-" . "NonPayé" ;
-              $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info ;
+              $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info . "-" . $orderGroup->total_shipping_cost;
               $clientemail =auth()->user()->email ?? '';
               $rTotalHT = $orderGroup->sub_total_amount;
               $RtotalTTC = $orderGroup->grand_total_amount;
