@@ -345,33 +345,40 @@ class CheckoutController extends Controller
                     $cart->delete();
                 }
 
+                $apiLineDatafull1 = [
+                    "ClientNom"    =>  $clientnom   ,
+                    "CodePostale"        => $codepostal,
+                    "Adresse"          => $Adresse,
+                    "Telephone"         => $phone,
+                    "Ville"       => $Ville,
+                    "CodeTva" => $CodeTVA ,
+                    "ModePayement" => $Payment,
+                   "ModeLivraison" => $Livraison,
+                    
+                    
+                ];
+                array_push($FullOrder, $apiLineDatafull1); 
 
  //Now let send  the request 
-                //Refis Younes
-             
-                 $fullLink =Http::post("$apiEndpoint/CreeDocument/$clientnom/$codepostal/$Adresse/$phone/$Ville/$CodeTVA/$Payment/$Livraison", $FullOrder);
-               
-              if ($fullLink->successful()) {
+ $data = [
+    'FullOrder' => $FullOrder,
+    'clientnom' => $clientnom,
+    'codepostal' => $codepostal,
+    'Adresse' => $Adresse,
+    'Phone' => $Phone,
+    'Ville' => $Ville,
+    'CodeTVA' => $CodeTVA,
+    'Payment' => $request->payment_method,
+    'Livraison' => $Livraison,
+    'clientemail' => $clientemail,
+    'total_commande' => formatPrice($RtotalTTC),
+    'total_commandeHT' => formatPrice($rTotalHT),
+    'shipping_cost'   => formatPrice($shipping_cost),
+    'billingUserAddress' => $billingUserAddress->city . " " . $billingUserAddress->codepostal . " " . $billingUserAddress->address, 
+    'adminemail' => env('MAIL_USERNAME')
+]; 
+      
 
-                $data = [
-                    'FullOrder' => $FullOrder,
-                    'clientnom' => $clientnom,
-                    'codepostal' => $codepostal,
-                    'Adresse' => $Adresse,
-                    'Phone' => $Phone,
-                    'Ville' => $Ville,
-                    'CodeTVA' => $CodeTVA,
-                    'Payment' => $request->payment_method,
-                    'Livraison' => $Livraison,
-                    'clientemail' => $clientemail,
-                    'total_commande' => formatPrice($RtotalTTC),
-                    'total_commandeHT' => formatPrice($rTotalHT),
-                    'shipping_cost'   => formatPrice($shipping_cost),
-                    'billingUserAddress' => $billingUserAddress->city . " " . $billingUserAddress->codepostal . " " . $billingUserAddress->address, 
-                    'adminemail' => env('MAIL_USERNAME')
-                ];
-
-// Send the email using the Blade view
 try {
     $subject = 'Confirmation de commande';
 
@@ -382,27 +389,23 @@ try {
 
     });
 
-    // Mail::send('order_confirmation_admin', $data, function ($message) use ($subject, $data) {
-    //     $message->subject($subject)
-    //         ->to($data['adminemail']);
-    // });
 } catch (\Exception $e) {
     \Log::error('Error occurred while sending order confirmation email: ' . $e->getMessage());
     
     \Log::error($e->getTraceAsString());
 }
 
+try {
+    $fullLink =Http::post("$apiEndpoint/CreateDocSite", $FullOrder);
+     
+ } catch (\Exception $e) {
+     \Log::error('Error occurred API creeDocument: ' . $e->getMessage());
+     
+     \Log::error($e->getTraceAsString());
+ }
 
-                    
-              } else {
-                 // dd($fullLink);
-                 flash(localize('Veuillez reéssayer '))->error();
-         
-                  return redirect()->back();  
-              }
-
-             
-           
+              
+            
 
             # reward points
             if (getSetting('enable_reward_points') == 1) {
@@ -528,16 +531,14 @@ try {
             "Quantité"         => 1,
             "dateheuresaisie" => now()->format('Y-m-d H:i:s'),
         ];
+    //     try {
+    //     $apiLineUpdatepayment = Http::post("{$apiEndpoint}/LigneDocument/{$document_id}/{}", $apiLineData3);
         
-        $apiLineResponse = Http::post("{$apiEndpoint}/LigneDocument/{$document_id}/{}", $apiLineData3);
+    // } catch (\Exception $e) {
+    //     \Log::error('Error occurred API apiLineUpdatepayment: ' . $e->getMessage());
         
-        if ($apiLineResponse->successful()) {
-            // Successfully updated the status to "payé"
-        } else {
-            flash(localize('Veuillez reéssayer '))->error();
-           
-                    return redirect()->back(); 
-        }
+    //     \Log::error($e->getTraceAsString());
+    // }
         clearOrderSession();
         flash(localize('Votre commande a été passée avec succès.'))->success();
         return redirect()->route('checkout.success', $orderGroup->order_code);

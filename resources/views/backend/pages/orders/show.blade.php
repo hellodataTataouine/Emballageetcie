@@ -173,7 +173,7 @@
                             <tbody>
                                 @foreach ($order->orderItems as $key => $item)
                                     @php
-                                        $product = $item->productVariation->product;
+                                        $product = $item->product_variation->product;
                                     @endphp
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
@@ -189,7 +189,7 @@
                                                         {{ $product->collectLocalization('name') }}
                                                     </h6>
                                                     <div class="text-muted">
-                                                        @foreach (generateVariationOptions($item->productVariation->combinations) as $variation)
+                                                        @foreach (generateVariationOptions($item->product_variation->combinations) as $variation)
                                                             <span class="fs-xs">
                                                                 {{ $variation['name'] }}:
                                                                 @foreach ($variation['values'] as $value)

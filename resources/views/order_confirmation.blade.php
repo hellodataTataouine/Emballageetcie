@@ -81,10 +81,12 @@
             <tbody>
                 @foreach ($FullOrder as $orderItem)
                     <tr>
+                    @if(isset($orderItem['Référence']))
                         <td>{{ $orderItem['Référence'] }}</td>
                         <td>{{ $orderItem['LibProd'] }}</td>
                         <td>{{ $orderItem['Quantité'] }}</td>
                         <td>{{ $orderItem['PrixVente'] }}</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
