@@ -14,7 +14,7 @@
                         {{ formatPrice($zoneCity->standard_delivery_charge) }}
                        
                     </div>
-                    <div Style="font-size: 0.8em; color: #888; margin-top: 0.2em;"> Gratuit à partir de  
+                    <div Style="font-size: 0.95em; color: #888; margin-top: 0.2em;"> Gratuit à partir de  
             {{ formatPrice($zoneCity->franco_port) }}
         </div>
 
