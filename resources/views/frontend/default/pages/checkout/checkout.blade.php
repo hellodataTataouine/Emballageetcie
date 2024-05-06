@@ -34,7 +34,7 @@
                             <!-- shipping address -->
                             <div class="d-flex justify-content-between">
                                 <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
-                                <h4 class="mb-3">{{ localize('Adresse de livraison') }}</h4>
+                                
                                 <a href="javascript:void(0);" onclick="addNewAddress()" class="fw-semibold"><i
                                         class="fas fa-plus me-1"></i> {{ localize('Ajouter une adresse') }}</a>
                             </div>

@@ -15,7 +15,7 @@
         </tr> -->
         @if(isset($shippingFranco) &&  getSubTotal($carts, false, '', false) >= $shippingFranco)
             <td>(+) {{ localize('Frais d\'expédition') }}:</td>
-                <td class="text-end">$0</td>
+                <td class="text-end"> 0 €</td>
                 <input type="hidden" name="shipping_franco" value="true">
 
         @elseif (isset($shippingAmount))

@@ -11,7 +11,13 @@
                 <label for="logistic-{{ $zoneCity->logistic_zone_id }}" class="ms-3 mb-0">
                     <div class="h6 mb-0">{{ $zoneCity->logistic->name }}</div>
                     <div> {{ localize('Frais d\'expédition') }}
-                        {{ formatPrice($zoneCity->standard_delivery_charge) }}</div>
+                        {{ formatPrice($zoneCity->standard_delivery_charge) }}
+                       
+                    </div>
+                    <div> Gratuit à partir de  
+                    {{ formatPrice($zoneCity->franco_port) }}
+                    </div>
+
                 </label>
             </div>
         </div>
