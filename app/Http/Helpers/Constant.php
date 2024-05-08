@@ -995,7 +995,7 @@ if (!function_exists('unpaidPaymentStatus')) {
     // unpaid Payment Status
     function unpaidPaymentStatus()
     {
-        return "impayée";
+        return "En attente de paiement";
     }
 }
 

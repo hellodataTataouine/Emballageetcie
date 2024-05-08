@@ -52,7 +52,7 @@
                                                 {{ localize('Payé') }}</option>
                                             <option value="{{ unpaidPaymentStatus() }}"
                                                 @if (isset($paymentStatus) && $paymentStatus == unpaidPaymentStatus()) selected @endif>
-                                                {{ localize('Impayée') }}</option>
+                                                {{ localize('En attente de paiement') }}</option>
                                         </select>
                                     </div>
 

@@ -57,7 +57,7 @@
                                             <option value="payée" @if ($order->payment_status == 'payée') selected @endif>
                                                 {{ localize('Payé') }}</option>
                                             <option value="impayée" @if ($order->payment_status == 'impayée') selected @endif>
-                                                {{ localize('Impayé') }}
+                                                {{ localize('En attente de paiement') }}
                                             </option>
                                         </select>
                                     </div>

@@ -15,7 +15,7 @@ class UpdateOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('delivery_status')->default('Commande_passée')->change();
-            $table->string('payment_status')->default('impayée')->change();
+            $table->string('payment_status')->default('En attente de paiment')->change();
             $table->string('shipping_delivery_type')->default('Régulier')->comment('Régulier/planifié')->change();
         });
     }
@@ -28,8 +28,8 @@ class UpdateOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('delivery_status')->default('order_placed')->change();
-            $table->string('payment_status')->default('unpaid')->change();
+            $table->string('delivery_status')->default('Commande_passée')->change();
+            $table->string('payment_status')->default('En attente de paiment')->change();
             $table->string('shipping_delivery_type')->default('regular')->comment('regular/scheduled')->change();
             
         });
