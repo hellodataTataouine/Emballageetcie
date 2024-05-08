@@ -20,6 +20,7 @@ class UpdateOrdersTable extends Migration
         });
     }
 
+    
     /**
      * Reverse the migrations.
      *
