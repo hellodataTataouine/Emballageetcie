@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation de Réception de Commande</title>
+    <title>Confirmation de Réception de Paiemnt</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,8 +65,7 @@
     <div class="container">
         <h2>Cher(e) {{ $clientnom }},</h2>
         
-        <p>Nous vous confirmons que votre commande a bien été reçue. Voici les détails :</p>
-        
+        <p>Nous vous confirmons que votre paiement a bien été reçu. Voici les détails :</p>        
         <h3>Détails de la Commande :</h3>
         
         <table>
@@ -101,7 +100,7 @@
         <p><strong>Coût d'expédition:</strong> {{ $shipping_cost }}</p>
         <p><strong>Prix total:</strong> {{ $total_commande }}</p>
         <p><strong>Moyen de Paiement:</strong> {{ $Payment }}</p>
-        <p><strong>Status de Paiement:</strong> {{ $PaymentStatus }}</p>
+        <p><strong>Status de Paiement:</strong> Payé</p>
         <p><strong>Adresse de Livraison:</strong> {{ $Adresse }}, {{ $codepostal }} {{ $Ville }}</p>
         <p><strong>Adresse de facturation:</strong> {{ $billingUserAddress }}</p>
         <p><strong>Type de livraison:</strong> {{ $Livraison }}</p>

@@ -379,6 +379,7 @@ class CheckoutController extends Controller
     'Ville' => $Ville,
     'CodeTVA' => $CodeTVA,
     'Payment' => $request->payment_method,
+    'PaymentStatus' => $orderGroup->payment_status,
     'Livraison' => $Livraison,
     'clientemail' => $clientemail,
     'total_commande' => formatPrice($RtotalTTC),
@@ -388,7 +389,7 @@ class CheckoutController extends Controller
     'adminemail' => env('MAIL_USERNAME')
 ]; 
       
-
+$request->session()->put('emaildata', $data);
 try {
     $subject = 'Confirmation de commande';
 
@@ -549,6 +550,26 @@ try {
         
     //     \Log::error($e->getTraceAsString());
     // }
+    $data = session('emaildata');
+    try {
+        $subject = 'Confirmation de paiement';
+    
+        Mail::send('paiement_confirmation', $data, function ($message) use ($subject, $data) {
+            $message->subject($subject)
+                ->to($data['clientemail'])
+                ->cc(['contact@emballage-et-cie.fr', 'contact@ecopro-distrib.fr']);
+    
+        });
+    
+    } catch (\Exception $e) {
+        \Log::error('Error occurred while sending order confirmation email: ' . $e->getMessage());
+        
+        \Log::error($e->getTraceAsString());
+    }
+
+
+
+
         clearOrderSession();
         flash(localize('Votre commande a été passée avec succès.'))->success();
         return redirect()->route('checkout.success', $orderGroup->order_code);
