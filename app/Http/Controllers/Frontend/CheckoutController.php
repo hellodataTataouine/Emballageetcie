@@ -379,7 +379,7 @@ class CheckoutController extends Controller
     'Ville' => $Ville,
     'CodeTVA' => $CodeTVA,
     'Payment' => $request->payment_method,
-    'PaymentStatus' => $orderGroup->payment_status,
+    'PaymentStatus' => 'En attente de paiement',
     'Livraison' => $Livraison,
     'clientemail' => $clientemail,
     'total_commande' => formatPrice($RtotalTTC),
@@ -485,10 +485,11 @@ try {
 
 
 
-                
+               
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             } else {
+               
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
             }
@@ -521,6 +522,11 @@ try {
         $user = auth()->user();
         return getView('pages.checkout.invoice', ['orderGroup' => $orderGroup]);
     }
+
+
+
+   
+
 
     # update payment status
     public function updatePayments($payment_details)
