@@ -26,7 +26,7 @@
         "ctaText":"Discuter avec nous",
         "borderRadius":"25",
         "autoShow":false,
-        "phoneNumber":"33344256066"
+        "phoneNumber":"33619140068"
     }
     };
     s.onload = function() {
