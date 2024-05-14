@@ -101,7 +101,7 @@
     @endif
 @else
     <!-- Omit the button entirely when the user is not authenticated -->
-@endauth
+    @endauth
 
 
     </div>

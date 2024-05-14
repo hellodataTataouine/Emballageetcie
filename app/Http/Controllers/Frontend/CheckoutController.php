@@ -108,14 +108,25 @@ class CheckoutController extends Controller
 
                 $apiUrl = env('API_CATEGORIES_URL');
         
-                if (Auth::check() && Auth::user()->user_type == 'customer')
-            {
-            $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+
+
+
+                if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
+                {
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+                }
+                else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
+                {
+                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
+         
             }else{
-            
-                $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+                    $response = Http::get($apiUrl . 'ListeDePrixWeb/');
         
-            }
+                }
+
+
+
+               
                 $produitsApi = $response->json();
         
                 
@@ -310,6 +321,7 @@ class CheckoutController extends Controller
                             "Quantité"         => $cart->qty,
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
                             "ClientNom"    =>  $clientnom,
+                            "Emai"    =>  $clientemail,
                             "CodePostale"        => $codepostal,
                            "Adresse"          => $Adresse,
                            "Telephone"         => $phone,
@@ -353,7 +365,8 @@ class CheckoutController extends Controller
                 }
 
                 $apiLineDatafull1 = [
-                    "ClientNom"    =>  $clientnom   ,
+                    "ClientNom"    =>  $clientnom,
+                    "Emai"    =>  $clientemail,
                     "CodePostale"        => $codepostal,
                     "Adresse"          => $Adresse,
                     "Telephone"         => $phone,

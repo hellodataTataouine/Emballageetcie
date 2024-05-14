@@ -32,11 +32,15 @@ class ProductController extends Controller
         $min_value = 0;
         $max_value = formatPrice($maxRange, false, false, false, false);
         $apiUrl = env('API_CATEGORIES_URL');
-        if (Auth::check() && Auth::user()->user_type == 'customer')
+        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
         {
         $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-        }else{
-        
+        }
+        else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
+ 
+    }else{
             $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
         }
@@ -294,15 +298,21 @@ class ProductController extends Controller
         $virtualChidrenProducts = collect(); 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        if (Auth::check() && Auth::user()->user_type == 'customer')
-            {
-                $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-                
-            }else{
-            
-                $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+        }
+        else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
+ 
+    }else{
+            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-            }
+        }
+
+
+
         $produitsApi = $response->json();
 
         $product = Product::where('slug', $slug)->first();
@@ -455,14 +465,21 @@ class ProductController extends Controller
 
         $apiUrl = env('API_CATEGORIES_URL');
         
-        if (Auth::check() && Auth::user()->user_type == 'customer')
-    {
-    $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
+        }
+        else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
+ 
     }else{
-    
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
-    }
+        }
+
+
+        
         $produitsApi = $response->json();
 
         

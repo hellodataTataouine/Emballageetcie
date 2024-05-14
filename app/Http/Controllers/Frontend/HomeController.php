@@ -44,14 +44,21 @@ class HomeController extends Controller
         }
         $apiUrl = env('API_CATEGORIES_URL');
         
-        if (Auth::check() && Auth::user()->user_type == 'customer')
+        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
         {
         $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-        }else{
-           
-            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
-        
         }
+        else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
+ 
+    }else{
+            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
+
+        }
+
+
+        
         $produitsApi = $response->json();
 
         foreach ($produitsApi as $produitApi) {
