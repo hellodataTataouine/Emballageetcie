@@ -17,12 +17,10 @@ class WishlistController extends Controller
         $wishlist = auth()->user()->wishlist;
         $apiUrl = env('API_CATEGORIES_URL');
         
-        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS != null)
+        if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->email != null)
         {
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->CODETIERS);
-        }
-        else if (Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->CODETIERS == null)
-        {
+       
+        
         $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->email);
  
     }else{
