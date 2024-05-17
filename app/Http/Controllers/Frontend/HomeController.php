@@ -58,7 +58,15 @@ class HomeController extends Controller
 
         
         $produitsApi = $response->json();
+        $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+        $existingProducts = Product::whereIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
 
+
+        $existingProducts = $existingProducts
+        ->where('is_published', 1);
         foreach ($produitsApi as $produitApi) {
             $name = $produitApi['Libellé'];
 
@@ -68,10 +76,10 @@ class HomeController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-    
-            $matchingProduct = Product::where('slug', $barcode)->with('categories')->first();
-        
-            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
+ 
+            if (isset($existingProducts[$barcode])) {
+                $matchingProduct = $existingProducts[$barcode];
+           
                 if ($matchingProduct->min_price !== $apiPrice || $matchingProduct->max_price !== $apiPrice || $matchingProduct->Prix_HT !== $apiPriceHT) {
                     $matchingProduct->min_price = $apiPrice; 
                     $matchingProduct->max_price = $apiPrice;
@@ -87,12 +95,10 @@ class HomeController extends Controller
                     $matchingProduct->Unit = $apiunité;
                 }
                 $matchingProduct->name = $name;
-
-            }
-            if ($matchingProduct !== null && $matchingProduct->is_published == 1) {
                 $virtualProducts->push($matchingProduct);
-            }
-
+            
+           
+        }
         }
 
 

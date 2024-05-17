@@ -139,8 +139,7 @@ class ProductController extends Controller
                 }
                 $matchingProduct->name = $name;
                 $virtualProducts->push($matchingProduct);
-            } else {
-            }
+            } 
         }
 
 
