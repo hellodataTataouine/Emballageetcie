@@ -304,17 +304,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
-                                                <td
-                                                    style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                                                    {{ localize('Tips') }}
-                                                </td>
-                                                <td style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; white-space:nowrap;"
-                                                    width="80">
-                                                    {{ formatPrice($order->orderGroup->total_tips_amount) }}
-                                                </td>
-                                            </tr>
-
+                                          
                                             <tr>
                                                 <td
                                                     style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
@@ -339,16 +329,7 @@
                                                 </tr>
                                             @endif
 
-                                            <tr>
-                                                <td
-                                                    style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                                                    {{ localize('Taxe') }}
-                                                </td>
-                                                <td
-                                                    style="font-size: 12px; color: #646a6e; line-height: 22px; vertical-align: top; text-align:right; ">
-                                                    {{ formatPrice($order->orderGroup->total_tax_amount) }}
-                                                </td>
-                                            </tr>
+                                           
 
                                             @if ($order->orderGroup->is_pos_order)
                                                 <tr>
