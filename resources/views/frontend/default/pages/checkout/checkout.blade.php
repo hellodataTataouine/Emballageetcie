@@ -141,25 +141,28 @@
                                                         {{ localize('Livraison programmée') }}
                                                     </div>
 
-                                                    <div
-                                                        class="col-auto d-flex flex-grow-1 align-items-center justify-content-between">
+                                                    
+                                                    <div class="col-auto d-flex flex-grow-1 align-items-center justify-content-between">
 
-                                                        @php
-                                                            $date = date('Y-m-d');
-                                                            $dateCount = 7;
-                                                            if (getSetting('allowed_order_days') != null) {
-                                                                $dateCount = getSetting('allowed_order_days');
-                                                            }
-                                                        @endphp
+@php
+    $date = date('Y-m-d');
+    $dateCount = 7;
+    if (getSetting('allowed_order_days') != null) {
+        $dateCount = getSetting('allowed_order_days');
+    }
+@endphp
 
 <select class="form-select py-1 me-3" name="scheduled_date">
     @for ($i = 1; $i <= $dateCount; $i++)
         @php
             $addDay = date('Y-m-d', strtotime($date . '+' . $i . ' days'));
+            $dayOfWeek = date('N', strtotime($addDay)); // 'N' format returns 1 (for Monday) through 7 (for Sunday)
         @endphp
-        <option value="{{ $addDay }}">
-            {{ date('d F', strtotime($addDay)) }}
-        </option>
+        @if ($dayOfWeek != 6 && $dayOfWeek != 7) {{-- 6 for Saturday, 7 for Sunday --}}
+            <option value="{{ $addDay }}">
+                {{ date('d F', strtotime($addDay)) }}
+            </option>
+        @endif
     @endfor
 </select>
 
