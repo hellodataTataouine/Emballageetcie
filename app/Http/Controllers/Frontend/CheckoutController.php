@@ -280,13 +280,13 @@ class CheckoutController extends Controller
                   $scheduledDate = $scheduledInfo['scheduled_date'];
               
                   // Format the delivery string
-                  $Livraison = "$logisticName - $timeline - $scheduledDate - $shippingCost";
+                  $Livraison = "$logisticName - $timeline - $scheduledDate ";
               
                   // Output the formatted delivery string
                   echo $Livraison;
               } else {
                   // Handle the error if the JSON string could not be decoded
-                  $Livraison = "$logisticName - $shippingCost";
+                  $Livraison = $logisticName ;
               }
 
 
