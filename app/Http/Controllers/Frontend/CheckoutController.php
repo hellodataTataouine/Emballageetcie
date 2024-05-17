@@ -265,7 +265,17 @@ class CheckoutController extends Controller
               $Ville = $UserAddress->city ?? '';
               $CodeTVA =auth()->user()->NTVA ?? '000000';
               $Payment =$request->payment_method . "-" . "NonPayé" ;
-              $Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info . "-" . $orderGroup->total_shipping_cost;
+              $logisticName = $logisticZone->logistic->name;
+              $scheduledInfo = $order->scheduled_delivery_info;
+               $shippingCost = $orderGroup->total_shipping_cost;
+
+               // Extract the necessary parts from the scheduled delivery info
+               $timeline = $scheduledInfo['timeline'];
+               $scheduledDate = $scheduledInfo['scheduled_date'];
+
+                  // Format the delivery string
+              $Livraison = "$logisticName - $timeline - $scheduledDate - $shippingCost";
+              //$Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info . "-" . $orderGroup->total_shipping_cost;
               $clientemail =auth()->user()->email ?? '';
               $rTotalHT = $orderGroup->sub_total_amount;
               $RtotalTTC = $orderGroup->grand_total_amount;

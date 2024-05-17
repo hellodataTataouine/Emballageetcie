@@ -106,7 +106,7 @@
                 <td colspan="4" style="width: 300px;">
                     <p
                         style="font-size: 12px; font-weight: bold; color: #5b5b5b; line-height: 1; vertical-align: top; ">
-                        {{ localize('SHIPPING INFORMATION') }}</p>
+                        {{ localize('Adresse de livraison') }}</p>
 
                     @php
                         $shippingAddress = $order->orderGroup->shippingAddress;
