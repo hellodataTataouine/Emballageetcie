@@ -140,11 +140,12 @@
                     </p>
 
                     @if ($order->shipping_delivery_type == getScheduledDeliveryType())
-                        <p class="mb-0">
-                            {{ localize('Heure de livraison') }}:
-                            {{ date('d F', $deliveryInfo->scheduled_date) }},
-                            {{ $deliveryInfo->timeline }}</p>
-                    @endif
+    <p class="mb-0">
+        {{ localize('Heure de livraison') }}:
+        {{ date('d F', strtotime($deliveryInfo->scheduled_date)) }},
+        {{ $deliveryInfo->timeline }}
+    </p>
+@endif
                     </p>
 
                 </td>
