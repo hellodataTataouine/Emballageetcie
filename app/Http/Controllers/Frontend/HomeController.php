@@ -28,9 +28,9 @@ class HomeController extends Controller
         $virtualProducts = collect();
         $blogs = Blog::isActive()->latest()->take(3)->get();
     
-        $sliders = json_decode(getSetting('hero_sliders'), true) ?? [];
-        $banner_section_one_banners = json_decode(getSetting('banner_section_one_banners'), true) ?? [];
-        $client_feedback = json_decode(getSetting('client_feedback'), true) ?? [];
+        $sliders = json_decode(getSetting('hero_sliders')) ?? [];
+        $banner_section_one_banners = json_decode(getSetting('banner_section_one_banners')) ?? [];
+        $client_feedback = json_decode(getSetting('client_feedback')) ?? [];
     
         $apiUrl = env('API_CATEGORIES_URL');
         $email = Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->email ? Auth::user()->email : '';
