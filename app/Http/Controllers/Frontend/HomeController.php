@@ -21,89 +21,117 @@ class HomeController extends Controller
     }
 
     # homepage
+    // public function index()
+    // {
+    //     $TrendingProducts = collect();
+    //     $left_products = collect();
+    //     $virtualProducts = collect();
+    //     $blogs = Blog::isActive()->latest()->take(3)->get();
+    
+    //     $sliders = json_decode(getSetting('hero_sliders')) ?? [];
+    //     $banner_section_one_banners = json_decode(getSetting('banner_section_one_banners')) ?? [];
+    //     $client_feedback = json_decode(getSetting('client_feedback')) ?? [];
+    
+    //     $apiUrl = env('API_CATEGORIES_URL');
+    //     $email = Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->email ? Auth::user()->email : '';
+    //     $response = Http::get($apiUrl . 'ListeDePrixWeb/' . $email);
+    //     $produitsApi = $response->json();
+    
+    //     $barcodes = collect($produitsApi)->pluck('codeabarre');
+    //     $existingProducts = Product::whereIn('slug', $barcodes)
+    //         ->where('is_published', 1)
+    //         ->with('categories')
+    //         ->get()
+    //         ->keyBy('slug');
+    
+    //     $updates = [];
+    //     foreach ($produitsApi as $produitApi) {
+    //         $barcode = $produitApi['codeabarre'];
+    
+    //         if (isset($existingProducts[$barcode])) {
+    //             $matchingProduct = $existingProducts[$barcode];
+    //             $updated = false;
+    
+    //             if ($matchingProduct->min_price !== $produitApi['PrixVTTC'] ||
+    //                 $matchingProduct->max_price !== $produitApi['PrixVTTC'] ||
+    //                 $matchingProduct->Prix_HT !== $produitApi['PrixVenteHT']) {
+    //                 $matchingProduct->min_price = $produitApi['PrixVTTC'];
+    //                 $matchingProduct->max_price = $produitApi['PrixVTTC'];
+    //                 $matchingProduct->Prix_HT = $produitApi['PrixVenteHT'];
+    //                 $updated = true;
+    //             }
+    //             if ($matchingProduct->stock_qty !== $produitApi['StockActual']) {
+    //                 $matchingProduct->stock_qty = $produitApi['StockActual'];
+    //                 $updated = true;
+    //             }
+    //             if ($matchingProduct->Qty_Unit != $produitApi['QTEUNITE']) {
+    //                 $matchingProduct->Qty_Unit = $produitApi['QTEUNITE'];
+    //                 $updated = true;
+    //             }
+    //             if ($matchingProduct->Unit != $produitApi['unité_lot']) {
+    //                 $matchingProduct->Unit = $produitApi['unité_lot'];
+    //                 $updated = true;
+    //             }
+    //             if ($matchingProduct->name != $produitApi['Libellé']) {
+    //                 $matchingProduct->name = $produitApi['Libellé'];
+    //                 $updated = true;
+    //             }
+    
+    //             if ($updated) {
+    //                 $updates[] = $matchingProduct;
+    //             }
+    //             $virtualProducts->push($matchingProduct);
+    //         }
+    //     }
+    
+    //     // Batch update products
+    //     if (!empty($updates)) {
+    //         foreach ($updates as $product) {
+    //             $product->save();
+    //         }
+    //     }
+    
+    //     $sortedProducts = $virtualProducts->sortByDesc('created_at');
+    
+    //     return getView('pages.home', [
+    //         'blogs' => $blogs,
+    //         'sliders' => $sliders,
+    //         'banner_section_one_banners' => $banner_section_one_banners,
+    //         'client_feedback' => $client_feedback,
+    //         'products' => $sortedProducts,
+    //         'trendingProducts' => $TrendingProducts,
+    //         'left_products' => $left_products
+    //     ]);
+    // }
+    
+
+
+
     public function index()
     {
-        $TrendingProducts = collect();
-        $left_products = collect();
-        $virtualProducts = collect();
         $blogs = Blog::isActive()->latest()->take(3)->get();
-    
-        $sliders = json_decode(getSetting('hero_sliders')) ?? [];
-        $banner_section_one_banners = json_decode(getSetting('banner_section_one_banners')) ?? [];
-        $client_feedback = json_decode(getSetting('client_feedback')) ?? [];
-    
-        $apiUrl = env('API_CATEGORIES_URL');
-        $email = Auth::check() && Auth::user()->user_type == 'customer' && Auth::user()->email ? Auth::user()->email : '';
-        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . $email);
-        $produitsApi = $response->json();
-    
-        $barcodes = collect($produitsApi)->pluck('codeabarre');
-        $existingProducts = Product::whereIn('slug', $barcodes)
-            ->where('is_published', 1)
-            ->with('categories')
-            ->get()
-            ->keyBy('slug');
-    
-        $updates = [];
-        foreach ($produitsApi as $produitApi) {
-            $barcode = $produitApi['codeabarre'];
-    
-            if (isset($existingProducts[$barcode])) {
-                $matchingProduct = $existingProducts[$barcode];
-                $updated = false;
-    
-                if ($matchingProduct->min_price !== $produitApi['PrixVTTC'] ||
-                    $matchingProduct->max_price !== $produitApi['PrixVTTC'] ||
-                    $matchingProduct->Prix_HT !== $produitApi['PrixVenteHT']) {
-                    $matchingProduct->min_price = $produitApi['PrixVTTC'];
-                    $matchingProduct->max_price = $produitApi['PrixVTTC'];
-                    $matchingProduct->Prix_HT = $produitApi['PrixVenteHT'];
-                    $updated = true;
-                }
-                if ($matchingProduct->stock_qty !== $produitApi['StockActual']) {
-                    $matchingProduct->stock_qty = $produitApi['StockActual'];
-                    $updated = true;
-                }
-                if ($matchingProduct->Qty_Unit != $produitApi['QTEUNITE']) {
-                    $matchingProduct->Qty_Unit = $produitApi['QTEUNITE'];
-                    $updated = true;
-                }
-                if ($matchingProduct->Unit != $produitApi['unité_lot']) {
-                    $matchingProduct->Unit = $produitApi['unité_lot'];
-                    $updated = true;
-                }
-                if ($matchingProduct->name != $produitApi['Libellé']) {
-                    $matchingProduct->name = $produitApi['Libellé'];
-                    $updated = true;
-                }
-    
-                if ($updated) {
-                    $updates[] = $matchingProduct;
-                }
-                $virtualProducts->push($matchingProduct);
-            }
+
+        $sliders = [];
+        if (getSetting('hero_sliders') != null) {
+            $sliders = json_decode(getSetting('hero_sliders'));
         }
-    
-        // Batch update products
-        if (!empty($updates)) {
-            foreach ($updates as $product) {
-                $product->save();
-            }
+
+        $banner_section_one_banners = [];
+        if (getSetting('banner_section_one_banners') != null) {
+            $banner_section_one_banners = json_decode(getSetting('banner_section_one_banners'));
         }
-    
-        $sortedProducts = $virtualProducts->sortByDesc('created_at');
-    
-        return getView('pages.home', [
-            'blogs' => $blogs,
-            'sliders' => $sliders,
-            'banner_section_one_banners' => $banner_section_one_banners,
-            'client_feedback' => $client_feedback,
-            'products' => $sortedProducts,
-            'trendingProducts' => $TrendingProducts,
-            'left_products' => $left_products
-        ]);
+
+        $client_feedback = [];
+        if (getSetting('client_feedback') != null) {
+            $client_feedback = json_decode(getSetting('client_feedback'));
+        }
+
+
+        return getView('pages.home', ['blogs' => $blogs, 'sliders' => $sliders, 'banner_section_one_banners' => $banner_section_one_banners, 'client_feedback' => $client_feedback]);
     }
-    
+
+
+
 
     # all brands
     public function allBrands()
