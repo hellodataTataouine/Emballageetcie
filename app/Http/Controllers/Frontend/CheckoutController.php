@@ -265,16 +265,32 @@ class CheckoutController extends Controller
               $Ville = $UserAddress->city ?? '';
               $CodeTVA =auth()->user()->NTVA ?? '000000';
               $Payment =$request->payment_method . "-" . "NonPayé" ;
+              
+
               $logisticName = $logisticZone->logistic->name;
-              $scheduledInfo = $order->scheduled_delivery_info;
-               $shippingCost = $orderGroup->total_shipping_cost;
-
-               // Extract the necessary parts from the scheduled delivery info
-               $timeline = $scheduledInfo['timeline'];
-               $scheduledDate = $scheduledInfo['scheduled_date'];
-
+              $scheduledInfoJson = $order->scheduled_delivery_info;
+              $shippingCost = $orderGroup->total_shipping_cost;
+              
+              // Decode the JSON string to an associative array
+              $scheduledInfo = json_decode($scheduledInfoJson, true);
+              
+              // Check if the decoding was successful
+              if (json_last_error() === JSON_ERROR_NONE) {
+                  $timeline = $scheduledInfo['timeline'];
+                  $scheduledDate = $scheduledInfo['scheduled_date'];
+              
                   // Format the delivery string
-              $Livraison = "$logisticName - $timeline - $scheduledDate - $shippingCost";
+                  $Livraison = "$logisticName - $timeline - $scheduledDate - $shippingCost";
+              
+                  // Output the formatted delivery string
+                  echo $Livraison;
+              } else {
+                  // Handle the error if the JSON string could not be decoded
+                  $Livraison = "$logisticName - $shippingCost";
+              }
+
+
+
               //$Livraison =$logisticZone->logistic->name . "-" . $order->scheduled_delivery_info . "-" . $orderGroup->total_shipping_cost;
               $clientemail =auth()->user()->email ?? '';
               $rTotalHT = $orderGroup->sub_total_amount;
