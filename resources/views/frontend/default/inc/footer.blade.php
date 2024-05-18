@@ -79,7 +79,7 @@
                     <form class="mt-5 d-flex align-items-center bg-white rounded subscribe_form"
                         action="{{ route('subscribe.store') }}" method="POST">
                         @csrf
-                        {!! RecaptchaV3::field('recaptcha_token') !!}
+                        <!-- {!! RecaptchaV3::field('recaptcha_token') !!} -->
                         <input type="email" class="form-control" placeholder="{{ localize('Enter Email Address') }}"
                             type="email" name="email" required>
                         <button type="submit"
