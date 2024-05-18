@@ -171,8 +171,16 @@ class ProductController extends Controller
         if ($request->search != null) {
             $searchTerm = $request->search;
         
+
+            function removeAccents($str) {
+                return preg_replace('/[^\x20-\x7E]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str));
+            }
+
+  // Remove accents from the search term
+  $searchTermWithoutAccents = removeAccents($searchTerm);
+
             // Split the search term into words
-            $keywords = explode(' ', $searchTerm);
+            $keywords = explode(' ', $searchTermWithoutAccents);
         
             $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
                 // Check if any part of the keywords matches the product name, description, slug, or tag names
