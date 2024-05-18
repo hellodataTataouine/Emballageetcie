@@ -11,8 +11,8 @@
     @endif
 
     <div class="thumbnail position-relative text-center p-4 flex-shrink-0">
-        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}"
-            class="img-fluid">
+        <img data-src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}"
+            class="img-fluid lazyload">
     </div>
     <div class="card-content w-100">
 

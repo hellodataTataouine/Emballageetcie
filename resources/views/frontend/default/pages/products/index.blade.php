@@ -180,7 +180,7 @@
                                     @endif
                                 @else
                                     <div class="col-6 mx-auto">
-                                        <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" srcset="" class="img-fluid">
+                                        <img data-src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" srcset="" class="img-fluid lazyload">
                                     </div>
                                 @endif
                             </div>

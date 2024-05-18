@@ -11,8 +11,8 @@
     @endif
 
     <div class="thumbnail position-relative text-center p-4">
-        <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
-            class="img-fluid product-image">
+        <img data-src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->collectLocalization('name') }}"
+            class="img-fluid product-image lazyload">
         <div class="product-btns position-absolute d-flex gap-2 flex-column">
 
             @if (Auth::check() && Auth::user()->user_type == 'customer')

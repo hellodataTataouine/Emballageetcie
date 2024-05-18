@@ -1,7 +1,7 @@
 <div class="horizontal-product-card d-sm-flex align-items-center p-3 bg-white rounded-2 border card-md gap-4">
     <div class="thumbnail position-relative rounded-2">
-        <a href="javascript:void(0);"><img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="product"
-                class="img-fluid"></a>
+        <a href="javascript:void(0);"><img data-src="{{ uploadedAsset($product->thumbnail_image) }}" alt="product"
+                class="img-fluid lazyload"></a>
         <div
             class="product-overlay position-absolute start-0 top-0 w-100 h-100 d-flex align-items-center justify-content-center gap-1 rounded-2">
             @if (Auth::check() && Auth::user()->user_type == 'customer')

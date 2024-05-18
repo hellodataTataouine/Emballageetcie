@@ -26,7 +26,7 @@
             @endif
         @empty
             <div class="mx-auto w-50 w-md-25">
-                <img src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" class="img-fluid">
+                <img data-src="{{ staticAsset('frontend/default/assets/img/empty-cart.svg') }}" alt="" class="img-fluid lazyload">
             </div>
         @endforelse
     </div>

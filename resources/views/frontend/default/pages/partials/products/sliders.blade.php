@@ -11,8 +11,8 @@
         <div class="swiper-wrapper">
             @foreach ($galleryImages as $galleryImage)
                 <div class="swiper-slide text-center">
-                    <img src="{{ uploadedAsset($galleryImage) }}" alt="{{ $product->collectLocalization('name') }}"
-                        class="img-fluid" style="height: 459px;">
+                    <img data-src="{{ uploadedAsset($galleryImage) }}" alt="{{ $product->collectLocalization('name') }}"
+                        class="img-fluid lazyload" style="height: 459px;">
                 </div>
             @endforeach
         </div>

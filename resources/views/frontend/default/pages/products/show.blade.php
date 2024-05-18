@@ -113,7 +113,7 @@
                                                 <td class="align-middle">
                                                     @if($product->thumbnail_image)
                                                         <a href="{{ route('products.show', $product->slug) }}">
-                                                            <img src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}" class="img-fluid" style="max-width: 40px; max-height: 40px;">
+                                                            <img data-src="{{ uploadedAsset($product->thumbnail_image) }}" alt="{{ $product->name }}" class="img-fluid lazyload" style="max-width: 40px; max-height: 40px;">
                                                         </a>
                                                     @else
                                                         {{ $product->slug }}
@@ -173,7 +173,7 @@
                                                     <td class="align-middle">
                                                         @if($childProduct->thumbnail_image)
                                                             <a href="{{ route('products.show', $childProduct->slug) }}">
-                                                                <img src="{{ uploadedAsset($childProduct->thumbnail_image) }}" alt="{{ $childProduct->name }}" class="img-fluid" style="max-width: 40px; max-height: 40px;">
+                                                                <img data-src="{{ uploadedAsset($childProduct->thumbnail_image) }}" alt="{{ $childProduct->name }}" class="img-fluid lazyload" style="max-width: 40px; max-height: 40px;">
                                                             </a>
                                                         @else
                                                             {{ $childProduct->slug }}
