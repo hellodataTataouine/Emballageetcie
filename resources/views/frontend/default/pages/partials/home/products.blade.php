@@ -54,8 +54,8 @@
             </div>
             <div class="col-xl-3 d-none d-xl-block">
                 <a href="{{ getSetting('best_selling_banner_link') }}" class=""><img
-                        src="{{ uploadedAsset(getSetting('best_selling_banner')) }}" alt=""
-                        class="img-fluid rounded-2 d-flex flex-column h-100 object-fit-cover"></a>
+                        data-src="{{ uploadedAsset(getSetting('best_selling_banner')) }}" alt=""
+                        class="img-fluid rounded-2 d-flex flex-column h-100 object-fit-cover lazyload"></a>
             </div>
         </div>
     </div>

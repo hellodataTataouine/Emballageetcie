@@ -1,6 +1,6 @@
 <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 7.png') }}" alt="Photo 7"
-        class="position-absolute leaf-shape z--1 rounded-circle d-none d-lg-inline">
+    <img data-src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 7.png') }}" alt="Photo 7"
+        class="position-absolute leaf-shape z--1 rounded-circle d-none d-lg-inline lazyload">
     
     <!-- <img src="{{ staticAsset('frontend/default/assets/img/shapes/Lunchbox 2.png') }}" alt="Lunchbox 2"
         class="position-absolute mango z--1" data-parallax='{"y": -120}'> -->
@@ -35,11 +35,11 @@
                             <div class="col-xl-6 col-lg-5">
                                 <div class="hero-right text-center position-relative z-1 mt-6 mt-xl-0">
 
-                                <img src="{{ uploadedAsset($slider->image) }}" alt=""
-                                        class="img-fluid position-absolute end-0 top-50 hero-img">
+                                <img data-src="{{ uploadedAsset($slider->image) }}" alt=""
+                                        class="img-fluid position-absolute end-0 top-50 hero-img lazyload">
                                     
-                                    <img src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-lg.png') }}"
-                                        alt="circle shape" class="img-fluid hero-circle">
+                                    <img data-src="{{ staticAsset('frontend/default/assets/img/shapes/hero-circle-lg.png') }}"
+                                        alt="circle shape" class="img-fluid hero-circle lazyload">
                                 </div>
                             </div>
                         </div>

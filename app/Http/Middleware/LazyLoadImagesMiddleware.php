@@ -18,11 +18,14 @@ class LazyLoadImagesMiddleware
     {
         $response = $next($request);
 
-        // Modify HTML response to include lazy loading attributes for images
-        $content = $response->getContent();
-        $lazyLoadedContent = $this->lazyLoadImages($content);
+        // Check if the response is an HTML response
+        if ($response->headers->get('Content-Type') === 'text/html') {
+            // Modify HTML response to include lazy loading attributes for images
+            $content = $response->getContent();
+            $lazyLoadedContent = $this->lazyLoadImages($content);
 
-        $response->setContent($lazyLoadedContent);
+            $response->setContent($lazyLoadedContent);
+        }
 
         return $response;
     }

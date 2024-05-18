@@ -1,8 +1,8 @@
 <section class="featured-products pt-120 pb-200 bg-shade position-relative overflow-hidden z-1">
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 1ph.png') }}" alt="Lunchbox 1"
-        class="position-absolute roll-1 z--1" data-parallax='{"y": -120}'>
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 21.png') }}" alt="Lunchbox"
-        class="position-absolute roll-2 z--1" data-parallax='{"y": 120}'>
+    <img data-src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 1ph.png') }}" alt="Lunchbox 1"
+        class="position-absolute roll-1 z--1 lazyload" data-parallax='{"y": -120}'>
+    <img data-src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 21.png') }}" alt="Lunchbox"
+        class="position-absolute roll-2 z--1 lazyload" data-parallax='{"y": 120}'>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-6">
@@ -34,7 +34,7 @@
             <div class="col-xxl-4 col-lg-6 order-3 order-xxl-2 d-none d-xl-block d-none-1399">
                 <div class="product-card-lg bg-light rounded-2 d-flex flex-column h-100">
                     <a href="{{ getSetting('featured_banner_link') }}" class="my-auto">
-                        <img src="{{ uploadedAsset(getSetting('featured_center_banner')) }}" alt="">
+                        <img data-src="{{ uploadedAsset(getSetting('featured_center_banner')) }}" class="lazyload" alt="">
                     </a>
                 </div>
             </div>
@@ -59,6 +59,6 @@
             </div>
         </div>
     </div>
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/bg-shape-2.png') }}" alt="bg shape"
-        class="position-absolute start-0 bottom-0 w-100 z--1">
+    <img data-src="{{ staticAsset('frontend/default/assets/img/shapes/bg-shape-2.png') }}" alt="bg shape"
+        class="position-absolute start-0 bottom-0 w-100 z--1 lazyload">
 </section>

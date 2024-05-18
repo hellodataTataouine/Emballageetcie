@@ -23,8 +23,8 @@
                            
                             <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"> <div
                                 class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="{{ uploadedAsset($category->collectLocalization('thumbnail_image')) }}"
-                                    alt="" class="img-fluid">
+                                <img data-src="{{ uploadedAsset($category->collectLocalization('thumbnail_image')) }}"
+                                    alt="" class="img-fluid lazyload">
                             </div>
 
                             <a href="{{ route('products.index') }}?&category_id={{ $category->id }}"
