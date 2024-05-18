@@ -80,7 +80,7 @@
                         action="{{ route('subscribe.store') }}" method="POST">
                         @csrf
                         {!! RecaptchaV3::field('recaptcha_token') !!}
-                        <input type="email" class="form-control" placeholder="{{ localize('Enter Email Address') }}"
+                        <input type="email" class="form-control" placeholder="{{ localize('Entrer votre email') }}"
                             type="email" name="email" required>
                         <button type="submit"
                             class="btn btn-primary flex-shrink-0">{{ localize('Abonnez-vous maintenant') }}</button>
