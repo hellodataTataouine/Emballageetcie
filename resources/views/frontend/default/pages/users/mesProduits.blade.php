@@ -153,6 +153,8 @@
                                 @endif
                             </div>
                             <ul class="d-flex align-items-center gap-3 mt-7">
+
+                          
                                 {{ $mesProduits->appends(request()->input())->links() }}
                             </ul>
                             <!--products-->

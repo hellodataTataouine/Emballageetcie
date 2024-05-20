@@ -195,6 +195,7 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
 
     $mesProduits = new LengthAwarePaginator($slicedProducts, count($virtualProducts),paginationNumber($per_page), $currentPage);
+    $mesProduits->withPath('/mes-produits');
 //dd($mesProduits);
     return getView('pages.users.mesProduits', compact('mesProduits'));
 }
