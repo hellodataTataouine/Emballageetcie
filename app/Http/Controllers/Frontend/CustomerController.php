@@ -20,6 +20,30 @@ class CustomerController extends Controller
 {
 
     
+
+
+
+	//Save data for login Popup Off
+    public function loginPopupOff(Request $request){
+            
+        $PopupOff = $request->input('PopupOff');
+        
+        session(['loginPopupOff' => $PopupOff]);
+          // Log the session data for verification
+Log::info('Session loginPopupOff value: ' . session('loginPopupOff'));
+
+return response()->json([
+    'success' => true,
+    'message' => 'PopupOff value stored in session',
+    'sessionValue' => session('loginPopupOff')
+]);
+    }
+
+
+
+
+
+
     
     # customer extraitDeCompte
     public function extraitDeCompte()
@@ -280,4 +304,10 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             return back();
         }
     }
+
+
+
+    
+
+
 }

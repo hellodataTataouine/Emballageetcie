@@ -134,6 +134,7 @@ Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned
 
     Route::get('/mes-produits', [CustomerController::class, 'mesProduits'])->name('customers.mesProduits');
 
+    Route::post('/frontend/loginPopupOff', [CustomerController::class, 'loginPopupOff'])->name('frontend.loginPopupOff');
 
 
     # wishlist
@@ -198,5 +199,4 @@ Route::group(['prefix' => ''], function () {
     # iyzico
     Route::any('/iyzico/payment/callback', [IyZicoController::class, 'callback'])->name('iyzico.callback');
 });
-
 

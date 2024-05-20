@@ -28330,3 +28330,62 @@ blockquote::before {
       .section {
         margin-bottom: 50px; /* Vous pouvez ajuster la valeur selon l'espace souhaité */
     }
+
+
+    
+    .modal_newsletter_card {}
+    .modal_newsletter_card .modal-close {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 40px;
+        height: 40px;
+        background: var(--color-green);
+        line-height: 30px;
+        text-align: center;
+        z-index: 999;
+        color: var(--color-white);
+        font-size: 22px;
+        border: none;
+        -webkit-transition: all 0.5s ease-in-out 0s;
+        -moz-transition: all 0.5s ease-in-out 0s;
+        transition: all 0.5s ease-in-out 0s;
+    }
+    .modal_newsletter_card .modal-close:hover {
+        background: var(--color-white);
+        color: var(--color-black);
+    }
+    .modal_newsletter_card .modal-dialog {
+        max-width: 700px;
+    }
+    .modal_newsletter_card .modal-content {
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        border: none;
+        border-radius: 0;
+    }
+    .modal_newsletter_card .modal-content::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        background: var(--color-light-green);
+        opacity: 0.5;
+    }
+    .modal_newsletter_card .modal-body {
+        padding: 100px 20px;
+    }
+    .modal_newsletter_card .newsletter-card p {
+        font-weight: 500;
+        margin-bottom: 50px;
+    }
+    .modal_newsletter_card .newsletter-card h2 {
+        margin-bottom: 20px;
+    }
+    
