@@ -114,13 +114,13 @@
 <div class="modal fade modal_newsletter_card" id="subscribe_popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content" style="background-image: url({{ asset('uploads/media/loginpopup.jpg') }});">
-			<button onclick="popup_modal_close()" type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" style="width: 80em;"><i class="bi bi-x-lg"></i></button>
+			<button onclick="popup_modal_close()" type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; top: 0; right: 0;"><i class="bi bi-x-lg"></i></button>
 			
 			<div class="modal-body">
 				<div class="newsletter-card">
                
    
-					<h2>{{ localize('Merci de bien vouloir vous connecter afin de pouvoir passer vos commandes..') }}</h2>
+					<h3>{{ localize('Merci de bien vouloir vous connecter afin de pouvoir passer vos commandes..') }}</h3>
 				
 					<div class="newsletter-form">
                     <button id="loginButton" class="btn btn-primary">{{ localize('Connexion') }}</button>
