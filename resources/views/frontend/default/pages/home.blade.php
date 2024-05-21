@@ -120,7 +120,7 @@
 				<div class="newsletter-card">
                
    
-					<h2>{{ localize('Veuillez vous connecter pour passer vos commandes.') }}</h2>
+					<h2>{{ localize('Merci de bien vouloir vous connecter afin de pouvoir passer vos commandes..') }}</h2>
 				
 					<div class="newsletter-form">
                     <button id="loginButton" class="btn btn-primary">{{ localize('Connexion') }}</button>
