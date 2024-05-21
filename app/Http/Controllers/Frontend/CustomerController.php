@@ -14,7 +14,7 @@ use App\Models\ProductVariation;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -24,8 +24,8 @@ class CustomerController extends Controller
 
 
 	//Save data for login Popup Off
-    public function loginPopupOff(Request $request){
-            
+    public function loginPopupOfff(Request $request){
+     
         $PopupOff = $request->input('PopupOff');
         
         session(['loginPopupOff' => $PopupOff]);

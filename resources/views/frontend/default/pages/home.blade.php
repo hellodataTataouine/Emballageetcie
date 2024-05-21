@@ -114,13 +114,13 @@
 <div class="modal fade modal_newsletter_card" id="subscribe_popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content" style="background-image: url({{ asset('uploads/media/loginpopup.jpg') }});">
-			<button onclick="popup_modal_close()" type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+			<button onclick="popup_modal_close()" type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" style="width: 80em;"><i class="bi bi-x-lg"></i></button>
 			
 			<div class="modal-body">
 				<div class="newsletter-card">
                
    
-					<h2>{{ localize('Veuillez vous connecter pour passer une commande.') }}</h2>
+					<h2>{{ localize('Veuillez vous connecter pour passer vos commandes.') }}</h2>
 				
 					<div class="newsletter-form">
                     <button id="loginButton" class="btn btn-primary">{{ localize('Connexion') }}</button>
@@ -168,15 +168,18 @@
 
 	function popup_modal_close() {
 		$.ajax({
+            type : 'POST',
             headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-			type : 'POST',
-            url: "{{ route('frontend.loginPopupOff') }}",
+			
+            url: '{{ route('frontend.loginPopupOfff') }}',
+           
 		
 			data: 'PopupOff=OFF',
 			success: function (response){
                 console.log('AJAX request successful');
+                
             // Close modal after AJAX request is completed
             $('.modal').modal('hide');
             },

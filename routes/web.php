@@ -119,6 +119,8 @@ Route::post('/subscribers', [SubscribersController::class, 'store'])->name('subs
 Route::post('/get-states', [AddressController::class, 'getStates'])->name('address.getStates');
 Route::post('/get-cities', [AddressController::class, 'getCities'])->name('address.getCities');
 
+
+Route::post('/frontend/loginPopupOfff', [CustomerController::class, 'loginPopupOfff'])->name('frontend.loginPopupOfff');
 # authenticated routes
 Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned']], function () {
     # customer routes
@@ -134,7 +136,7 @@ Route::group(['prefix' => '', 'middleware' => ['customer', 'verified', 'isBanned
 
     Route::get('/mes-produits', [CustomerController::class, 'mesProduits'])->name('customers.mesProduits');
 
-    Route::post('/frontend/loginPopupOff', [CustomerController::class, 'loginPopupOff'])->name('frontend.loginPopupOff');
+    
 
 
     # wishlist
