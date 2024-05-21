@@ -113,7 +113,7 @@
 
 <div class="modal fade modal_newsletter_card" id="subscribe_popup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content" style="background-image: url({{ asset('uploads/media/loginpopup.jpg') }});">
+		<div class="modal-content" style="background-image: url({{ asset('public/uploads/media/loginpopup.jpg') }});">
 			<button onclick="popup_modal_close()" type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; top: 0; right: 0;"><i class="bi bi-x-lg"></i></button>
 			
 			<div class="modal-body">
