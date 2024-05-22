@@ -345,7 +345,7 @@ class CheckoutController extends Controller
                             "Quantité"         => $cart->qty,
                             "PrixVente"       => variationDiscountedPrice($cart->product_variation->product, $cart->product_price),
                             "ClientNom"    =>  $clientnom,
-                            "Emai"    =>  $clientemail,
+                            "Email"    =>  $clientemail,
                             "CodePostale"        => $codepostal,
                            "Adresse"          => $Adresse,
                            "Telephone"         => $phone,
@@ -390,7 +390,7 @@ class CheckoutController extends Controller
 
                 $apiLineDatafull1 = [
                     "ClientNom"    =>  $clientnom,
-                    "Emai"    =>  $clientemail,
+                    "Email"    =>  $clientemail,
                     "CodePostale"        => $codepostal,
                     "Adresse"          => $Adresse,
                     "Telephone"         => $phone,
