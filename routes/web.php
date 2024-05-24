@@ -25,7 +25,9 @@ use App\Http\Controllers\Frontend\RewardPointsController;
 use App\Http\Controllers\Frontend\WalletController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CatalogController;
-
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+use App\Models\Product; 
 
 
 /*
@@ -202,3 +204,38 @@ Route::group(['prefix' => ''], function () {
     Route::any('/iyzico/payment/callback', [IyZicoController::class, 'callback'])->name('iyzico.callback');
 });
 
+
+
+
+Route::get('/generate-sitemap', function () {
+    $sitemap = Sitemap::create();
+
+    // Add static URLs
+    $sitemap->add(Url::create('/'))
+            ->add(Url::create('/about'))
+            ->add(Url::create('/products'))
+              ->add(Url::create('/pages/contact-us'))
+              ->add(Url::create('/pages/about-us'))
+              ->add(Url::create('/pages/terms-conditions'))
+              
+            ->add(Url::create('/contact'));
+
+    // Add dynamic URLs from the database
+    $products = Product::all();
+    foreach ($products as $product) {
+        $sitemap->add(Url::create("/products/{$product->slug}"));
+    }
+
+    $categories = Category::all();
+    foreach ($categories as $category) {
+        $sitemap->add(Url::create("/products?category_id={$category->id}"));
+       
+    }
+
+    
+
+
+    $sitemap->writeToFile(public_path('sitemap.xml'));
+
+    return 'Sitemap generated!';
+});
