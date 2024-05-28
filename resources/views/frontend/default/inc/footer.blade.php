@@ -59,7 +59,7 @@
         <img src="{{ staticAsset('frontend/default/assets/img/shapes/15 smiley.png') }}" alt="15 smiley"
         class="position-absolute z--1 leaf-1 vector-shape">
     <!--shape right -->
-    <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 612.png') }}" alt="Photo 612"
+    <img src="{{ staticAsset('frontend/default/assets/img/shapes/photo 612.png') }}" alt="Photo 612"
         class="position-absolute leaf-3 z--1 vector-shape">
         <img src="{{ staticAsset('frontend/default/assets/img/shapes/Photo 56.png') }}" alt="Photo 56"
         class="position-absolute pata-xs-2 z--1 vector-shape">
