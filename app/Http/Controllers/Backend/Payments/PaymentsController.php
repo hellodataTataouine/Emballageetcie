@@ -10,7 +10,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Backend\Payments\Paytm\PaytmPaymentController;
 use App\Http\Controllers\Backend\Payments\Razorpay\RazorpayController;
 use App\Models\OrderGroup;
-
+use Illuminate\Http\Request;
 class PaymentsController extends Controller
 {
     # init payment gateway
@@ -63,7 +63,7 @@ public function ContinuerPaiement($order_code){
 
 
 
-public function FinalContinuerPaiement($order_code)
+public function FinalContinuerPaiement(Request $request,$order_code)
 {
 
     $orderGroup = OrderGroup::where('order_code', $order_code)->first();
@@ -78,8 +78,8 @@ public function FinalContinuerPaiement($order_code)
         
 
         # init payment
-        $payment = new PaymentsController;
-        return $payment->initPayment();
+     
+        return $this->initPayment();
     }   else {
        
         flash(localize('Votre commande a été passée avec succès.'))->success();

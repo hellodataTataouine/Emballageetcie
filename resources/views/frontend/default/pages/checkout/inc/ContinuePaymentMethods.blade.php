@@ -21,7 +21,8 @@
     <!--breadcrumb-->
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
-    <form class="checkout-form" action="{{ route('checkout.paymentcomplete', ['order_code' => $order_code]) }}" method="POST">
+    <form class="check-form" action="{{ route('checkout.paymentcomplete', ['order_code' => $order_code]) }}" method="POST">
+    @csrf
     <div class="container">
     <h4 class="mt-7">{{ localize('Moyen de Paiement') }}</h4>
 
@@ -61,13 +62,16 @@
             <img src="{{ staticAsset('frontend/pg/carte.png') }}" alt="stripe" class="img-fluid">
         </div>
     </div>
+    </br>
     <button type="submit" class="btn btn-primary " >{{ localize('Continuer Votre Paiement') }}</button>
 
 
     </div>
     </div>
+
 </form>
 @endif
-
+</br>
+</br>
 
 @endsection
