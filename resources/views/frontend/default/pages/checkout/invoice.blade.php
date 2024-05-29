@@ -265,7 +265,7 @@
 
                             </tr>
                         </table>
-                        @if ($orderGroup->payment_status == "unpaid")
+                        @if ($orderGroup->payment_status == "unpaid" && (ucwords(str_replace('_', ' ', $orderGroup->payment_method)) != "Cod"))
                         <a href="{{ route('ContinuerPaiement', ['order_code' => $orderGroup->order_code]) }}" class="btn btn-outline-secondary border-secondary btn-md rounded-1">Continuer Votre Paiement </a>                        @endif
                     </div>
                 </div>

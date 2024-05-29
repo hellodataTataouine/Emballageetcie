@@ -61,7 +61,7 @@
             <img src="{{ staticAsset('frontend/pg/carte.png') }}" alt="stripe" class="img-fluid">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-md rounded mt-6 " >{{ localize('Continuer Votre Paiement') }}</button>
+    <button type="submit" class="btn btn-primary " >{{ localize('Continuer Votre Paiement') }}</button>
 
 
     </div>
