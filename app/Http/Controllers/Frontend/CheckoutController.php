@@ -516,16 +516,7 @@ try {
 
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);
-            } else if ($request->payment_method == "vir") {
-              
-
-
-
-
-               
-                flash(localize('Votre commande a été passée avec succès.'))->success();
-                return redirect()->route('checkout.success', $orderGroup->order_code);
-            } else {
+            }  else {
                
                 flash(localize('Votre commande a été passée avec succès.'))->success();
                 return redirect()->route('checkout.success', $orderGroup->order_code);

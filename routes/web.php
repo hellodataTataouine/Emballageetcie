@@ -25,6 +25,7 @@ use App\Http\Controllers\Frontend\RewardPointsController;
 use App\Http\Controllers\Frontend\WalletController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CatalogController;
+use App\Http\Controllers\Backend\Payments\PaymentsController;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Product; 
@@ -205,7 +206,8 @@ Route::group(['prefix' => ''], function () {
 });
 
 
-
+Route::get('/continuerpaiement/{order_code}', [PaymentsController::class, 'ContinuerPaiement'])->name('ContinuerPaiement');
+Route::get('/paymentcomplete/{order_code}', [PaymentsController::class, 'FinalContinuerPaiement'])->name('checkout.paymentcomplete');
 
 Route::get('/generate-sitemap', function () {
     $sitemap = Sitemap::create();

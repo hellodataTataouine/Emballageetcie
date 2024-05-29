@@ -226,7 +226,15 @@
                                     <span> {{ ucwords(str_replace('_', ' ', $orderGroup->payment_method)) }}</span>
                                     @endif
                                 </td>
+                                <td>
+                                <strong class="text-dark d-block text-nowrap">{{ localize('Statut de paiement') }}</strong>
+@if($orderGroup->payment_status == "unpaid")
 
+                               Non Payé
+                                @else
+                                Payé
+                                @endif
+                                </td>
                                 <td>
                                     <strong class="text-dark d-block text-nowrap">{{ localize('Sous-total') }}</strong>
                                     <span>{{ formatPrice($orderGroup->sub_total_amount) }}</span>
@@ -257,6 +265,8 @@
 
                             </tr>
                         </table>
+                        @if ($orderGroup->payment_status == "unpaid")
+                        <a href="{{ route('ContinuerPaiement', ['order_code' => $orderGroup->order_code]) }}" class="btn btn-outline-secondary border-secondary btn-md rounded-1">Continuer Votre Paiement </a>                        @endif
                     </div>
                 </div>
             </div>

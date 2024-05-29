@@ -54,9 +54,53 @@ public function payment_failed()
     }
 }
 
+public function ContinuerPaiement($order_code){
+    return view('frontend.default.pages.checkout.inc.ContinuePaymentMethods',compact('order_code'));
+ 
+
+}
 
 
 
+
+public function FinalContinuerPaiement($order_code)
+{
+
+    $orderGroup = OrderGroup::where('order_code', $order_code)->first();
+
+
+
+    if ($request->payment_method != "cod" && $request->payment_method != "wallet" && $request->payment_method != "vir") {
+        $request->session()->put('payment_type', 'order_payment');
+        $request->session()->put('order_code', $orderGroup->order_code);
+        $request->session()->put('payment_method', $request->payment_method);
+       
+        
+
+        # init payment
+        $payment = new PaymentsController;
+        return $payment->initPayment();
+    }   else {
+       
+        flash(localize('Votre commande a été passée avec succès.'))->success();
+        return redirect()->route('checkout.success', $orderGroup->order_code);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 /*
     # payment failed
     public function payment_failed()
