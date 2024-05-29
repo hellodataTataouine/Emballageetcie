@@ -150,7 +150,7 @@
                     <h5 class="text-white mb-4">{{ localize('Pages Clients') }}</h5>
                     <ul class="footer-nav">
                     @if(auth()->check())
-                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Ma Sélection') }}</a></li>
+                                        <li><a href="{{ route('customers.mesProduits') }}">{{ localize('Mercuriale') }}</a></li>
                                     @endif
                         <li><a href="{{ route('customers.dashboard') }}">{{ localize('Votre Compte') }}</a></li>
                         <li><a href="{{ route('customers.orderHistory') }}">{{ localize('Vos Commandes') }}</a></li>
