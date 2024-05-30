@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation de Réception de Commande</title>
+    <title>Commande en attente de confirmation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
