@@ -33,6 +33,7 @@
                                         <th>{{ localize('Articles') }}</th>
                                         <th>{{ localize('Total') }}</th>
                                         <th>{{ localize('Statut') }}</th>
+                                        <th>{{ localize('Paiement') }}</th>
                                         <th class="text-center">{{ localize('Action') }}</th>
                                     </tr>
 
@@ -49,6 +50,20 @@
                                                     {{ ucwords(str_replace('_', ' ', $recentOrder->delivery_status)) }}
                                                 </span>
                                             </td>
+
+                                            <td>
+                                                <span class="badge bg-secondary">
+                                                @if($recentOrder->orderGroup->payment_status == "unpaid")
+
+                                              Non Payé
+                                                @else
+                                                 Payé
+                                                @endif
+                                                   
+                                                </span>
+                                            </td>
+
+
                                             <td class="text-center">
                                                 <!-- <a href="{{ route('customers.trackOrder') }}?code={{ $recentOrder->orderGroup->order_code }}"
                                                     class="view-invoice fs-xs me-2" target="_blank" data-bs-toggle="tooltip"
