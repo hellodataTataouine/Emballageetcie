@@ -66,13 +66,13 @@ public function ContinuerPaiement($order_code){
 public function FinalContinuerPaiement(Request $request,$order_code)
 {
 
-    $orderGroup = OrderGroup::where('order_code', $order_code)->first();
+    //$orderGroup = OrderGroup::where('order_code', $order_code)->first();
 
 
 
     if ($request->payment_method != "cod" && $request->payment_method != "wallet" && $request->payment_method != "vir") {
         $request->session()->put('payment_type', 'order_payment');
-        $request->session()->put('order_code', $orderGroup->order_code);
+        $request->session()->put('order_code', $order_code);
         $request->session()->put('payment_method', $request->payment_method);
        
         

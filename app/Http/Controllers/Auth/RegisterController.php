@@ -113,6 +113,7 @@ public function verifyClient(Request $request, $CODETIERS)
                'codetiers' => $data['codetiers'],
                'postal_code' => $data['postal_code'],
                'IdClientApi' => $data['IDClient'],
+               'enable_virement' => 0,
            ]);
    
            // set guest_user_id to user_id from carts 

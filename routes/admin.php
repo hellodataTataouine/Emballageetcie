@@ -310,6 +310,8 @@ Route::group(
         Route::group(['prefix' => 'customers'], function () {
             Route::get('/', [CustomersController::class, 'index'])->name('admin.customers.index');
             Route::post('/update-banned-customer', [CustomersController::class, 'updateBanStatus'])->name('admin.customers.updateBanStatus');
+            Route::post('/update-payment-customer', [CustomersController::class, 'updatePayStatus'])->name('admin.customers.updatePayStatus');
+       
         });
 
         # tags

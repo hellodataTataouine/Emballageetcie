@@ -48,4 +48,13 @@ class CustomersController extends Controller
         }
         return 0;
     }
+    public function updatePayStatus(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->enable_virement = $request->status;
+        if ($user->save()) {
+            return 1;
+        }
+        return 0;
+    }
 }

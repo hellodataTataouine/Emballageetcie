@@ -21,12 +21,13 @@
     <!--breadcrumb-->
     @include('frontend.default.inc.breadcrumb')
     <!--breadcrumb-->
+    <section class="my-account pt-6 pb-120">
     <form class="check-form" action="{{ route('checkout.paymentcomplete', ['order_code' => $order_code]) }}" method="POST">
     @csrf
     <div class="container">
     <h4 class="mt-7">{{ localize('Moyen de Paiement') }}</h4>
 
-    <div class="row g-4">
+   
     <div class="col-xl-8">
     <!--COD-->
    
@@ -66,11 +67,12 @@
     <button type="submit" class="btn btn-primary " >{{ localize('Continuer Votre Paiement') }}</button>
 
 
-    </div>
-    </div>
-
-</form>
+ 
 @endif
+</div>
+  
+</form>
+</section>
 </br>
 </br>
 

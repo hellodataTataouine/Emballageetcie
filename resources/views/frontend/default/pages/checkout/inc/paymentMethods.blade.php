@@ -1,6 +1,6 @@
 
     <!--COD-->
-    @if (getSetting('enable_cod') == 1)
+    @if (getSetting('enable_cod') == 1 && $user->enable_virement == 1)
         <div class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-3">
             <div class="radio-left d-inline-flex align-items-center">
                 <div class="theme-radio">

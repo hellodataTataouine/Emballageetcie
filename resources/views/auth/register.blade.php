@@ -84,7 +84,7 @@
                                                 class="text-danger">*</sup>
                                         </label>
                                         <input type="text" id="name" name="name"
-                                            placeholder="{{ localize('Entrez votre nom') }}" class="theme-input"
+                                            placeholder="{{ localize('Entrez votre nom de Société') }}" class="theme-input"
                                             value="{{ old('name') }}" required>
                                     </div>
                                 </div>

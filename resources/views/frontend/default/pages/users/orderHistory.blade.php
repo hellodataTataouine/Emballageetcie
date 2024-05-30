@@ -27,6 +27,7 @@
                                         <th>{{ localize('Articles') }}</th>
                                         <th>{{ localize('Total') }}</th>
                                         <th>{{ localize('Statut') }}</th>
+                                        <th>{{ localize('Paiement') }}</th>
                                         <th class="text-center">{{ localize('Action') }}</th>
                                     </tr>
 
@@ -41,6 +42,17 @@
                                             <td>
                                                 <span class="badge bg-secondary">
                                                     {{ ucwords(str_replace('_', ' ', $order->delivery_status)) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary">
+                                                @if($order->orderGroup->payment_status == "unpaid")
+
+Non Payé
+ @else
+ Payé
+ @endif
+                                                   
                                                 </span>
                                             </td>
                                             <td class="text-center">

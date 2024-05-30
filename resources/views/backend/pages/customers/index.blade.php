@@ -76,6 +76,7 @@
                                     <th>{{ localize('Nom') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Email') }}</th>
                                     <th data-breakpoints="xs sm">{{ localize('Téléphone') }}</th>
+                                    <th data-breakpoints="xs sm">{{ localize('Virement') }}</th>
                                     <th data-breakpoints="xs sm" class="text-end">{{ localize('banni') }}
                                     </th>
                                 </tr>
@@ -102,6 +103,16 @@
                                         </td>
                                         <td>
                                             {{ $customer->phone ?? localize('n/a') }}
+                                        </td>
+                                        <td class="text-end">
+                                            @can('ban_customers')
+                                                <div class="form-check form-switch d-flex justify-content-end">
+                                                    <input type="checkbox" onchange="updatePayStatus(this)"
+                                                        class="form-check-input"
+                                                        @if ($customer->enable_virement) checked @endif
+                                                        value="{{ $customer->id }}">
+                                                </div>
+                                            @endcan
                                         </td>
                                         <td class="text-end">
                                             @can('ban_customers')
@@ -146,6 +157,26 @@
                 var status = 0;
             }
             $.post('{{ route('admin.customers.updateBanStatus') }}', {
+                    _token: '{{ csrf_token() }}',
+                    id: el.value,
+                    status: status
+                },
+                function(data) {
+                    if (data == 1) {
+                        notifyMe('success', '{{ localize('Statut mis à jour avec succès') }}');
+
+                    } else {
+                        notifyMe('danger', '{{ localize('Something went wrong') }}');
+                    }
+                });
+        }
+        function updatePayStatus(el) {
+            if (el.checked) {
+                var status = 1;
+            } else {
+                var status = 0;
+            }
+            $.post('{{ route('admin.customers.updatePayStatus') }}', {
                     _token: '{{ csrf_token() }}',
                     id: el.value,
                     status: status

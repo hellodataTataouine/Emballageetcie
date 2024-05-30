@@ -24,6 +24,7 @@ class StripePaymentController extends Controller
             $orderGroup = OrderGroup::where('order_code', session('order_code'))->first(['grand_total_amount']);
             $amount = round($orderGroup->grand_total_amount * 100);
         }
+       
 
         if ($amount <= 0) {
             return (new PaymentsController)->payment_failed();
