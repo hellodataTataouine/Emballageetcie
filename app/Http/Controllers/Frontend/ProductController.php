@@ -382,9 +382,7 @@ class ProductController extends Controller
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
 
         $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
-        $currentChildren = ProductParents::select('product_parent.child_position', 'product_parent.product_id', 'product_parent.child_id')
-        ->join('products', 'product_parent.product_id', '=', 'products.id')
-        ->get();
+        $currentChildren = $product->parents()->where('is_published', 1)->get();
         $virtualRelatedProducts = collect();
         $virtualChildrenProducts = collect();
 
