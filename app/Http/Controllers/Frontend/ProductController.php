@@ -184,7 +184,7 @@ class ProductController extends Controller
         
             $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
                 // Check if any part of the keywords matches the product name, description, slug, or tag names
-                return collect($keywords)->every(function ($keyword) use ($product) {
+                return collect($keywords)->some(function ($keyword) use ($product) {
                     // Check if the keyword is present in the product name, description, or slug
                     $inProductAttributes = (
                         stripos($product->name, $keyword) !== false ||
