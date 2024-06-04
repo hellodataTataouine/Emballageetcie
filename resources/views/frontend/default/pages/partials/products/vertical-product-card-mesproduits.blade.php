@@ -81,7 +81,7 @@
     @else
     @if ($product->parents()->count() > 0)
     <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
-        {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1]) }}
+        {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->where('afficher', 1)->count() + 1])  }}
     </a>
         @else
             <form action="" class="direct-add-to-cart-form">
