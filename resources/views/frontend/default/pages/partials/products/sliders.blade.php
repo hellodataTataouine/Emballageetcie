@@ -22,8 +22,8 @@
             @foreach ($galleryImages as $galleryImage)
                 <div
                     class="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                    <img src="{{ uploadedAsset($galleryImage) }}?thumb"
-                        alt="{{ $product->collectLocalization('name') }}" class="img-fluid">
+                    <img data-src="{{ uploadedAsset($galleryImage) }}?thumb"
+                        alt="{{ $product->collectLocalization('name') }}" class="img-fluid lazyload">
                 </div>
             @endforeach
 
