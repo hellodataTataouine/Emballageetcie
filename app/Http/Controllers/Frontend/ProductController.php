@@ -215,6 +215,7 @@ if ($request->search != null) {
     $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
         // Check if any part of the keywords matches the product name, description, slug, or tag names
         return collect($keywords)->every(function ($keyword) use ($product) {
+            $productName = removeAccents($product->name);
             // Check if the keyword is present in the product name, description, or slug
             $inProductAttributes = (
                 stripos($product->name, $keyword) !== false ||
@@ -327,7 +328,10 @@ if ($request->search != null) {
 
     # product show
   
-    
+    // Function to remove accents
+function removeAccents($string) {
+    return iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+}
 
     public function show($slug)
     {
