@@ -169,74 +169,84 @@ class ProductController extends Controller
             $searchKey = $searchTerm;
         } */
 
-//         if ($request->search != null) {
-//             $searchTerm = $request->search;
-        
+        if ($request->search != null) {
+            function removeAccents($str) {
+                $str = strtolower($str); // Convert to lowercase for case-insensitive search
+                return preg_replace('/[^\x20-\x7E]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str));
+            }
+            $searchTerm = $request->search;
+          
 
-//             function removeAccents($str) {
-//                 return preg_replace('/[^\x20-\x7E]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str));
-//             }
+  // Remove accents from the search term
+  $searchTermWithoutAccents = removeAccents($searchTerm);
 
-//   // Remove accents from the search term
-//   $searchTermWithoutAccents = removeAccents($searchTerm);
-
-//             // Split the search term into words
-//             $keywords = explode(' ', $searchTermWithoutAccents);
+            // Split the search term into words
+            $keywords = explode(' ', $searchTermWithoutAccents);
         
-//             $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-//                 // Check if any part of the keywords matches the product name, description, slug, or tag names
-//                 return collect($keywords)->some(function ($keyword) use ($product) {
-//                     // Check if the keyword is present in the product name, description, or slug
-//                     $inProductAttributes = (
-//                         stripos($product->name, $keyword) !== false ||
-//                         stripos($product->description, $keyword) !== false ||
-//                         stripos($product->slug, $keyword) !== false
-//                     );
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+                // Check if any part of the keywords matches the product name, description, slug, or tag names
+                return collect($keywords)->some(function ($keyword) use ($product) {
+                    // Check if the keyword is present in the product name, description, or slug
+                    $productName = removeAccents($product->name);
+        $productDescription = removeAccents($product->description);
+        $productSlug = removeAccents($product->slug);
+                    $inProductAttributes = (
+                        stripos($productName, $keyword) !== false ||
+                        stripos($product->description, $keyword) !== false ||
+                        stripos($product->slug, $keyword) !== false
+                    );
         
-//                     // Check if the keyword is present in any part of the tag names
-//                     $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
-//                         return stripos($tagName, $keyword) !== false;
-//                     });
+                    // Check if the keyword is present in any part of the tag names
+                    $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
+                        return stripos($tagName, $keyword) !== false;
+                    });
         
-//                     return $inProductAttributes || $inTagNames;
-//                 });
-//             });
-        
-//             // Reassign the filtered products to $virtualProducts
-//             $virtualProducts = $filteredProducts->values();
-//             $searchKey = $searchTerm;
-//         }
-        
-if ($request->search != null) {
-    $searchTerm = $request->search;
- // Remove accents from the search term
-    // Split the search term into words
-    $keywords = explode(' ', $searchTerm);
-
-    $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-        // Check if any part of the keywords matches the product name, description, slug, or tag names
-        return collect($keywords)->every(function ($keyword) use ($product) {
-           
-            // Check if the keyword is present in the product name, description, or slug
-            $inProductAttributes = (
-                stripos($product->name, $keyword) !== false ||
-                stripos($product->description, $keyword) !== false ||
-                stripos($product->slug, $keyword) !== false
-            );
-
-            // Check if the keyword is present in any part of the tag names
-            $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
-                return stripos($tagName, $keyword) !== false;
+                    return $inProductAttributes || $inTagNames;
+                });
             });
+        
+            // Reassign the filtered products to $virtualProducts
+            $virtualProducts = $filteredProducts->values();
+            $searchKey = $searchTerm;
+        }
+        
+// if ($request->search != null) {
+//     $searchTerm = $request->search;
+//  // Remove accents from the search term
+//  $searchTerm = removeAccents($searchTerm);
+//     // Split the search term into words
+//     $keywords = explode(' ', $searchTerm);
 
-            return $inProductAttributes || $inTagNames;
-        });
-    });
+//     $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+//         // Check if any part of the keywords matches the product name, description, slug, or tag names
+//         return collect($keywords)->every(function ($keyword) use ($product) {
+//             $productName = removeAccents($product->name);
+//             // if($product->name == "Boite patissière blanche à poignée 105x105")
+//             // {
+//             //     $productName = removeAccents($product->name);
+//             //     dd($productName);
+//             // }
+//             // Check if the keyword is present in the product name, description, or slug
+            
+//             $inProductAttributes = (
+//                 stripos($product->name, $keyword) !== false ||
+//                 stripos($product->description, $keyword) !== false ||
+//                 stripos($product->slug, $keyword) !== false
+//             );
 
-    // Reassign the filtered products to $virtualProducts
-    $virtualProducts = $filteredProducts->values();
-    $searchKey = $searchTerm;
-}
+//             // Check if the keyword is present in any part of the tag names
+//             $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
+//                 return stripos($tagName, $keyword) !== false;
+//             });
+
+//             return $inProductAttributes || $inTagNames;
+//         });
+//     });
+
+//     // Reassign the filtered products to $virtualProducts
+//     $virtualProducts = $filteredProducts->values();
+//     $searchKey = $searchTerm;
+// }
 
         
         
