@@ -144,61 +144,40 @@ class ProductController extends Controller
         }
 
 
-        /* if ($request->search != null) {
-            $searchTerm = $request->search;
-            
-            // Split the search term into words
-            $keywords = explode(' ', $searchTerm);
-        
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-                // Check if all keywords are present in the product name or other attributes
-                return collect($keywords)->every(function ($keyword) use ($product) {
-                    return (
-                        stripos($product->name, $keyword) !== false ||
-                        stripos($product->description, $keyword) !== false ||
-                        stripos($product->slug, $keyword) !== false ||
-                        $product->tags->contains('name', $keyword)
-
-                        
-                    );
-                });
-            });
-        
-            // Reassign the filtered products to $virtualProducts
-            $virtualProducts = $filteredProducts->values();
-            $searchKey = $searchTerm;
-        } */
+       
 
         if ($request->search != null) {
-            function removeAccents($str) {
-                $str = strtolower($str); // Convert to lowercase for case-insensitive search
-                return preg_replace('/[^\x20-\x7E]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str));
+            if (!function_exists('removeAccents')) {
+                function removeAccents($str) {
+                    if (!preg_match('//u', $str)) {
+                        $str = utf8_encode($str);
+                    }
+                    $str = \Normalizer::normalize($str, \Normalizer::FORM_D);
+                    return preg_replace('/\pM/u', '', $str);
+                }
             }
-            $searchTerm = $request->search;
-          
-
-  // Remove accents from the search term
-  $searchTermWithoutAccents = removeAccents($searchTerm);
-
-            // Split the search term into words
-            $keywords = explode(' ', $searchTermWithoutAccents);
+        
+            $searchTerm = strtolower($request->search); // Convert to lowercase for case-insensitive search
+            $searchTermWithoutAccents = removeAccents($searchTerm); // Remove accents from the search term
+            $keywords = explode(' ', $searchTermWithoutAccents); // Split the search term into words
         
             $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-                // Check if any part of the keywords matches the product name, description, slug, or tag names
                 return collect($keywords)->some(function ($keyword) use ($product) {
+                    // Convert product attributes to lowercase and remove accents for comparison
+                    $productName = removeAccents(strtolower($product->name));
+                    $productDescription = removeAccents(strtolower($product->description));
+                    $productSlug = removeAccents(strtolower($product->slug));
+        
                     // Check if the keyword is present in the product name, description, or slug
-                    $productName = removeAccents($product->name);
-        $productDescription = removeAccents($product->description);
-        $productSlug = removeAccents($product->slug);
                     $inProductAttributes = (
                         stripos($productName, $keyword) !== false ||
-                        stripos($product->description, $keyword) !== false ||
-                        stripos($product->slug, $keyword) !== false
+                        stripos($productDescription, $keyword) !== false ||
+                        stripos($productSlug, $keyword) !== false
                     );
         
                     // Check if the keyword is present in any part of the tag names
                     $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
-                        return stripos($tagName, $keyword) !== false;
+                        return stripos(removeAccents(strtolower($tagName)), $keyword) !== false;
                     });
         
                     return $inProductAttributes || $inTagNames;
