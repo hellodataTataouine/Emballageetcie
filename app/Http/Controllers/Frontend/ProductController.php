@@ -17,6 +17,7 @@ use App\Models\ProductVariationStock;
 use App\Models\ProductLocalization;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\ProductParents;
+use App\Helpers\Constant\HelperFunctions; 
 
 use Auth;
 class ProductController extends Controller
@@ -208,14 +209,14 @@ class ProductController extends Controller
         
 if ($request->search != null) {
     $searchTerm = $request->search;
-
+ // Remove accents from the search term
     // Split the search term into words
     $keywords = explode(' ', $searchTerm);
 
     $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
         // Check if any part of the keywords matches the product name, description, slug, or tag names
         return collect($keywords)->every(function ($keyword) use ($product) {
-            
+           
             // Check if the keyword is present in the product name, description, or slug
             $inProductAttributes = (
                 stripos($product->name, $keyword) !== false ||
@@ -325,13 +326,10 @@ if ($request->search != null) {
         ]);   
     }
 
-
+ 
     # product show
   
-    // Function to remove accents
-function removeAccents($string) {
-    return iconv('UTF-8', 'ASCII//TRANSLIT', $string);
-}
+
 
     public function show($slug)
     {

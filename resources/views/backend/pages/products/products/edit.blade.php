@@ -275,8 +275,13 @@
                                         </select> --> --}}
 
                                         <select class="select2 form-control" multiple="multiple" data-placeholder="{{ localize('Sélectionner les produits Equivalents') }}" name="child_product_ids[]" id="childProductIds" onchange="updateChildTable()">
-                                            @foreach ($products as $childProduct)
+                                    
+                                        @foreach ($products as $childProduct)
                                                     @php
+         
+        if ($childProduct->id == $product->id) {
+            continue;
+        }
                                                         $childProductId = $childProduct->id; 
                                                         $childProductIsPublished = $childProduct->is_published; // new line added
                                                         $productParent = DB::table('product_parent')

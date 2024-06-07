@@ -1065,4 +1065,20 @@ if (!function_exists('recaptchaValidation')) {
         } 
         return $score;
     }
+
+}
+
+
+if (!function_exists('removeAccents')) {
+    function removeAccents($string) {
+        if (empty($string)) {
+            return $string;
+        }
+
+        // Normalize characters to decomposed form (NFD)
+        $string = \Normalizer::normalize($string, \Normalizer::FORM_D);
+
+        // Remove combining diacritical marks
+        return preg_replace('/\pM/u', '', $string);
+    }
 }
