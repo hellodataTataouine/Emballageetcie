@@ -409,9 +409,12 @@ class ProductController extends Controller
             // }
         $productCategories= $product->categories()->pluck('category_id');
         $productIdsWithTheseCategories  = ProductCategory::whereIn('category_id', $productCategories)->where('product_id', '!=', $product->id)->pluck('product_id');
-
-        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->where('afficher', 1)->get();
-        $currentChildren = $product->parents()->where('is_published', 1)->where('afficher', 1)->get();
+        //old one
+        //$relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->where('afficher', 1)->get();
+        $relatedProducts                = Product::whereIn('id', $productIdsWithTheseCategories)->where('is_published', 1)->get();
+        //old one
+        //$currentChildren = $product->parents()->where('is_published', 1)->where('afficher', 1)->get();
+        $currentChildren = $product->parents()->where('is_published', 1)->get();
         $virtualRelatedProducts = collect();
         $virtualChildrenProducts = collect();
 

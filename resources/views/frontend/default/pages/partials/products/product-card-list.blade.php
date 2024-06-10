@@ -42,6 +42,7 @@
             <a href="{{ route('products.show', $product->slug) }}"
                 class="card-title fw-semibold mb-2 tt-line-clamp tt-clamp-1">{{ $product->name }}
             </a>
+            
         </h3>
         <div class="d-flex justify-content-between">
                         <span class="fw-bold text-muted">Référence:</span>
@@ -73,12 +74,15 @@
 
         @auth
     @if ($isVariantProduct)
+    
         <a href="javascript:void(0);" class="btn btn-outline-secondary btn-sm border-secondary mt-4"
             onclick="showProductDetailsModal({{ $product->id }})">{{ localize('Ajouter au panier') }}</a>
             @else
-            @if ($product->parents()->where('is_published', 1)->where('afficher', 1)->count() > 0)
+            <!-- @if ($product->parents()->where('is_published', 1)->where('afficher', 1)->count() > 0) -->
+            @if ($product->parents()->where('is_published', 1)->count() > 0)
         <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-sm border-secondary mt-4">
-        {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->where('afficher', 1)->count() + 1]) }}
+        <!-- {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->where('afficher', 1)->count() + 1]) }} -->
+        {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1]) }}
     </a>
         @else
         <form action="" class="direct-add-to-cart-form">
