@@ -104,6 +104,7 @@
             {{ localize('Ajouter au panier') }}
         </a>
     @else
+    <!--  where('afficher',1) -->
     @if ($product->parents()->where('is_published', 1)->count() > 0)
     <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-secondary btn-md border-secondary d-block mt-4">
     {{ __('Disponible en  :count références', ['count' => $product->parents()->where('is_published', 1)->count() + 1])  }}
