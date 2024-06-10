@@ -160,29 +160,39 @@ class ProductController extends Controller
             $searchTerm = strtolower($request->search); // Convert to lowercase for case-insensitive search
             $searchTermWithoutAccents = removeAccents($searchTerm); // Remove accents from the search term
             $keywords = explode(' ', $searchTermWithoutAccents); // Split the search term into words
-        
-            $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-                return collect($keywords)->some(function ($keyword) use ($product) {
+            
+            $filteredProducts = $virtualProducts->filter(function ($product) use ($searchTermWithoutAccents) {
+                return collect($searchTermWithoutAccents)->some(function ($searchTermWithoutAccents) use ($product) {
                     // Convert product attributes to lowercase and remove accents for comparison
                     $productName = removeAccents(strtolower($product->name));
-                    $productDescription = removeAccents(strtolower($product->description));
+                    // $productDescription = removeAccents(strtolower($product->description));
                     $productSlug = removeAccents(strtolower($product->slug));
         
                     // Check if the keyword is present in the product name, description, or slug
                     $inProductAttributes = (
-                        stripos($productName, $keyword) !== false ||
-                        stripos($productDescription, $keyword) !== false ||
-                        stripos($productSlug, $keyword) !== false
+                        stripos($productName, $searchTermWithoutAccents) !== false ||
+                        stripos($productSlug, $searchTermWithoutAccents) !== false
                     );
         
                     // Check if the keyword is present in any part of the tag names
-                    $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
-                        return stripos(removeAccents(strtolower($tagName)), $keyword) !== false;
+                    $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($searchTermWithoutAccents) {
+                        return stripos(removeAccents(strtolower($tagName)), $searchTermWithoutAccents) !== false;
                     });
         
                     return $inProductAttributes || $inTagNames;
                 });
+                
             });
+            // $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
+            //     // Check if all keywords are present in the product name or other attributes
+            //     return collect($keywords)->every(function ($keyword) use ($product) {
+            //         return (
+            //             stripos($product->name, $keyword) !== false ||
+            //             stripos($product->slug, $keyword) !== false
+                        
+            //         );
+            //     });
+            // });
         
             // Reassign the filtered products to $virtualProducts
             $virtualProducts = $filteredProducts->values();
