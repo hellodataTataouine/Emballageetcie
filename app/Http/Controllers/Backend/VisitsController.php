@@ -44,11 +44,11 @@ class VisitsController extends Controller{
         // Load country names and flags
         $countries = [];
         $countryJson = File::get(storage_path('app/countries.json'));
-        dd($countryJson);
+        
         $countryData = json_decode($countryJson, true);
     
         foreach ($totalTodayVisits as $visit) {
-            $countryCode = strtoupper($visit->country);
+            $countryCode = strtolower($visit->country);
             $flagPath = storage_path("app/flags/{$countryCode}.png");
             if (file_exists($flagPath) && isset($countryData[$countryCode])) {
                 $countries[$visit->country]['name'] = $countryData[$countryCode];
@@ -70,7 +70,7 @@ class VisitsController extends Controller{
                 $countries[$visit->country]['year'] = $visit->total;
             }
         }
-        
+        dd($countries);
         return view('backend.pages.visits.index', [
             'countries' => $countries,
         ]);
