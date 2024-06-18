@@ -42,7 +42,7 @@ class VisitsController extends Controller{
     
         // Load country names and flags
         $countries = [];
-        $countryJson = Storage::disk('local')->get('countries.json');
+        $countryJson = File::get(storage_path('app/countries.json'));
         $countryData = json_decode($countryJson, true);
     
         foreach ($totalTodayVisits as $visit) {
