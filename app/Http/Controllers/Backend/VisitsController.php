@@ -69,7 +69,7 @@ class VisitsController extends Controller{
                 $countries[$visit->country]['year'] = $visit->total;
             }
         }
-    
+        dd($countries);
         return view('backend.pages.visits.index', [
             'countries' => $countries,
         ]);
