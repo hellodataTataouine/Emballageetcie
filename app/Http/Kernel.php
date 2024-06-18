@@ -7,6 +7,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsCustomer;
 use App\Http\Middleware\IsBanned;
 use App\Http\Middleware\StockLocation;
+use App\Http\Middleware\LogVisits;
 
 class Kernel extends HttpKernel
 {

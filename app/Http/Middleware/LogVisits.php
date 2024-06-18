@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Visit;
+use Torann\GeoIP\Facades\GeoIP;
+use App\Services\GeoIPService;
 
 class LogVisits
 {
@@ -22,6 +25,10 @@ class LogVisits
     ];
     public function handle(Request $request, Closure $next)
     {
+        $geoIPService = new GeoIPService();
+        $ip = $request->ip(); // Get user's IP address
+        
+        $country = $geoIPService->getCountryFromIp($ip);
         $routeName = $request->route()->getName();
         // Check if route name is null (route not named)
         if (!$routeName) {
@@ -33,9 +40,12 @@ class LogVisits
             }
         }
         // Update or insert the visit count for this route
-        DB::table('visits')->updateOrInsert(
-            ['route_name' => $routeName],
-            ['count' => DB::raw('count + 1')]
+        
+        $country = GeoIP::getLocation()->getAttribute('iso_code');
+        Visit::create(
+            ['route_name' => $routeName,
+            "country"=>$country,
+        ],
         );
         return $next($request);
     }

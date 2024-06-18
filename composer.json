@@ -12,6 +12,7 @@
         "anandsiddharth/laravel-paytm-wallet": "^2.0",
         "doctrine/dbal": "^3.7",
         "fruitcake/laravel-cors": "^2.0",
+        "geoip2/geoip2": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "iyzico/iyzipay-php": "^2.0",
         "josiasmontag/laravel-recaptchav3": "^1.0",
@@ -28,7 +29,8 @@
         "razorpay/razorpay": "^2.8",
         "spatie/laravel-permission": "^5.7",
         "spatie/laravel-sitemap": "^6.4",
-        "stripe/stripe-php": "^10.10"
+        "stripe/stripe-php": "^10.10",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

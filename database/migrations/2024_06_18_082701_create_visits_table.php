@@ -16,7 +16,7 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->string('route_name');
-            $table->integer('count')->default(0);
+            $table->string('country');
             $table->timestamps();
         });
     }
