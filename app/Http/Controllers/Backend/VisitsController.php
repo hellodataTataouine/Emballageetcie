@@ -37,19 +37,36 @@ class VisitsController extends Controller{
             ->where('created_at', '>=', $startOfYear)
             ->groupBy('country')
             ->get();
-            
     
-        $countries = collect()
-            ->merge($totalTodayVisits->pluck('country'))
-            ->merge($totalWeekVisits->pluck('country'))
-            ->merge($totalYearVisits->pluck('country'))
-            ->unique()
-            ->values();
+        // Fetch country names and flags from Country Flags API
+        $countries = [];
+        foreach ($totalTodayVisits as $visit) {
+            $countryCode = strtoupper($visit->country);
+            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
+            if ($response->successful()) {
+                $countries[$visit->country]['name'] = $response->json()['name'];
+                $countries[$visit->country]['flag'] = $response->body();
+                $countries[$visit->country]['today'] = $visit->total;
+            }
+        }
+    
+        foreach ($totalWeekVisits as $visit) {
+            $countryCode = strtoupper($visit->country);
+            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
+            if ($response->successful()) {
+                $countries[$visit->country]['week'] = $visit->total;
+            }
+        }
+    
+        foreach ($totalYearVisits as $visit) {
+            $countryCode = strtoupper($visit->country);
+            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
+            if ($response->successful()) {
+                $countries[$visit->country]['year'] = $visit->total;
+            }
+        }
         return view('backend.pages.visits.index', [
             'countries' => $countries,
-            'totalTodayVisits' => $totalTodayVisits,
-            'totalWeekVisits' => $totalWeekVisits,
-            'totalYearVisits' => $totalYearVisits,
         ]);
     }
 }

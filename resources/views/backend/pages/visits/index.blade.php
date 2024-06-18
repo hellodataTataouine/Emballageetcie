@@ -77,8 +77,11 @@
 }
 </style>
 <h1 style="margin: 15px;">{{localize('Nombre de visites')}}</h1>
-@foreach ($countries as $country)
-<h2>{{$country}}</h2>
+@foreach ($countries as $countryCode => $countryData)
+<span>
+    <img src="data:image/png;base64,{{ base64_encode($countryData['flag']) }}" alt="{{ $countryData['name'] }}" style="width: 32px; height: auto;">
+    <h2 style="margin: 15px;">{{$countryData['name']}}</h2>
+</span>
 <section class="charts_orb">
 	<article class="orb">
 		<div class="orb_graphic">
@@ -87,11 +90,7 @@
 				<circle class="progress"></circle>
 			</svg>
 			<div class="orb_value count"> 
-                @foreach($totalTodayVisits as $visit)
-                    @if($visit->country === $country)
-                        {{ $visit->total }}
-                    @endif
-                @endforeach
+                {{$countryData['today'] ?? 0}}
             </div>
 		</div>
 		<div class="orb_label">
@@ -106,11 +105,7 @@
 				<circle class="progress"></circle>
 			</svg>
 			<div class="orb_value count">
-                @foreach($totalWeekVisits as $visit)
-                    @if($visit->country === $country)
-                        {{ $visit->total }}
-                    @endif
-                @endforeach
+                {{ $countryData['week'] ?? 0 }}
             </div>
 		</div>
 		<div class="orb_label">
@@ -125,11 +120,7 @@
 				<circle class="progress"></circle>
 			</svg>
 			<div class="orb_value count">
-                @foreach($totalYearVisits as $visit)
-                    @if($visit->country === $country)
-                        {{ $visit->total }}
-                    @endif
-                @endforeach
+                {{ $countryData['year'] ?? 0 }}
             </div>
 		</div>
 		<div class="orb_label">
