@@ -31,6 +31,9 @@ class LogVisits
         $country = $geoIPService->getCountryFromIp($ip);
         $routeName = $request->route()->getName();
         // Check if route name is null (route not named)
+        if(!$country){
+            $country="FR";
+        }
         if (!$routeName) {
             return $next($request); // Skip logging if route name is null
         }
@@ -41,7 +44,7 @@ class LogVisits
         }
         // Update or insert the visit count for this route
         
-        $country = GeoIP::getLocation()->getAttribute('iso_code');
+        //$country = GeoIP::getLocation()->getAttribute('iso_code');
         Visit::create(
             ['route_name' => $routeName,
             "country"=>$country,
