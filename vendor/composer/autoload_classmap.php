@@ -19,6 +19,7 @@ return array(
     'Anand\\LaravelPaytmWallet\\Providers\\RefundStatusCheckProvider' => $vendorDir . '/anandsiddharth/laravel-paytm-wallet/src/Providers/RefundStatusCheckProvider.php',
     'Anand\\LaravelPaytmWallet\\Providers\\StatusCheckProvider' => $vendorDir . '/anandsiddharth/laravel-paytm-wallet/src/Providers/StatusCheckProvider.php',
     'Anand\\LaravelPaytmWallet\\Traits\\HasTransactionStatus' => $vendorDir . '/anandsiddharth/laravel-paytm-wallet/src/Traits/HasTransactionStatus.php',
+    'App\\Console\\Commands\\GenerateSitemap' => $baseDir . '/app/Console/Commands/GenerateSitemap.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Api\\AddressController' => $baseDir . '/app/Http/Controllers/Api/AddressController.php',
