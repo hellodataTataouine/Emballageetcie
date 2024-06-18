@@ -48,7 +48,7 @@ class VisitsController extends Controller{
         $countryData = json_decode($countryJson, true);
     
         foreach ($totalTodayVisits as $visit) {
-            $countryCode = strtolower($visit->country);
+            $countryCode = strtoupper($visit->country);
             // $flagPath = storage_path("app/flags/{$countryCode}.png");
             // dd($flagPath);
             // if (file_exists($flagPath) && isset($countryData[$countryCode])) {
@@ -61,14 +61,14 @@ class VisitsController extends Controller{
         }
     
         foreach ($totalWeekVisits as $visit) {
-            $countryCode = strtolower($visit->country);
+            $countryCode = strtoupper($visit->country);
             if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['week'] = $visit->total;
             }
         }
     
         foreach ($totalYearVisits as $visit) {
-            $countryCode = strtolower($visit->country);
+            $countryCode = strtoupper($visit->country);
             if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['year'] = $visit->total;
             }
