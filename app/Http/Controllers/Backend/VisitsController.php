@@ -44,6 +44,7 @@ class VisitsController extends Controller{
         // Load country names and flags
         $countries = [];
         $countryJson = File::get(storage_path('app/countries.json'));
+        dd($countryJson);
         $countryData = json_decode($countryJson, true);
     
         foreach ($totalTodayVisits as $visit) {
@@ -69,7 +70,7 @@ class VisitsController extends Controller{
                 $countries[$visit->country]['year'] = $visit->total;
             }
         }
-        dd($countries);
+        
         return view('backend.pages.visits.index', [
             'countries' => $countries,
         ]);
