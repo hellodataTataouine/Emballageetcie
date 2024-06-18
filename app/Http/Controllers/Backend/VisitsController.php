@@ -7,6 +7,7 @@ use App\Models\SubscribedUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class VisitsController extends Controller{
     public function index()
