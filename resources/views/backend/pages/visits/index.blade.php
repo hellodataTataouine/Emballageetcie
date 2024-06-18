@@ -77,6 +77,8 @@
 }
 </style>
 <h1 style="margin: 15px;">{{localize('Nombre de visites')}}</h1>
+@foreach ($countries as $country)
+<h2>{{$country}}</h2>
 <section class="charts_orb">
 	<article class="orb">
 		<div class="orb_graphic">
@@ -84,7 +86,13 @@
 				<circle class="fill"></circle>
 				<circle class="progress"></circle>
 			</svg>
-			<div class="orb_value count">{{ $totalTodayVisits }}</div>
+			<div class="orb_value count"> 
+                @foreach($totalTodayVisits as $visit)
+                    @if($visit->country === $country)
+                        {{ $visit->total }}
+                    @endif
+                @endforeach
+            </div>
 		</div>
 		<div class="orb_label">
 			{{localize('Ce Jour')}}
@@ -97,7 +105,13 @@
 				<circle class="fill"></circle>
 				<circle class="progress"></circle>
 			</svg>
-			<div class="orb_value count">{{ $totalWeekVisits }}</div>
+			<div class="orb_value count">
+                @foreach($totalWeekVisits as $visit)
+                    @if($visit->country === $country)
+                        {{ $visit->total }}
+                    @endif
+                @endforeach
+            </div>
 		</div>
 		<div class="orb_label">
 			{{localize('Cette Semaine')}}
@@ -110,7 +124,13 @@
 				<circle class="fill"></circle>
 				<circle class="progress"></circle>
 			</svg>
-			<div class="orb_value count">{{ $totalYearVisits }}</div>
+			<div class="orb_value count">
+                @foreach($totalYearVisits as $visit)
+                    @if($visit->country === $country)
+                        {{ $visit->total }}
+                    @endif
+                @endforeach
+            </div>
 		</div>
 		<div class="orb_label">
 			{{localize('Cette année')}}
@@ -119,6 +139,8 @@
 	
 	
 </section>
+@endforeach
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $('.count').each(function () {

@@ -12,24 +12,44 @@ class VisitsController extends Controller{
     public function index()
     {
         $today = Carbon::today();
+
+        // Total visits today grouped by country
         $totalTodayVisits = DB::table('visits')
+            ->select('country', DB::raw('count(*) as total'))
             ->whereDate('created_at', $today)
-            ->count();
+            ->groupBy('country')
+            ->get();
+    
         $startOfWeek = Carbon::now()->startOfWeek();
-
+    
+        // Total visits this week grouped by country
         $totalWeekVisits = DB::table('visits')
+            ->select('country', DB::raw('count(*) as total'))
             ->where('created_at', '>=', $startOfWeek)
-            ->count();
-            $startOfYear = Carbon::now()->startOfYear();
-
+            ->groupBy('country')
+            ->get();
+    
+        $startOfYear = Carbon::now()->startOfYear();
+    
+        // Total visits this year grouped by country
         $totalYearVisits = DB::table('visits')
+            ->select('country', DB::raw('count(*) as total'))
             ->where('created_at', '>=', $startOfYear)
-            ->count();
-        // You can also order the results if needed
-        //$visitCounts = $visitCounts->sortByDesc('count');
-        // $totalTodayVisits = $todayVisits->sum('count');
-        // $totalWeekVisits = $weekVisits->sum('count');
-        // $totalYearVisits = $yearVisits->sum('count');
-        return view('backend.pages.visits.index', compact('totalTodayVisits','totalWeekVisits','totalYearVisits'));
+            ->groupBy('country')
+            ->get();
+            
+    
+        $countries = collect()
+            ->merge($totalTodayVisits->pluck('country'))
+            ->merge($totalWeekVisits->pluck('country'))
+            ->merge($totalYearVisits->pluck('country'))
+            ->unique()
+            ->values();
+        return view('visits', [
+            'countries' => $countries,
+            'totalTodayVisits' => $totalTodayVisits,
+            'totalWeekVisits' => $totalWeekVisits,
+            'totalYearVisits' => $totalYearVisits,
+        ]);
     }
 }
