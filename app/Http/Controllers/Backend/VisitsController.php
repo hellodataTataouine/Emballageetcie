@@ -12,21 +12,21 @@ class VisitsController extends Controller{
     public function index()
     {
         $today = Carbon::today();
-        $todayVisits = DB::table('visits')
+        $totalTodayVisits = DB::table('visits')
             ->whereDate('created_at', $today)
-            ->get();
+            ->count();
         $startOfWeek = Carbon::now()->startOfWeek();
 
-        $weekVisits = DB::table('visits')
+        $totalWeekVisits = DB::table('visits')
             ->where('created_at', '>=', $startOfWeek)
-            ->get();
+            ->count();
             $startOfYear = Carbon::now()->startOfYear();
 
-        $yearVisits = DB::table('visits')
+        $totalYearVisits = DB::table('visits')
             ->where('created_at', '>=', $startOfYear)
-            ->get();
+            ->count();
         // You can also order the results if needed
-        // $visitCounts = $visitCounts->sortByDesc('count');
+        //$visitCounts = $visitCounts->sortByDesc('count');
         // $totalTodayVisits = $todayVisits->sum('count');
         // $totalWeekVisits = $weekVisits->sum('count');
         // $totalYearVisits = $yearVisits->sum('count');
