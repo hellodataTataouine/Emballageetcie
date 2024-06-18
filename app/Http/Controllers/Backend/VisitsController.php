@@ -58,14 +58,14 @@ class VisitsController extends Controller{
         }
     
         foreach ($totalWeekVisits as $visit) {
-            $countryCode = strtoupper($visit->country);
+            $countryCode = strtolower($visit->country);
             if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['week'] = $visit->total;
             }
         }
     
         foreach ($totalYearVisits as $visit) {
-            $countryCode = strtoupper($visit->country);
+            $countryCode = strtolower($visit->country);
             if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['year'] = $visit->total;
             }
