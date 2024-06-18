@@ -39,33 +39,35 @@ class VisitsController extends Controller{
             ->groupBy('country')
             ->get();
     
-        // Fetch country names and flags from Country Flags API
+        // Load country names and flags
         $countries = [];
+        $countryJson = Storage::disk('local')->get('countries.json');
+        $countryData = json_decode($countryJson, true);
+    
         foreach ($totalTodayVisits as $visit) {
             $countryCode = strtoupper($visit->country);
-            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
-            if ($response->successful()) {
-                $countries[$visit->country]['name'] = $response->json()['name'];
-                $countries[$visit->country]['flag'] = $response->body();
+            $flagPath = storage_path("app/flags/{$countryCode}.png");
+            if (file_exists($flagPath) && isset($countryData[$countryCode])) {
+                $countries[$visit->country]['name'] = $countryData[$countryCode];
+                $countries[$visit->country]['flag'] = asset("storage/flags/{$countryCode}.png");
                 $countries[$visit->country]['today'] = $visit->total;
             }
         }
     
         foreach ($totalWeekVisits as $visit) {
             $countryCode = strtoupper($visit->country);
-            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
-            if ($response->successful()) {
+            if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['week'] = $visit->total;
             }
         }
     
         foreach ($totalYearVisits as $visit) {
             $countryCode = strtoupper($visit->country);
-            $response = Http::get("https://www.countryflags.io/{$countryCode}/flat/64.png");
-            if ($response->successful()) {
+            if (isset($countries[$visit->country])) {
                 $countries[$visit->country]['year'] = $visit->total;
             }
         }
+    
         return view('backend.pages.visits.index', [
             'countries' => $countries,
         ]);
