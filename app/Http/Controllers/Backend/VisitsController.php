@@ -45,7 +45,7 @@ class VisitsController extends Controller{
             ->merge($totalYearVisits->pluck('country'))
             ->unique()
             ->values();
-        return view('visits', [
+        return view('backend.pages.visits.index', [
             'countries' => $countries,
             'totalTodayVisits' => $totalTodayVisits,
             'totalWeekVisits' => $totalWeekVisits,
