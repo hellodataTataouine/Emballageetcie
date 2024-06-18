@@ -186,6 +186,14 @@
                 </span>
             </a>
         </li>
+        <li class="side-nav-item nav-item {{ areActiveRoutes(['admin.visits'], 'tt-menu-item-active') }}">
+            <a href="{{ route('admin.visits') }}" class="side-nav-link {{ areActiveRoutes(['admin.visits']) }}">
+                <span class="tt-nav-link-icon"><i data-feather="bar-chart-2"></i></span>
+                <span class="tt-nav-link-text">
+                    <span>{{ localize('Visites') }}</span>
+                </span>
+            </a>
+        </li>
     @endcan
 
 

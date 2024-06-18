@@ -55,6 +55,7 @@ use App\Http\Controllers\Backend\Roles\RolesController;
 use App\Http\Controllers\Backend\Reports\ReportsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CatalogController;
+use App\Http\Controllers\Backend\VisitsController;
 
 
 /*
@@ -444,7 +445,8 @@ Route::group(
             Route::get('/delete-queries/{id}/{force?}', [ContactUsMessagesController::class, 'delete'])->name('admin.queries.delete');
             Route::get('/delete-all-queries', [ContactUsMessagesController::class, 'deleteAll'])->name('admin.queries.deleteAll');
         });
-
+        #visits
+        Route::get('/visits',[VisitsController::class,'index'])->name('admin.visits');
 
         # appearance
         Route::group(['prefix' => 'appearance'], function () {
