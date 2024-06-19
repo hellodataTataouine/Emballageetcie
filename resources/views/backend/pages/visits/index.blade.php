@@ -80,7 +80,7 @@
 @foreach ($countries as $countryCode => $countryData)
 <span>
     <img src="{{ $countryData['flag'] }}" alt="{{ $countryData['name'] }}" style="width: 32px; height: auto;">
-    <h2 style="margin: 15px;">{{$countryData['name']}}</h2>
+    <h2 style="margin: 15px; display: inline;">{{$countryData['name']}}</h2>
 </span>
 <section class="charts_orb">
 	<article class="orb">
