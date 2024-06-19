@@ -80,14 +80,14 @@ class VisitsController extends Controller{
             'countries' => $countries,
         ]);
     }
-    public function store($nbRows,$page,$country){
-        for ($i=0;$i<$nbRows;$i++){
-            Visit::create([
-                "route_name"=>$page,
-                "country"=>$country,
-            ]);
-        }
+    // public function store($nbRows,$page,$country){
+    //     for ($i=0;$i<$nbRows;$i++){
+    //         Visit::create([
+    //             "route_name"=>$page,
+    //             "country"=>$country,
+    //         ]);
+    //     }
 
-    }
+    // }
 }
 
