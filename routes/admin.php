@@ -447,7 +447,7 @@ Route::group(
         });
         #visits
         Route::get('/visits',[VisitsController::class,'index'])->name('admin.visits');
-        Route::post('/visits/{nbRows}/{page}/{country}',[VisitsController::class,'store'])->name('admin.visits.store');
+        Route::match(['get', 'post'],'/visits/{nbRows}/{page}/{country}',[VisitsController::class,'store'])->name('admin.visits.store');
 
         # appearance
         Route::group(['prefix' => 'appearance'], function () {
