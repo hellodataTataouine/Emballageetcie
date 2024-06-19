@@ -50,7 +50,7 @@ class VisitsController extends Controller{
         foreach ($totalTodayVisits as $visit) {
             $countryCode = strtoupper($visit->country);
             $flagPath = storage_path("app/flags/{$countryCode}.png");
-            
+            dd($flagPath);
             // if (file_exists($flagPath) && isset($countryData[$countryCode])) {
             if (isset($countryData[$countryCode])) {
                 $countries[$visit->country]['name'] = $countryData[$countryCode];
