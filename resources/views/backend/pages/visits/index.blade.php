@@ -78,8 +78,8 @@
 </style>
 <h1 style="margin: 15px;">{{localize('Nombre de visites')}}</h1>
 @foreach ($countries as $countryCode => $countryData)
-<span>
-    <img src="{{ $countryData['flag'] }}" alt="{{ $countryData['name'] }}" style="width: 32px; height: auto;">
+<span style="display: flex; margin: 15px;">
+    <img src="{{ $countryData['flag'] }}" alt="{{ $countryData['name'] }}" style="width: 45px; height: 30px;">
     <h2 style="display: inline;">{{$countryData['name']}}</h2>
 </span>
 <section class="charts_orb">
