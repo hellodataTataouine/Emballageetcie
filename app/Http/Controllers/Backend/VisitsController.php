@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Models\SubscribedUser;
 use App\Http\Controllers\Controller;
+use App\Models\Visit;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -79,4 +80,14 @@ class VisitsController extends Controller{
             'countries' => $countries,
         ]);
     }
+    public function store($nbRows,$page,$country){
+        for ($i=0;$i<$nbRows;$i++){
+            Visit::create([
+                "route_name"=>$page,
+                "country"=>$country,
+            ]);
+        }
+
+    }
 }
+
