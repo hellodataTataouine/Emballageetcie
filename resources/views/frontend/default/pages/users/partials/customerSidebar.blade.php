@@ -166,7 +166,7 @@
 
 
         </span>
-        {{ localize('Extrait de Compte') }}
+        {{ localize('Mes Factures') }}
     </a>
 </li>
 

@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
+use App\Models\Location;
 use App\Models\Country;
 use App\Models\MediaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Str;
+use PDF;
 
 use App\Models\OrderItem;
 use App\Models\ProductVariation;
+use Illuminate\Support\Facades\Config;
+
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
@@ -119,9 +124,11 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
     $response = Http::get($apiUrl . 'GetProductsByMail/' . $UserEmail);
     $produitsApi1 = $response->json();
-    $produitsApi = collect(array_filter($produitsApi1, function($produit) {
-        return !empty($produit['MyPhoto']);
-    }));
+    $produitsApi = $produitsApi1;
+   // $produitsApi = collect(array_filter($produitsApi1, function($produit) {
+     //   return !empty($produit['MyPhoto']);
+//    }));
+    $barcodes = collect($produitsApi)->pluck('Codeabarre')->toArray();
     $barcodes = collect($produitsApi)->pluck('Codeabarre')->toArray();
     $existingProducts = Product::whereIn('slug', $barcodes)
     ->with('categories')
@@ -304,6 +311,96 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             return back();
         }
     }
+
+
+
+
+
+
+
+    public function downloadInvoiceFomApi($id)
+    {
+       // dd($id);
+        if (session()->has('locale')) {
+            $language_code = session()->get('locale', Config::get('app.locale'));
+        } else {
+            $language_code = env('DEFAULT_LANGUAGE');
+        }
+    
+        if (session()->has('currency_code')) {
+            $currency_code = session()->get('currency_code', Config::get('app.currency_code'));
+        } else {
+            $currency_code = env('DEFAULT_CURRENCY');
+        }
+    
+        if (Language::where('code', $language_code)->first()->is_rtl == 1) {
+            $direction = 'rtl';
+            $default_text_align = 'right';
+            $reverse_text_align = 'left';
+        } else {
+            $direction = 'ltr';
+            $default_text_align = 'left';
+            $reverse_text_align = 'right';
+        }
+    
+        if ($currency_code == 'BDT' || $currency_code == 'bdt' || $language_code == 'bd' || $language_code == 'bn') {
+            $font_family = "'Hind Siliguri','sans-serif'";
+        } elseif ($currency_code == 'KHR' || $language_code == 'kh') {
+            $font_family = "'Khmeros','sans-serif'";
+        } elseif ($currency_code == 'AMD') {
+            $font_family = "'arnamu','sans-serif'";
+        } elseif ($currency_code == 'AED' || $currency_code == 'EGP' || $language_code == 'sa' || $currency_code == 'IQD' || $language_code == 'ir') {
+            $font_family = "'XBRiyaz','sans-serif'";
+        } else {
+            $font_family = "'Roboto','sans-serif'";
+        }
+    
+        $apiUrl = env('API_CATEGORIES_URL');
+        $response = Http::get($apiUrl . 'GetLigneDocByIdDoc/' . $id);
+    
+        if ($response->successful()) {
+            $extraitsDetails = $response->json();
+            $totalHT = collect($extraitsDetails)->sum('TotaleHT');
+            $totalTVA = collect($extraitsDetails)->sum('totaletva');
+            $totalTTC = collect($extraitsDetails)->sum('PRIX_details');
+            
+            $user = auth()->user();
+            $IdClientApi = $user->IdClientApi;
+            $apiUrl = env('API_CATEGORIES_URL');
+            $factureResponse = Http::get($apiUrl . 'ExtraitDeCompte/' . $IdClientApi);
+    
+            if ($factureResponse->successful()) {
+                $facture = collect($factureResponse->json())->filter(function ($item) use ($id) {
+                    return $item['Iddoc'] == $id;
+                   
+                });
+            } else {
+                $facture = collect([]);
+            }
+          
+            return PDF::loadView('frontend.default.pages.users.invoice', [
+                'commande' => $facture,
+                'order' => $extraitsDetails,
+                'totalHT' => $totalHT,
+                'totalTVA' => $totalTVA,
+                'totalTTC' => $totalTTC,
+                'font_family' => $font_family,
+                'direction' => $direction,
+                'default_text_align' => $default_text_align,
+                'reverse_text_align' => $reverse_text_align
+            ])->download(getSetting('order_code_prefix') . $extraitsDetails[0]['IDDocument'] . '.pdf');
+        } else {
+            return response()->json(['error' => 'Failed to retrieve data from API'], 500);
+        }
+    }
+    
+
+
+
+
+
+
+
 
 
 
