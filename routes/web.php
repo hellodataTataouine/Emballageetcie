@@ -209,6 +209,13 @@ Route::group(['prefix' => ''], function () {
 Route::get('/continuerpaiement/{order_code}', [PaymentsController::class, 'ContinuerPaiement'])->name('ContinuerPaiement');
 Route::post('/paymentcomplete/{order_code}', [PaymentsController::class, 'FinalContinuerPaiement'])->name('checkout.paymentcomplete');
 
+Route::get('/invoice-downloadfront/{id}', [CustomerController::class, 'downloadInvoiceFomApi'])->name('client.orders.downloadInvoice');
+   
+Route::get('/test-pdf', [CustomerController::class, 'generateSimplePDF']);
+
+
+
+
 Route::get('/generate-sitemap', function () {
     $sitemap = Sitemap::create();
 

@@ -27,6 +27,8 @@
                                         <th>{{ localize('Debit') }}</th>
                                         <th>{{ localize('Credit') }}</th>
                                         <th>{{ localize('Solde') }}</th>
+                                        <th>{{ localize('Statut') }}</th>
+                                        
                                         <th>{{ localize('Action') }}</th>
                                     </tr>
                                 </thead>
@@ -38,13 +40,22 @@
                                             <td>{{ $extrait['Debit'] }}</td>
                                             <td>{{ $extrait['Credit'] }}</td>
                                             <td>{{ $extrait['Solde'] }}</td>
+                                           @if($extrait['Payee'] == 1)
+                                            <td>Payée </td>
+                                            @else
+                                            <td>En attente de paiement</td>
+                                            @endif
                                             <td>
-                                            <a href="{{ route('customers.extraitDetail', ['iddoc' => $extrait['Iddoc']]) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
-   data-bs-placement="top" data-bs-title="{{ localize('Voir les détails') }}">
-   <i class="fas fa-eye"></i>
-</a>
+    <a href="{{ route('customers.extraitDetail', ['iddoc' => $extrait['Iddoc']]) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
+       data-bs-placement="top" data-bs-title="{{ localize('Voir les détails') }}">
+       <i class="fas fa-eye"></i>
+    </a>
 
-                                            </td>
+    <a href="{{ route('client.orders.downloadInvoice', $extrait['Iddoc']) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
+       data-bs-placement="top" data-bs-title="{{ localize('Télécharger la facture') }}">
+       <i class="fas fa-download" width="18"></i>
+    </a>
+</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
