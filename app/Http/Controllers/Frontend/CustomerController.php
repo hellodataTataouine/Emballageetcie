@@ -368,6 +368,7 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             $IdClientApi = $user->IdClientApi;
             $apiUrl = env('API_CATEGORIES_URL');
             $factureResponse = Http::get($apiUrl . 'ExtraitDeCompte/' . $IdClientApi);
+            
     
             if ($factureResponse->successful()) {
                 $facture = collect($factureResponse->json())->filter(function ($item) use ($id) {
@@ -377,16 +378,18 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             } else {
                 $facture = collect([]);
             }
-          
+           // $order = Order::findOrFail((int)$id);
+
             return PDF::loadView('frontend.default.pages.users.invoice', [
                 'commande' => $facture,
-                'order' => $extraitsDetails,
+                'facture_detail' => $extraitsDetails,
                 'totalHT' => $totalHT,
                 'totalTVA' => $totalTVA,
                 'totalTTC' => $totalTTC,
                 'font_family' => $font_family,
                 'direction' => $direction,
                 'default_text_align' => $default_text_align,
+                'user' => $user,
                 'reverse_text_align' => $reverse_text_align
             ])->download(getSetting('order_code_prefix') . $extraitsDetails[0]['IDDocument'] . '.pdf');
         } else {
@@ -397,7 +400,10 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
 
 
-
+    public function generateSimplePDF()
+    {
+        return PDF::loadView('testpdf')->download('simple_test.pdf');
+    }
 
 
 

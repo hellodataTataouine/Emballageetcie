@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "anandsiddharth/laravel-paytm-wallet": "^2.0",
+        "barryvdh/laravel-dompdf": "^2.2",
         "doctrine/dbal": "^3.7",
         "fruitcake/laravel-cors": "^2.0",
         "geoip2/geoip2": "^3.0",

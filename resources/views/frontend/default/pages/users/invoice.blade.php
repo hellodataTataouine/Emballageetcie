@@ -9,6 +9,27 @@
             font-family: {{ $font_family }};
             direction: {{ $direction }};
         }
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .company-info {
+            width: 50%;
+        }
+        .logo {
+            width: 50%;
+            text-align: right;
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        .user-address {
+            width: 45%;
+        }
         .invoice-header, .company-info {
             text-align: {{ $default_text_align }};
             margin-bottom: 20px;
@@ -68,36 +89,6 @@
 
 
 
-<table style="width: 100%; table-layout: fixed">
-        <tr>
-            <td colspan="4"
-                style="border-right: 1px solid #e4e4e4; width: 300px; color: #323232; line-height: 1.5; vertical-align: top;">
-                <p style="font-size: 15px; color: #5b5b5b; font-weight: bold; line-height: 1; vertical-align: top; ">
-                    {{ localize('Bon de Commande') }}</p>
-                <br>
-                <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
-                         </p>
-
-              
-            </td>
-            <td colspan="4" align="right"
-                style="width: 300px; text-align: right; padding-left: 50px; line-height: 1.5; color: #323232;">
-                <img src="{{ uploadedAsset(getSetting('favicon')) }}" alt="logo" border="0" />
-                <p style="font-size: 12px;font-weight: bold; color: #5b5b5b; line-height: 1; vertical-align: top; ">
-                    {{ getSetting('system_title') }}</p>
-                <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
-                    {{ getSetting('topbar_location') }}<br>
-                    {{ localize('Téléphone') }}: {{ getSetting('navbar_contact_number') }}
-                </p>
-            </td>
-        </tr>
-        <tr class="visibleMobile">
-            <td height="10"></td>
-        </tr>
-        <tr>
-            <td colspan="10" style="border-bottom:1px solid #e4e4e4"></td>
-        </tr>
-    </table>
 
 
 
@@ -106,44 +97,39 @@
 
 
 
-    <div class="company-info">
-        <p>SAS EMBALLAGE ET CIE</p>
-        <p>18 RUE DU CLOS BARROIS</p>
-        <p>60180 NOGENT SUR OISE</p>
-        <p>Téléphone: 03 44 25 60 66</p>
-        <p>Email: contact@emballage-et-cie.fr</p>
-        <p>Site web: <a href="https://emballage-et-cie.fr" target="_blank">emballage-et-cie.fr</a></p>
+
+<div class="container">
+        <div class="company-info">
+            <p>SAS EMBALLAGE ET CIE</p>
+            <p>18 RUE DU CLOS BARROIS</p>
+            <p>60180 NOGENT SUR OISE</p>
+            <p>Téléphone: 03 44 25 60 66</p>
+            <p>Email: contact@emballage-et-cie.fr</p>
+            <p>Site web: <a href="https://emballage-et-cie.fr" target="_blank">www.emballage-et-cie.fr</a></p>
+        </div>
+        <div class="logo">
+            <img src="https://emballage-et-cie.fr/public/uploads/media/LopdO22CoDNmNDutkZ3kgZryjtZ8GVTvqZNGWLgC.jpg" alt="logo" class="img-fluid">
+        </div>
     </div>
     
-    <h2>{{ __('Facture Information') }}</h2>
-    <table class="commande-table">
-        <thead>
-            <tr>
-                <th>{{ __('Indice') }}</th>
-                <th>{{ __('Désignation') }}</th>
-                <th>{{ __('Date') }}</th>
-                <th>{{ __('Débit') }}</th>
-                <th>{{ __('Crédit') }}</th>
-                <th>{{ __('Solde') }}</th>
-                <th>{{ __('Payée') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($commande as $item)
-                <tr>
-                    <td>{{ $item['Indice'] }}</td>
-                    <td>{{ $item['Designation'] }}</td>
-                    <td>{{ date('d/m/Y', strtotime($item['Date'])) }}</td>
-                    <td>{{ number_format($item['Debit'], 2, ',', ' ') }}</td>
-                    <td>{{ number_format($item['Credit'], 2, ',', ' ') }}</td>
-                    <td>{{ number_format($item['Solde'], 2, ',', ' ') }}</td>
-                    <td>{{ $item['Payee'] ? __('Oui') : __('Non') }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="facture-info">
+        <p>Facture: {{ $commande['Indice'] ?? 'N/A' }}</p>
+        <p>Date: {{ $commande['Date'] ?? 'N/A' }}</p>
+            <P>Client: {{ $user['name']}}
+            <p>Code Client: {{ $user['CODETIERS'] }}</p>
+         
 
-    <h2>{{ __('Details Commande') }}</h2>
+        </div>
+        <div class="user-address">
+            <!-- <p>{{ $user['Adresse'] }}</p>
+            <p>{{ $user['Ville'] }}</p>
+            <p>{{ $user['CodePostal'] }}</p>
+            <p>{{ $user['Pays'] }}</p> -->
+        </div>
+    </div>
+
+    <h2>{{ __('Details de la facture') }}</h2>
     <table class="invoice-table">
         <thead>
             <tr>
@@ -155,7 +141,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($order as $item)
+            @foreach ($facture_detail as $item)
                 <tr>
                     <td>{{ $item['LibProd'] }}</td>
                     <td>{{ $item['Quantité'] }}</td>

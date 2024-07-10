@@ -211,6 +211,7 @@ Route::post('/paymentcomplete/{order_code}', [PaymentsController::class, 'FinalC
 
 Route::get('/invoice-downloadfront/{id}', [CustomerController::class, 'downloadInvoiceFomApi'])->name('client.orders.downloadInvoice');
    
+Route::get('/test-pdf', [CustomerController::class, 'generateSimplePDF']);
 
 
 
