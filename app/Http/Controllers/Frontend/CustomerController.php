@@ -373,13 +373,12 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             if ($factureResponse->successful()) {
                 $facture = collect($factureResponse->json())->filter(function ($item) use ($id) {
                     return $item['Iddoc'] == $id;
-                   
-                });
+                })->first(); // Get the first item matching the condition
             } else {
-                $facture = collect([]);
+                $facture = null; // or any default value you want
             }
            // $order = Order::findOrFail((int)$id);
-
+//dd($facture);
             return PDF::loadView('frontend.default.pages.users.invoice', [
                 'commande' => $facture,
                 'facture_detail' => $extraitsDetails,

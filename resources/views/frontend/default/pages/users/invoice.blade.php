@@ -10,17 +10,20 @@
             direction: {{ $direction }};
         }
         .container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-        .company-info {
-            width: 50%;
-        }
+    display: flex;
+    justify-content: space-between;
+}
+
+.company-info, .facture-info {
+    width: 45%;
+}
+
+.company-info p, .facture-info p {
+    margin: 0;
+    padding: 0.5rem 0;
+}
         .logo {
-            width: 50%;
+            width: 45%;
             text-align: right;
         }
         .logo img {
@@ -37,9 +40,7 @@
         .invoice-header h2 {
             margin: 0;
         }
-        .company-info p {
-            margin: 2px 0;
-        }
+       
         .invoice-info-table, .commande-table, .invoice-table {
             width: 100%;
             border-collapse: collapse;
@@ -64,6 +65,7 @@
         .invoice-footer {
             margin-top: 20px;
             text-align: {{ $default_text_align }};
+            page-break-inside: avoid;
         }
         .invoice-footer p {
             margin: 0;
@@ -77,9 +79,62 @@
             padding: 10px;
             margin-top: 20px;
             background-color: #f9f9f9;
+            page-break-inside: avoid;
         }
 
 
+
+
+
+
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500&family=Hanuman:wght@300;400;700&family=Hind+Siliguri:wght@400;500&family=Kanit:wght@400;500&family=Open+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        pre,
+        p {
+            padding: 0;
+            margin: 0;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 1px;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        td,
+        th {
+            text-align: left;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        .visibleMobile {
+            display: none;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        .hiddenMobile {
+            display: block;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        .text-left {
+            text-align: <?php echo $default_text_align; ?>;
+            font-family: '<?php echo $font_family; ?>';
+        }
+
+        .text-right {
+            text-align: <?php echo $reverse_text_align; ?>;
+            font-family: '<?php echo $font_family; ?>';
+        }
 
 
         
@@ -88,48 +143,48 @@
 <body>
 
 
+    <table style="width: 100%; table-layout: fixed">
+        <tr>
+            <td colspan="4"
+                style="border-right: 1px solid #e4e4e4; width: 300px; color: #323232; line-height: 1.5; vertical-align: top;">
+                <p style="font-size: 15px; color: #5b5b5b; font-weight: bold; line-height: 1; vertical-align: top; ">
+                    {{ localize('Bon de Commande') }}</p>
+                <br>
+                <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
+                    {{ $commande['Designation'] ?? 'N/A' }}<br>
+                    
+                    {{ localize('Date de la commande') }} : {{ $commande['Date'] ?? 'N/A' }}<br>
+
+                    {{ localize('Client') }} : {{ $user['name']}}<br>
+                    {{ localize('Code Client') }}  : {{$user['CODETIERS'] }}
+                </p>
+
+               
+            </td>
+            <td colspan="4" align="right"
+                style="width: 300px; text-align: right; padding-left: 50px; line-height: 1.5; color: #323232;">
+                <img src="https://emballage-et-cie.fr/public/uploads/media/LopdO22CoDNmNDutkZ3kgZryjtZ8GVTvqZNGWLgC.jpg" alt="logo" border="0" />
+                <p style="font-size: 12px;font-weight: bold; color: #5b5b5b; line-height: 1; vertical-align: top; ">
+                    Emballage et Cie</p>
+                <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
+                    18 RUE DU CLOS BARROIS, 60180 Nogent-sur-Oise, France
+                     <br>
+                    {{ localize('Téléphone') }} : 0344256066
+
+                </p>
+            </td>
+        </tr>
+        <tr class="visibleMobile">
+            <td height="10"></td>
+        </tr>
+        <tr>
+            <td colspan="10" style="border-bottom:1px solid #e4e4e4"></td>
+        </tr>
+    </table>
 
 
 
-
-
-
-
-
-
-
-<div class="container">
-        <div class="company-info">
-            <p>SAS EMBALLAGE ET CIE</p>
-            <p>18 RUE DU CLOS BARROIS</p>
-            <p>60180 NOGENT SUR OISE</p>
-            <p>Téléphone: 03 44 25 60 66</p>
-            <p>Email: contact@emballage-et-cie.fr</p>
-            <p>Site web: <a href="https://emballage-et-cie.fr" target="_blank">www.emballage-et-cie.fr</a></p>
-        </div>
-        <div class="logo">
-            <img src="https://emballage-et-cie.fr/public/uploads/media/LopdO22CoDNmNDutkZ3kgZryjtZ8GVTvqZNGWLgC.jpg" alt="logo" class="img-fluid">
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="facture-info">
-        <p>Facture: {{ $commande['Indice'] ?? 'N/A' }}</p>
-        <p>Date: {{ $commande['Date'] ?? 'N/A' }}</p>
-            <P>Client: {{ $user['name']}}
-            <p>Code Client: {{ $user['CODETIERS'] }}</p>
-         
-
-        </div>
-        <div class="user-address">
-            <!-- <p>{{ $user['Adresse'] }}</p>
-            <p>{{ $user['Ville'] }}</p>
-            <p>{{ $user['CodePostal'] }}</p>
-            <p>{{ $user['Pays'] }}</p> -->
-        </div>
-    </div>
-
-    <h2>{{ __('Details de la facture') }}</h2>
+    <h2>{{ __('Détails de la facture') }}</h2>
     <table class="invoice-table">
         <thead>
             <tr>
