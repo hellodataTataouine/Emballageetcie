@@ -28,8 +28,8 @@ use App\Http\Controllers\Frontend\CatalogController;
 use App\Http\Controllers\Backend\Payments\PaymentsController;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use App\Models\Product; 
-
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

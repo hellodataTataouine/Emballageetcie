@@ -918,7 +918,59 @@ public function delete(Request $request)
     return back();
 }
 
+public function generateTsv()
+    {
+        // Fetch products from database
+        $products = Product::all(); // Adjust query as per your database structure
 
+        // Define headers for TSV file
+        $headers = [
+            'id',
+            'title',
+            'description',
+            'price',
+            'currency',
+            'condition',
+            'link',
+            'availability',
+            'image_link',
+        ];
+
+        // Create file handle
+        $file = fopen(public_path('tsv/products.tsv'), 'w');
+
+        // Write headers to TSV file
+        fputcsv($file, $headers, "\t");
+
+        // Write product data to TSV file
+        foreach ($products as $product) {
+            $priceFormatted = number_format($product->Prix_HT, 2, ',', '.') . ' €';
+
+            // Determine availability (example condition)
+            $availability = $product->available ? 'in stock' : 'out of stock';
+    
+            // Prepare rowData array
+            $rowData = [
+                $product->id,
+                $product->name,
+                $product->description,
+                $priceFormatted,
+                'EUR', // Assuming currency is always Euro
+                'new', // Example condition; adjust as per your logic
+                "https://emballage-et-cie.fr/products/" . $product->slug,
+                $availability,
+                asset('storage/' . $product->thumbnail_image), // Adjust as per your asset storage setup
+            ];
+    
+            dd($rowData);
+            fputcsv($file, $rowData, "\t");
+        }
+
+        // Close file handle
+        fclose($file);
+
+        return response()->download(public_path('tsv/products.tsv'))->deleteFileAfterSend(true);
+    }
 
 // public function getChildProductData($id)
 // {

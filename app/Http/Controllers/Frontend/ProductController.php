@@ -18,7 +18,6 @@ use App\Models\ProductLocalization;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\ProductParents;
 use App\Helpers\Constant\HelperFunctions; 
-
 use Auth;
 class ProductController extends Controller
 {
