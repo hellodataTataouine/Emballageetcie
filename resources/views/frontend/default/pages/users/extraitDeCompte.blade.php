@@ -19,7 +19,7 @@
                     <div class="account-statement bg-white rounded py-5 px-4">
                         <h6 class="mb-4">{{ localize('Extrait de Compte') }}</h6>
                         <div >
-                            <button id="download-selected" class="btn btn-primary">
+                            <button id="download-selected" class="btn btn-primary" disabled>
                                 {{ localize('Télécharger les sélectionnés') }}
                             </button>
                         </div>
@@ -97,11 +97,34 @@
         var selectedIds = $('input[name="selected_extraits[]"]:checked').map(function() {
             return $(this).val();
         }).get();
-        
         // Construct download URL using route helper
         var downloadUrl = "{{ route('client.orders.downloadSelectedInvoices') }}?ids=" + selectedIds.join(',');
         window.location.href = downloadUrl;
     });
+        });
+        $(document).ready(function(){
+            function updateButtonState() {
+                const checkboxes = document.querySelectorAll('input[name="selected_extraits[]"]');
+                const button = document.getElementById('download-selected');
+                let isChecked = false;
+
+                // Check if at least one checkbox is checked
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isChecked = true;
+                    }
+                });
+
+                // Enable or disable the button
+                button.disabled = !isChecked;
+            }
+
+            // Add event listeners to checkboxes
+            const checkboxes = document.querySelectorAll('input[name="selected_extraits[]"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', updateButtonState);
+            });
+
         });
     </script>
 @endsection

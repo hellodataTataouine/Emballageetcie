@@ -398,38 +398,59 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
     public function downloadSelectedInvoices(Request $request)
     {
         $ids = $request->input('ids'); // Array of selected invoice IDs
-    
+        // dd($ids);
+        $array_ids = explode(',', $ids);
+        // dd($array);
         // Ensure $ids is an array
-        if (!is_array($ids)) {
+        if (!is_array($array_ids)) {
+            
             return redirect()->back()->with('error', 'Invalid selection.');
         }
     
-        if (empty($ids)) {
+        if (empty($array_ids)) {
             return redirect()->back()->with('error', 'No invoices selected.');
         }
     
         $invoices = [];
-    
-        foreach ($ids as $id) {
+        $user = auth()->user();
+        $apiUrl = env('API_CATEGORIES_URL');
+        $IdClientApi = $user->IdClientApi;
+        $factureResponse = Http::get($apiUrl . 'ExtraitDeCompte/' . $IdClientApi);
+        foreach ($array_ids as $id) {
             // Fetch invoice details from API
-            $apiUrl = env('API_CATEGORIES_URL');
+            
             $response = Http::get($apiUrl . 'GetLigneDocByIdDoc/' . $id);
-    
+            if ($factureResponse->successful()) {
+                $facture = collect($factureResponse->json())->filter(function ($item) use ($id) {
+                    return $item['Iddoc'] == $id;
+                })->first(); // Get the first item matching the condition
+            } else {
+                $facture = null; // or any default value you want
+            }
             if ($response->successful()) {
                 $invoiceDetails = $response->json();
+                $totalHT = collect($invoiceDetails)->sum('TotaleHT');
+                $totalTVA = collect($invoiceDetails)->sum('totaletva');
+                $totalTTC = collect($invoiceDetails)->sum('PRIX_details');
                 $invoices[] = $invoiceDetails; // Store invoice details for PDF generation
             } else {
                 // Log or handle the case where fetching data failed for an invoice
                 Log::error('Failed to fetch invoice details for ID: ' . $id);
             }
         }
-    
+        
         if (empty($invoices)) {
             return redirect()->back()->with('error', 'Failed to retrieve invoice details.');
         }
     
         // Generate PDF files for each invoice
         $pdfs = [];
+        
+            
+            
+            
+    
+            
         foreach ($invoices as $invoice) {
             // Determine font family, text direction, alignment, etc.
             $font_family = "'Roboto', sans-serif"; // Adjust as per your logic
@@ -439,27 +460,33 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
     
             // Build data for PDF view
             $pdfData = [
-                'invoice' => $invoice,
+                'commande' => $facture,
+                'facture_detail' => $invoice,
                 'font_family' => $font_family,
                 'direction' => $direction,
                 'default_text_align' => $default_text_align,
                 'reverse_text_align' => $reverse_text_align,
+                'user' => $user,
+                'totalHT' => $totalHT,
+                'totalTVA' => $totalTVA,
+                'totalTTC' => $totalTTC,
+                
             ];
     
             // Generate PDF instance
-            $pdf = PDF::loadView('invoices.invoice_pdf', $pdfData); // Adjust view name as per your structure
+            $pdf = PDF::loadView('frontend.default.pages.users.invoices', $pdfData); // Adjust view name as per your structure
     
             // Store PDF instance
             $pdfs[] = $pdf;
         }
     
         // Generate ZIP file containing all PDF invoices
-        $zipFileName = 'selected_invoices.zip';
+        $zipFileName = 'selected_invoices_'.time().'.zip';
         $zip = new \ZipArchive();
         $zip->open(storage_path('app/'.$zipFileName), \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
     
         foreach ($pdfs as $index => $pdf) {
-            $pdfFileName = 'invoice_' . $ids[$index] . '.pdf'; // Example: invoice_3096224743818666.pdf
+            $pdfFileName = time().'_invoice_' . $ids[$index] . '.pdf'; // Example: invoice_3096224743818666.pdf
             $pdf->save(storage_path('app/'.$pdfFileName)); // Save PDF to storage path
             $zip->addFile(storage_path('app/'.$pdfFileName), $pdfFileName); // Add PDF to ZIP archive
         }
