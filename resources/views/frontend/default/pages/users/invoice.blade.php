@@ -169,7 +169,9 @@
                 <p style="font-size: 12px; color: #5b5b5b; line-height: 24px; vertical-align: top;">
                     18 RUE DU CLOS BARROIS, 60180 Nogent-sur-Oise, France
                      <br>
-                    {{ localize('Téléphone') }} : 0344256066
+                    {{ localize('Téléphone') }} : 0344256066 <br>
+
+                    N° de TVA Intracom: FR57840855670
 
                 </p>
             </td>

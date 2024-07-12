@@ -214,10 +214,17 @@ Route::get('/invoice-downloadfront/{id}', [CustomerController::class, 'downloadI
 Route::get('/test-pdf', [CustomerController::class, 'generateSimplePDF']);
 
 
+Route::get('/download-selected-invoices', [CustomerController::class, 'downloadSelectedInvoices'])->name('client.orders.downloadSelectedInvoices');
+
+
+
 
 
 Route::get('/generate-sitemap', function () {
     $sitemap = Sitemap::create();
+
+
+
 
     // Add static URLs
     $sitemap->add(Url::create('/'))
@@ -248,3 +255,6 @@ Route::get('/generate-sitemap', function () {
 
     return 'Sitemap generated!';
 });
+
+
+

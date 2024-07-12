@@ -88,7 +88,7 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             $totalHT = collect($extraitsDetails)->sum('TotaleHT');
             $totalTVA = collect($extraitsDetails)->sum('totaletva');
             $totalTTC= collect($extraitsDetails)->sum('PRIX_details');
-            return getView('pages.users.extraitDetail',compact('extraitsDetails','totalHT','totalTVA','totalTTC')); 
+            return getView('pages.users.extraitDetail',compact('extraitsDetails','totalHT','totalTVA','totalTTC', 'iddoc')); 
                        
         } else {
             flash(localize('Veuillez reéssayer '))->error();
@@ -314,10 +314,6 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
 
 
-
-
-
-
     public function downloadInvoiceFomApi($id)
     {
        // dd($id);
@@ -396,6 +392,83 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
         }
     }
     
+
+
+   
+    public function downloadSelectedInvoices(Request $request)
+    {
+        $ids = $request->input('ids'); // Array of selected invoice IDs
+    
+        // Ensure $ids is an array
+        if (!is_array($ids)) {
+            return redirect()->back()->with('error', 'Invalid selection.');
+        }
+    
+        if (empty($ids)) {
+            return redirect()->back()->with('error', 'No invoices selected.');
+        }
+    
+        $invoices = [];
+    
+        foreach ($ids as $id) {
+            // Fetch invoice details from API
+            $apiUrl = env('API_CATEGORIES_URL');
+            $response = Http::get($apiUrl . 'GetLigneDocByIdDoc/' . $id);
+    
+            if ($response->successful()) {
+                $invoiceDetails = $response->json();
+                $invoices[] = $invoiceDetails; // Store invoice details for PDF generation
+            } else {
+                // Log or handle the case where fetching data failed for an invoice
+                Log::error('Failed to fetch invoice details for ID: ' . $id);
+            }
+        }
+    
+        if (empty($invoices)) {
+            return redirect()->back()->with('error', 'Failed to retrieve invoice details.');
+        }
+    
+        // Generate PDF files for each invoice
+        $pdfs = [];
+        foreach ($invoices as $invoice) {
+            // Determine font family, text direction, alignment, etc.
+            $font_family = "'Roboto', sans-serif"; // Adjust as per your logic
+            $direction = 'ltr'; // Assume default direction is left-to-right
+            $default_text_align = 'left'; // Assume default text alignment
+            $reverse_text_align = 'right'; // Reverse text alignment
+    
+            // Build data for PDF view
+            $pdfData = [
+                'invoice' => $invoice,
+                'font_family' => $font_family,
+                'direction' => $direction,
+                'default_text_align' => $default_text_align,
+                'reverse_text_align' => $reverse_text_align,
+            ];
+    
+            // Generate PDF instance
+            $pdf = PDF::loadView('invoices.invoice_pdf', $pdfData); // Adjust view name as per your structure
+    
+            // Store PDF instance
+            $pdfs[] = $pdf;
+        }
+    
+        // Generate ZIP file containing all PDF invoices
+        $zipFileName = 'selected_invoices.zip';
+        $zip = new \ZipArchive();
+        $zip->open(storage_path('app/'.$zipFileName), \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+    
+        foreach ($pdfs as $index => $pdf) {
+            $pdfFileName = 'invoice_' . $ids[$index] . '.pdf'; // Example: invoice_3096224743818666.pdf
+            $pdf->save(storage_path('app/'.$pdfFileName)); // Save PDF to storage path
+            $zip->addFile(storage_path('app/'.$pdfFileName), $pdfFileName); // Add PDF to ZIP archive
+        }
+    
+        $zip->close();
+    
+        // Download the ZIP file
+        return response()->download(storage_path('app/'.$zipFileName))->deleteFileAfterSend(true);
+    }
 
 
 

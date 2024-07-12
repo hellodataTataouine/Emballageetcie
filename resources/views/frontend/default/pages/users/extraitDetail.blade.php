@@ -79,9 +79,11 @@
                             </div>
                         </div> 
                 <div class="mt-4 table-responsive">
-                    <table class="table footer-table">
-                        
-                    </table>
+                 
+                    <a href="{{ route('client.orders.downloadInvoice', $iddoc) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
+       data-bs-placement="top" data-bs-title="{{ localize('Télécharger la facture') }}">
+       <i class="fas fa-download" width="18"></i>Télécharger la Facture
+    </a>
                 </div>
             </div>
         </div>

@@ -18,60 +18,90 @@
                 <div class="col-xl-9">
                     <div class="account-statement bg-white rounded py-5 px-4">
                         <h6 class="mb-4">{{ localize('Extrait de Compte') }}</h6>
+                        <div >
+                            <button id="download-selected" class="btn btn-primary">
+                                {{ localize('Télécharger les sélectionnés') }}
+                            </button>
+                        </div>
+                        <br>
+
+
                         <div class="table-responsive">
                             <table class="account-statement-table table">
                                 <thead>
                                     <tr>
+                                        <th>{{ localize('Sélectionner') }}</th> <!-- New column for checkboxes -->
                                         <th>{{ localize('Date') }}</th>
                                         <th>{{ localize('Designation') }}</th>
                                         <th>{{ localize('Debit') }}</th>
                                         <th>{{ localize('Credit') }}</th>
                                         <th>{{ localize('Solde') }}</th>
                                         <th>{{ localize('Statut') }}</th>
-                                        
                                         <th>{{ localize('Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($extraits as $extrait)
                                         <tr>
+                                            <td>
+                                                <input type="checkbox" name="selected_extraits[]" value="{{ $extrait['Iddoc'] }}">
+                                            </td>
                                             <td>{{ date('d M, Y', strtotime($extrait['Date'])) }}</td>
                                             <td>{{ $extrait['Designation'] }}</td>
                                             <td>{{ $extrait['Debit'] }}</td>
                                             <td>{{ $extrait['Credit'] }}</td>
                                             <td>{{ $extrait['Solde'] }}</td>
-                                           @if($extrait['Payee'] == 1)
-                                            <td>Payée </td>
+                                            @if($extrait['Payee'] == 1)
+                                                <td>Payée </td>
                                             @else
-                                            <td>En attente de paiement</td>
+                                                <td>En attente de paiement</td>
                                             @endif
                                             <td>
-    <a href="{{ route('customers.extraitDetail', ['iddoc' => $extrait['Iddoc']]) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
-       data-bs-placement="top" data-bs-title="{{ localize('Voir les détails') }}">
-       <i class="fas fa-eye"></i>
-    </a>
+                                                <a href="{{ route('customers.extraitDetail', ['iddoc' => $extrait['Iddoc']]) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" data-bs-title="{{ localize('Voir les détails') }}">
+                                                   <i class="fas fa-eye"></i>
+                                                </a>
 
-    <a href="{{ route('client.orders.downloadInvoice', $extrait['Iddoc']) }}" class="view-transaction fs-xs" data-bs-toggle="tooltip"
-       data-bs-placement="top" data-bs-title="{{ localize('Télécharger la facture') }}">
-       <i class="fas fa-download" width="18"></i>
-    </a>
-</td>
+                                                <a href="{{ route('client.orders.downloadInvoice', $extrait['Iddoc']) }}" class="download-invoice fs-xs" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" data-bs-title="{{ localize('Télécharger la facture') }}">
+                                                   <i class="fas fa-download" width="18"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <!-- <div class="text-end">
-                            <div class="card d-inline-block p-3 mb-4">
-                                <div class="font-weight-bold">
-                                    <p class="mb-1">{{ localize('Total Debit: ') }} <span class="text-success">{{ $totalDebit }}</span></p>
-                                    <p>{{ localize('Total Credit: ') }} <span class="text-danger">{{ $totalCredit }}</span></p>
-                                </div>
-                            </div>
-                        </div> -->
+                      
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle checkbox changes
+            $('input[name="selected_extraits[]"]').change(function() {
+                var anyChecked = $('input[name="selected_extraits[]"]:checked').length > 0;
+                // Example: Enable/disable a button based on selection
+                $('#download-selected').prop('disabled', !anyChecked);
+            });
+
+            // Handle click event for Download Selected button
+            $('#download-selected').click(function(e) {
+        e.preventDefault();
+        var selectedIds = $('input[name="selected_extraits[]"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+        
+        // Construct download URL using route helper
+        var downloadUrl = "{{ route('client.orders.downloadSelectedInvoices') }}?ids=" + selectedIds.join(',');
+        window.location.href = downloadUrl;
+    });
+        });
+    </script>
 @endsection
