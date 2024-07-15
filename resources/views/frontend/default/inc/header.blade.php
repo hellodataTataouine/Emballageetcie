@@ -357,14 +357,25 @@
                                 @php
                                     $carts = [];
                                     if (Auth::check()) {
-                                        $carts = App\Models\Cart::where('user_id', Auth::user()->id)
-                                            ->where('location_id', session('stock_location_id'))
-                                            ->get();
+     $carts = App\Models\Cart::where('user_id', Auth::user()->id)
+    ->where('location_id', session('stock_location_id'))
+    ->whereHas('product_variation.product')
+    ->get();
+    App\Models\Cart::where('user_id', Auth::user()->id)
+            ->where('location_id', session('stock_location_id'))
+            ->whereDoesntHave('product_variation.product')
+            ->delete();
                                     } else {
                                         if (isset($_COOKIE['guest_user_id'])) {
                                             $carts = App\Models\Cart::where('guest_user_id', (int) $_COOKIE['guest_user_id'])
                                                 ->where('location_id', session('stock_location_id'))
+                                                ->whereHas('product_variation.product')
                                                 ->get();
+
+                                                App\Models\Cart::where('guest_user_id', (int) $_COOKIE['guest_user_id'])
+                ->where('location_id', session('stock_location_id'))
+                ->whereDoesntHave('product_variation.product')
+                ->delete();
                                         }
                                     }
                                 @endphp

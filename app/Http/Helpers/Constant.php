@@ -675,6 +675,7 @@ if (!function_exists('variationDiscountedPrice')) {
     // return discounted price of a variation
     function variationDiscountedPrice($product, $product_price, $addTax = true)
     {
+       
         $price = $product_price;
 
         $discount_applicable = false;
