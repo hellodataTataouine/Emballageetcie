@@ -216,6 +216,7 @@ Route::get('/test-pdf', [CustomerController::class, 'generateSimplePDF']);
 
 Route::get('/download-selected-invoices', [CustomerController::class, 'downloadSelectedInvoices'])->name('client.orders.downloadSelectedInvoices');
 
+Route::get('/download-selected-invoices', [CustomerController::class, 'downloadSelectedInvoices'])->name('client.orders.downloadSelectedInvoices');
 
 
 

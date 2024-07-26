@@ -375,6 +375,7 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
             }
            // $order = Order::findOrFail((int)$id);
 //dd($facture);
+//PDF::set_option('isPhpEnabled', true);
             return PDF::loadView('frontend.default.pages.users.invoice', [
                 'commande' => $facture,
                 'facture_detail' => $extraitsDetails,

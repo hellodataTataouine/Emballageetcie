@@ -135,13 +135,25 @@
             text-align: <?php echo $reverse_text_align; ?>;
             font-family: '<?php echo $font_family; ?>';
         }
-
+        .watermark {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 80px;
+    color: #ffffff;
+    opacity: .4;
+    white-space: nowrap;
+    z-index: -1;
+    pointer-events: none;
+    text-align: center;
+}
 
         
     </style>
 </head>
 <body>
-
+    {{-- <div class="watermark">DUPLICATA</div> --}}
 
     <table style="width: 100%; table-layout: fixed">
         <tr>
