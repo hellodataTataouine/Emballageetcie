@@ -123,7 +123,7 @@
                     </a>
                 @else
                     <a href="javascript:void(0);"
-                        onclick="directAddToCartFormSubmit(this)"
+                        onclick="showProductDetailsModal({{ $product->id }})"
                         class="btn btn-outline-secondary btn-md border-secondary d-block mt-4 w-100 direct-add-to-cart-btn add-to-cart-text">
                         {{ localize('Ajouter au panier') }}
                     </a>

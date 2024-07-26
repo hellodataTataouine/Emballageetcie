@@ -74,7 +74,7 @@
                             <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>
                         </a>
                     @else
-                        <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
+                        <a href="javascript:void(0);" onclick="showProductDetailsModal({{ $product->id }})"
                             class="fs-xs fw-bold d-inline-block explore-btn direct-add-to-cart-btn">
                             <span class="add-to-cart-text">{{ localize('Acheter maintenant') }}</span>
                             <span class="ms-1"><i class="fa-solid fa-arrow-right"></i></span>

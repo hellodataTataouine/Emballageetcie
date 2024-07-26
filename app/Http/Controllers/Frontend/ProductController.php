@@ -45,13 +45,17 @@ class ProductController extends Controller
         $produitsApi = $response->json();
 
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+     
+    
         $existingProducts = Product::whereIn('slug', $barcodes)
         ->with('categories')
         ->get()
         ->keyBy('slug');
 
         $productsNotInApi = Product::whereNotIn('slug', $barcodes)->get();
+   
         foreach ($productsNotInApi as $product) {
+           // dd($product);
             $product->is_publish = 0;
             $product->save();
         }

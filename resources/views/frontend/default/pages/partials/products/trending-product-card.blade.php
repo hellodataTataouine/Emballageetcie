@@ -100,7 +100,7 @@
                 <a href="javascript:void(0);" class="btn btn-secondary d-block btn-md rounded-1 w-100">
                     {{ localize('Rupture de stock') }}</a>
             @else
-                <a href="javascript:void(0);" onclick="directAddToCartFormSubmit(this)"
+                <a href="javascript:void(0);" onclick="showProductDetailsModal({{ $product->id }})"
                     class="btn btn-secondary d-block btn-md rounded-1 w-100 direct-add-to-cart-btn add-to-cart-text">{{ localize('Ajouter au panier') }}</a>
             @endif
         </form>
