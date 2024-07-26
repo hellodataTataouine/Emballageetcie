@@ -74,7 +74,7 @@
 
         var categoryId = $(this).data('category-id');
         var $childCategories = $('.child-categories[data-category-id="' + categoryId + '"]');
-
+        
         if ($(e.target).hasClass('toggle-icon')) {
             $childCategories.slideToggle();
 
@@ -89,10 +89,41 @@
             if ($(this).hasClass('child-categories') || $(this).hasClass('grandchild-categories')) {
                 e.preventDefault();
             } else {
-                window.location.href = '{{ route('products.index') }}?&category_id=' + categoryId;
+                var perPage = $('input[name="per_page"]').val();
+                    var sortBy = $('select[name="sort_by"]').val();
+                    var view = $('.grid-btn.active').data('view') || $('.list-btn.active').data('view'); // Get view from active button
+
+                    var url = '{{ route('products.index') }}?category_id=' + categoryId + '&per_page=' + perPage + '&sort_by=' + sortBy + '&view=' + view;
+
+                var url = '{{ route('products.index') }}?category_id=' + categoryId + '&per_page=' + perPage + '&sort_by=' + sortBy + '&view=' + view;
+
+// Redirect to the constructed URL
+window.location.href = url;
+
+               
             }
         }
     });
+
+
+
+    $('.grid-btn, .list-btn').on('click', function (e) {
+            e.preventDefault();
+            
+            // Get the values from the input and select elements
+            var perPage = $('input[name="per_page"]').val();
+        var sortBy = $('select[name="sort_by"]').val();
+        var view = $('input[name="view"]:checked').val();
+            var categoryId = '{{ request()->category_id }}'; // Assuming category_id is present in the current request
+
+            // Construct the URL with the additional parameters
+            var url = '{{ route('products.index') }}?category_id=' + categoryId + '&per_page=' + perPage + '&sort_by=' + sortBy + '&view=' + view;
+
+            // Redirect to the constructed URL
+            window.location.href = url;
+        });
+
+
 });
 
 function toggleCategories(categoryId) {

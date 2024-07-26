@@ -32,6 +32,14 @@
     <!--breadcrumb-->
 
     <form class="filter-form"  action="{{ Request::fullUrl() }}" method="GET" style="padding-left: 17px;" >
+
+        <input type="hidden" name="category_id" id="category_id_input" value="{{ request()->category_id }}">
+        <input type="hidden" name="per_page" id="per_page_input" value="{{ request()->per_page }}">
+        <input type="hidden" name="sort_by" id="sort_by_input" value="{{ request()->sort_by }}">
+        <input type="hidden" name="view" id="view_input" value="{{ request()->view }}">
+
+
+
         <!--shop grid section start-->
         <section class="gshop-gshop-grid ptb-120" >
             <div class="col-xl-11">
@@ -102,8 +110,8 @@
                                                 {{ localize('Meilleures ventes') }}</option>
                                         </select>
                                     </div>
-                                    <a href="{{ route('products.index') }}?view=grid"
-                                        class="grid-btn {{ request()->view != 'list' ? 'active' : '' }} d-none d-xl-flex">
+                                    <a href="#"
+                                        class="grid-btn {{ request()->view != 'list' ? 'active' : '' }} d-none d-xl-flex" data-view="grid">
                                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -131,8 +139,8 @@
                                         </svg>
                                     </button>
 
-                                    <a href="{{ route('products.index') }}?view=list"
-                                        class="grid-btn {{ request()->view == 'list' ? 'active' : '' }} d-none d-xl-flex">
+                                    <a href="#"
+                                        class="grid-btn {{ request()->view == 'list' ? 'active' : '' }} d-none d-xl-flex" data-view="list">
                                         <svg width="21" height="16" viewBox="0 0 21 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -207,13 +215,31 @@
     <script>
         "use strict";
 
-        $('.product-listing-pagination').on('focusout', function() {
-            $('.filter-form').submit();
-        });
+        function updateFilterForm() {
+        $('#category_id_input').val('{{ request()->category_id }}');
+        $('#per_page_input').val($('input[name="per_page"]').val());
+        $('#sort_by_input').val($('select[name="sort_by"]').val());
+        $('#view_input').val($('input[name="view"]:checked').val() || $('a.grid-btn.active').data('view') || $('a.list-btn.active').data('view'));
+    }
 
-        $('.sort_by').on('change', function() {
-            $('.filter-form').submit();
-        });
+    $('.product-listing-pagination').on('focusout', function() {
+        updateFilterForm();
+        $('.filter-form').submit();
+    });
+
+    $('.sort_by').on('change', function() {
+        updateFilterForm();
+        $('.filter-form').submit();
+    });
+
+
+    // $('.grid-btn, .list-btn').on('click', function(e) {
+    //     e.preventDefault();
+    //     $('#view_input').val($(this).data('view'));
+    //     updateFilterForm();
+    //     $('.filter-form').submit();
+    // });
+
     </script>
 @endsection
 

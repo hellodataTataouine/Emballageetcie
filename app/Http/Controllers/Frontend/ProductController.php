@@ -24,9 +24,17 @@ class ProductController extends Controller
    
     public function index(Request $request)
     {
+
+
+       
+       //dd( request()->view);
+        if ($request->has('per_page')) {
+            session(['per_page' => $request->get('per_page')]);
+        }
+       // dd($request);
         $virtualProducts = collect(); 
         $searchKey = null;
-        $per_page = 12;
+        $per_page = session('per_page', 12);
         $sort_by = $request->sort_by ? $request->sort_by : "new";
         $maxRange = Product::max('max_price');
         $min_value = 0;
@@ -211,48 +219,11 @@ class ProductController extends Controller
             $searchKey = $searchTerm;
         }
         
-// if ($request->search != null) {
-//     $searchTerm = $request->search;
-//  // Remove accents from the search term
-//  $searchTerm = removeAccents($searchTerm);
-//     // Split the search term into words
-//     $keywords = explode(' ', $searchTerm);
 
-//     $filteredProducts = $virtualProducts->filter(function ($product) use ($keywords) {
-//         // Check if any part of the keywords matches the product name, description, slug, or tag names
-//         return collect($keywords)->every(function ($keyword) use ($product) {
-//             $productName = removeAccents($product->name);
-//             // if($product->name == "Boite patissière blanche à poignée 105x105")
-//             // {
-//             //     $productName = removeAccents($product->name);
-//             //     dd($productName);
-//             // }
-//             // Check if the keyword is present in the product name, description, or slug
-            
-//             $inProductAttributes = (
-//                 stripos($product->name, $keyword) !== false ||
-//                 stripos($product->description, $keyword) !== false ||
-//                 stripos($product->slug, $keyword) !== false
-//             );
-
-//             // Check if the keyword is present in any part of the tag names
-//             $inTagNames = collect($product->tags)->pluck('name')->some(function ($tagName) use ($keyword) {
-//                 return stripos($tagName, $keyword) !== false;
-//             });
-
-//             return $inProductAttributes || $inTagNames;
-//         });
-//     });
-
-//     // Reassign the filtered products to $virtualProducts
-//     $virtualProducts = $filteredProducts->values();
-//     $searchKey = $searchTerm;
-// }
-
-        
         
         # pagination
         if ($request->per_page != null) {
+           // dd($request->per_page);
             $per_page = $request->per_page;
         }
 
@@ -280,7 +251,7 @@ class ProductController extends Controller
         }
 
         # by category
-
+//dd( $request->category_id);
         $selectedCategoryId = $request->category_id;
         $selectedCategory = 0;
         if ($selectedCategoryId && $selectedCategoryId != null) {

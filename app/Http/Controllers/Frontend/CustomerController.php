@@ -109,11 +109,15 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
     public function mesProduits(Request $request)
 {
+
+    if ($request->has('per_page')) {
+        session(['per_page' => $request->get('per_page')]);
+    }
     $user = auth()->user();
     $virtualProducts = collect();
     $mesProduits = collect(); 
     $searchKey = null;
-    $per_page = 12;
+    $per_page = session('per_page', 12);
     $sort_by = $request->sort_by ? $request->sort_by : "new";
     $maxRange = Product::max('max_price');
     $min_value = 0;
@@ -201,9 +205,10 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
         $virtualProducts = $virtualProducts->sortByDesc('total_sale_count'); 
 
         
-   
+
     // Pagination
     if ($request->per_page != null) {
+        //dd($request->per_page);
         $per_page = $request->per_page;
     }
 
@@ -227,8 +232,22 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
     $mesProduits = new LengthAwarePaginator($slicedProducts, count($virtualProducts),paginationNumber($per_page), $currentPage);
     $mesProduits->withPath('/mes-produits');
+
+
+    return getView('pages.users.mesProduits', [
+        'mesProduits'      => $mesProduits,
+        'searchKey'     => $searchKey,
+        'per_page'      => $per_page,
+        'sort_by'       => $sort_by,
+        'max_range'     => formatPrice($maxRange, false, false, false, false),
+        'min_value'     => $min_value,
+        'max_value'     => $max_value,
+       
+    ]);  
+
+
 //dd($mesProduits);
-    return getView('pages.users.mesProduits', compact('mesProduits'));
+    //return getView('pages.users.mesProduits', compact('mesProduits'));
 }
 
 
