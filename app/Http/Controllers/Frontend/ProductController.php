@@ -282,7 +282,7 @@ class ProductController extends Controller
         //        }
 
 
-if($request->search != null){
+if($request->search == null){
         
          $visibleProducts = $virtualProducts->where('afficher', 1);
          $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
