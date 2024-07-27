@@ -282,7 +282,7 @@ class ProductController extends Controller
         //        }
 
 
-if($searchTerm != null){
+if($request->search != null){
         
          $visibleProducts = $virtualProducts->where('afficher', 1);
         // // dd($visibleProducts);
