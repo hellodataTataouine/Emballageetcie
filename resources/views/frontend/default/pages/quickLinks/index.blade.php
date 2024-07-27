@@ -17,6 +17,7 @@
     </div>
 @endsection
 
+
 @section('contents')
     <!--breadcrumb-->
     @include('frontend.default.inc.breadcrumb')
