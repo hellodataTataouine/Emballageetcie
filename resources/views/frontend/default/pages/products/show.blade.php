@@ -55,7 +55,7 @@
 
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
-        <h2 class="mb-2 text-center">{{ localize('Détails du produit') }}</h2>
+        <h2 class="mb-2 text-center" style="color: #ff7c08;">{{ localize('Détails du produit') }}</h2>
         <nav>
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fw-bold" aria-current="page"><a

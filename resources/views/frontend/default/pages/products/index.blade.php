@@ -7,9 +7,9 @@
 @section('breadcrumb-contents')
     <div class="breadcrumb-content">
     @if($selectedCategoryId != null)
-    <h2 class="mb-2 text-center">{{ $selectedCategory->name }}</h2>
+    <h2 class="mb-2 text-center" style="color: #ff7c08;">{{ $selectedCategory->name }}</h2>
               @else
-              <h2 class="mb-2 text-center">{{ localize('Produits') }}</h2>
+              <h2 class="mb-2 text-center" style="color: #ff7c08;">{{ localize('Produits') }}</h2>
                 @endif
        
         <nav>

@@ -11,16 +11,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use PDF;
-
+use App\Models\ProductCategory;
+use App\Models\ProductTag;
 use App\Models\OrderItem;
 use App\Models\ProductVariation;
 use Illuminate\Support\Facades\Config;
-
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Tag;
 class CustomerController extends Controller
 {
 
@@ -222,6 +223,38 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
         
     }
+
+
+    if ($request->min_price != null) {
+        $min_value = $request->min_price;
+    }
+    if ($request->max_price != null) {
+        $max_value = $request->max_price;
+    }
+
+    if ($request->min_price || $request->max_price) {
+        $virtualProducts = $virtualProducts->where('min_price', '>=', priceToUsd($min_value))->where('min_price', '<=', priceToUsd($max_value));
+    }
+
+    # by category
+//dd( $request->category_id);
+    $selectedCategoryId = $request->category_id;
+    $selectedCategory = 0;
+    if ($selectedCategoryId && $selectedCategoryId != null) {
+        $product_category_product_ids = ProductCategory::where('category_id', $selectedCategoryId)->pluck('product_id');
+        $virtualProducts = $virtualProducts->whereIn('id', $product_category_product_ids);
+        $selectedCategory = Category::where('id', $selectedCategoryId)->first();
+       
+    }
+   
+    # by tag
+    if ($request->tag_id && $request->tag_id != null) {
+        $product_tag_product_ids = ProductTag::where('tag_id', $request->tag_id)->pluck('product_id');
+        $virtualProducts = $virtualProducts->whereIn('id', $product_tag_product_ids);
+    }
+
+
+
     $currentPage = $request->input('page', 1); 
     $perPage = $request->input('per_page', 12); // Updated line
 
@@ -232,6 +265,10 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
 
     $mesProduits = new LengthAwarePaginator($slicedProducts, count($virtualProducts),paginationNumber($per_page), $currentPage);
     $mesProduits->withPath('/mes-produits');
+ 
+    $tags = Tag::all();
+
+
 
 
     return getView('pages.users.mesProduits', [
@@ -242,6 +279,9 @@ return getView('pages.users.extraitDeCompte', compact('extraits', 'totalDebit', 
         'max_range'     => formatPrice($maxRange, false, false, false, false),
         'min_value'     => $min_value,
         'max_value'     => $max_value,
+        'tags'          => $tags,
+        'selectedCategoryId' => $selectedCategoryId,
+        'selectedCategory' => $selectedCategory,
        
     ]);  
 

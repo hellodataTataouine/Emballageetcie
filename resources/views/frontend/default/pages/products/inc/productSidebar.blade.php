@@ -113,7 +113,7 @@ window.location.href = url;
             // Get the values from the input and select elements
             var perPage = $('input[name="per_page"]').val();
         var sortBy = $('select[name="sort_by"]').val();
-        var view = $('input[name="view"]:checked').val();
+        var view = $(this).data('view');
             var categoryId = '{{ request()->category_id }}'; // Assuming category_id is present in the current request
 
             // Construct the URL with the additional parameters
