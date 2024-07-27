@@ -282,21 +282,21 @@ class ProductController extends Controller
         //        }
 
 
-// if($request->search == null){
+if($request->search == null){
         
-//          $visibleProducts = $virtualProducts->where('afficher', 1);
-//          $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
-//          $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
-//         // // dd($visibleProducts);
-// }else{
-
-//     $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
-//     $products = new LengthAwarePaginator($slicedProducts,$virtualProducts ->count(), paginationNumber($per_page), $currentPage);
-// }
-       
-          $visibleProducts = $virtualProducts->where('afficher', 1);
-          $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
+         $visibleProducts = $virtualProducts->where('afficher', 1);
+         $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
          $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
+        // // dd($visibleProducts);
+}else{
+
+    $slicedProducts = $virtualProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
+    $products = new LengthAwarePaginator($slicedProducts,$virtualProducts ->count(), paginationNumber($per_page), $currentPage);
+}
+       
+        //   $visibleProducts = $virtualProducts->where('afficher', 1);
+        //   $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
+        //  $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
 
         $products->withPath('/products');
 
