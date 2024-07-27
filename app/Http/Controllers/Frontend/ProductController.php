@@ -282,11 +282,11 @@ class ProductController extends Controller
         //        }
 
 
-
+if($searchTerm != null){
         
          $visibleProducts = $virtualProducts->where('afficher', 1);
         // // dd($visibleProducts);
-       
+}
         $slicedProducts = $visibleProducts->slice(($currentPage - 1) * paginationNumber($per_page), paginationNumber($per_page))->values();
         $products = new LengthAwarePaginator($slicedProducts,$visibleProducts ->count(), paginationNumber($per_page), $currentPage);
 
