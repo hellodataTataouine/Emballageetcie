@@ -64,7 +64,7 @@ class ProductController extends Controller
    
         foreach ($productsNotInApi as $product) {
            // dd($product);
-            $product->is_publish = 0;
+            $product->is_published = 0;
             $product->save();
         }
 
