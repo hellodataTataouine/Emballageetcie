@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ToastNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerController;
@@ -74,7 +75,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/brands', [HomeController::class, 'allBrands'])->name('home.brands');
 Route::get('/categories', [HomeController::class, 'allCategories'])->name('home.categories');
 
-
+Route::get('/notification',[ToastNotificationController::class,'getApiData']);
 # products
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{slug}', [ProductController::class, 'show'])
