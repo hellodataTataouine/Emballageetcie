@@ -289,11 +289,23 @@
                 }); 
                 
             }
-        
+            
             // Show toast message every 40 seconds
-            setInterval(function() {
+            if (!localStorage.getItem('toastShown')) {
+            // Show the toast immediately when the page loads
                 showToast();
-            }, 40000); // 40,000 ms = 40 seconds
+
+                // Set the flag in localStorage to indicate that the toast has been shown
+                localStorage.setItem('toastShown', 'true');
+            }
+
+            // Show toast message every 2 minutes (120,000 ms) if it's been shown before
+            setInterval(function() {
+                // Only show toast if the user has seen it once
+                if (localStorage.getItem('toastShown')) {
+                    showToast();
+                }
+            }, 120000); // 120,000 ms = 2 minutes
         
             // Close button functionality
             $('#toast-close').on('click', function() {
@@ -306,10 +318,7 @@
                 }, 500);
             });
         
-            // Optional: Show the first toast immediately when the page loads
-            window.onload = function() {
-                showToast();
-            };
+            
         });
     </script>
     <!--scroll bottom to top button start-->
