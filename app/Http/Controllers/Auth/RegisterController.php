@@ -66,7 +66,7 @@ class RegisterController extends Controller
  */
 public function verifyClient(Request $request, $CODETIERS)
 {
-    $apiEndpoint = "http://51.83.131.79/hdcomercialeco/Client/CodeTiers/{$CODETIERS}";
+    $apiEndpoint = "http://87.106.135.239/hdcomercialeco/Client/CodeTiers/{$CODETIERS}";
 
     try {
         $response = Http::get($apiEndpoint);
