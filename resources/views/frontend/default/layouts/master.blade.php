@@ -244,19 +244,20 @@
                     url: "/notification",  // Use the localized ajax_url
                     method: 'GET',
                     success: function(data) {
+                        const productData = JSON.parse(data);
                         try {
                             
                                 
-                                $('#toast-image').attr('src', data[0].MyPhoto);
+                                $('#toast-image').attr('src', productData.thumbnail_image);
                                 
-                                $('#toast-product').text(data[0].Libellé); 
-                                var description = stripHtmlTags(data[0].Description);
+                                $('#toast-product').text(productData.name); 
+                                var description = productData.description;
                             
                                 // Check if description is longer than 200 characters
                                 if (description.length > 200) {
                                     description = description.substring(0, 200) + '...'; // Truncate and add ellipsis
                                 }
-                                var productUrl ="/products/"+ data[0].Codeabarre;
+                                var productUrl ="/products/"+ productData.slug;
                                 if (productUrl) {
                                     description += ' <a href="' + productUrl + '" style="color: #f5a623;" target="_blank">Voir produit</a>';
                                 }
