@@ -572,16 +572,20 @@
                                     <h5 class="mb-4">{{ localize('Tags du produit') }}</h5>
                                     <div class="mb-4">
                                         @php
-                                            $productTags = $product->tags()->pluck('tag_id');
+                                            /* $productTags = $product->tags()->pluck('tag_id'); */
+                                            $productTags = $product->tags()->pluck('name')->implode(';');
                                         @endphp
-                                        <select class="select2 form-control" multiple="multiple"
+                                        {{-- <select class="select2 form-control" multiple="multiple"
                                             data-placeholder="{{ localize('Sélectionner Tags') }}" name="tag_ids[]">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ $productTags->contains($tag->id) ? 'selected' : '' }}>
                                                     {{ $tag->name }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
+                                        <input type="text" name="tags" id="tag"
+                                        placeholder="{{ localize('Saisir tags ...') }}" class="form-control" required
+                                        value="{{ $productTags }}">
                                     </div>
                                 </div>
                             </div>

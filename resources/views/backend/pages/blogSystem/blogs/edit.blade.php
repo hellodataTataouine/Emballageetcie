@@ -84,17 +84,21 @@
                                         <label class="form-label">{{ localize('Tags') }}</label>
 
                                         @php
-                                            $blogTags = $blog->tags()->pluck('tag_id');
+                                            /* $blogTags = $blog->tags()->pluck('tag_id'); */
+                                            $blogTags = $blog->tags()->pluck('name')->implode(';');
                                         @endphp
 
-                                        <select class="form-control select2" name="tag_ids[]" data-toggle="select2" multiple
+                                        {{-- <select class="form-control select2" name="tag_ids[]" data-toggle="select2" multiple
                                             data-placeholder="{{ localize('Sélectionner tags..') }}">
                                             @foreach ($tags as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ $blogTags->contains($tag->id) ? 'selected' : '' }}>
                                                     {{ $tag->name }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
+                                        <input type="text" name="tag" id="tag"
+                                        placeholder="{{ localize('Saisir tags ...') }}" class="form-control" required
+                                        value="{{ $blogTags }}">
                                     </div>
 
 

@@ -674,7 +674,25 @@ $virtualProducts = $virtualProducts->merge($dbProducts)->unique('slug');*/
             }*/
         
             # tags
-            $product->tags()->sync($request->tag_ids);
+            if ($request->has('tags') && !empty($request->tags)) {
+                $tags = explode(';', $request->tags); // Split tags by ;
+                
+                foreach ($tags as $tagName) {
+                    $tagName = trim($tagName); // Remove whitespace
+                    if (!empty($tagName)) {
+                        // Find or create the tag
+                        $tag = Tag::firstOrCreate(['name' => $tagName]);
+                        
+                        // Attach the tag to the product
+                        $tagIds[] = $tag->id;
+                        
+                    }
+                }
+                $product->tags()->sync($tagIds);
+            }else{
+                $product->tags()->detach();
+            }
+            //$product->tags()->sync($request->tag_ids);
 
             # category
             $product->categories()->sync($request->category_ids);
