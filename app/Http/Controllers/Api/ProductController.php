@@ -46,7 +46,7 @@ class ProductController extends Controller
 
         }
         $produitsApi = $response->json();
-        dd($produitsApi);
+        
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
         $existingProducts = Product::whereIn('slug', $barcodes)
         ->with('categories')
@@ -70,7 +70,7 @@ class ProductController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             $apiFamille = $produitApi['Famille'];
             $OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
@@ -91,7 +91,7 @@ class ProductController extends Controller
             $newProduct->max_purchase_qty = 1000;
             $newProduct->is_published = 1;
             $newProduct->afficher = 1;
-            $newProduct->Poids = $apiPoids;
+            //$newProduct->Poids = $apiPoids;
             $newProduct->OldPrice = $OldPrice;
             // Set other properties accordingly based on your product model
 
@@ -142,7 +142,7 @@ class ProductController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             $OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
@@ -164,11 +164,11 @@ class ProductController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiunité;
                 }
-            if ($matchingProduct->Poids != $apiPoids) {
+            /* if ($matchingProduct->Poids != $apiPoids) {
                    $matchingProduct->Poids = $apiPoids;
-                }
+                } */
                 
-                    $matchingProduct->OldPrice = $OldPrice;
+                $matchingProduct->OldPrice = $OldPrice;
               
                 $matchingProduct->name = $name;
 
@@ -458,7 +458,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             $name = $produitApi['Libellé'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             if($produitApi['codeabarre'] == $slug ){
 
                 
@@ -469,7 +469,7 @@ class ProductController extends Controller
                 $product->Unit = $apiunité;
                 $product->Qty_Unit = $apiQTEUNITE;
                 $product->name = $name;
-                $product->Poids = $apiPoids;
+                //$product->Poids = $apiPoids;
                 break;
                 
             }
@@ -533,7 +533,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             $name = $produitApi['Libellé'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             $barcode = $produitApi['codeabarre'];
             $matchingChild = $product->parents()->where('slug', $barcode)->where('is_published', 1)->first();
             $matchingrelatedProduct = $relatedProducts->where('slug', $barcode)->first();
@@ -551,7 +551,7 @@ class ProductController extends Controller
            
                 $matchingChild->Unit = $apiunité;
                 $matchingChild->name = $name;
-                $matchingChild->Poids = $apiPoids;
+                //$matchingChild->Poids = $apiPoids;
                  $virtualChildrenProducts->push($matchingChild);
 
                  //dd($matchingChild);
@@ -571,7 +571,7 @@ class ProductController extends Controller
            
                 $matchingrelatedProduct->Unit = $apiunité;
                 $matchingrelatedProduct->name = $name;
-                $matchingrelatedProduct->Poids = $apiPoids;
+                //$matchingrelatedProduct->Poids = $apiPoids;
                 $virtualRelatedProducts->push($matchingrelatedProduct);
 
             }
@@ -718,7 +718,6 @@ class ProductController extends Controller
 
         }
         $produitsApi = $response->json();
-        dd($produitsApi);
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
         $existingProducts = Product::whereIn('slug', $barcodes)
         ->with('categories')
@@ -742,7 +741,7 @@ class ProductController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             $apiFamille = $produitApi['Famille'];
             $OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
@@ -763,7 +762,7 @@ class ProductController extends Controller
             $newProduct->max_purchase_qty = 1000;
             $newProduct->is_published = 1;
             $newProduct->afficher = 1;
-            $newProduct->Poids = $apiPoids;
+           //$newProduct->Poids = $apiPoids;
             $newProduct->OldPrice = $OldPrice;
             // Set other properties accordingly based on your product model
 
@@ -877,6 +876,183 @@ class ProductController extends Controller
         }
         return $products;
     }
+    public function AllProducts()
+    {
+        $virtualProducts = collect(); 
+        $searchKey = null;
+        $per_page = 24;
+        //$sort_by = $request->sort_by ? $request->sort_by : "new";
+        $maxRange = Product::max('max_price');
+        $min_value = 0;
+        $max_value = formatPrice($maxRange, false, false, false, false);
+        $apiUrl = env('API_CATEGORIES_URL');
+        $user = auth()->user();
+        if (!is_null($user) && $user->user_type == 'customer')
+        {
+        $response = Http::get($apiUrl . 'ListeDePrixWeb/' . Auth::user()->name);
+        }else{
+        
+            $response = Http::get($apiUrl . 'ListeDePrixWeb/');
 
+        }
+        $produitsApi = $response->json();
+        $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
+        $existingProducts = Product::whereIn('slug', $barcodes)
+        ->with('categories')
+        ->get()
+        ->keyBy('slug');
+        foreach ($existingProducts as $existingProduct) {
+            // Check if the existing product is not found in the API list
+            if (!in_array($existingProduct->slug, $barcodes)) {
+            
+                $existingProduct->is_published = 0;
+                
+                $existingProduct->save();
+            }
+        }
+
+        foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
+            $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
+            //$apiPoids = $produitApi['Poids'];
+            $apiFamille = $produitApi['Famille'];
+            $OldPrice = $produitApi['OldPrice'];
+            // Find products with matching barcode
+            if (!(isset($existingProducts[$barcode]))) {
+            
+            // Update prices for matching products
+            $location = Location::where('is_default', 1)->first();
+            $newProduct = new Product();
+            $newProduct->name = $name;
+            $newProduct->slug = $barcode; 
+            $newProduct->min_price = $apiPrice;
+            $newProduct->max_price = $apiPrice;
+            $newProduct->Prix_HT = $apiPrice;
+            $newProduct->stock_qty = $apiStock;
+            $newProduct->has_variation = 0;
+            $newProduct->Qty_Unit = $apiQTEUNITE;
+            $newProduct->Unit = $apiunité;
+            $newProduct->max_purchase_qty = 1000;
+            $newProduct->is_published = 1;
+            $newProduct->afficher = 1;
+           //$newProduct->Poids = $apiPoids;
+            $newProduct->OldPrice = $OldPrice;
+            // Set other properties accordingly based on your product model
+
+            $newProduct->save();
+            $category = Category::firstOrCreate(
+                ['name' => $apiFamille],
+                [
+                    'parent_id' => 0,
+
+                    'sorting_order_level' => 0,
+                    'level' => 0,
+                    'is_featured' => 0,
+                    'is_top' => 0,
+                    'total_sale_count' => 0,
+                    'meta_title' => $apiFamille,
+                ]
+            );
+            // Attach the category to the product
+            $newProduct->categories()->syncWithoutDetaching([$category->id]);
+       
+    
+            $variation              = new ProductVariation;
+            $variation->product_id  = $newProduct->id;
+            $variation->price       = $apiPrice;
+            $variation->save();
+            $product_variation_stock = new ProductVariationStock;
+            $product_variation_stock->product_variation_id    = $variation->id;
+            $product_variation_stock->location_id             = $location->id;
+            $product_variation_stock->stock_qty               = $apiStock;
+            $product_variation_stock->save();
+            $ProductLocalization = ProductLocalization::firstOrNew(['lang_key' => env('DEFAULT_LANGUAGE'), 'product_id' => $newProduct->id]);
+            $ProductLocalization->name = $name;
+            $ProductLocalization->save();
+
+            }
+
+         }
+
+        $existingProducts = $existingProducts
+        ->where('is_published', 1);
+    
+        foreach ($produitsApi as $produitApi) {
+            $name = $produitApi['Libellé'];
+
+            $barcode = $produitApi['codeabarre'];
+            $apiPrice = $produitApi['PrixVTTC'];
+            $apiPriceHT = $produitApi['PrixVenteHT'];
+            $apiStock = $produitApi['StockActual'];
+            $apiunité = $produitApi['unité_lot'];
+            $apiQTEUNITE = $produitApi['QTEUNITE'];
+            $apiPoids = $produitApi['Poids'];
+            $OldPrice = $produitApi['OldPrice'];
+           // dd($OldPrice) ;  
+            if (isset($existingProducts[$barcode])) {
+                $matchingProduct = $existingProducts[$barcode];
+                
+                if ($matchingProduct->min_price != $apiPrice || $matchingProduct->max_price != $apiPrice || $matchingProduct->Prix_HT != $apiPriceHT) {
+                    $matchingProduct->min_price = $apiPrice; 
+                    $matchingProduct->max_price = $apiPrice;
+                    $matchingProduct->Prix_HT = $apiPriceHT;
+                 
+                }
+                
+                if ($matchingProduct->stock_qty != $apiStock) {
+                    $matchingProduct->stock_qty = $apiStock;
+                }
+                if ($matchingProduct->Qty_Unit != $apiQTEUNITE) {
+                    $matchingProduct->Qty_Unit = $apiQTEUNITE;
+                }
+                if ($matchingProduct->Unit != $apiunité) {
+                    $matchingProduct->Unit = $apiunité;
+                }
+            if ($matchingProduct->Poids != $apiPoids) {
+                   $matchingProduct->Poids = $apiPoids;
+                }
+                
+                    $matchingProduct->OldPrice = $OldPrice;
+              
+                $matchingProduct->name = $name;
+
+
+                $virtualProducts->push($matchingProduct);
+              //  dd($virtualProducts);
+            } else {
+            }
+        }
+        if (is_null($user)) {
+            foreach ($virtualProducts as $product) {
+                $product->Prix_HT = 0; // Set price to 0 for unauthenticated users
+            }
+        }
+
+        
+        
+       
+        $products = $virtualProducts;
+
+        //$products->withPath('/products');
+        foreach($products as $product){
+            $product->thumbnail_image!==null ? $product->thumbnail_image= uploadedAsset($product->thumbnail_image) :"";
+            if (!is_null($product->gallery_images)){
+                $images=[];
+                $gallery = explode(',',$product->gallery_images);
+                foreach ($gallery as $img){
+                    $images[]= uploadedAsset($img);
+                }
+                $product->gallery_images=$images;
+            }
+            $product->meta_img!==null ? $product->meta_img= uploadedAsset($product->meta_img) :"";
+           
+        }
+        return response()->json($products);
+    }
     
 }

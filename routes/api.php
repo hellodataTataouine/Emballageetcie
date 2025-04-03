@@ -88,6 +88,7 @@ Route::controller(AuthController::class)->group(function(){
 
 Route::controller(ProductController::class)->group(function(){
     Route::get('products',"index");
+    Route::get('products/all','AllProducts');
     Route::get('products/featured',"featured");
     Route::get('products/trending-products',"trendingProducts");
     Route::post('products/related',"relatedProducts");
