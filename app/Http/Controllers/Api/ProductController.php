@@ -72,7 +72,7 @@ class ProductController extends Controller
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
             //$apiFamille = $produitApi['Famille'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
             
@@ -92,7 +92,7 @@ class ProductController extends Controller
             $newProduct->is_published = 1;
             $newProduct->afficher = 1;
             //$newProduct->Poids = $apiPoids;
-            $newProduct->OldPrice = $OldPrice;
+            //$newProduct->OldPrice = $OldPrice;
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
@@ -143,7 +143,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
@@ -168,7 +168,7 @@ class ProductController extends Controller
                    $matchingProduct->Poids = $apiPoids;
                 } */
                 
-                $matchingProduct->OldPrice = $OldPrice;
+                //$matchingProduct->OldPrice = $OldPrice;
               
                 $matchingProduct->name = $name;
 
@@ -743,7 +743,7 @@ class ProductController extends Controller
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
             //$apiFamille = $produitApi['Famille'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
             
@@ -763,7 +763,7 @@ class ProductController extends Controller
             $newProduct->is_published = 1;
             $newProduct->afficher = 1;
            //$newProduct->Poids = $apiPoids;
-            $newProduct->OldPrice = $OldPrice;
+            //$newProduct->OldPrice = $OldPrice;
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
@@ -814,7 +814,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             $apiPoids = $produitApi['Poids'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
@@ -839,7 +839,7 @@ class ProductController extends Controller
                    $matchingProduct->Poids = $apiPoids;
                 }
                 
-                    $matchingProduct->OldPrice = $OldPrice;
+                    //$matchingProduct->OldPrice = $OldPrice;
               
                 $matchingProduct->name = $name;
 
@@ -921,7 +921,7 @@ class ProductController extends Controller
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
             //$apiFamille = $produitApi['Famille'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
             
@@ -941,7 +941,7 @@ class ProductController extends Controller
             $newProduct->is_published = 1;
             $newProduct->afficher = 1;
            //$newProduct->Poids = $apiPoids;
-            $newProduct->OldPrice = $OldPrice;
+            //$newProduct->OldPrice = $OldPrice;
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
@@ -992,7 +992,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             $apiPoids = $produitApi['Poids'];
-            $OldPrice = $produitApi['OldPrice'];
+            //$OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
                 $matchingProduct = $existingProducts[$barcode];
@@ -1017,7 +1017,7 @@ class ProductController extends Controller
                    $matchingProduct->Poids = $apiPoids;
                 }
                 
-                    $matchingProduct->OldPrice = $OldPrice;
+                    //$matchingProduct->OldPrice = $OldPrice;
               
                 $matchingProduct->name = $name;
 
