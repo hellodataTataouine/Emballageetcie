@@ -71,7 +71,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
-            $apiFamille = $produitApi['Famille'];
+            //$apiFamille = $produitApi['Famille'];
             $OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
@@ -96,7 +96,7 @@ class ProductController extends Controller
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
-            $category = Category::firstOrCreate(
+            /* $category = Category::firstOrCreate(
                 ['name' => $apiFamille],
                 [
                     'parent_id' => 0,
@@ -108,9 +108,9 @@ class ProductController extends Controller
                     'total_sale_count' => 0,
                     'meta_title' => $apiFamille,
                 ]
-            );
+            ); */
             // Attach the category to the product
-            $newProduct->categories()->syncWithoutDetaching([$category->id]);
+            //$newProduct->categories()->syncWithoutDetaching([$category->id]);
        
     
             $variation              = new ProductVariation();
@@ -742,7 +742,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
-            $apiFamille = $produitApi['Famille'];
+            //$apiFamille = $produitApi['Famille'];
             $OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
@@ -767,7 +767,7 @@ class ProductController extends Controller
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
-            $category = Category::firstOrCreate(
+            /* $category = Category::firstOrCreate(
                 ['name' => $apiFamille],
                 [
                     'parent_id' => 0,
@@ -779,9 +779,9 @@ class ProductController extends Controller
                     'total_sale_count' => 0,
                     'meta_title' => $apiFamille,
                 ]
-            );
+            ); */
             // Attach the category to the product
-            $newProduct->categories()->syncWithoutDetaching([$category->id]);
+            //$newProduct->categories()->syncWithoutDetaching([$category->id]);
        
     
             $variation              = new ProductVariation;
@@ -920,7 +920,7 @@ class ProductController extends Controller
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
             //$apiPoids = $produitApi['Poids'];
-            $apiFamille = $produitApi['Famille'];
+            //$apiFamille = $produitApi['Famille'];
             $OldPrice = $produitApi['OldPrice'];
             // Find products with matching barcode
             if (!(isset($existingProducts[$barcode]))) {
@@ -945,7 +945,7 @@ class ProductController extends Controller
             // Set other properties accordingly based on your product model
 
             $newProduct->save();
-            $category = Category::firstOrCreate(
+            /* $category = Category::firstOrCreate(
                 ['name' => $apiFamille],
                 [
                     'parent_id' => 0,
@@ -957,9 +957,9 @@ class ProductController extends Controller
                     'total_sale_count' => 0,
                     'meta_title' => $apiFamille,
                 ]
-            );
+            ); */
             // Attach the category to the product
-            $newProduct->categories()->syncWithoutDetaching([$category->id]);
+            //$newProduct->categories()->syncWithoutDetaching([$category->id]);
        
     
             $variation              = new ProductVariation;
