@@ -813,7 +813,7 @@ class ProductController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             //$OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
@@ -835,9 +835,9 @@ class ProductController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiunité;
                 }
-            if ($matchingProduct->Poids != $apiPoids) {
+            /* if ($matchingProduct->Poids != $apiPoids) {
                    $matchingProduct->Poids = $apiPoids;
-                }
+                } */
                 
                     //$matchingProduct->OldPrice = $OldPrice;
               
@@ -991,7 +991,7 @@ class ProductController extends Controller
             $apiStock = $produitApi['StockActual'];
             $apiunité = $produitApi['unité_lot'];
             $apiQTEUNITE = $produitApi['QTEUNITE'];
-            $apiPoids = $produitApi['Poids'];
+            //$apiPoids = $produitApi['Poids'];
             //$OldPrice = $produitApi['OldPrice'];
            // dd($OldPrice) ;  
             if (isset($existingProducts[$barcode])) {
@@ -1013,9 +1013,9 @@ class ProductController extends Controller
                 if ($matchingProduct->Unit != $apiunité) {
                     $matchingProduct->Unit = $apiunité;
                 }
-            if ($matchingProduct->Poids != $apiPoids) {
+            /* if ($matchingProduct->Poids != $apiPoids) {
                    $matchingProduct->Poids = $apiPoids;
-                }
+                } */
                 
                     //$matchingProduct->OldPrice = $OldPrice;
               
