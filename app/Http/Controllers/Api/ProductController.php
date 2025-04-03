@@ -718,7 +718,7 @@ class ProductController extends Controller
 
         }
         $produitsApi = $response->json();
-
+        dd($produitsApi);
         $barcodes = collect($produitsApi)->pluck('codeabarre')->toArray();
         $existingProducts = Product::whereIn('slug', $barcodes)
         ->with('categories')
